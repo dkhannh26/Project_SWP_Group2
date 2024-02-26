@@ -1,3 +1,4 @@
+use dotai_swp391
 create table customer(
 username varchar(50) primary key,
 email varchar(50), 
