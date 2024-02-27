@@ -50,18 +50,18 @@ public class productList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         product Productdao = new DAOproduct();
-
-        List<product> listProduct = dao.getAll();
-
-        String email = request.getParameter("email");
-        if (email.equals("thinhldce171774@fpt.edu.vn")) {
-            String cssAdmin = "style=\"display: inline;\"";
-            request.setAttribute("cssAdmin", cssAdmin);
-        }
-
-        request.setAttribute("listProduct", listProduct);
-        request.getRequestDispatcher("product.jsp").forward(request, response);
+//         product Productdao = new DAOproduct();
+//
+//        List<product> listProduct = dao.getAll();
+//
+//        String email = request.getParameter("email");
+//        if (email.equals("thinhldce171774@fpt.edu.vn")) {
+//            String cssAdmin = "style=\"display: inline;\"";
+//            request.setAttribute("cssAdmin", cssAdmin);
+//        }
+//
+//        request.setAttribute("listProduct", listProduct);
+//        request.getRequestDispatcher("product.jsp").forward(request, response);
     } 
 
     /** 
