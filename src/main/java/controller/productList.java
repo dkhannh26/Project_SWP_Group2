@@ -12,14 +12,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import javax.jws.WebService;
 
 /**
  *
  * @author LENOVO
  */
-@WebServlet("/crud")
-public class CRUDproduct extends HttpServlet {
+@WebServlet(name="productList", urlPatterns={"/productList"})
+public class productList extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,10 +35,10 @@ public class CRUDproduct extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CRUDproduct</title>");  
+            out.println("<title>Servlet productList</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CRUDproduct at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet productList at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,16 +55,7 @@ public class CRUDproduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-          
-        String action = request.getParameter("action");
-        
-        switch (action) {
-            case "add":
-                
-                break;
-            default:
-                throw new AssertionError();
-        }
+        processRequest(request, response);
     } 
 
     /** 

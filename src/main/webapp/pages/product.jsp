@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index.jsp
-    Created on : Feb 26, 2024, 7:24:30 PM
+    Document   : product.jsp
+    Created on : Feb 27, 2024, 6:21:56 PM
     Author     : LENOVO
 --%>
 
@@ -13,8 +13,5 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        <form action="/crud" method="get">
-            <button type="submit" name="action" value="add">Submit</button>
-        </form>
     </body>
 </html>
