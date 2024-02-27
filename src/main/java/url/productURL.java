@@ -9,5 +9,8 @@ package url;
  * @author LENOVO
  */
 public class productURL {
-    
+//    public static final String URL_LOGIN = "/login";
+//    public static final String URL_SIGNUP = "/login/signup";
+//    public static final String URL_FORGOT_PASS = "/login/forgot";
+       public static final String URL_PRODUCT_LIST = "/productList";
 }
