@@ -12,6 +12,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import DAO.product;
 
 /**
  *
@@ -44,18 +46,22 @@ public class productList extends HttpServlet {
         }
     } 
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+ 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+         product Productdao = new DAOproduct();
+
+        List<product> listProduct = dao.getAll();
+
+        String email = request.getParameter("email");
+        if (email.equals("thinhldce171774@fpt.edu.vn")) {
+            String cssAdmin = "style=\"display: inline;\"";
+            request.setAttribute("cssAdmin", cssAdmin);
+        }
+
+        request.setAttribute("listProduct", listProduct);
+        request.getRequestDispatcher("product.jsp").forward(request, response);
     } 
 
     /** 
