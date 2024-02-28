@@ -17,7 +17,7 @@
         <style>
             .item {
                 width: 100px;
-                height: 170px;
+                height: 300px;
             }
 
             img {
@@ -33,18 +33,16 @@
                     <a href=""><img src="${product.getPicURL()}" alt="levent"></a>
                     <p>${product.getName()}</p>
 
-                   
-                    <!------------>
-
-
+                    <c:set var="formattedPrice">
+                        <fmt:formatNumber type="number" value="${product.getPrice()}" pattern="###,###" />
+                    </c:set>
+             
                     <p>${formattedPrice} VND</p>
 
-                    <a  href ="updateProduct?id=${product.getId()}">Update</a>
-                    <a  href="#" onclick="doDelete('${product.getId()}')">Delete </a> 
+                    <a  href ="updateJSPProduct?id=${product.getId()}">Update</a>
+                    <a  href="#" onclick="doDelete('${product.getId()}')">Delete</a> 
                 </div>
             </c:forEach> 
-
-
 
         </div>
 

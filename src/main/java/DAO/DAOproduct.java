@@ -17,6 +17,7 @@ import java.util.List;
  */
 public class DAOproduct extends DBconnect.DBconnect {
 //int id, int quantity, int price, int categoryID, int promoID, String name, String description, String picURL
+
     public List<product> getAll() {
         List<product> list = new ArrayList<>();
         String sql = "select * from product";
@@ -24,7 +25,7 @@ public class DAOproduct extends DBconnect.DBconnect {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                product p = new product(rs.getInt("product_id"), rs.getInt("quantity"),rs.getInt("price"), rs.getInt("category_id"),rs.getInt("promo_id"), rs.getString("name"),
+                product p = new product(rs.getInt("product_id"), rs.getInt("quantity"), rs.getInt("price"), rs.getInt("category_id"), rs.getInt("promo_id"), rs.getString("name"),
                         rs.getString("description"), rs.getString("pic_url"));
                 list.add(p);
             }
@@ -32,6 +33,50 @@ public class DAOproduct extends DBconnect.DBconnect {
             System.out.println(e);
         }
         return list;
+    }
+
+    public product getProductById(String id) {
+
+        String sql = "select * from product where product_id=?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                product p = new product(rs.getInt("product_id"), rs.getInt("quantity"), rs.getInt("price"), rs.getInt("category_id"), rs.getInt("promo_id"), rs.getString("name"),
+                        rs.getString("description"), rs.getString("pic_url"));
+                return p;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public void update(product p) {
+        String sql = "UPDATE [dbo].[product]\n"
+                + "   SET [name] = ?\n"
+                + "      ,[quantity] = ?\n"
+                + "      ,[description] = ?\n"
+                + "      ,[pic_url] =?\n"
+                + "      ,[price] = ?\n"
+                + "      ,[category_id] = ?\n"
+                + " WHERE [promo_id] = ?\n"
+                + "GO\n"
+                + "";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, p.getName());
+            st.setInt(2, p.getQuantity());
+            st.setString(3, p.getDescription());
+            st.setString(4, p.getPicURL());
+            st.setInt(5, p.getPrice());
+            st.setInt(6, p.getCategoryID());
+            st.setInt(7, p.getPromoID());
+            st.executeUpdate();
+        } catch (Exception e) {
+        }
     }
 //
 //    public List<product> getTop() {
@@ -129,30 +174,6 @@ public class DAOproduct extends DBconnect.DBconnect {
 //        }
 //    }
 //
-//    public void update(product p) {
-//        String sql = "UPDATE [dbo].[product]\n"
-//                + "   SET [type] = ?\n"
-//                + "      ,[pro_quan] = ?\n"
-//                + "      ,[pro_name] = ?\n"
-//                + "      ,[pro_sale] = ?\n"
-//                + "      ,[pro_price] = ?\n"
-//                + "      ,[pro_pic] = ?\n"
-//                + "      ,[pro_des] = ?\n"
-//                + " WHERE pro_id=?";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            st.setInt(1, p.getType());
-//            st.setInt(2, p.getPro_quan());
-//            st.setString(3, p.getPro_name());
-//            st.setInt(4, p.getPro_sale());
-//            st.setInt(5, p.getPro_price());
-//            st.setString(6, p.getPro_pic());
-//            st.setString(7, p.getPro_des());
-//            st.setInt(8, p.getPro_id());
-//            st.executeUpdate();
-//        } catch (Exception e) {
-//        }
-//    }
 //
 //    public void updateQuan(int quan, int id) {
 //        String sql = "update product\n"
@@ -185,7 +206,6 @@ public class DAOproduct extends DBconnect.DBconnect {
 //        }
 //        return null;
 //    }
-
     public static void main(String[] args) {
         DAOproduct product = new DAOproduct();
         List<product> list = product.getAll();
@@ -194,5 +214,5 @@ public class DAOproduct extends DBconnect.DBconnect {
         System.out.println(list.get(0).toString());
 
     }
-    
+
 }

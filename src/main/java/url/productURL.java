@@ -13,4 +13,7 @@ public class productURL {
 //    public static final String URL_SIGNUP = "/login/signup";
 //    public static final String URL_FORGOT_PASS = "/login/forgot";
        public static final String URL_PRODUCT_LIST = "/productList";
+       public static final String UPDATE_JSP_PRODUCT = "/updateJSPProduct";
+       public static final String UPDATE_PRODUCT = "/updateProduct";
+       public static final String DELETE_PRODUCT = "/deleteProduct";
 }
