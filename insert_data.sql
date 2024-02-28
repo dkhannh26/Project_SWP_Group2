@@ -1,14 +1,14 @@
-insert into customer(username, password, email, address, phoneNumber)
+insert into customer(username, password, email, address, phoneNumber,fullName)
 values
-('khanh', CONVERT(varchar(32), HASHBYTES('MD5','123456'),2), 'khanh@gmail.com', 'Soc Trang', '0123456789'),
-('son', CONVERT(varchar(32), HASHBYTES('MD5','123456'),2), 'son@fpt.edu.vn', 'Can Tho', '0123456789'),
-('thinh', CONVERT(varchar(32), HASHBYTES('MD5','123456'),2), 'thinhldce171774@fpt.edu.vn', 'Tra Vinh', '0123456789')
+('khanh', CONVERT(varchar(32), HASHBYTES('MD5','123456'),2), 'khanh@gmail.com', 'Soc Trang', '0123456789', 'Duong Quang Khanh'),
+('son', CONVERT(varchar(32), HASHBYTES('MD5','123456'),2), 'son@fpt.edu.vn', 'Can Tho', '0123456789', 'Nguyen Thanh Son'),
+('thinh', CONVERT(varchar(32), HASHBYTES('MD5','123456'),2), 'thinhldce171774@fpt.edu.vn', 'Tra Vinh', '0123456789', 'Lam Duc Thinh')
 
 
-insert into staff(username, password, email, address, phoneNumber)
+insert into staff(username, password, email, address, phoneNumber, fullName)
 values
-('nhanvien1', CONVERT(varchar(32), HASHBYTES('MD5','123456'),2), 'nhanvien1@gmail.com', 'Soc Trang', '0123456789'),
-('nhanvien2', CONVERT(varchar(32), HASHBYTES('MD5','123456'),2), 'nhanvien2@gmail.com', 'Can Tho', '0123456789')
+('nhanvien1', CONVERT(varchar(32), HASHBYTES('MD5','123456'),2), 'nhanvien1@gmail.com', 'Soc Trang', '0123456789', 'Nhan Vien 1'),
+('nhanvien2', CONVERT(varchar(32), HASHBYTES('MD5','123456'),2), 'nhanvien2@gmail.com', 'Can Tho', '0123456789', 'Nhan Vien 2')
 
 insert into promo(promo_percent, [start_date], end_date)
 values 

@@ -10,19 +10,29 @@ package entity;
  */
 public class staff {
 
-    private String username, email, password, address, phoneNumber;
+    private String username, email, password, address, phoneNumber, fullName;
 
     public staff() {
     }
 
-    public staff(String username, String email, String password, String address, String phoneNumber) {
+    public staff(String username, String email, String password, String address, String phoneNumber, String fullName) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.fullName = fullName;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+   
     public String getUsername() {
         return username;
     }

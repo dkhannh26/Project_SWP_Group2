@@ -111,7 +111,7 @@ public class customerController extends HttpServlet {
         boolean isSuccess = daoCustomer.checkEmail(email);
         String mess = "";
         if (isSuccess) {
-            HttpSession s = request.getSession();    
+            HttpSession s = request.getSession();
             final String userName = "dotaiverify@gmail.com"; // Tài khoản email gửi
             final String password = "uclz vips nxek dzbl"; // Mật khẩu email gửi
 
@@ -147,18 +147,16 @@ public class customerController extends HttpServlet {
 //                String md5 = getMd5(newPass).toUpperCase();
 //                dao.updatePassword(userSend, md5);
             request.setAttribute("message", "Please enter the code sent to your email to continue");
-            request.setAttribute("emailReceive", email);
-            s.setAttribute("emailReceive", email);
+            request.setAttribute("email", email);
+            s.setAttribute("email", email);
 //            request.getRequestDispatcher("forgetPassNext.jsp").forward(request, response);
         } else {
-                        request.setAttribute("message", "Your email does not exist");
+            request.setAttribute("message", "Your email does not exist");
 
         }
     }
-    
-    
-    
-       public static String generateRandomString(int length) {
+
+    public static String generateRandomString(int length) {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder randomString = new StringBuilder(length);
         Random random = new Random();

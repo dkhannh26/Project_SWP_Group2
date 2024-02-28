@@ -10,19 +10,29 @@ package entity;
  */
 public class customer {
 
-    private String username, email, password, address, phoneNumber;
+    private String username, email, password, address, phoneNumber, fullName;
 
-    public customer() {
+    public String getFullName() {
+        return fullName;
     }
 
-    public customer(String username, String email, String password, String address, String phoneNumber) {
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public customer(String username, String email, String password, String address, String phoneNumber, String fullName) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.fullName = fullName;
     }
 
+    public customer() {
+    }
+
+   
     public String getUsername() {
         return username;
     }

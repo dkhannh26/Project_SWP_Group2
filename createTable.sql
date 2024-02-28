@@ -108,7 +108,11 @@ product_id int foreign key references product,
 quantity int
 )
 
+ALTER TABLE customer
+ADD fullName varchar(100);
 
+ALTER TABLE staff
+ADD fullName varchar(100);
 
 
 

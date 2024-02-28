@@ -12,10 +12,13 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action="" method="POST">
-            <<label>Email</label>
+        <form action="http://localhost:8080/Project_SWP_Group2/login/forgot" method="POST">
+            <label>Email</label>
             <input type="text" name="email"/>
+            <input type="hidden" name="code"/>
+
             <button>Send code</button>
         </form>
+        <div>${message}</div>
     </body>
 </html>
