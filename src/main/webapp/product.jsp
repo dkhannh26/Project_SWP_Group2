@@ -715,6 +715,7 @@
                 <p>New products</p>
             </div>
             <div class="mainContent container ">
+                <a href="addProduct.jsp" target="target">add</a>
                 <div class="row">
 
                     <c:forEach items="${requestScope.productList}" var="product">
@@ -901,7 +902,6 @@
     </body>
 
 </html>
-
 
 
 
