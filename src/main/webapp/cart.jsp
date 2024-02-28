@@ -120,21 +120,25 @@
                                 <b id="highlight">DOTAI - Striped wool cardigan</b>
                                 <p>S</p>
                                 <div class="quan">
-                                    <button id="decrementButton" >-</button>
-                                    <input type="text" id="numberInput" value="${cart.getQuantity()}">                                   
-                                    <button id="incrementButton">+</button>
+                                    <input type="number" name="quantity" value="${cart.quantity}">
+                                    <button onclick="incrementQuantity(this)" data-product-id="${cart.productID}">+</button>
+                                    <button onclick="decrementQuantity(this)" data-product-id="${cart.productID}">-</button>
+                                    <input type="hidden" name="id" class="id" value="${cart.productID}">
+                                    <input type="hidden" name="price" class="price" value="${cart.price}">
+                                    <input type="hidden" name="quantity" class="quantity" value="${cart.quantity}">
                                 </div>
                                 <b>${cart.getPrice()}</b>
                             </div>
                             <div class="col-2">
-                                Recycle Bin
+                                <button class="btn btn-danger" onclick="deleteCartItem(this)" data-product-id="${cart.productID}">Delete</button>
+                                <input type="hidden" name="price" class="price" value="${cart.price}">
+                                <input type="hidden" name="quantity" class="quantity" value="${cart.quantity}">
                             </div>
-                            
+
                         </div>
                         <div class="row">
                             <div class="col-10"><b>Into money:</b></div>
-                            <div class="col-2" id="price"><b>${cart.getPrice()}</b></div>
-
+                            <div class="col-2" id="price"><b>${cart.getPrice()}</b></div>                        
                         </div>
                     </div>
                 </div>
@@ -163,29 +167,37 @@
 
 
 
+
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const decrementButton = document.getElementById('decrementButton');
-                const incrementButton = document.getElementById('incrementButton');
-                const numberInput = document.getElementById('numberInput');
-                const quantityInput = document.getElementById('quantityInput');
-                decrementButton.addEventListener('click', function () {
-                    let currentValue = parseInt(numberInput.value);
-                    if (currentValue > 0) {
-                        numberInput.value = currentValue - 1;
-                        quantityInput.value = currentValue - 1;
-                    }
-                });
+            function incrementQuantity(button) {
+                const input = button.parentElement.querySelector('input[type="number"]');
+                const quantity = parseInt(input.value) + 1;
+                input.value = parseInt(input.value) + 1;
+                const id = button.getAttribute('data-product-id');
+                const price = button.parentElement.querySelector('.price').value;
+                // Sử dụng orderName, address, và phoneNumber để thực hiện việc gửi dữ liệu lên servlet
+                window.location.href = 'cartIncrease?id=' + id + "&price=" + price + "&quantity=" + quantity;
+            }
 
-                incrementButton.addEventListener('click', function () {
-                    let currentValue = parseInt(numberInput.value);
-                    if (currentValue > 0) {
-                        numberInput.value = currentValue + 1;
-                        quantityInput.value = currentValue + 1;
-                    }
-                });
-            });
-
+            function decrementQuantity(button) {
+                const input = button.parentElement.querySelector('input[type="number"]');
+                if (input.value > 1) {
+                    const quantity = parseInt(input.value) - 1;
+                    input.value = parseInt(input.value) - 1;
+                    const id = button.getAttribute('data-product-id');
+                    const price = button.parentElement.querySelector('.price').value;
+                    window.location.href = 'cartDecrease?id=' + id + "&price=" + price + "&quantity=" + quantity;
+                }
+            }
+            function deleteCartItem(button) {
+                var option = confirm('Are you sure to delete');
+                if (option === true) {
+                    const id = button.getAttribute('data-product-id');
+                    const price = button.parentElement.querySelector('.price').value;
+                    const quantity = button.parentElement.querySelector('.quantity').value;
+                    window.location.href = 'cartDelete?id=' + id + "&price=" + price + "&quantity=" + quantity;
+                }
+            }
         </script>
     </body>
 

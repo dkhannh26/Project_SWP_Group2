@@ -58,7 +58,7 @@ public class DAOcart extends DBconnect.DBconnect {
                 + "product_id = ?,\n"
                 + "quantity = ?,\n"
                 + "price = ?\n"
-                + "where username = ?";
+                + "where username = ? and product_id=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
@@ -66,19 +66,19 @@ public class DAOcart extends DBconnect.DBconnect {
             st.setInt(3, quantity);
             st.setInt(4, price);
             st.setString(5, username);
+            st.setInt(6, product_id);
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
-    public void deleteCart(int cart_id, String username, int product_id, int quantity, int price) {
+    public void deleteCart(int product_id) {
         String sql = "delete from cart \n"
-                + "where cart_id = ? and username = ?";
+                + "where product_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, cart_id);
-            st.setString(2, username);
+            st.setInt(1, product_id);
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);

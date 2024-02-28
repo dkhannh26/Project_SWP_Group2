@@ -11,4 +11,7 @@ package url;
 public class cartURL {
     public static final String URL_CART_LIST = "/cart";
     public static final String URL_CART_INSERT = "/cartInsert";
+    public static final String URL_CART_INCREASE = "/cartIncrease";
+    public static final String URL_CART_DECREASE = "/cartDecrease";
+    public static final String URL_CART_DELETE = "/cartDelete";
 }

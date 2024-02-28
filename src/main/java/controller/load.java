@@ -67,12 +67,12 @@ public class load extends HttpServlet {
         for (int i = 0; i < list3.size(); i++) {
             sum = sum + list3.get(i).getPrice();
         }
-        for (int i = 0; i < list3.size(); i++) {
-            entity.cart cartItem = list3.get(i);
-            int productId = cartItem.getProductID(); // Lấy ID của sản phẩm từ cart
-            int quantity = product.getProductQuantity(productId); // Lấy số lượng sản phẩm từ database hoặc nơi khác
-            cartItem.setQuantity(quantity); // Cập nhật số lượng sản phẩm trong cart
-        }
+//        for (int i = 0; i < list3.size(); i++) {
+//            entity.cart cartItem = list3.get(i);
+//            int productId = cartItem.getProductID(); // Lấy ID của sản phẩm từ cart
+//            int quantity = product.getProductQuantity(productId); // Lấy số lượng sản phẩm từ database hoặc nơi khác
+//            cartItem.setProductID(productId); // Cập nhật số lượng sản phẩm trong cart
+//        }
         request.setAttribute("sum", sum);
         request.setAttribute("cartList", list3);
         request.getRequestDispatcher("cart.jsp").forward(request, response);

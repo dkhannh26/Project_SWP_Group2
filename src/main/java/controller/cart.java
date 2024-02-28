@@ -15,6 +15,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import static url.cartURL.URL_CART_DECREASE;
+import static url.cartURL.URL_CART_DELETE;
+import static url.cartURL.URL_CART_INCREASE;
 import static url.cartURL.URL_CART_INSERT;
 import static url.cartURL.URL_CART_LIST;
 
@@ -22,7 +25,7 @@ import static url.cartURL.URL_CART_LIST;
  *
  * @author Administrator
  */
-@WebServlet(name = "cart", urlPatterns = {URL_CART_INSERT, URL_CART_LIST})
+@WebServlet(name = "cart", urlPatterns = {URL_CART_INSERT, URL_CART_LIST, URL_CART_INCREASE, URL_CART_DECREASE,URL_CART_DELETE})
 public class cart extends HttpServlet {
 
     /**
@@ -68,19 +71,22 @@ public class cart extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String urlPath = request.getServletPath();
+        String ms = "<script>\n"
+                + "        alert(\"Sold out!\")\n"
+                + "    </script>";
+        int id = Integer.parseInt(request.getParameter("id"));
+        int price = Integer.parseInt(request.getParameter("price"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        int totalQ = quantity;
+        System.out.println(id);
+        System.out.println(price);
+        System.out.println(quantity);
+        List<product> list = product.getAll();
+        List<entity.cart> list2 = cart.getAll(username);
+        int price2 = 0;
         switch (urlPath) {
             case URL_CART_INSERT:
-                String ms = "<script>\n"
-                        + "        alert(\"Sold out!\")\n"
-                        + "    </script>";
-                int id = Integer.parseInt(request.getParameter("id"));
-                int price = Integer.parseInt(request.getParameter("price"));
-                int quantity = Integer.parseInt(request.getParameter("quantity"));
-                int totalQ = quantity;
                 int temp = 0;
-                int price2 = 0;
-                List<product> list = product.getAll();
-                List<entity.cart> list2 = cart.getAll(username);
                 if (list2.size() > 0) {
                     for (int i = 0; i < list2.size(); i++) {
                         if (id == (list2.get(i).getProductID()) && username.equals(list2.get(i).getUsername())) {
@@ -103,7 +109,8 @@ public class cart extends HttpServlet {
                                 price2 = quantity * list.get(j).getPrice();
                                 cart.updateCart(username, id, quantity, price2);
                                 temp++;
-                            } if(quantity > (list.get(j).getQuantity()) && id == (list.get(j).getId())) {
+                            }
+                            if (quantity > (list.get(j).getQuantity()) && id == (list.get(j).getId())) {
                                 product p = product.getProductById(id);
                                 request.setAttribute("ms", ms);
                                 request.setAttribute("p", p);
@@ -118,6 +125,52 @@ public class cart extends HttpServlet {
                     cart.insertCart(quantity, price2, username, id);
                 }
                 response.sendRedirect("load");
+                break;
+            case URL_CART_INCREASE:
+                for (int i = 0; i < list2.size(); i++) {
+                    if (id == (list2.get(i).getProductID()) && username.equals(list2.get(i).getUsername())) {
+                        for (int j = 0; j < list.size(); j++) {
+                            if (id == (list.get(j).getId()) && quantity <= (list.get(j).getQuantity())) {
+                                price2 = quantity * list.get(j).getPrice();
+                                cart.updateCart(username, id, quantity, price2);
+                            }
+                            if (quantity > (list.get(j).getQuantity()) && id == (list.get(j).getId())) {
+                                product p = product.getProductById(id);
+                                request.setAttribute("ms", ms);
+                                request.setAttribute("p", p);
+                                request.getRequestDispatcher("productDetail.jsp").forward(request, response);
+                            }
+                        }
+
+                    }
+                }
+                response.sendRedirect("load");
+                break;
+            case URL_CART_DECREASE:
+                for (int i = 0; i < list2.size(); i++) {
+                    if (id == (list2.get(i).getProductID()) && username.equals(list2.get(i).getUsername())) {
+                        for (int j = 0; j < list.size(); j++) {
+                            if (id == (list.get(j).getId()) && quantity <= (list.get(j).getQuantity())) {
+                                price2 = quantity * list.get(j).getPrice();
+                                cart.updateCart(username, id, quantity, price2);
+                            }
+                            if (quantity > (list.get(j).getQuantity()) && id == (list.get(j).getId())) {
+                                product p = product.getProductById(id);
+                                request.setAttribute("ms", ms);
+                                request.setAttribute("p", p);
+                                request.getRequestDispatcher("productDetail.jsp").forward(request, response);
+                            }
+                        }
+
+                    }
+                }
+                response.sendRedirect("load");
+                break;
+            case URL_CART_DELETE:
+                System.out.println("dsakjlfhadsojfnsdojk");
+                cart.deleteCart(id);
+                response.sendRedirect("load");
+                break;
         }
     }
 
