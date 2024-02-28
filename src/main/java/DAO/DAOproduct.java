@@ -62,8 +62,9 @@ public class DAOproduct extends DBconnect.DBconnect {
                 + "      ,[pic_url] =?\n"
                 + "      ,[price] = ?\n"
                 + "      ,[category_id] = ?\n"
-                + " WHERE [promo_id] = ?\n"
-                + "GO\n"
+                + "      ,[promo_id] = ?\n"
+                + " WHERE [product_id] = ?\n"
+                + ""
                 + "";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -74,9 +75,50 @@ public class DAOproduct extends DBconnect.DBconnect {
             st.setInt(5, p.getPrice());
             st.setInt(6, p.getCategoryID());
             st.setInt(7, p.getPromoID());
+            st.setInt(8, p.getId());
             st.executeUpdate();
         } catch (Exception e) {
         }
+    }
+
+    public void delete(String id) {
+        String sql = "delete from product where product_id=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void insert(product p) {
+        String sql = "INSERT INTO [dbo].[product]\n"
+                + "           ([name]\n"
+                + "           ,[quantity]\n"
+                + "           ,[description]\n"
+                + "           ,[pic_url]\n"
+                + "           ,[price]\n"
+                + "           ,[category_id]\n"
+                + "           ,[promo_id])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?,?,?,?)";
+
+        try {
+
+            PreparedStatement st = connection.prepareStatement(sql);
+           st.setString(1, p.getName());
+            st.setInt(2, p.getQuantity());
+            st.setString(3, p.getDescription());
+            st.setString(4, p.getPicURL());
+            st.setInt(5, p.getPrice());
+            st.setInt(6, p.getCategoryID());
+            st.setInt(7, p.getPromoID());
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }
 //
 //    public List<product> getTop() {
@@ -163,16 +205,6 @@ public class DAOproduct extends DBconnect.DBconnect {
 //        return list;
 //    }
 //
-//    public void delete(String id) {
-//        String sql = "delete from product where pro_id=?";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            st.setString(1, id);
-//            st.executeUpdate();
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//    }
 //
 //
 //    public void updateQuan(int quan, int id) {

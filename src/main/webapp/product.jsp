@@ -26,6 +26,7 @@
         </style>
     </head>
     <body>
+        <a href="addProduct.jsp">add product</a>
         <div class="product">
 
             <c:forEach items="${requestScope.productList}" var="product">
