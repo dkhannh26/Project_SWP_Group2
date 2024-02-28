@@ -8,10 +8,7 @@ package url;
  *
  * @author thinh
  */
-public class customerURL {
-
-    public static final String URL_LOGIN_CUSTOMER = "/login/customer";
-    public static final String URL_SIGNUP = "/login/signup";
-    public static final String URL_FORGOT_PASS = "/login/forgot";
+public class staffURL {
+        public static final String URL_LOGIN_STAFF = "/login/staff";
 
 }

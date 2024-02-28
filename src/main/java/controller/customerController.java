@@ -26,65 +26,17 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import payLoad.ResponseData;
 import static url.customerURL.URL_FORGOT_PASS;
-import static url.customerURL.URL_LOGIN;
+import static url.customerURL.URL_LOGIN_CUSTOMER;
+
 import static url.customerURL.URL_SIGNUP;
 
 /**
  *
  * @author thinh
  */
-@WebServlet(name = "customerController", urlPatterns = {URL_LOGIN, URL_SIGNUP, URL_FORGOT_PASS})
+@WebServlet(name = "customerController", urlPatterns = {URL_LOGIN_CUSTOMER, URL_SIGNUP, URL_FORGOT_PASS})
 public class customerController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet customerController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet customerController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     private Gson gson = new Gson();
     DAOcustomer daoCustomer = new DAOcustomer();
 
@@ -94,7 +46,7 @@ public class customerController extends HttpServlet {
 //        processRequest(request, response);
         String urlPath = request.getServletPath();
         switch (urlPath) {
-            case URL_LOGIN:
+            case URL_LOGIN_CUSTOMER:
                 login(request, response);
                 break;
             case URL_SIGNUP:
@@ -109,53 +61,60 @@ public class customerController extends HttpServlet {
     protected void forgotPass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         boolean isSuccess = daoCustomer.checkEmail(email);
-        String mess = "";
+
         if (isSuccess) {
-            HttpSession s = request.getSession();
-            final String userName = "dotaiverify@gmail.com"; // Tài khoản email gửi
-            final String password = "uclz vips nxek dzbl"; // Mật khẩu email gửi
-
-            Properties props = new Properties();
-            props.put("mail.smtp.host", "smtp.gmail.com"); // SMTP server của bạn
-            props.put("mail.smtp.port", "587"); // Cổng SMTP của bạn (thường là 587 hoặc 25)
-
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.starttls.enable", "true");
-
-            javax.mail.Session session = javax.mail.Session.getInstance(props, new javax.mail.Authenticator() {
-                protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
-                    return new javax.mail.PasswordAuthentication(userName, password);
-                }
-            });
-
-            String code = generateRandomString(5);
-            s.setAttribute("code", code);
-//                mess = "Username: " + userSend + "\nPassword: " + newPass;
-            mess = "Your code: " + code;
-            try {
-                Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(userName));
-                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-                message.setSubject("Forget Password");
-                message.setText(mess);
-                Transport.send(message);
-
-//                    System.out.println("OK");
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-//                String md5 = getMd5(newPass).toUpperCase();
-//                dao.updatePassword(userSend, md5);
-            request.setAttribute("message", "Please enter the code sent to your email to continue");
+          String code =  getCode(request, response,email);
             request.setAttribute("email", email);
-            s.setAttribute("email", email);
-//            request.getRequestDispatcher("forgetPassNext.jsp").forward(request, response);
+            request.setAttribute("message", "<div id=\"message\" style=\"color: green\">Please enter the code sent to your email to continue</div>");
+            request.getRequestDispatcher("/forgot.jsp").forward(request, response);
         } else {
-            request.setAttribute("message", "Your email does not exist");
 
+            request.setAttribute("email", email);
+            request.setAttribute("message", "<div id=\"message\" style=\"color: red\">Your email is not exist</div>");
+            request.getRequestDispatcher("/forgot.jsp").forward(request, response);
         }
+
     }
 
+    public static String getCode(HttpServletRequest request, HttpServletResponse response, String email) throws ServletException, IOException {
+        String mess = "";
+        HttpSession s = request.getSession();
+        final String userName = "dotaiverify@gmail.com"; // Tài khoản email gửi
+        final String password = "uclz vips nxek dzbl"; // Mật khẩu email gửi
+
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com"); // SMTP server của bạn
+        props.put("mail.smtp.port", "587"); // Cổng SMTP của bạn (thường là 587 hoặc 25)
+
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+
+        javax.mail.Session session = javax.mail.Session.getInstance(props, new javax.mail.Authenticator() {
+            protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
+                return new javax.mail.PasswordAuthentication(userName, password);
+            }
+        });
+        String code = generateRandomString(5);
+        s.setAttribute("code", code);
+//                mess = "Username: " + userSend + "\nPassword: " + newPass;
+        mess = "Your code: " + code;
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(userName));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+            message.setSubject("Forget Password");
+            message.setText(mess);
+            Transport.send(message);
+
+//                    System.out.println("OK");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return code;
+    }
+
+    
+    
     public static String generateRandomString(int length) {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder randomString = new StringBuilder(length);
@@ -176,11 +135,10 @@ public class customerController extends HttpServlet {
         password = getMd5(password);
         boolean isSuccess = daoCustomer.checkLogin(username, password);
         if (isSuccess) {
-            request.getRequestDispatcher("product.jsp").forward(request, response);
-
+            request.getRequestDispatcher("/product.jsp").forward(request, response);
         } else {
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-
+            request.setAttribute("message", "<div id=\"message\" style=\"color: red\">Incorrect username or password</div>");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
 
     }
@@ -217,8 +175,9 @@ public class customerController extends HttpServlet {
         String email = request.getParameter("email");
         String address = request.getParameter("address");
         String phoneNumber = request.getParameter("phoneNumber");
+        String fullName = request.getParameter("fullName");
 
-        customer c = new customer(username, email, password, address, phoneNumber);
+        customer c = new customer(username, email, password, address, phoneNumber, fullName);
 
         boolean isSuccess = daoCustomer.signUp(c);
         ResponseData data = new ResponseData();

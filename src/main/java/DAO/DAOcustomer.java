@@ -25,7 +25,7 @@ public class DAOcustomer extends DBconnect.DBconnect {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 customer a = new customer(rs.getString("username"),
-                        rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phoneNumber"));
+                        rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phoneNumber"), rs.getString("fullName"));
                 listAccount.add(a);
             }
         } catch (SQLException e) {

@@ -4,8 +4,6 @@
  */
 
 $(document).ready(function () {
-
-
     $('.btn-resgister').click(function (e) {
         e.preventDefault();
 //        var id = $(this).attr("id-role")
@@ -15,7 +13,7 @@ $(document).ready(function () {
         var email = document.getElementById("email").value;
         var address = document.getElementById("address").value;
         var phoneNumber = document.getElementById("phoneNumber").value;
-
+        var fullName = document.getElementById("fullName").value;
         $.ajax({
             method: "POST",
             url: "http://localhost:8080/Project_SWP_Group2/login/signup",
@@ -29,8 +27,7 @@ $(document).ready(function () {
 
         })
                 .done(function (data) {
-                   var data1 = JSON.parse(data);
-                    console.log(data1);
+                    var data1 = JSON.parse(data);
                     if (data1.isSuccess) {
                         alert('successfully');
 
@@ -39,5 +36,28 @@ $(document).ready(function () {
                     }
                 });
     })
+
+    
+//    $('.btn-send').click(function (e) {
+////        e.preventDefault();
+//        var email = document.getElementById("email").value;
+//        $.ajax({
+//            method: "POST",
+//            url: "http://localhost:8080/Project_SWP_Group2/login/forgot",
+//            data: {
+//                email: email
+//            }
+//        })
+//                .done(function (data) {
+//                    var data1 = JSON.parse(data);
+//                   
+//                    if (data1.isSuccess) {
+//                          $("#message").html("Please enter the code sent to your email to continue");
+//                    } else {
+//                          $("#message").html("Your email is not exist");
+//
+//                    }
+//                });
+//    })
 })
 

@@ -9,5 +9,5 @@ package url;
  * @author LENOVO
  */
 public class productURL {
-    
+
 }

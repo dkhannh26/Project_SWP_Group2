@@ -18,9 +18,11 @@
             Email<input type="text" id="email" name="email">
             Address<input type="text" id="address" name="address">
             Phone Number<input type="text" id="phoneNumber" name="phoneNumber">
+            Full Name<input type="text" id="fullName" name="fullName">
+
             <button class="btn-resgister">Register</button>
         </form>
-        
+
         <script src="js/jquery-3.7.0.min.js"></script>
         <script src="js/jquery.validate.min.js"></script>
         <script src="js/custom.js"></script>

@@ -13,14 +13,10 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        
-        <form action="http://localhost:8080/Project_SWP_Group2/login" method="post">
-            Username<input type="text" name="username">
-            Password<input type="text" name="password">
-            <button>Submit</button><br>
-            <a href="signup.jsp">sign up</a><br>
-            <a href="forgot.jsp">forgot password</a><br>
 
-        </form>
+        <a href="login.jsp">sign in</a><br>
+           
+        
+      
     </body>
 </html>

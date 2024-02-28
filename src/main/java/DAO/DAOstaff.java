@@ -25,12 +25,28 @@ public class DAOstaff extends DBconnect.DBconnect{
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 staff a = new staff(rs.getString("username"),
-                        rs.getString("email"), rs.getString("password"),rs.getString("address"),rs.getString("phoneNumber"));
+                        rs.getString("email"), rs.getString("password"),rs.getString("address"),rs.getString("phoneNumber"),rs.getString("fullName"));
                 listAccount.add(a);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
         return listAccount;
+    }
+    
+       public boolean checkLogin(String username, String password) {
+        String sql = "select * from staff where username = ? and password = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            st.setString(2, password);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
     }
 }
