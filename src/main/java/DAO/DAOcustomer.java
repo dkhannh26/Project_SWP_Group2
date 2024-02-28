@@ -50,4 +50,52 @@ public class DAOcustomer extends DBconnect.DBconnect {
         return false;
     }
 
+    public boolean signUp(customer c) {
+        String sql = "insert into customer(username, email, [password], [address], phoneNumber)\n"
+                + "values\n"
+                + "(?,?,?,?,?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, c.getUsername());
+            st.setString(2, c.getEmail());
+            st.setString(3, c.getPassword());
+            st.setString(4, c.getAddress());
+            st.setString(5, c.getPhoneNumber());
+            st.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean checkEmail(String email) {
+        String sql = "select * from customer where email = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean updatePassword(String password, String email) {
+        String sql = "update customer set password = ? where email = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, password);
+            st.setString(2, email);
+            st.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
 }
