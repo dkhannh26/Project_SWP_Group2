@@ -36,14 +36,6 @@
         <script src="js/jquery.validate.min.js"></script> 
         <script>
 
-//            int type;
-//    int pro_quan;
-//    int pro_id;
-//    String pro_name;
-//    int pro_sale;
-//    int pro_price;
-//    String pro_pic;
-//    String pro_des;
             var validator = $("#updateForm").validate({
                 rules: {
                     quantity: {
