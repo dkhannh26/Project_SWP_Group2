@@ -13,9 +13,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login</title>
         <link rel="stylesheet" href="./boostrap/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- bootstrap icon -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
         <link rel = "icon" href =  "./images/LG.png" type = "image/x-icon"> 
-
         <style>
             * {
                 margin: 0;
@@ -115,8 +115,8 @@
             }
 
             .dropdown-icon {
-                width: 18px;
                 margin-left: 2px;
+                font-size: 	0.7500em;
             }
 
             .dropdownMenu {
@@ -159,13 +159,15 @@
                 padding: 5px;
             }
 
-            /* .headerToolIcon {
-                padding-left: 10px;
-            } */
+            .headerToolIcon {
+                width: 45px;
+                justify-content: center;
+                display: flex;
+            }
 
             .icon {
                 cursor: pointer;
-                width: 30px;
+                font-size: 26px;
             }
 
             .infoBox {
@@ -214,7 +216,7 @@
             .infoBox-list li a:hover {
                 color: var(--text-color);
             }
-            .infoBox-icon * {
+            .bi-dot {
                 color: black;
             }
 
@@ -238,6 +240,13 @@
                 width: 15%;
                 height: 15%;
             }
+            .cartIcon {
+                justify-content: center;
+                display: flex;
+            }
+            .cartIcon i {
+                font-size: 2.5em;
+            }
             .noneProduct p {
                 text-align: center;
                 font-size: 14px;
@@ -247,6 +256,9 @@
             .haveProduct {
                 margin-bottom: 8px;
                 display: none;
+            }
+            .bi-x-lg {
+                cursor: pointer;
             }
             .miniCartImg {
                 padding-left: 0;
@@ -501,10 +513,18 @@
             #img-footer {
                 margin: 0 auto;
             }
-
-            .phone-icon {
-                width: 100%;
-                height: 100%;
+            .phone {
+                position: relative;
+            }
+            .bi-telephone {
+                cursor: pointer;
+                font-size: 3em;
+                /* width: 85px; */
+                /* height: 60px; */
+                /* display: flex; */
+                position: absolute;
+                top: -16%;
+                left: 15px;
             }
 
             .contact-item {
@@ -512,17 +532,19 @@
             }
 
             .contact-link {
-                margin: 5px;
+                margin-right: 10px;
                 border: 1px solid #a0816c;
                 border-radius: 5px;
                 padding: 5px;
-
+                width: 35.6px;
+                justify-content: center;
+                display: flex;
             }
 
             .contact-link:hover {
                 background-color: var(--bg-color);
 
-                .contact-icon * {
+                .bi-facebook::before, .bi-instagram::before{
                     color: white;
                 }
             }
@@ -547,7 +569,6 @@
                     right:  0;
                 }
             }
-
             #wrapper h2 {
                 color: #a0816c;
                 margin-top: 0px;
@@ -625,7 +646,7 @@
             #account {
                 background-color: #FFFFFF;
                 color: black;
-                width: 40%;
+                width: 100%;
                 height: 32px;
                 text-align: center;
                 border: 1px solid#a0816c;
@@ -724,7 +745,7 @@
                     <ul class="headerList">
                         <li class="headerListItem"><a href="/headerDemo.html">Home page</a></li>
                         <li class="headerListItem">
-                            <a href="">Men's Fashion<i data-lucide="chevron-down" class="dropdown-icon"></i></a>
+                            <a href="">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
                                 <li><a href="">T-shirt</a></li>
                                 <li><a href="">Shirt</a></li>
@@ -735,7 +756,7 @@
                             </ul>
                         </li>
                         <li class="headerListItem">
-                            <a href="">Women's Fashion<i data-lucide="chevron-down" class="dropdown-icon"></i></a>
+                            <a href="">Women's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
                                 <li><a href="">T-shirt</a></li>
                                 <li><a href="">Shirt</a></li>
@@ -748,7 +769,7 @@
                         </li>
                         <li class="headerListItem"><a href="">Accessory</a></li>
                         <li class="headerListItem">
-                            <a href="">Information<i data-lucide="chevron-down" class="dropdown-icon"></i></a>
+                            <a href="">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
                                 <li><a href="">Contact</a></li>
                                 <li><a href="">View order</a></li>
@@ -759,13 +780,13 @@
                 </nav>
                 <div class="headerTool">
                     <div class="headerToolIcon">
-                        <i data-lucide="search" class="icon" onclick="toggleBox('box1')"></i>
+                        <i class="bi bi-search icon" onclick="toggleBox('box1')"></i>
                         <div class="searchBox box" id="box1">
 
                         </div>
                     </div>
                     <div class="headerToolIcon">
-                        <i data-lucide="user-round" class="icon" onclick="toggleBox('box2')"></i>
+                        <i class="bi bi-person icon" onclick="toggleBox('box2')"></i>
                         <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->
 
                         <!-- khi đã login thì khi nhấp vào icon -> box này hiện ra -->
@@ -774,20 +795,20 @@
                                 <h2>ACCOUNT INFORMATION</h2>
                                 <ul class="infoBox-list">
                                     <li>Username</li>
-                                    <li><i data-lucide="dot" class="infoBox-icon"></i><a href="">My account</a></li>
-                                    <li><i data-lucide="dot" class="infoBox-icon"></i><a href="">Address</a></li>
-                                    <li><i data-lucide="dot" class="infoBox-icon"></i><a href="">Log out</a></li>
+                                    <li><i class="infoBox-icon bi bi-dot"></i><a href="/login.html">My account</a></li>
+                                    <li><i class="infoBox-icon bi bi-dot"></i><a href="">Address</a></li>
+                                    <li><i class="infoBox-icon bi bi-dot"></i><a href="">Log out</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="headerToolIcon">
-                        <i data-lucide="shopping-cart" class="icon" onclick="toggleBox('box3')"></i>
+                        <i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i>
                         <div class="cartBox box" id="box3">
                             <div class="cartBox-content">
                                 <h2>SHOPPING CART</h2>
                                 <div class="noneProduct">
-                                    <i data-lucide="shopping-cart" class="shopping-cart-icon"></i>
+                                    <div class="cartIcon"><i class="bi bi-cart2 icon"></i></div>
                                     <p>There are currently no products</p>
                                 </div>
                                 <!-- nếu có product thì haveProduct display: block -->
@@ -808,7 +829,7 @@
                                                     <span>000,000 VND</span>
                                                 </div>
                                                 <div class="deleteBtn">
-                                                    <i data-lucide="x"></i>
+                                                    <i class="bi bi-x-lg"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -837,15 +858,15 @@
         <!-- end header -->
 
         <div id="wrapper">
-            <form id="loginForm" action="http://localhost:8080/Project_SWP_Group2/login/" method="POST">
+            <form id="loginForm" action="http://localhost:8080/Project_SWP_Group2/login/customer" method="POST">
                 <div class="bao">
                     <h2>LOG IN </h2>
                     <h3>Enter your email and password</h3>
 
                     <hr>
                     <div class="form-group">
-                        <input type="text" name="username" required>
-                        <label for="email">Username</label>
+                        <input type="text" name="input" required>
+                        <label for="email">Username/Email</label>
                     </div>
                     <div class="form-group">
                         <input type="password" name="password" required>
@@ -853,7 +874,7 @@
                     </div>
                     <form>
                         <div>
-                            Join With Account
+                            <b>Join With Account</b>
                             <select id="account" onchange="getURL()" name="account">
                                 <option value="customer">Customer</option>
                                 <option value="staff">Staff</option>
@@ -869,8 +890,8 @@
                     ${message}
                     <button class="login">Log In</button>
                     <div class="other-options">
-                        <p>Create new account?<a href="signup.jsp" class="highlight2"> Join with us</a></p>
-                        <p>Forgotten password?<a href="forgot.jsp" class="highlight2"> Change Password</a></p>
+                        <p>Create new account?<a href="http://localhost:8080/Project_SWP_Group2/signup.jsp" class="highlight2"> Join with us</a></p>
+                        <p>Forgotten password?<a href="http://localhost:8080/Project_SWP_Group2/forgot.jsp" class="highlight2"> Reset Password</a></p>
 
                     </div>
                 </div>
@@ -915,8 +936,8 @@
                     </div>
                     <div class="col-sm-3">
                         <h4 id="highlight">Customer care</h4>
-                        <div class="row">
-                            <div class="col-sm-3"><i data-lucide="phone-call" class="phone-icon"></i></div>
+                        <div class="row phone">
+                            <div class="col-sm-3"><i class="bi bi-telephone icon"></i></div>
                             <div class="col-9"> 
                                 <h4 id="highlight">0123.456.789</h4>
                                 <a href="">info@dotai.vn</a>
@@ -924,8 +945,8 @@
                         </div>
                         <h5 id="highlight">Follow Us</h5>
                         <div class="contact-item">
-                            <a href="" class="contact-link"><i data-lucide="facebook" class="contact-icon"></i></a>
-                            <a href="" class="contact-link"><i data-lucide="instagram" class="contact-icon"></i></a>
+                            <a href="" class="contact-link"><i class="bi bi-facebook contact-icon"></i></a>
+                            <a href="" class="contact-link"><i class="bi bi-instagram contact-icon"></i></a>
                         </div>
                     </div>
                 </div>

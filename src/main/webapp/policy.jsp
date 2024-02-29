@@ -1,31 +1,50 @@
 <%-- 
-    Document   : product.jsp
-    Created on : Feb 27, 2024, 6:21:56 PM
-    Author     : LENOVO
+    Document   : policy
+    Created on : Feb 28, 2024, 10:27:13 PM
+    Author     : thinh
 --%>
 
-<%@page import="java.text.NumberFormat"%>
-<%@page import="java.text.DecimalFormat"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-              integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"> <!-- bootstrap -->
+        <link rel="stylesheet" href="./boostrap/bootstrap.min.css"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- bootstrap icon -->
-        <link rel="stylesheet" href="/css/style copy.css">
-        <!-- <link rel="stylesheet" href="grid.css"> -->
+
+        <title>Policy</title>
+
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
         <link rel = "icon" href =  "/images/LG.png" type = "image/x-icon"> 
 
-        <title>DOTAI</title>
         <style>
+            .mid{
+                font-family: "Quicksand", sans-serif;
+                font-size: 15px;
+                margin: 5% 10%;
+                color: #808080;
+            }
+
+            #highlight{
+                color: #a0816c;
+            }
+
+            .page{
+                border: rgb(199, 198, 198) solid 1px;
+                padding: 10px;
+            }
+            .page a{
+                text-decoration: none;
+                font-weight: 600;
+                color: rgb(70, 70, 70);
+            }
+            .page a:hover{
+                color: #aa9383;
+                position: 0.2s;
+            }
             * {
                 margin: 0;
                 padding: 0;
@@ -248,9 +267,6 @@
                 display: block;
                 width: 15%;
                 height: 15%;
-            }
-            .product {
-                margin-top: 50px;
             }
             .cartIcon {
                 justify-content: center;
@@ -635,7 +651,7 @@
                         </div>
                     </div>
                     <div class="headerToolIcon">
-                        <a href="http://localhost:8080/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
+                        <i class="bi bi-person icon" onclick="toggleBox('box2')"></i>
                         <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->
 
                         <!-- khi đã login thì khi nhấp vào icon -> box này hiện ra -->
@@ -706,131 +722,53 @@
         </header>
         <!-- end header -->
 
-        <!-- main -->
-        <main class="main">
-            <div class="mainHeading">
-                <h2 class="headingContent">
-                    <a href="">Dotai</a>
-                </h2>
-                <p>New products</p>
-            </div>
-            <div class="mainContent container ">
-                <a href="addProduct.jsp" target="target">add</a>
-                <div class="row">
-
-                    <c:forEach items="${requestScope.productList}" var="product">
-                        <div class="col-md-3 p-2">
-                            <div class="product">
-                                <div class="productImg">
-                                    <img src="${product.getPicURL()}" alt="img">
-                                </div>
-
-
-                                <c:set var="formattedPrice">
-                                    <fmt:formatNumber type="number" value="${product.getPrice()}" pattern="###,###" />
-                                </c:set>
-
-
-                                <div class="productDetail">
-                                    <h3>${product.getName()}</h3>
-                                    <p>
-                                        <span class="price">${formattedPrice} VND</span>
-                                        <span class="price-sale"></span>
-                                    </p>
-                                    <div class="productButton">
-                                        <button type="button" class="addBtn"><span>Add to cart</span></button>
-                                        <button type="button" class="right"><span></span>Buy now</button>
-                                    </div>
-                                </div>
-                                <a  href ="updateJSPProduct?id=${product.getId()}">Update</a>
-                                <a  href="#" onclick="doDelete('${product.getId()}')">Delete</a> 
-                            </div>
-                        </div>
-
-                    </c:forEach> 
-
-                    <div class="col-md-3 p-2">
-                        <div class="product">
-                            <div class="productImg">
-                                <img src="images/img1.jpg" alt="img">
-                            </div>
-                            <div class="productDetail">
-                                <h3>DOTAI - Áo thun wash Cafe Clementine 8122</h3>
-                                <p>
-                                    <span class="price">195,000 VND</span>
-                                    <span class="price-sale"></span>
-                                </p>
-                                <div class="productButton">
-                                    <button type="button" class="addBtn"><span>Add to cart</span></button>
-                                    <button type="button" class="right"><span></span>Buy now</button>
-                                </div>
-                            </div>
-                            <!-- <div class="productAction">
-                                <div class="action-inner">
-                                    <button type="button" class="btn btn-outline-primary"><span>Add to cart</span></button>
-                                    <button type="button" class="btn btn-secondary right"><span>Buy now</span></button>
-                                </div>
-                            </div> -->
-                        </div>
+        <div class="mid">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="content">
+                        <h2 id="highlight"><b>Exchange policy</b></h2>
                     </div>
-                    <div class="col-md-3 p-2">
-                        <div class="product">
-                            <div class="productImg">
-                                <img src="images/img2.jpg" alt="img">
-                            </div>
-                            <div class="productDetail">
-                                <h3>DOTAI - Áo thun viền cổ WILDHEART 8121</h3>
-                                <p>
-                                    <span class="price">190,000 VND</span>
-                                    <span class="price-sale"></span>
-                                </p>
-                                <div class="productButton">
-                                    <button type="button" class="addBtn"><span>Add</span></button>
-                                    <button type="button" class="right"><span></span>Buy now</button>
-                                </div>
-                            </div>
-                        </div>
+
+                    <div>
+                        <p>Exchange regulations:</p>
+                        <p> For orders purchased directly at the shop:</p>
+                        <ul>
+                            <li>Deadline for exchange is 2 days after purchase.</li>
+                            <li>Exchanged products must still have tags intact, unwashed, and unused.</li>
+                        </ul>
+                        <p>For online orders:</p>
+                        <ul>
+                            <li>The deadline for exchanging goods is 5 days from receipt (based on the time of successful
+                                delivery from the carrier).</li>
+                            <li>Exchanged products must still have tags intact, unwashed, and unused. </li>
+                            <li>Customers pay all shipping fees incurred.</li>
+                            <li>We do not accept returns or refunds for purchased products</li>
+                            <li>
+                                <p>Please send returned products to:</p>
+                                <ul>
+                                    <li>Dotai Home</li>
+                                    <li>100 Nguyen Van Cu, An Khanh Ward, Ninh Kieu District, City. Can Tho</li>
+                                    <li>Phone: 0123.456.789 - 0999.999.999</li>
+                                </ul>
+                            </li>
+                            <li>Please go to the website and order the product you want to exchange. The total value of the
+                                new order must be equal to or greater than the exchange order.</li>
+                            <li>When receiving the returned item, staff will contact and ship the exchange item to you.</li>
+                        </ul>
                     </div>
-                    <div class="col-md-3 p-2">
-                        <div class="product">
-                            <div class="productImg">
-                                <img src="images/img3.jpg" alt="img">
-                            </div>
-                            <div class="productDetail">
-                                <h3>DOTAI - Quần dài jeans wash 8116</h3>
-                                <p>
-                                    <span class="price">395,000 VND</span>
-                                    <span class="price-sale"></span>
-                                </p>
-                                <div class="productButton">
-                                    <button type="button" class="addBtn"><span>Add to cart</span></button>
-                                    <button type="button" class="right"><span></span>Buy now</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 p-2">
-                        <div class="product">
-                            <div class="productImg">
-                                <img src="images/img4.jpg" alt="img">
-                            </div>
-                            <div class="productDetail">
-                                <h3>DOTAI - Áo thun tay ngắn Confitería 8115</h3>
-                                <p>
-                                    <span class="price">195,000 VND</span>
-                                    <span class="price-sale"></span>
-                                </p>
-                                <div class="productButton">
-                                    <button type="button" class="addBtn"><span>Add to cart</span></button>
-                                    <button type="button" class="right"><span></span>Buy now</button>
-                                </div>
-                            </div>
-                        </div>
+
+                </div>
+                <div class="col-md-3">
+                    <div class="page">
+                        <h5 id="highlight"><b>Page category</b></h5>
+                        <hr>
+                        <h6><a href="">Introduce</a></h6>
+                        <hr>
+                        <h6><a href="">Contact</a></h6>
                     </div>
                 </div>
             </div>
-        </main>
-        <!-- end main -->
+        </div>
 
         <!-- footer -->
         <footer>
@@ -890,15 +828,7 @@
         </footer>
         <!-- end footer -->
 
-
         <script src="/js/index.js"></script>
-        <script type="text/javascript">
-            function doDelete(id) {
-            if (confirm("Do you want to delete this product (" + id + ")?")) {
-                 window.location = "deleteProduct?id=" + id;
-                                        }
-                                    }
-        </script>
     </body>
 
 </html>

@@ -29,12 +29,13 @@ import static url.customerURL.URL_FORGOT_PASS;
 import static url.customerURL.URL_LOGIN_CUSTOMER;
 
 import static url.customerURL.URL_SIGNUP;
+import static url.customerURL.URL_UPDATE_PASS;
 
 /**
  *
  * @author thinh
  */
-@WebServlet(name = "customerController", urlPatterns = {URL_LOGIN_CUSTOMER, URL_SIGNUP, URL_FORGOT_PASS})
+@WebServlet(name = "customerController", urlPatterns = {URL_LOGIN_CUSTOMER, URL_SIGNUP, URL_FORGOT_PASS, URL_UPDATE_PASS})
 public class customerController extends HttpServlet {
 
     private Gson gson = new Gson();
@@ -55,25 +56,53 @@ public class customerController extends HttpServlet {
             case URL_FORGOT_PASS:
                 forgotPass(request, response);
                 break;
+            case URL_UPDATE_PASS:
+                updatePass(request, response);
+                break;
         }
+    }
+
+    protected void updatePass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String password = request.getParameter("password");
+        password = getMd5(password);
+        String email = request.getParameter("email");
+        boolean isSuccess = daoCustomer.updatePasswordByEmail(password, email);
+        ResponseData data = new ResponseData();
+        data.setIsSuccess(isSuccess);
+        data.setDescription("");
+        data.setData("");
+        String json = gson.toJson(data);
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
     }
 
     protected void forgotPass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         boolean isSuccess = daoCustomer.checkEmail(email);
+        ResponseData data = new ResponseData();
+        data.setIsSuccess(isSuccess);
+        data.setDescription("");
+        data.setData("");
 
         if (isSuccess) {
-          String code =  getCode(request, response,email);
-            request.setAttribute("email", email);
-            request.setAttribute("message", "<div id=\"message\" style=\"color: green\">Please enter the code sent to your email to continue</div>");
-            request.getRequestDispatcher("/forgot.jsp").forward(request, response);
-        } else {
+            String code = getCode(request, response, email);
+            data.setData(code);
 
-            request.setAttribute("email", email);
-            request.setAttribute("message", "<div id=\"message\" style=\"color: red\">Your email is not exist</div>");
-            request.getRequestDispatcher("/forgot.jsp").forward(request, response);
+//            request.setAttribute("email", email);
+//            request.setAttribute("message", "<div id=\"message\" style=\"color: green\">Please enter the code sent to your email to continue</div>");
+//            request.getRequestDispatcher("/forgot.jsp").forward(request, response);
         }
-
+//        else {
+//
+////            request.setAttribute("email", email);
+////            request.setAttribute("message", "<div id=\"message\" style=\"color: red\">Your email is not exist</div>");
+////            request.getRequestDispatcher("/forgot.jsp").forward(request, response);
+//        }
+        String json = gson.toJson(data);
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
     }
 
     public static String getCode(HttpServletRequest request, HttpServletResponse response, String email) throws ServletException, IOException {
@@ -113,8 +142,6 @@ public class customerController extends HttpServlet {
         return code;
     }
 
-    
-    
     public static String generateRandomString(int length) {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder randomString = new StringBuilder(length);
@@ -130,10 +157,10 @@ public class customerController extends HttpServlet {
     }
 
     protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("username");
+        String input = request.getParameter("input");
         String password = request.getParameter("password");
         password = getMd5(password);
-        boolean isSuccess = daoCustomer.checkLogin(username, password);
+        boolean isSuccess = daoCustomer.checkLogin(input, password);
         if (isSuccess) {
             request.getRequestDispatcher("/product.jsp").forward(request, response);
         } else {
