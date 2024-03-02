@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,17 +19,22 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import static url.productURL.DELETE_PRODUCT;
 import static url.productURL.UPDATE_JSP_PRODUCT;
 import static url.productURL.ADD_PRODUCT;
 import static url.productURL.UPDATE_PRODUCT;
+import static url.productURL.SEARCH_PRODUCT;
+import static url.productURL.SEARCH_PRODUCT_AJAX;
 
 /**
  *
  * @author LENOVO
  */
-@WebServlet({UPDATE_JSP_PRODUCT, DELETE_PRODUCT, UPDATE_PRODUCT, ADD_PRODUCT})
+@WebServlet({UPDATE_JSP_PRODUCT, DELETE_PRODUCT, UPDATE_PRODUCT, ADD_PRODUCT, SEARCH_PRODUCT, SEARCH_PRODUCT_AJAX})
 public class CRUDproduct extends HttpServlet {
 
     /**
@@ -113,11 +119,14 @@ public class CRUDproduct extends HttpServlet {
 
             case DELETE_PRODUCT:
                 id = request.getParameter("id");
+                request.setAttribute("id", id);
                 dao = new DAOproduct();
                 dao.delete(id);
+             
+//                request.getRequestDispatcher("index.jsp").forward(request, response);
                 response.sendRedirect("productList");
                 break;
-                
+
             case ADD_PRODUCT:
 //                 Enter quan: <input type="number" name="quantity" id="pro_quan" ><br>
 //            Enter name <input type="text" name="name" id="pro_name" required ><br>
@@ -126,32 +135,76 @@ public class CRUDproduct extends HttpServlet {
 //            Enter price <input type="number" name="price" id="price"  required><br>
 //            Enter pic <input type="text" name="pic" id="pro_pic" required><br>
 //            Enter des <input type="text" name="des" id="pro_des"  required><br>
-                 quantity = request.getParameter("quantity");
-                 categoryId = request.getParameter("category");
-                 promoId = request.getParameter("promo");
-                 name = request.getParameter("name");
-                 price = request.getParameter("price");
-                 pic = request.getParameter("pic");
-                 des = request.getParameter("des");
+                quantity = request.getParameter("quantity");
+                categoryId = request.getParameter("category");
+                promoId = request.getParameter("promo");
+                name = request.getParameter("name");
+                price = request.getParameter("price");
+                pic = request.getParameter("pic");
+                des = request.getParameter("des");
 
                 DAOproduct = new DAOproduct();
-                
+
                 quanInt = Integer.parseInt(quantity);
                 priceInt = Integer.parseInt(price);
-               
+
                 categoryInt = Integer.parseInt(categoryId);
                 promoInt = Integer.parseInt(promoId);
 
                 product = new product(quanInt, priceInt, categoryInt, promoInt, name, des, pic);
                 DAOproduct.insert(product);
-                
+
                 response.sendRedirect("productList");
                 break;
-                
-                
-            
+            case SEARCH_PRODUCT:
+                dao = new DAOproduct();
+                name = request.getParameter("search");
+                List<product> productList = dao.search("%" + name + "%");
 
-             
+                request.setAttribute("productList", productList);
+                request.getRequestDispatcher("product.jsp").forward(request, response);
+                break;
+            case SEARCH_PRODUCT_AJAX:
+                dao = new DAOproduct();
+                name = request.getParameter("txt");
+                productList = dao.search("%" + name + "%");
+                PrintWriter out = response.getWriter();
+
+                for (product o : productList) {
+                    NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.ENGLISH);
+
+                    // Định dạng số
+                    String formattedNumber = numberFormat.format(o.getPrice());
+                    out.println("  <div class=\"col-md-3 p-2\">\n"
+                            + "                            <div class=\"product\">\n"
+                            + "                                <div class=\"productImg\">\n"
+                            + "                                    <img src=\"" + o.getPicURL() + "\" alt=\"img\">\n"
+                            + "                                </div>\n"
+                            + "\n"
+                            + "\n"
+                            + "                                <c:set var=\"formattedPrice\">\n"
+                            + "                                    <fmt:formatNumber type=\"number\" value=\"" + o.getPrice() + "\" pattern=\"###,###\" />\n"
+                            + "                                </c:set>\n"
+                            + "\n"
+                            + "\n"
+                            + "                                <div class=\"productDetail\">\n"
+                            + "                                    <h3>" + o.getName() + "</h3>\n"
+                            + "                                    <p>\n"
+                            + "                                        <span class=\"price\"> " + formattedNumber + " VND</span>\n"
+                            + "                                        <span class=\"price-sale\"></span>\n"
+                            + "                                    </p>\n"
+                            + "                                    <div class=\"productButton\">\n"
+                            + "                                        <button type=\"button\" class=\"addBtn\"><span>Add to cart</span></button>\n"
+                            + "                                        <button type=\"button\" class=\"right\"><span></span>Buy now</button>\n"
+                            + "                                    </div>\n"
+                            + "                                </div>\n"
+                            + "                                <a  href =\"updateJSPProduct?id=" + o.getId() + "\">Update</a>\n"
+                            + "                                <a  href=\"#\" onclick=\"doDelete('" + o.getId() + "')\">Delete</a> \n"
+                            + "                            </div>\n"
+                            + "                        </div> ");
+                }
+                break;
+
         }
     }
 

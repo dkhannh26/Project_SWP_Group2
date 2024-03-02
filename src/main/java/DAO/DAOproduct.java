@@ -82,10 +82,12 @@ public class DAOproduct extends DBconnect.DBconnect {
     }
 
     public void delete(String id) {
-        String sql = "delete from product where product_id=?";
+        String sql = "delete from cart where product_id = ?\n"
+                + "delete from product where product_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, id);
+            st.setString(2, id);
             st.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -107,7 +109,7 @@ public class DAOproduct extends DBconnect.DBconnect {
         try {
 
             PreparedStatement st = connection.prepareStatement(sql);
-           st.setString(1, p.getName());
+            st.setString(1, p.getName());
             st.setInt(2, p.getQuantity());
             st.setString(3, p.getDescription());
             st.setString(4, p.getPicURL());
@@ -119,6 +121,25 @@ public class DAOproduct extends DBconnect.DBconnect {
             System.out.println(e);
         }
 
+    }
+
+    public List<product> search(String name) {
+        List<product> list = new ArrayList<>();
+        String sql = "select * from product \n"
+                + "where name like ? ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, name);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                product p = new product(rs.getInt("product_id"), rs.getInt("quantity"), rs.getInt("price"), rs.getInt("category_id"), rs.getInt("promo_id"), rs.getString("name"),
+                        rs.getString("description"), rs.getString("pic_url"));
+                list.add(p);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
     }
 //
 //    public List<product> getTop() {
@@ -186,24 +207,6 @@ public class DAOproduct extends DBconnect.DBconnect {
 //
 //    }
 //
-//    public List<product> search(String pro_name) {
-//        List<product> list = new ArrayList<>();
-//        String sql = "select * from product \n"
-//                + "where pro_name like ? ";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            st.setString(1, pro_name);
-//            ResultSet rs = st.executeQuery();
-//            while (rs.next()) {
-//                product p = new product(rs.getInt("type"), rs.getInt("pro_quan"), rs.getInt("pro_id"), rs.getString("pro_name"),
-//                        rs.getInt("pro_sale"), rs.getInt("pro_price"), rs.getString("pro_pic"), rs.getString("pro_des"));
-//                list.add(p);
-//            }
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//        return list;
-//    }
 //
 //
 //
@@ -240,11 +243,11 @@ public class DAOproduct extends DBconnect.DBconnect {
 //    }
     public static void main(String[] args) {
         DAOproduct product = new DAOproduct();
+//        List<product> list = product.search("%quan%");
         List<product> list = product.getAll();
+
 //        for (int i = 0; i < 5; i++) {
-
-        System.out.println(list.get(0).toString());
-
+//        System.out.println(list.get(2));
     }
 
 }

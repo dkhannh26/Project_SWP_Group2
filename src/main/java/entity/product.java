@@ -108,4 +108,11 @@ public class product {
     public void setPicURL(String picURL) {
         this.picURL = picURL;
     }
+
+    @Override
+    public String toString() {
+        return "product{" + "id=" + id + ", quantity=" + quantity + ", price=" + price + ", categoryID=" + categoryID + ", promoID=" + promoID + ", name=" + name + ", description=" + description + ", picURL=" + picURL + '}';
+    }
+    
+    
 }

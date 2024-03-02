@@ -21,7 +21,7 @@
         <form action="updateProduct" method="get" id="updateForm">
 
             <!--int id, int quantity, int price, int categoryID, int promoID, String name, String description, String picURL-->
-            Enter id <input type="number" name="id" id="pro_id" value="${c.id}" required min="0"><br>
+            <input type="hidden" name="id" id="pro_id" value="${c.id}" required min="0"><br>
             Enter quan: <input type="number" name="quantity" id="pro_quan" value="${c.quantity}"><br>
             Enter name <input type="text" name="name" id="pro_name" value="${c.name}" required ><br>
             Enter promo ID <input type="number" name="promo" id="pro_sale" value="${c.promoID}" min="1" max="2"><br>

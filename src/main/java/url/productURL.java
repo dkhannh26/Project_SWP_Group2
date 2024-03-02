@@ -17,4 +17,6 @@ public class productURL {
        public static final String UPDATE_PRODUCT = "/updateProduct";
        public static final String DELETE_PRODUCT = "/deleteProduct";
        public static final String ADD_PRODUCT = "/addProduct";
+       public static final String SEARCH_PRODUCT = "/searchProduct";
+       public static final String SEARCH_PRODUCT_AJAX = "/searchProductByAJAX";
 }

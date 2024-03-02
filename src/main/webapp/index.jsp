@@ -14,6 +14,7 @@
     <body>
         <h1>Hello World!</h1>
         <form action="productList" method="get">
+            <h1> z${id}z </h1>
             <button>Submit</button>
             <a href="productList" > list </a>
         </form>
