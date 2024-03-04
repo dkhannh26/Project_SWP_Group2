@@ -13,7 +13,8 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        <form action="http://localhost:8080/Project_SWP_Group2/productList" method="get">
+        <form action="productList" method="get">
+            <h1> z${id}z </h1>
             <button>Submit</button>
             <a href="productList" > list </a>
         </form>

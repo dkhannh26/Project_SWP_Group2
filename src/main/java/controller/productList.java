@@ -55,6 +55,7 @@ public class productList extends HttpServlet {
         String urlPath = request.getServletPath();
         switch (urlPath) {
             case URL_PRODUCT_LIST:
+     
                 DAOproduct DAOproduct = new DAOproduct();
 
                 List<product> productList = DAOproduct.getAll();
