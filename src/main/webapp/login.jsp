@@ -865,7 +865,7 @@
                     <h3>Enter your email and password</h3>
                     <hr>
                     <div class="form-group">
-                        <input type="text" name="input" required>
+                        <input type="text" name="input" id="input" required>
                         <label for="email">Username/Email</label>
                     </div>
                     <div class="form-group">

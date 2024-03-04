@@ -4,24 +4,27 @@
  */
 
 
- const loginForm = document.getElementById("loginForm");
+const loginForm = document.getElementById("loginForm");
 
-                                function getURL() {
-                                    var type = document.getElementById("account").value;
-                                    var url = "http://localhost:8080/Project_SWP_Group2/login/" + type;
-                                    loginForm.action = url;
-                                }                          
-                                window.onload = function () {
-                                    const error = document.getElementById("error");
-                                    
-                                    loginForm.addEventListener("submit", function(e){
-                                        e.preventDefault();
-                                        const res = grecaptcha.getResponse();
-                                        if(res){
-                                            loginForm.submit();
-                                        }else{
-                                            error.innerHTML = "Please check";
-                                            error.style.color = "red";
-                                        }
-                                    })
-                                }
+
+function getURL() {
+    var type = document.getElementById("account").value;
+    var url = "http://localhost:8080/Project_SWP_Group2/login/" + type;
+    loginForm.action = url;
+}
+
+window.onload = function () {
+    const error = document.getElementById("error");
+    loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const res = grecaptcha.getResponse();
+        if (res) {
+            const input = document.getElementById('input').value;
+            document.cookie = "input=" + input;
+            loginForm.submit();
+        } else {
+            error.innerHTML = "Please check";
+            error.style.color = "red";
+        }
+    })
+}

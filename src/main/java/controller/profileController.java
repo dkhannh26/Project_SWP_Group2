@@ -59,19 +59,19 @@ public class profileController extends HttpServlet {
     private void viewProfile(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
-        String email = "";
+        String input = "";
         for (Cookie cooky : cookies) {
-            if (cooky.getName().equals("email")) {
-                email = cooky.getValue();
+            if (cooky.getName().equals("input")) {
+                input = cooky.getValue();
                 break;
             }
         }
         
        
         
-        customer c = daoCustomer.getCustomerByEmail(email);
+        customer c = daoCustomer.getCustomerByEmailOrUsername(input);
         request.setAttribute("fullName", c.getFullName());
-        request.setAttribute("email", email);
+        request.setAttribute("email", c.getEmail());
         request.setAttribute("address", c.getAddress());
         request.setAttribute("phoneNumber", c.getPhoneNumber());
         request.getRequestDispatcher("profile.jsp").forward(request, response);

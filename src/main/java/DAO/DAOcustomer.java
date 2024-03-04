@@ -115,11 +115,13 @@ public class DAOcustomer extends DBconnect.DBconnect {
         return false;
     }
 
-    public customer getCustomerByEmail(String email) {
-        String sql = "select * from customer where email = ?";
+    public customer getCustomerByEmailOrUsername(String input) {
+        String sql = "select * from customer where email = ? or username = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, email);
+            st.setString(1, input);
+            st.setString(2, input);
+
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 customer c = new customer(rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phoneNumber"), rs.getString("fullName"));
