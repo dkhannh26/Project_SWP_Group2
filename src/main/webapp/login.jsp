@@ -887,7 +887,7 @@
                         <h4>This site is protected by reCAPTCHA and the Google <a hreft="" class="highlight">Privacy
                                 Policy</a> and <a href="" class="highlight">Terms of Service</a> apply.</h4>
                     </div>
-                    <div class="g-recaptcha" data-sitekey="6LfI3ogpAAAAAMBd7AodmXb8rPC99EEouC6mgKGh"></div><br>
+                    <div class="g-recaptcha" data-sitekey="6LdZuIkpAAAAAJkyWF_aBPQcctXb-PqjyNorBG28"></div><br>
                     <div id="error">${message}</div>
                     <button class="login">Log In</button>
                     <div class="other-options">
