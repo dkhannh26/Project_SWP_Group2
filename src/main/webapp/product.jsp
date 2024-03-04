@@ -737,7 +737,7 @@
                         </div>
                     </div>
                     <div class="headerToolIcon">
-                        <a href="http://localhost:8080/Project_SWP_Group2/profile.jsp"><i class="bi bi-person icon"></i></a>
+                        <a href="http://localhost:8080/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
                         <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->
 
                         <!-- khi đã login thì khi nhấp vào icon -> box này hiện ra -->

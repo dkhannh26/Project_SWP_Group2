@@ -157,62 +157,62 @@
 
 
                 <h5 class="info-content"><b>ACCOUNT INFORMATION</b></h5>
-                    <div class="user-info">
-                        <div class="flex user-name">
-                            <h6 class="highlight">${fullName}</h6>
-                            <div class="dropdown">
-                                <div class="edit-info-btn">
-                                    <button><i class="fa-regular fa-pen-to-square" id="btn-edit"></i></button>
-                                </div>
+                <div class="user-info">
+                    <div class="flex user-name">
+                        <h6 class="highlight">${fullName}</h6>
+                        <div class="dropdown">
+                            <div class="edit-info-btn">
+                                <button><i class="fa-regular fa-pen-to-square" id="btn-edit"></i></button>
                             </div>
                         </div>
-                        <div class="dropdown-container">
-                            <div class="input-group"> 
-                                <span class="input-icon">
-                                    <i class="fa-regular fa-user"></i>
-                                </span>
-                                <input class="text-field" type="text" value="${fullName}">
-                            </div>
-                            <div class="input-group"> 
-                                <span class="input-icon">
-                                    <i class="fa-solid fa-house"></i>
-                                </span>
-                                <input class="text-field" type="text" value="${address}">
-                            </div>
-                            <div class="input-group"> 
-                                <span class="input-icon">
-                                    <i class="fa-regular fa-envelope"></i>
-                                </span>
-                                <input class="text-field" type="text" value="${email}">
-                            </div>
-                            <div class="input-group"> 
-                                <span class="input-icon">
-                                    <i class="fa-solid fa-phone"></i>
-                                </span>
-                                <input class="text-field" type="text" value="${phoneNumber}">
-                            </div>
-
-                            <div class="update-info-btn">
-                                <button class="update-btn">Update</button>
-                                <button class="cancel-btn">Cancel</button>
-                            </div>
-
-                        </div>
-                        <ul class="info">
-                            <li><span class="highlight">Email:</span>${email}</li>
-                            <li><span class="highlight">Country:</span> Vietnam</li>
-                            <li><span class="highlight">Address:</span> ${address}</li>
-                            <li><span class="highlight">Phone Number:</span> ${phoneNumber}</li>
-                            
-                        </ul>
                     </div>
+                    <div class="dropdown-container">
+                        <div class="input-group"> 
+                            <span class="input-icon">
+                                <i class="fa-regular fa-user"></i>
+                            </span>
+                            <input class="text-field" type="text" value="${fullName}">
+                        </div>
+                        <div class="input-group"> 
+                            <span class="input-icon">
+                                <i class="fa-solid fa-house"></i>
+                            </span>
+                            <input class="text-field" type="text" value="${address}">
+                        </div>
+                        <div class="input-group"> 
+                            <span class="input-icon">
+                                <i class="fa-regular fa-envelope"></i>
+                            </span>
+                            <input class="text-field" type="text" value="${email}">
+                        </div>
+                        <div class="input-group"> 
+                            <span class="input-icon">
+                                <i class="fa-solid fa-phone"></i>
+                            </span>
+                            <input class="text-field" type="text" value="${phoneNumber}">
+                        </div>
+
+                        <div class="update-info-btn">
+                            <button class="update-btn">Update</button>
+                            <button class="cancel-btn">Cancel</button>
+                        </div>
+
+                    </div>
+                    <ul class="info">
+                        <li><span class="highlight">Email:</span>${email}</li>
+                        <li><span class="highlight">Country:</span> Vietnam</li>
+                        <li><span class="highlight">Address:</span> ${address}</li>
+                        <li><span class="highlight">Phone Number:</span> ${phoneNumber}</li>
+
+                    </ul>
+                </div>
 
 
 
             </div>
         </div>
 
-                            <script src="./js/profile.js"></script>
+        <script src="./js/profile.js"></script>
     </body>
 
 </html>

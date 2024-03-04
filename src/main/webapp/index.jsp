@@ -16,6 +16,7 @@
         <form action="productList" method="get">
             <h1> z${id}z </h1>
             <button>Submit</button>
+            <a href="./login.jsp">login</a>
             <a href="productList" > list </a>
         </form>
     </body>

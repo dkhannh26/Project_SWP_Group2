@@ -162,7 +162,7 @@ public class customerController extends HttpServlet {
         password = getMd5(password);
         boolean isSuccess = daoCustomer.checkLogin(input, password);
         if (isSuccess) {
-            request.getRequestDispatcher("/product.jsp").forward(request, response);
+            response.sendRedirect("/Project_SWP_Group2/productList");
         } else {
             request.setAttribute("message", "<div id=\"message\" style=\"color: red\">Incorrect username or password</div>");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
