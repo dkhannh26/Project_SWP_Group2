@@ -906,7 +906,7 @@
 
     <script src="js/jquery-3.7.0.min.js"></script>
     <script src="js/jquery.validate.min.js"></script>
-    <script src="js/custom.js"></script>
-    <!--<script src="js/forgot.js"></script>-->
+    <script src="js/forgot.js"></script>
+
 </body>
 </html>

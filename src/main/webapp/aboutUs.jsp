@@ -1,19 +1,23 @@
 <%-- 
-    Document   : signup
-    Created on : Feb 27, 2024, 9:22:36 PM
+    Document   : aboutUs
+    Created on : Mar 4, 2024, 7:12:14 PM
     Author     : thinh
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Sign up</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>About Us</title>
         <link rel="stylesheet" href="./boostrap/bootstrap.min.css"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- bootstrap icon -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
         <link rel = "icon" href =  "./images/LG.png" type = "image/x-icon"> 
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <!-- bootstrap -->
         <style>
             * {
                 margin: 0;
@@ -113,8 +117,8 @@
             }
 
             .dropdown-icon {
-                width: 18px;
                 margin-left: 2px;
+                font-size: 	0.7500em;
             }
 
             .dropdownMenu {
@@ -157,13 +161,15 @@
                 padding: 5px;
             }
 
-            /* .headerToolIcon {
-                padding-left: 10px;
-            } */
+            .headerToolIcon {
+                width: 45px;
+                justify-content: center;
+                display: flex;
+            }
 
             .icon {
                 cursor: pointer;
-                width: 30px;
+                font-size: 26px;
             }
 
             .infoBox {
@@ -212,7 +218,7 @@
             .infoBox-list li a:hover {
                 color: var(--text-color);
             }
-            .infoBox-icon * {
+            .bi-dot {
                 color: black;
             }
 
@@ -236,6 +242,13 @@
                 width: 15%;
                 height: 15%;
             }
+            .cartIcon {
+                justify-content: center;
+                display: flex;
+            }
+            .cartIcon i {
+                font-size: 2.5em;
+            }
             .noneProduct p {
                 text-align: center;
                 font-size: 14px;
@@ -245,6 +258,9 @@
             .haveProduct {
                 margin-bottom: 8px;
                 display: none;
+            }
+            .bi-x-lg {
+                cursor: pointer;
             }
             .miniCartImg {
                 padding-left: 0;
@@ -499,10 +515,18 @@
             #img-footer {
                 margin: 0 auto;
             }
-
-            .phone-icon {
-                width: 100%;
-                height: 100%;
+            .phone {
+                position: relative;
+            }
+            .bi-telephone {
+                cursor: pointer;
+                font-size: 3em;
+                /* width: 85px; */
+                /* height: 60px; */
+                /* display: flex; */
+                position: absolute;
+                top: -16%;
+                left: 15px;
             }
 
             .contact-item {
@@ -510,17 +534,19 @@
             }
 
             .contact-link {
-                margin: 5px;
+                margin-right: 10px;
                 border: 1px solid #a0816c;
                 border-radius: 5px;
                 padding: 5px;
-
+                width: 35.6px;
+                justify-content: center;
+                display: flex;
             }
 
             .contact-link:hover {
                 background-color: var(--bg-color);
 
-                .contact-icon * {
+                .bi-facebook::before, .bi-instagram::before{
                     color: white;
                 }
             }
@@ -546,100 +572,35 @@
                 }
             }
 
-            #wrapper {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-
-            }
-            .bao {
-                text-align: center;
-                margin-top: 42px;
-                width:48%;
-                margin:0 auto;
-                margin-top:42px;
-            }
-            #wrapper h2 {
-                color: #a0816c;
-                margin-top: 0px;
-                font-size: 28px;
-                font-family: "Quicksand", sans-serif;
-            }
-
-            form {
+            #wrapper{
                 border: 1px solid #a0816c;
-                border-radius: 5px;
-                padding: 0px;
-                min-height: 80vh;
             }
-            .form-group input{
-                margin: 8px 0;
-                height: fit-content;
-                width: 300px;
-                outline: none;
-                border: 2px solid#a0816c;
-                padding: 5px;
-                border-radius: 0;
-                font-size: inherit;
+            .introduce{
+                background-color: #FFF;
+                color:#252A2B;
             }
-            .check label {
-                display: flex;
-            }
-            #wrapper h4 {
-                text-align: left;
-                font-family: "Quicksand", sans-serif;
-                font-size: 15px;
-                color: #9e9e9e;
-            }
-            .btn-register{
-                background: #a0816c;
-                color: #fff;
-                padding: 10px 0;
-                outline: none;
-                width: 40%;
-                height: fit-content;
-                font-size: 14px;
-                border: none;
-
-            }
-            .back-button {
-                display: inline-block;
-                background-color: #fff;
+            .introduce h2 {
                 color:#a0816c;
-                padding: 10px 20px;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                text-decoration: none;
-                font-size: 14px;
-                font-family: "Quicksand", sans-serif;
             }
+            .danhmuc h2{
+                color:#a0816c;
+            }
+            .danhmuc {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            .danhmuc p{
+                font:15px Quicksand ,sans-serif;
 
-            .back-arrow {
-                margin-right: 5px;
             }
-
-            .highlight {
-                color: #7069f0;
-            }
-            .foot {
-                width: 100%;
-            }
-            .btn-register:hover {
-                background-color:#8d481b;
-            }
-            .back-arrow:hover{
-                color:#642d08;
-            }
-            .back-button:hover{
-                color:#642d08;
+            .container {
+                /*margin-top: 30vh;*/
             }
         </style>
-
     </head>
     <body>
+
+
         <!-- header -->
         <header class="header">
             <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND</strong></div>
@@ -761,49 +722,60 @@
         </header>
         <!-- end header -->
 
-        <div id="wrapper">
-            <form action="" method="">
-                <div class="bao">
-                    <h2>Register An Account</h2>
-                    <hr>
-                    <div class="form-group">
-                        <label for="fullname"></label>
-                        <input type="text" id="fullName" name="fullName" placeholder="Fullname" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="username"></label>
-                        <input type="text" id="username" name="username" placeholder="Username" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password"></label>
-                        <input type="password" id="password" name="password" placeholder="Password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email"></label>
-                        <input type="email" id="email" name="email" placeholder="Email" required>
-                    </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="introduce">
+                        <h2>Introduce</h2>
+                        <p>First of all, Dotai would like to sincerely thank you for your continued interest and
+                            follow-up over the years.</p><br>
 
-                    <div class="form-group">
-                        <label for="address"></label>
-                        <input type="text" id="address" name="address" placeholder="Address" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone"></label>
-                        <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Phone number" required>
-                    </div>
-
-                    <div class = "foot">
-                        <h4>This site is protected by reCAPTCHA and the Google <a href="" class="highlight">Privacy
-                                Policy</a> and <a href="" class="highlight">Terms of Service</a> apply.</h4>
-                    </div>
-                    <div>
-                        <button class="btn-register">Register</button>
+                        <p>Developed from a small online store hidden in an alley on Nguyen Trai Street, Ninh Kieu
+                            District, City. Can Tho with a very modest initial quantity and scale of goods. We have expanded
+                            our scale and business form by adding many new fashion items, always updating trends and
+                            designs, and opening new sales channels through social networking sites. associations (Facebook,
+                            Instagram...) and e-commerce platforms such as Shopee, its own website system... With the desire
+                            to reach potential customers with the same aesthetic mindset across all lands. water.
+                        </p><br>
+                        <p>Nobita Home strives to bring customers good quality products at reasonable prices... In
+                            particular, the fashion products we produce or select from many sources... are guaranteed to be
+                            consistent. about aesthetic style, bringing the unique breath and color that we have been
+                            shaping for Nobita Home: simplicity, sophistication, harmony with the basic and vintage styles
+                            of Korean fashion trends. Fashion items that seem basic and simple but bring sophistication, a
+                            bit of nostalgia, and gentle appeal to people... or in other words, we don't follow trends, we
+                            just Focus on harmonious aesthetic elements and clothes that you can wear over and over again
+                            for many years to come and never go out of style.
+                        </p><br>
+                        <p>
+                        <ul>
+                            <li>Who are you</li>
+                            <li>What are your business values?</li>
+                            <li>Store address</li>
+                            <li>How long have you been doing business in this industry?</li>
+                            <li>How long have you been doing business online?</li>
+                            <li>Who is your team?</li>
+                            <li>Contact Info</li>
+                            <li>Links to social networking sites (Twitter, Facebook)</li>
+                        </ul>
+                        </p>
                     </div>
                 </div>
-                <a href="login.jsp" class="back-button">
-                    <span class="back-arrow">&larr;</span>Quay lại trang chủ
-                </a>
-            </form>
+
+                <div class="col-md-3">
+                    <div id="wrapper">
+                        <div class="danhmuc">
+                            <h2>Danh mục page</h2>
+                            <hr>
+                            <p>Tìm kiếm</p>
+                            <hr>
+                            <p>Giới thiệu</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
         </div>
 
         <!-- footer -->
@@ -864,9 +836,7 @@
         </footer>
         <!-- end footer -->
 
-
-        <script src="js/jquery-3.7.0.min.js"></script>
-        <script src="js/jquery.validate.min.js"></script>
-        <script src="js/signUp.js"></script>
+        <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script> <!-- lucide.dev icon -->
     </body>
+
 </html>

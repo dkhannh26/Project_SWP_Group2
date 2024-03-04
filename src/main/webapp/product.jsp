@@ -665,7 +665,7 @@
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-md-4 miniCartImg">
-                                                <img src="images/img1.jpg" alt="">
+                                                <img src="./images/img1.jpg" alt="">
                                             </div>
                                             <div class="col-md-8 miniCartDetail">
                                                 <p>DOTAI - Áo thun wash Cafe Clementine 8122

@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- bootstrap icon -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
         <link rel = "icon" href =  "./images/LG.png" type = "image/x-icon"> 
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <style>
             * {
                 margin: 0;
@@ -862,7 +863,6 @@
                 <div class="bao">
                     <h2>LOG IN </h2>
                     <h3>Enter your email and password</h3>
-
                     <hr>
                     <div class="form-group">
                         <input type="text" name="input" required>
@@ -887,7 +887,8 @@
                         <h4>This site is protected by reCAPTCHA and the Google <a hreft="" class="highlight">Privacy
                                 Policy</a> and <a href="" class="highlight">Terms of Service</a> apply.</h4>
                     </div>
-                    ${message}
+                    <div class="g-recaptcha" data-sitekey="6LfI3ogpAAAAAMBd7AodmXb8rPC99EEouC6mgKGh"></div><br>
+                    <div id="error">${message}</div>
                     <button class="login">Log In</button>
                     <div class="other-options">
                         <p>Create new account?<a href="http://localhost:8080/Project_SWP_Group2/signup.jsp" class="highlight2"> Join with us</a></p>
@@ -957,15 +958,6 @@
         <!-- end footer -->
 
         <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script> <!-- lucide.dev icon -->
-        <script src="/js/index.js"></script>
-
-        <script>
-                                function getURL() {
-                                    var type = document.getElementById("account").value;
-                                    var loginForm = document.getElementById("loginForm");
-                                    var url = "http://localhost:8080/Project_SWP_Group2/login/" + type;
-                                    loginForm.action = url;
-
-                                }
-        </script>
+        <script src="./js/login.js"></script>
+        
     </body>
