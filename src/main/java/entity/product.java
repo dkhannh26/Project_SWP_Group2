@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -33,6 +34,18 @@ public class product {
     
        public product() {
     }
+
+        public product( int quantity, int price, int categoryID, int promoID, String name, String description, String picURL) {
+        this.quantity = quantity;
+        this.price = price;
+        this.categoryID = categoryID;
+        this.promoID = promoID;
+        this.name = name;
+        this.description = description;
+        this.picURL = picURL;
+    }
+  
+
 
     public int getId() {
         return id;

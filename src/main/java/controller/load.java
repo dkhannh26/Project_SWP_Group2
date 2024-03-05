@@ -95,6 +95,10 @@ public class load extends HttpServlet {
                 request.getRequestDispatcher("cart.jsp").forward(request, response);
                 break;
             case LOAD_PAYMENT:
+                String name = request.getParameter("name");
+                float price = Float.parseFloat(request.getParameter("price"));
+                int quantity = Integer.parseInt(request.getParameter("quantity"));
+                System.out.println(name + " " + price + " " + quantity);
                 request.getRequestDispatcher("payment.jsp").forward(request, response);
                 break;
         }

@@ -1,47 +1,60 @@
 <%-- 
-    Document   : product.jsp
-    Created on : Feb 27, 2024, 6:21:56 PM
-    Author     : LENOVO
+    Document   : policy
+    Created on : Feb 28, 2024, 10:27:13 PM
+    Author     : thinh
 --%>
 
-<%@page import="java.text.NumberFormat"%>
-<%@page import="java.text.DecimalFormat"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
+<!DOCTYPE html>
 <html lang="en">
 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./boostrap/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- bootstrap icon -->
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-              integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-        <!-- bootstrap -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        <!-- bootstrap icon -->
-        <link rel="stylesheet" href="/css/style copy.css">
-        <!-- <link rel="stylesheet" href="grid.css"> -->
+        <title>Policy</title>
+
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-        <link rel="icon" href="/images/LG.png" type="image/x-icon">
+        <link rel = "icon" href =  "/images/LG.png" type = "image/x-icon"> 
 
-        <title>DOTAI</title>
         <style>
+            .mid{
+                font-family: "Quicksand", sans-serif;
+                font-size: 15px;
+                margin: 5% 10%;
+                color: #808080;
+            }
+
+            #highlight{
+                color: #a0816c;
+            }
+
+            .page{
+                border: rgb(199, 198, 198) solid 1px;
+                padding: 10px;
+            }
+            .page a{
+                text-decoration: none;
+                font-weight: 600;
+                color: rgb(70, 70, 70);
+            }
+            .page a:hover{
+                color: #aa9383;
+                position: 0.2s;
+            }
             * {
                 margin: 0;
                 padding: 0;
                 font-family: 'Quicksand', sans-serif;
                 box-sizing: border-box;
                 color: rgb(151, 143, 137);
-
             }
-
             img {
                 width: 100%;
             }
-
             :root {
                 --logo-color: #a0816c;
                 --nav-list-color: #a0816c;
@@ -53,11 +66,9 @@
             body::-webkit-scrollbar {
                 width: 0.5em;
             }
-
             body::-webkit-scrollbar-track {
                 box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
             }
-
             body::-webkit-scrollbar-thumb {
                 border-radius: 50px;
                 background-color: var(--bg-color);
@@ -133,7 +144,7 @@
 
             .dropdown-icon {
                 margin-left: 2px;
-                font-size: 0.7500em;
+                font-size: 	0.7500em;
             }
 
             .dropdownMenu {
@@ -187,42 +198,6 @@
                 font-size: 26px;
             }
 
-            .searchBox {
-                width: 420px;
-                position: absolute;
-                top: 100px;
-                right: 13%;
-                left: auto;
-                z-index: 990;
-                background-color: #fff;
-                box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-                display: none;
-            }
-            .search-input {
-                position: relative;
-            }
-            .search-input input {
-                width: 100%;
-                border: 1px solid #e7e7e7;
-                background-color: #f6f6f6;
-                height: 44px;
-                padding: 8px 50px 8px 20px;
-                font-size: 1em;
-            }
-            .search-input button {
-                position: absolute;
-                right: 1px;
-                top: 1px;
-                height: 97%;
-                width: 15%;
-                border: none;
-                background-color: #f6f6f6;
-            }
-            .search-input input:focus {
-                outline: none;
-                border-color: var(--bg-color);
-            }
-
             .infoBox {
                 width: auto;
                 min-width: 260px;
@@ -235,50 +210,40 @@
                 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
                 display: none;
             }
-
-            .infoBox-content,
-            .cartBox-content,
-            .searchBox-content {
+            .infoBox-content, .cartBox-content {
                 width: 100%;
                 height: 100%;
                 max-height: 100%;
                 overflow: hidden;
                 padding: 9px 20px 20px;
             }
-
             .headerToolIcon h2 {
-                font-size: 1.3em;
+                font-size: 15px;
                 text-align: center;
                 padding-bottom: 9px;
                 color: var(--text-color);
                 border-bottom: 1px solid #e7e7e7;
             }
-
             .infoBox-content ul {
                 padding: 0;
                 margin: 0;
             }
-
             .infoBox-content ul li {
                 list-style-type: none;
             }
-
             .infoBox-content ul li:first-child {
                 color: black;
                 padding-left: 7px;
             }
-
             .infoBox-list li a {
                 text-decoration: none;
                 font-size: 14px;
                 color: black;
                 padding: 0;
             }
-
             .infoBox-list li a:hover {
                 color: var(--text-color);
             }
-
             .bi-dot {
                 color: black;
             }
@@ -294,31 +259,22 @@
                 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
                 display: none;
             }
-
             .noneProduct {
                 padding: 0 0 10px;
             }
-
             .shopping-cart-icon {
                 margin: 0 auto 7px;
                 display: block;
                 width: 15%;
                 height: 15%;
             }
-
-            .product {
-                margin-top: 50px;
-            }
-
             .cartIcon {
                 justify-content: center;
                 display: flex;
             }
-
             .cartIcon i {
                 font-size: 2.5em;
             }
-
             .noneProduct p {
                 text-align: center;
                 font-size: 14px;
@@ -329,27 +285,22 @@
                 margin-bottom: 8px;
                 display: none;
             }
-
             .bi-x-lg {
                 cursor: pointer;
             }
-
             .miniCartImg {
                 padding-left: 0;
             }
-
             .miniCartDetail {
                 padding-right: 0;
                 position: relative;
             }
-
             .miniCartDetail p {
                 font-size: 0.8em;
                 color: black;
                 font-weight: bold;
                 padding-right: 20px;
             }
-
             .miniCartDetail p span {
                 display: block;
                 text-align: left;
@@ -357,8 +308,7 @@
                 font-weight: normal;
                 font-size: 12px;
             }
-
-            .miniCart-quan span {
+            .miniCart-quan span{
                 float: left;
                 width: auto;
                 color: black;
@@ -370,13 +320,11 @@
                 font-size: 13px;
                 background: #f7f7f7;
             }
-
             .miniCart-price span {
                 color: #677279;
                 float: left;
                 font-weight: 500;
             }
-
             .miniCartDetail .deleteBtn {
                 position: absolute;
                 top: 0;
@@ -386,7 +334,6 @@
                 width: 19px;
                 height: 19px;
             }
-
             .miniCartDetail .deleteBtn * {
                 color: black;
             }
@@ -394,27 +341,20 @@
             .sumPrice {
                 border-top: 1px solid #e7e7e7;
             }
-
             .sumPrice table {
                 width: 100%;
             }
-
             .sumPrice td {
                 width: 50%;
             }
-
-            .sumPrice .tbTextLeft,
-            .tbTextRight {
+            .sumPrice .tbTextLeft, .tbTextRight {
                 padding: 10px 0;
             }
-
-            .sumPrice .tbTextRight,
-            span {
+            .sumPrice .tbTextRight, span {
                 text-align: right;
                 color: red;
                 font-weight: bold;
             }
-
             .miniCartButton {
                 width: 100%;
                 border-radius: 2px;
@@ -426,26 +366,21 @@
                 height: 30px;
                 font-weight: bold;
             }
-
             .cartButton td:first-child {
                 padding-right: 5px;
             }
-
             .cartButton td:last-child {
                 padding-left: 5px;
             }
-
             .cartButton .btnRight {
                 transition: 0.3s;
             }
-
             .cartButton .btnRight:hover {
                 background-color: white;
                 border: 1px solid var(--bg-color);
                 color: var(--text-color);
                 transition: 0.3s;
             }
-            /* end header */
 
             hr {
                 margin-top: 0;
@@ -517,20 +452,16 @@
                 justify-content: center;
                 line-height: 2;
             }
-
             .productDetail:hover .productButton {
                 display: flex;
             }
-
             .productDetail:hover {
                 transform: translateY(-50%);
             }
-
-            .productButton * {
+            .productButton *{
                 width: 50%;
             }
-
-            .productButton .right {
+            .productButton .right{
                 background: white;
                 position: relative;
                 color: white;
@@ -540,19 +471,16 @@
                 border: none;
                 font-weight: bold;
             }
-
             .addBtn {
                 border: none;
                 background-color: var(--bg-color);
                 border-radius: 4px;
             }
-
             .addBtn span {
                 color: white;
             }
-
             .productButton .right:hover {
-                color: #a0816c;
+                color:#a0816c;
             }
 
             .right span {
@@ -569,7 +497,6 @@
             .productButton .right:hover span {
                 width: 100%;
             }
-
             /* END main content */
 
             /* footer */
@@ -614,11 +541,9 @@
             #img-footer {
                 margin: 0 auto;
             }
-
             .phone {
                 position: relative;
             }
-
             .bi-telephone {
                 cursor: pointer;
                 font-size: 3em;
@@ -647,8 +572,7 @@
             .contact-link:hover {
                 background-color: var(--bg-color);
 
-                .bi-facebook::before,
-                .bi-instagram::before {
+                .bi-facebook::before, .bi-instagram::before{
                     color: white;
                 }
             }
@@ -660,23 +584,17 @@
                     font-size: 12px;
                     height: 18px;
                 }
-
                 .headerListItem:hover {
                     font-size: 13px;
                 }
-
                 .dropdown-icon {
                     height: 18px;
                 }
-
                 .productDetail h3 {
                     height: 50px;
                 }
-            }
-            @media (max-width: 1024px) {
-                .infoBox,
-                .searchBox, .cartBox {
-                    right: 0;
+                .infoBox {
+                    right:  0;
                 }
             }
         </style>
@@ -685,12 +603,12 @@
     <body>
         <!-- header -->
         <header class="header">
-            <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
+            <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND</strong></div>
             <div class="headerContent">
                 <div class="logo"><a href="/headerDemo.html">DOTAI</a></div>
                 <nav>
                     <ul class="headerList">
-                        <li class="headerListItem"><a href="/headerDemo.html">Home page ${id}</a></li>
+                        <li class="headerListItem"><a href="/headerDemo.html">Home page</a></li>
                         <li class="headerListItem">
                             <a href="">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
@@ -729,17 +647,11 @@
                     <div class="headerToolIcon">
                         <i class="bi bi-search icon" onclick="toggleBox('box1')"></i>
                         <div class="searchBox box" id="box1">
-                            <div class="searchBox-content">
-                                <h2>SEARCH</h2>
-                                <div class="search-input">
-                                    <input oninput="searchByName(this)" name="search" type="text" size="20" placeholder="Search for products...">
-                                    <button><i class="bi bi-search"></i></button>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                     <div class="headerToolIcon">
-                        <a href="http://localhost:8080/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
+                        <i class="bi bi-person icon" onclick="toggleBox('box2')"></i>
                         <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->
 
                         <!-- khi đã login thì khi nhấp vào icon -> box này hiện ra -->
@@ -795,8 +707,7 @@
                                             <td class="tbTextRight">0<span>VND</span></td>
                                         </tr>
                                         <tr class="cartButton">
-                                            <td><button class="miniCartButton" onclick="redirectCartPage()">View
-                                                    cart</button></td>
+                                            <td><button class="miniCartButton" onclick="redirectCartPage()">View cart</button></td>
                                             <td><button class="miniCartButton btnRight">Pay</button></td>
                                         </tr>
                                     </table>
@@ -811,131 +722,53 @@
         </header>
         <!-- end header -->
 
-        <!-- main -->
-        <main class="main">
-            <div class="mainHeading">
-                <h2 class="headingContent">
-                    <a href="">Dotai</a>
-                </h2>
-                <p>New products</p>
-            </div>
-            <div class="mainContent container ">
-                <a href="addProduct.jsp" target="target">add</a>
-                <div class="row" id="product">
-
-                    <c:forEach items="${requestScope.productList}" var="product">
-                        <div class="col-md-3 p-2">
-                            <div class="product">
-                                <div class="productImg">
-                                    <img src="${product.getPicURL()}" alt="img">
-                                </div>
-
-
-                                <c:set var="formattedPrice">
-                                    <fmt:formatNumber type="number" value="${product.getPrice()}" pattern="###,###" />
-                                </c:set>
-
-
-                                <div class="productDetail">
-                                    <h3>${product.getName()}</h3>
-                                    <p>
-                                        <span class="price">${formattedPrice} VND</span>
-                                        <span class="price-sale"></span>
-                                    </p>
-                                    <div class="productButton">
-                                        <button type="button" class="addBtn"><a href="productDetail?id=${product.getId()}">Add to cart</a></button>
-                                        <button type="button" class="right"><a href="loadPayment?name=${product.name} &price=${product.price} &quantity=1">Buy now</a></button>
-                                    </div>
-                                </div>
-                                <a href="updateJSPProduct?id=${product.getId()}">Update</a>
-                                <a href="#" onclick="doDelete('${product.getId()}')">Delete</a>
-                            </div>
-                        </div>
-
-                    </c:forEach>
-
-                    <div class="col-md-3 p-2">
-                        <div class="product">
-                            <div class="productImg">
-                                <img src="images/img1.jpg" alt="img">
-                            </div>
-                            <div class="productDetail">
-                                <h3>DOTAI - Áo thun wash Cafe Clementine 8122</h3>
-                                <p>
-                                    <span class="price">195,000 VND</span>
-                                    <span class="price-sale"></span>
-                                </p>
-                                <div class="productButton">
-                                    <button type="button" class="addBtn"><span>Add to cart</span></button>
-                                    <button type="button" class="right"><span></span>Buy now</button>
-                                </div>
-                            </div>
-                            <!-- <div class="productAction">
-                                    <div class="action-inner">
-                                        <button type="button" class="btn btn-outline-primary"><span>Add to cart</span></button>
-                                        <button type="button" class="btn btn-secondary right"><span>Buy now</span></button>
-                                    </div>
-                                </div> -->
-                        </div>
+        <div class="mid">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="content">
+                        <h2 id="highlight"><b>Exchange policy</b></h2>
                     </div>
-                    <div class="col-md-3 p-2">
-                        <div class="product">
-                            <div class="productImg">
-                                <img src="images/img2.jpg" alt="img">
-                            </div>
-                            <div class="productDetail">
-                                <h3>DOTAI - Áo thun viền cổ WILDHEART 8121</h3>
-                                <p>
-                                    <span class="price">190,000 VND</span>
-                                    <span class="price-sale"></span>
-                                </p>
-                                <div class="productButton">
-                                    <button type="button" class="addBtn"><span>Add</span></button>
-                                    <button type="button" class="right"><span></span>Buy now</button>
-                                </div>
-                            </div>
-                        </div>
+
+                    <div>
+                        <p>Exchange regulations:</p>
+                        <p> For orders purchased directly at the shop:</p>
+                        <ul>
+                            <li>Deadline for exchange is 2 days after purchase.</li>
+                            <li>Exchanged products must still have tags intact, unwashed, and unused.</li>
+                        </ul>
+                        <p>For online orders:</p>
+                        <ul>
+                            <li>The deadline for exchanging goods is 5 days from receipt (based on the time of successful
+                                delivery from the carrier).</li>
+                            <li>Exchanged products must still have tags intact, unwashed, and unused. </li>
+                            <li>Customers pay all shipping fees incurred.</li>
+                            <li>We do not accept returns or refunds for purchased products</li>
+                            <li>
+                                <p>Please send returned products to:</p>
+                                <ul>
+                                    <li>Dotai Home</li>
+                                    <li>100 Nguyen Van Cu, An Khanh Ward, Ninh Kieu District, City. Can Tho</li>
+                                    <li>Phone: 0123.456.789 - 0999.999.999</li>
+                                </ul>
+                            </li>
+                            <li>Please go to the website and order the product you want to exchange. The total value of the
+                                new order must be equal to or greater than the exchange order.</li>
+                            <li>When receiving the returned item, staff will contact and ship the exchange item to you.</li>
+                        </ul>
                     </div>
-                    <div class="col-md-3 p-2">
-                        <div class="product">
-                            <div class="productImg">
-                                <img src="images/img3.jpg" alt="img">
-                            </div>
-                            <div class="productDetail">
-                                <h3>DOTAI - Quần dài jeans wash 8116</h3>
-                                <p>
-                                    <span class="price">395,000 VND</span>
-                                    <span class="price-sale"></span>
-                                </p>
-                                <div class="productButton">
-                                    <button type="button" class="addBtn"><span>Add to cart</span></button>
-                                    <button type="button" class="right"><span></span>Buy now</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 p-2">
-                        <div class="product">
-                            <div class="productImg">
-                                <img src="images/img4.jpg" alt="img">
-                            </div>
-                            <div class="productDetail">
-                                <h3>DOTAI - Áo thun tay ngắn Confitería 8115</h3>
-                                <p>
-                                    <span class="price">195,000 VND</span>
-                                    <span class="price-sale"></span>
-                                </p>
-                                <div class="productButton">
-                                    <button type="button" class="addBtn"><span>Add to cart</span></button>
-                                    <button type="button" class="right"><span></span>Buy now</button>
-                                </div>
-                            </div>
-                        </div>
+
+                </div>
+                <div class="col-md-3">
+                    <div class="page">
+                        <h5 id="highlight"><b>Page category</b></h5>
+                        <hr>
+                        <h6><a href="">Introduce</a></h6>
+                        <hr>
+                        <h6><a href="">Contact</a></h6>
                     </div>
                 </div>
             </div>
-        </main>
-        <!-- end main -->
+        </div>
 
         <!-- footer -->
         <footer>
@@ -945,18 +778,12 @@
             </div>
 
             <div class="row" id="img-footer">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_1_img.jpg?v=55"
-                     alt="">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_2_img.jpg?v=55"
-                     alt="">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_3_img.jpg?v=55"
-                     alt="">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_4_img.jpg?v=55"
-                     alt="">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_5_img.jpg?v=55"
-                     alt="">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_6_img.jpg?v=55"
-                     alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_1_img.jpg?v=55" alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_2_img.jpg?v=55" alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_3_img.jpg?v=55" alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_4_img.jpg?v=55" alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_5_img.jpg?v=55" alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_6_img.jpg?v=55" alt="">
             </div>
 
             <div class="items-footer">
@@ -964,8 +791,7 @@
                     <div class="col-sm-3">
                         <h4 id="highlight">About Dotai</h4>
                         <p>Vintage and basic wardrobe for boys and girls.Vintage and basic wardrobe for boys and girls.</p>
-                        <img src="//theme.hstatic.net/1000296747/1000891809/14/footer_logobct_img.png?v=55" alt="..."
-                             class="bct">
+                        <img src="//theme.hstatic.net/1000296747/1000891809/14/footer_logobct_img.png?v=55" alt="..." class="bct">
                     </div>
                     <div class="col-sm-3">
                         <h4 id="highlight">Contact</h4>
@@ -984,7 +810,7 @@
                         <h4 id="highlight">Customer care</h4>
                         <div class="row phone">
                             <div class="col-sm-3"><i class="bi bi-telephone icon"></i></div>
-                            <div class="col-9">
+                            <div class="col-9"> 
                                 <h4 id="highlight">0123.456.789</h4>
                                 <a href="">info@dotai.vn</a>
                             </div>
@@ -1002,37 +828,7 @@
         </footer>
         <!-- end footer -->
 
-
-        <script src="./js/header.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script type="text/javascript">
-                                    function doDelete(id) {
-                                        if (confirm("Do you want to delete this product (" + id + ")?")) {
-                                            window.location = "deleteProduct?id=" + id;
-                                        }
-                                    }
-
-
-                                    function searchByName(name) {
-                                        var search = name.value
-
-                                        $.ajax({
-                                            url: "/Project_SWP_Group2/searchProductByAJAX",
-                                            type: "get",
-                                            data: {
-                                                txt: search
-                                            },
-                                            success: function (data) {
-                                                var row = document.getElementById("product");
-                                                row.innerHTML = data;
-                                            },
-                                            error: function (xhr) {
-
-                                            }
-                                        })
-                                    }
-        </script>
+        <script src="/js/index.js"></script>
     </body>
 
 </html>
->>>>>>> main

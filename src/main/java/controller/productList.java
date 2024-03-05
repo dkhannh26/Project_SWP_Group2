@@ -14,17 +14,19 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import DAO.DAOproduct;
 import DAO.DAOpromo;
-import entity.product;
 import entity.promo;
 import java.util.HashMap;
 import java.util.Map;
 import static url.productURL.URL_PRODUCT_DETAIL;
+import entity.product;
+import static url.productURL.URL_PRODUCT_BUY;
 import static url.productURL.URL_PRODUCT_LIST;
 
 /**
  *
  * @author LENOVO
  */
+
 @WebServlet(name = "productList", urlPatterns = {URL_PRODUCT_LIST, URL_PRODUCT_DETAIL})
 public class productList extends HttpServlet {
 
@@ -55,17 +57,13 @@ public class productList extends HttpServlet {
     }
     DAOproduct DAOproduct = new DAOproduct();
     DAOpromo promo = new DAOpromo();
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String urlPath = request.getServletPath();
-
         switch (urlPath) {
-            case URL_PRODUCT_LIST:
-
+            case URL_PRODUCT_LIST:                
                 List<product> productList = DAOproduct.getAll();
-
                 request.setAttribute("productList", productList);
                 request.getRequestDispatcher("product.jsp").forward(request, response);
                 break;
@@ -82,7 +80,6 @@ public class productList extends HttpServlet {
                 request.setAttribute("p", p);
                 request.getRequestDispatcher("productDetail.jsp").forward(request, response);
         }
-
     }
 
     /**
