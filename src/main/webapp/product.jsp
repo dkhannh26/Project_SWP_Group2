@@ -67,6 +67,11 @@
                 justify-content: center;
                 display: flex;
             }
+            
+             #filter {
+                width: 7%;
+            }
+
 
             .header_title {
                 display: flex;
@@ -817,6 +822,18 @@
                 </h2>
                 <p>New products</p>
             </div>
+            
+            <form action="sortProduct" method="get">
+               
+                <div style="display: flex; margin: 100px 0 20px 0;">
+                    <select name="sortID" id="filter" class="form-control ml-5 mb-2">
+                        <option value="Increase">Increase</option>
+                        <option value="Decrease">Decrease</option>
+                    </select>
+                    <button type="submit" class="filter"> Submit</button>
+                </div>
+            </form>
+            
             <div class="mainContent container ">
                 <a href="addProduct.jsp" target="target">add</a>
                 <div class="row" id="product">
@@ -826,6 +843,8 @@
                             <div class="product">
                                 <div class="productImg">
                                     <img src="${product.getPicURL()}" alt="img">
+                                    <!--<img src="./images/img1.jpg" alt="img">-->
+                                    
                                 </div>
 
 

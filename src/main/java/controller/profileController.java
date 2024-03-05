@@ -68,8 +68,12 @@ public class profileController extends HttpServlet {
         }
         
        
-        
+        request.setAttribute("input", input);
         customer c = daoCustomer.getCustomerByEmailOrUsername(input);
+//        if (c == null) {
+//              request.getRequestDispatcher("index.jsp").forward(request, response);
+//        }
+        
         request.setAttribute("fullName", c.getFullName());
         request.setAttribute("email", c.getEmail());
         request.setAttribute("address", c.getAddress());
