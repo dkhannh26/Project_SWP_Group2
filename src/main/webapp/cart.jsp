@@ -104,20 +104,18 @@
             <h2 id="highlight">Your Cart</h2>
         </div>
         <c:forEach items="${requestScope.cartList}" var="cart">
-
-
             <div class="row">
                 <div class="col-md-8">
                     <div class="status">
-                        <p>You currently have <b>2 products</b> in your cart</p>
+                        <p>You currently have <b>${quanP} products</b> in your cart</p>
                     </div>
                     <div class="product">
                         <div class="row">
                             <div class="col-2">
-                                <img src="https://product.hstatic.net/1000296747/product/d3a5a3cf2dd77268fb54481ebcce161d_e9c60a724acb45b4978c53249ba5dbb6_medium.jpeg" alt="">
+                                <img src="${picUrlMap[cart.productID]}" alt="">
                             </div>
                             <div class="col-8">
-                                <b id="highlight">DOTAI - Striped wool cardigan</b>
+                                <b id="highlight">${nameProduct[cart.productID]}</b>
                                 <p>S</p>
                                 <div class="quan">
                                     <input type="number" name="quantity" value="${cart.quantity}">
@@ -134,7 +132,6 @@
                                 <input type="hidden" name="price" class="price" value="${cart.price}">
                                 <input type="hidden" name="quantity" class="quantity" value="${cart.quantity}">
                             </div>
-
                         </div>
                         <div class="row">
                             <div class="col-10"><b>Into money:</b></div>
@@ -156,7 +153,9 @@
                         <li>Shipping fees will be calculated at the checkout page.</li>
                         <li>You can also enter a discount code at the checkout page.</li>
                     </ul>
-                    <button class="payment">PAYMENT</button>
+                    <form action="payment" method="get">
+                        <button class="payment">PAYMENT</button>
+                    </form>
                 </div>
                 <div class="policy">
                     <b>Purchase policy:</b>
@@ -164,10 +163,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
         <script>
             function incrementQuantity(button) {
                 const input = button.parentElement.querySelector('input[type="number"]');
@@ -200,5 +195,4 @@
             }
         </script>
     </body>
-
 </html>

@@ -9,16 +9,22 @@ import DAO.DAOproduct;
 import entity.product;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import static url.load.LOAD_CART;
+import static url.load.LOAD_PAYMENT;
 
 /**
  *
  * @author Administrator
  */
+@WebServlet(name = "load2", urlPatterns = {LOAD_CART, LOAD_PAYMENT})
 public class load extends HttpServlet {
 
     /**
@@ -38,10 +44,10 @@ public class load extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet load</title>");
+            out.println("<title>Servlet load2</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet load at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet load2 at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,23 +65,39 @@ public class load extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String urlPath = request.getServletPath();
         String username = "son";
+        int quanP = 0;
         DAOcart cart = new DAOcart();
-        DAOproduct product = new DAOproduct();
+        DAOproduct productDao = new DAOproduct();
+        List<product> productList = productDao.getAll();
         List<entity.cart> list3 = cart.getAll(username);
+        Map<Integer, String> picUrlMap = new HashMap<>();
+        for (product product : productList) {
+            picUrlMap.put(product.getId(), product.getPicURL());
+        }
+        Map<Integer, String> nameProduct = new HashMap<>();
+        for (product product : productList) {
+            nameProduct.put(product.getId(), product.getName());
+        }
         int sum = 0;
         for (int i = 0; i < list3.size(); i++) {
             sum = sum + list3.get(i).getPrice();
+            quanP++;
         }
-//        for (int i = 0; i < list3.size(); i++) {
-//            entity.cart cartItem = list3.get(i);
-//            int productId = cartItem.getProductID(); // Lấy ID của sản phẩm từ cart
-//            int quantity = product.getProductQuantity(productId); // Lấy số lượng sản phẩm từ database hoặc nơi khác
-//            cartItem.setProductID(productId); // Cập nhật số lượng sản phẩm trong cart
-//        }
+        request.setAttribute("nameProduct", nameProduct);
+        request.setAttribute("quanP", quanP);
+        request.setAttribute("picUrlMap", picUrlMap);
         request.setAttribute("sum", sum);
-        request.setAttribute("cartList", list3);
-        request.getRequestDispatcher("cart.jsp").forward(request, response);
+        request.setAttribute("cartList", list3);       
+        switch (urlPath) {
+            case LOAD_CART:
+                request.getRequestDispatcher("cart.jsp").forward(request, response);
+                break;
+            case LOAD_PAYMENT:
+                request.getRequestDispatcher("payment.jsp").forward(request, response);
+                break;
+        }
     }
 
     /**

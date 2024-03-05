@@ -104,13 +104,13 @@
                         </div>
                         <div class="row">
                             <div class="col-2">
-                                <div class="sale">${p.promoID}</div>
+                                <div class="sale">SALE: ${promoMap[p.promoID]}%</div>
                             </div>
                             <div class="col-2">
                                 <div class="oriprice">${p.price}</div>
                             </div>
                             <div class="col-2">
-                                <div class="price">190,000đ</div>
+                                <div class="price">${p.price - ((p.price * promoMap[p.promoID])/100)}</div>
                             </div>
                         </div>
                         <div class="row">
@@ -124,7 +124,7 @@
                             <div class="col-md-6">
                                 <div class="quan">
                                     <button id="decrementButton" type="button">-</button>
-                                    <input type="text" id="numberInput" value="0">
+                                    <input type="text" id="numberInput" value="1">
                                     <button id="incrementButton" type="button">+</button>
                                 </div>
                             </div>
@@ -138,8 +138,8 @@
                         <h6 id="highlight">PRODUCT INFORMATION</h6>
                         <img src="./size.jpg" alt="">
                         <input type="hidden" name="id" class="id" value="${p.id}">
-                        <input type="hidden" name="price" class="price" value="${p.price}">
-                        <input type="hidden" name="quantity" id="quantityInput" value="0">
+                        <input type="hidden" name="price" class="price" value="${p.price - ((p.price * promoMap[p.promoID])/100)}">
+                        <input type="hidden" name="quantity" id="quantityInput" value="1">
 
                     </div>
                 </div>
@@ -158,7 +158,7 @@
                 const check = document.getElementById('check');
                 decrementButton.addEventListener('click', function () {
                     let currentValue = parseInt(numberInput.value);
-                    if (currentValue > 0) {
+                    if (currentValue > 1) {
                         numberInput.value = currentValue - 1;
                         quantityInput.value = currentValue - 1;
                     }

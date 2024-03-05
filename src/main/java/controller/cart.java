@@ -6,7 +6,9 @@ package controller;
 
 import DAO.DAOcart;
 import DAO.DAOproduct;
+import DAO.DAOpromo;
 import entity.product;
+import entity.promo;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -20,12 +22,13 @@ import static url.cartURL.URL_CART_DELETE;
 import static url.cartURL.URL_CART_INCREASE;
 import static url.cartURL.URL_CART_INSERT;
 import static url.cartURL.URL_CART_LIST;
+import static url.cartURL.URL_PAYMENT;
 
 /**
  *
  * @author Administrator
  */
-@WebServlet(name = "cart", urlPatterns = {URL_CART_INSERT, URL_CART_LIST, URL_CART_INCREASE, URL_CART_DECREASE,URL_CART_DELETE})
+@WebServlet(name = "cart", urlPatterns = {URL_CART_INSERT, URL_CART_LIST, URL_CART_INCREASE, URL_CART_DECREASE, URL_CART_DELETE, URL_PAYMENT})
 public class cart extends HttpServlet {
 
     /**
@@ -66,24 +69,35 @@ public class cart extends HttpServlet {
     DAOproduct product = new DAOproduct();
     DAOcart cart = new DAOcart();
     String username = "son";
+    DAOpromo promo = new DAOpromo();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int id = 0;
+        float price = 0;
+        int quantity = 0;
         String urlPath = request.getServletPath();
         String ms = "<script>\n"
                 + "        alert(\"Sold out!\")\n"
                 + "    </script>";
-        int id = Integer.parseInt(request.getParameter("id"));
-        int price = Integer.parseInt(request.getParameter("price"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        String idParam = request.getParameter("id");
+        String priceParam = request.getParameter("price");
+        String quantityParam = request.getParameter("quantity");
+        if (idParam != null) {
+            id = Integer.parseInt(idParam);
+        }
+        if (priceParam != null) {
+            price = Float.parseFloat(priceParam);
+        }
+        if (quantityParam != null) {
+            quantity = Integer.parseInt(quantityParam);
+        }
         int totalQ = quantity;
-        System.out.println(id);
-        System.out.println(price);
-        System.out.println(quantity);
         List<product> list = product.getAll();
+        List<promo> promoList = promo.getAll();
         List<entity.cart> list2 = cart.getAll(username);
-        int price2 = 0;
+        float price2 = 0;
         switch (urlPath) {
             case URL_CART_INSERT:
                 int temp = 0;
@@ -98,7 +112,7 @@ public class cart extends HttpServlet {
                     if (id == (list.get(i).getId())) {
                         int pro_id = list.get(i).getId();
                         product p = product.getProductById(pro_id);
-                        price2 = quantity * list.get(i).getPrice();
+                        price2 = quantity * price;
                     }
                 }
                 for (int i = 0; i < list2.size(); i++) {
@@ -106,7 +120,7 @@ public class cart extends HttpServlet {
                         quantity = list2.get(i).getQuantity() + quantity;
                         for (int j = 0; j < list.size(); j++) {
                             if (id == (list.get(j).getId()) && quantity <= (list.get(j).getQuantity())) {
-                                price2 = quantity * list.get(j).getPrice();
+                                price2 = quantity * price;
                                 cart.updateCart(username, id, quantity, price2);
                                 temp++;
                             }
@@ -124,14 +138,14 @@ public class cart extends HttpServlet {
                 if (temp == 0) {
                     cart.insertCart(quantity, price2, username, id);
                 }
-                response.sendRedirect("load");
+                response.sendRedirect("loadCart");
                 break;
             case URL_CART_INCREASE:
                 for (int i = 0; i < list2.size(); i++) {
                     if (id == (list2.get(i).getProductID()) && username.equals(list2.get(i).getUsername())) {
                         for (int j = 0; j < list.size(); j++) {
                             if (id == (list.get(j).getId()) && quantity <= (list.get(j).getQuantity())) {
-                                price2 = quantity * list.get(j).getPrice();
+                                price2 = quantity * (list.get(j).getPrice() - ((list.get(j).getPrice() * promoList.get(list.get(j).getPromoID() - 1).getPromoPercent()) / 100));
                                 cart.updateCart(username, id, quantity, price2);
                             }
                             if (quantity > (list.get(j).getQuantity()) && id == (list.get(j).getId())) {
@@ -144,14 +158,14 @@ public class cart extends HttpServlet {
 
                     }
                 }
-                response.sendRedirect("load");
+                response.sendRedirect("loadCart");
                 break;
             case URL_CART_DECREASE:
                 for (int i = 0; i < list2.size(); i++) {
                     if (id == (list2.get(i).getProductID()) && username.equals(list2.get(i).getUsername())) {
                         for (int j = 0; j < list.size(); j++) {
                             if (id == (list.get(j).getId()) && quantity <= (list.get(j).getQuantity())) {
-                                price2 = quantity * list.get(j).getPrice();
+                                price2 = quantity * (list.get(j).getPrice() - ((list.get(j).getPrice() * promoList.get(list.get(j).getPromoID() - 1).getPromoPercent()) / 100));
                                 cart.updateCart(username, id, quantity, price2);
                             }
                             if (quantity > (list.get(j).getQuantity()) && id == (list.get(j).getId())) {
@@ -164,12 +178,14 @@ public class cart extends HttpServlet {
 
                     }
                 }
-                response.sendRedirect("load");
+                response.sendRedirect("loadCart");
                 break;
             case URL_CART_DELETE:
-                System.out.println("dsakjlfhadsojfnsdojk");
-                cart.deleteCart(id);
-                response.sendRedirect("load");
+                cart.deleteCart(id, username);
+                response.sendRedirect("loadCart");
+                break;
+            case URL_PAYMENT:
+                response.sendRedirect("loadPayment");
                 break;
         }
     }
