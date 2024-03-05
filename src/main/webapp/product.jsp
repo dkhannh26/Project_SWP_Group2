@@ -829,6 +829,7 @@
                     <select name="sortID" id="filter" class="form-control ml-5 mb-2">
                         <option value="Increase">Increase</option>
                         <option value="Decrease">Decrease</option>
+                        <option value="BestSeller">Best Seller</option>
                     </select>
                     <button type="submit" class="filter"> Submit</button>
                 </div>

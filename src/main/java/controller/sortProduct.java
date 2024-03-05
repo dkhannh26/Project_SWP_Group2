@@ -65,6 +65,10 @@ public class sortProduct extends HttpServlet {
             List<product> productList = dao.sortDecrease();
             request.setAttribute("productList", productList);
             request.getRequestDispatcher("product.jsp").forward(request, response);
+        } else if (sortId.equals("BestSeller")){
+            List<product> productList = dao.sortBestSeller();
+            request.setAttribute("productList", productList);
+            request.getRequestDispatcher("product.jsp").forward(request, response);
         }
         
         
