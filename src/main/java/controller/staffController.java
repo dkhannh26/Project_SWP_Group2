@@ -46,7 +46,7 @@ public class staffController extends HttpServlet {
         boolean isSuccess = daoStaff.checkLogin(input, password);
         if (isSuccess) {
             if (input.equals("admin")) {
-                request.getRequestDispatcher("/admin.jsp").forward(request, response);
+                response.sendRedirect("/Project_SWP_Group2/statistic?date=none");
             } else {
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
 

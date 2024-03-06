@@ -23,7 +23,8 @@
         <!-- bootstrap icon -->
         <!-- <link rel="stylesheet" href="grid.css"> -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-        <link rel="icon" href="/images/LG.png" type="image/x-icon">
+                <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+
 
         <title>DOTAI</title>
         <style>
@@ -687,6 +688,7 @@
     </head>
 
     <body>
+
 <!--         header 
 -->        <header class="header">
             <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
@@ -893,6 +895,7 @@
                                         })
                                     }
         </script>
+
     </body>
 
 </html>

@@ -161,10 +161,10 @@ public class DAOproduct extends DBconnect.DBconnect {
         return list;
     }
 
+
     public List<product> getFemaleProduct() {
         DAOcategory DAOcategory = new DAOcategory();
         String listId = DAOcategory.getIdGender("female");
-
         List<product> list = new ArrayList<>();
         String sql = "select * from product where category_id in " + listId;
         try {
@@ -180,6 +180,231 @@ public class DAOproduct extends DBconnect.DBconnect {
         }
         return list;
     }
+
+        public List<product> sortIncrease() {
+        List<product> list = new ArrayList<>();
+        String sql = "SELECT * FROM product\n"
+                + "ORDER BY price";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                product p = new product(rs.getInt("product_id"), rs.getInt("quantity"), rs.getInt("price"), rs.getInt("category_id"), rs.getInt("promo_id"), rs.getString("name"),
+                        rs.getString("description"), rs.getString("pic_url"));
+                list.add(p);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<product> sortDecrease() {
+        List<product> list = new ArrayList<>();
+        String sql = "SELECT * FROM product\n"
+                + "ORDER BY price DESC";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                product p = new product(rs.getInt("product_id"), rs.getInt("quantity"), rs.getInt("price"), rs.getInt("category_id"), rs.getInt("promo_id"), rs.getString("name"),
+                        rs.getString("description"), rs.getString("pic_url"));
+                list.add(p);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<product> sortBestSeller() {
+        List<product> list = new ArrayList<>();
+        String sql = "SELECT p.*\n"
+                + "FROM product p\n"
+                + "JOIN (\n"
+                + "    SELECT product_id, SUM(quantity) AS total_quantity\n"
+                + "    FROM order_detail\n"
+                + "    GROUP BY product_id\n"
+                + ") AS product_sales ON p.product_id = product_sales.product_id\n"
+                + "ORDER BY product_sales.total_quantity DESC;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                product p = new product(rs.getInt("product_id"), rs.getInt("quantity"), rs.getInt("price"), rs.getInt("category_id"), rs.getInt("promo_id"), rs.getString("name"),
+                        rs.getString("description"), rs.getString("pic_url"));
+                list.add(p);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<product> sortNew() {
+        List<product> list = new ArrayList<>();
+        String sql = "select * from product ORDER BY product_id DESC";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                product p = new product(rs.getInt("product_id"), rs.getInt("quantity"), rs.getInt("price"), rs.getInt("category_id"), rs.getInt("promo_id"), rs.getString("name"),
+                        rs.getString("description"), rs.getString("pic_url"));
+                list.add(p);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public int getNumberOfOrder() {
+        int number = 0;
+        String sql = "SELECT COUNT(*) AS total FROM orders";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                number = rs.getInt("total");
+
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return number;
+    }
+
+    public int getNumberOfOrderByDate(String from, String to) {
+        int number = 0;
+        String sql = "SELECT COUNT(*) AS total FROM orders\n"
+                + "WHERE date >= ? AND date <= ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, from);
+            st.setString(2, to);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                number = rs.getInt("total");
+
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return number;
+    }
+
+    public int getNumberOfProductByDate(String from, String to) {
+        int number = 0;
+        String sql = "SELECT sum(order_detail.quantity) as total\n"
+                + "FROM   order_detail INNER JOIN\n"
+                + "             orders ON order_detail.order_id = orders.order_id\n"
+                + "			 Where date >= ? AND date <= ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, from);
+            st.setString(2, to);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                number = rs.getInt("total");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return number;
+    }
+
+    public int getNumberOfProduct() {
+        int number = 0;
+        String sql = "select sum(quantity) as total from order_detail";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                number = rs.getInt("total");
+
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return number;
+    }
+
+    public int getRevenue() {
+        int number = 0;
+        String sql = "SELECT sum(order_detail.quantity * product.price) AS total\n"
+                + "FROM   order_detail INNER JOIN\n"
+                + "             product ON order_detail.product_id = product.product_id";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                number = rs.getInt("total");
+
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return number;
+    }
+
+    public int getRevenueByDate(String from, String to) {
+        int number = 0;
+        String sql = "SELECT sum(order_detail.quantity * product.price) AS total\n"
+                + "FROM   order_detail INNER JOIN\n"
+                + "             product ON order_detail.product_id = product.product_id INNER JOIN\n"
+                + "             orders ON order_detail.order_id = orders.order_id\n"
+                + "			  Where date >= ? AND date <= ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, from);
+            st.setString(2, to);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                number = rs.getInt("total");
+
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return number;
+    }
+
+    public int getNumberOfCustomer() {
+        int number = 0;
+        String sql = "select count(DISTINCT  usernameCustomer) as total from orders";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                number = rs.getInt("total");
+
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return number;
+    }
+
+    public int getNumberOfCustomerByDate(String from, String to) {
+        int number = 0;
+        String sql = "select count(DISTINCT  usernameCustomer) as total \n"
+                + "from orders\n"
+                + "Where date >= ? AND date <= ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, from);
+            st.setString(2, to);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                number = rs.getInt("total");
+
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return number;
+    }
+
 
     public List<product> getMaleProduct() {
         DAOcategory DAOcategory = new DAOcategory();
@@ -248,4 +473,5 @@ public class DAOproduct extends DBconnect.DBconnect {
 //        
 //        System.out.println(dao.getFemaleProductByType("dress"));
 //    }
+
 }

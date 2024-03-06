@@ -20,5 +20,7 @@ public class productURL {
        public static final String ADD_PRODUCT = "/addProduct";
        public static final String SEARCH_PRODUCT = "/searchProduct";
        public static final String SEARCH_PRODUCT_AJAX = "/searchProductByAJAX";
+       
+       public static final String SORT_PRODUCT_PRICE = "/sortProduct";
 }
 

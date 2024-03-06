@@ -15,7 +15,8 @@
         <link rel="stylesheet" href="./boostrap/bootstrap.min.css"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- bootstrap icon -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-        <link rel = "icon" href =  "./images/LG.png" type = "image/x-icon"> 
+                <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <style>
             * {
@@ -551,7 +552,7 @@
             }
             /* END main content */
 
-          /* footer */
+            /* footer */
             footer {
                 background-color: #f5f5f5;
             }
@@ -876,9 +877,9 @@
                         <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->     
                     </div>
                     <div class="headerToolIcon">
-                    <i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i>
-                   
-                </div>
+                        <i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i>
+
+                    </div>
                 </div>
             </div>
 
@@ -915,7 +916,7 @@
                         <h4>This site is protected by reCAPTCHA and the Google <a hreft="" class="highlight">Privacy
                                 Policy</a> and <a href="" class="highlight">Terms of Service</a> apply.</h4>
                     </div>
-                    <div class="g-recaptcha" data-sitekey="6LfI3ogpAAAAAMBd7AodmXb8rPC99EEouC6mgKGh"></div><br>
+                    <div class="g-recaptcha" data-sitekey="6LdZuIkpAAAAAJkyWF_aBPQcctXb-PqjyNorBG28"></div><br>
                     <div id="error">${message}</div>
                     <button class="login">Log In</button>
                     <div class="other-options">
@@ -986,6 +987,8 @@
         <!-- end footer -->
 
         <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script> <!-- lucide.dev icon -->
+        <script src="js/jquery-3.7.0.min.js"></script>
+        <script src="js/jquery.validate.min.js"></script>
         <script src="./js/login.js"></script>
 
     </body>

@@ -23,7 +23,8 @@
         <!-- bootstrap icon -->
         <!-- <link rel="stylesheet" href="grid.css"> -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-        <link rel="icon" href="/images/LG.png" type="image/x-icon">
+               <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+
 
         <title>DOTAI</title>
         <style>
@@ -66,6 +67,11 @@
                 justify-content: center;
                 display: flex;
             }
+
+            #filter {
+                width: 7%;
+            }
+
 
             .header_title {
                 display: flex;
@@ -742,9 +748,9 @@
                         <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->     
                     </div>
                     <div class="headerToolIcon">
-                    <i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i>
-                   
-                </div>
+                        <i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i>
+
+                    </div>
                 </div>
             </div>
 
@@ -760,6 +766,20 @@
                 </h2>
                 <p>New products</p>
             </div>
+
+            <form action="http://localhost:8080/Project_SWP_Group2/sortProduct" method="get">
+
+                <div style="display: flex; margin: 100px 0 20px 0;">
+                    <select name="sortID" id="filter" class="form-control ml-5 mb-2">
+                        <option value="Increase">Increase</option>
+                        <option value="Decrease">Decrease</option>
+                        <option value="BestSeller">Best Seller</option>
+                        <option value="New">New Arrival</option>
+                    </select>
+                    <button type="submit" class="filter"> Submit</button>
+                </div>
+            </form>
+
             <div class="mainContent container ">
 
                 <div class="row" id="product">
@@ -768,7 +788,9 @@
                         <div class="col-md-3 p-2">
                             <div class="product">
                                 <div class="productImg">
+
                                     <img src="${path}${product.getPicURL()}" alt="img">
+
                                 </div>
                                 <c:set var="formattedPrice">
                                     <fmt:formatNumber type="number" value="${product.getPrice()}" pattern="###,###" />
@@ -780,7 +802,8 @@
                                         <span class="price-sale"></span>
                                     </p>
                                     <div class="productButton">
-
+                                        <button type="button" class="addBtn"><span>Add to cart</span></button>
+                                        <button type="button" class="right"><span></span>Buy now</button>
                                     </div>
                                 </div>
 
@@ -859,34 +882,34 @@
         <!-- end footer -->
 
 
-        <script src="./js/header.js"></script>
+        <script src="/Project_SWP_Group2/js/header.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script type="text/javascript">
-                            function doDelete(id) {
-                                if (confirm("Do you want to delete this product (" + id + ")?")) {
-                                    window.location = "deleteProduct?id=" + id;
+                        function doDelete(id) {
+                            if (confirm("Do you want to delete this product (" + id + ")?")) {
+                                window.location = "deleteProduct?id=" + id;
+                            }
+                        }
+
+
+                        function searchByName(name) {
+                            var search = name.value
+
+                            $.ajax({
+                                url: "/Project_SWP_Group2/searchProductByAJAX",
+                                type: "get",
+                                data: {
+                                    txt: search
+                                },
+                                success: function (data) {
+                                    var row = document.getElementById("product");
+                                    row.innerHTML = data;
+                                },
+                                error: function (xhr) {
+
                                 }
-                            }
-
-
-                            function searchByName(name) {
-                                var search = name.value
-
-                                $.ajax({
-                                    url: "/Project_SWP_Group2/searchProductByAJAX",
-                                    type: "get",
-                                    data: {
-                                        txt: search
-                                    },
-                                    success: function (data) {
-                                        var row = document.getElementById("product");
-                                        row.innerHTML = data;
-                                    },
-                                    error: function (xhr) {
-
-                                    }
-                                })
-                            }
+                            })
+                        }
         </script>
     </body>
 

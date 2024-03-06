@@ -150,7 +150,9 @@ public class profileController extends HttpServlet {
             }
         }
         
+
 //        deleteCookie(request, response);
+
         
         if (!input.equals("")) {
             customer c = daoCustomer.getCustomerByEmailOrUsername(input);

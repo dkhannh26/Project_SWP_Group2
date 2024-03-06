@@ -1,10 +1,3 @@
-<%-- 
-    Document   : admin
-    Created on : Mar 6, 2024, 5:22:09 PM
-    Author     : thinh
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +11,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <!-- bootstrap icon -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-                <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+        <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
 
         <script src="https://kit.fontawesome.com/1bd876819f.js" crossorigin="anonymous"></script>
         <style>
@@ -221,7 +214,7 @@
                 <div class="logo">DOTAI</div>
                 <div class="admin-info">
                     <div class="admin-name"><i class="bi bi-person-fill"></i>: Admin</div>
-                    <div class="signout"><i class="bi bi-box-arrow-right"></i> Sign out</div>
+                    <div class="signout"><a><a href="cookieHandle"><i class="bi bi-box-arrow-right"></i> Sign out</a></div>
                 </div>
             </div>
         </header>
@@ -231,6 +224,9 @@
                 <ul class="nav-list">
                     <li class="nav-link" data-target="statistic">
                         <a href="#"><i class="fa-solid fa-chart-line"></i> <span>Dashboard</span> </a>
+                    </li>
+                    <li class="nav-link" data-target="order-manage">
+                        <a href="#" ><i class="bi bi-cart-fill"></i> <span>Order management</span> </a>
                     </li>
                     <li class="nav-link" data-target="product-manage">
                         <a href="#" ><i class="bi bi-box"></i> <span>Product Management</span> </a>
@@ -270,19 +266,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">
-                                        <img src="/images/img1.jpg" alt="">
-                                    </th>
-                                    <td>NOOBITA - Quần dài jeans ống rộng 8124</td>
-                                    <td>12345</td>
-                                    <td>1.000.000</td>
-                                    <td>10</td>
-                                    <td class="td-button">
-                                        <button type="button" class="btn btn-primary">Update</button>
-                                        <button type="button" class="btn btn-danger">Delete</button>
-                                    </td>
-                                </tr>
+                                <!--                            <tr>
+                                                                <th scope="row">
+                                                                    <img src="/images/img1.jpg" alt="">
+                                                                </th>
+                                                                <td>NOOBITA - Qu?n d�i jeans ?ng r?ng 8124</td>
+                                                                <td>12345</td>
+                                                                <td>1.000.000</td>
+                                                                <td>10</td>
+                                                                <td class="td-button">
+                                                                    <button type="button" class="btn btn-primary">Update</button>
+                                                                    <button type="button" class="btn btn-danger">Delete</button>
+                                                                </td>
+                                                            </tr>-->
 
                             </tbody>
                         </table>
@@ -298,7 +294,7 @@
                                 <h2>Products</h2>
                                 <span><i class="bi bi-box"></i></span>
                             </div>
-                            <h1>5.000</h1>
+                            <h1>${numberOfProduct}</h1>
                         </div>
 
                         <div class="card">
@@ -306,7 +302,7 @@
                                 <h2>Orders</h2>
                                 <span><i class="bi bi-cart-fill"></i></span>
                             </div>
-                            <h1>100</h1>
+                            <h1>${numberOfOrder}</h1>
                         </div>
 
                         <div class="card">
@@ -314,7 +310,7 @@
                                 <h2>Revenue</h2>
                                 <span><i class="bi bi-currency-dollar"></i></span>
                             </div>
-                            <h1>10.000</h1>
+                            <h1>${revenue}</h1>
                         </div>
 
                         <div class="card">
@@ -322,11 +318,23 @@
                                 <h2>Customers</h2>
                                 <span><i class="bi bi-people"></i></span>
                             </div>
-                            <h1>50</h1>
+                            <h1>${numberOfCustomer}</h1>
                         </div>
                     </div>
                     <div>
-                        <input type="date">
+                        <form action="statistic" method="get">
+                            <input type="date" name="from"> - <input type="date" name="to">
+                            <button name="date" value="date">Submit</button>
+                            <h1>${dateFrom}   =>    ${dateTo} </h1>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="order-manage">
+                    <h3>Order Management</h3>
+                    <hr>
+                    <div class="order-main">
+
                     </div>
                 </div>
 
@@ -412,5 +420,4 @@
     </body>
 
 </html>
-
 
