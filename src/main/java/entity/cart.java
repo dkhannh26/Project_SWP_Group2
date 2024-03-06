@@ -14,14 +14,18 @@ public class cart {
     int product_id;
     int quantity;
     int price;
+    String size_name;
 
-    public cart(int cart_id, String username, int product_id, int quantity, int price) {
+    public cart(int cart_id, String username, int product_id, int quantity, int price, String size_name) {
         this.cart_id = cart_id;
         this.username = username;
         this.product_id = product_id;
         this.quantity = quantity;
         this.price = price;
+        this.size_name = size_name;
     }
+
+    
 
     public int getCartID() {
         return cart_id;
@@ -63,9 +67,18 @@ public class cart {
         this.price = price;
     }
 
+    public String getSize_name() {
+        return size_name;
+    }
+
+    public void setSize_name(String size_name) {
+        this.size_name = size_name;
+    }
+
     @Override
     public String toString() {
-        return "cart{" + "cart_id=" + cart_id + ", username=" + username + ", product_id=" + product_id + ", quantity=" + quantity + ", price=" + price + '}';
+        return "cart{" + "cart_id=" + cart_id + ", username=" + username + ", product_id=" + product_id + ", quantity=" + quantity + ", price=" + price + ", size_name=" + size_name + '}';
     }
+
     
 }

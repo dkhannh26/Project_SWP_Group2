@@ -116,7 +116,12 @@
                         <div class="row">
                             <div class="col-3">Size:</div>
                             <div class="col-9">
-                                S M L
+                                <input type="radio" id="sizeS" name="size" value="S">
+                                <label for="sizeS">S</label>
+                                <input type="radio" id="sizeM" name="size" value="M">
+                                <label for="sizeM">M</label>
+                                <input type="radio" id="sizeL" name="size" value="L">
+                                <label for="sizeL">L</label>
                             </div>
                         </div>
                         <hr>
@@ -171,17 +176,17 @@
 
                 });
                 check.addEventListener('click', function () {
-                    if(quantityInput.value > ${p.quantity}){
+                    if (quantityInput.value > ${p.quantity}) {
                         alert("sold out");
-                     window.location = "productDetail?id=${p.id}";
-                    }else{
+                        window.location = "productDetail?id=${p.id}";
+                    } else {
                         document.getElementById("check").removeAttribute("type");
                     }
-                        
+
 
                 });
-            });
 
+            });
         </script>
     </body>
 

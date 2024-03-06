@@ -6,7 +6,11 @@ package controller;
 
 import DAO.DAOcart;
 import DAO.DAOorder;
+import DAO.DAOproduct;
+import DAO.DAOsize;
 import entity.orders;
+import entity.product;
+import entity.size;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -64,6 +68,11 @@ public class order extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String size = request.getParameter("size");
+        int totalQ = 0;
+        int temp = 0;
+        int quanS =0;
+        int quantityP = 0;
         String username = "son";
         String urlPath = request.getServletPath();
         long currentTimeMillis = System.currentTimeMillis();
@@ -72,19 +81,82 @@ public class order extends HttpServlet {
         String status = "wait";
         String phoneNumber = request.getParameter("phoneNumber");
         String usernameStaff = request.getParameter("usernameStaff");
+        String id = request.getParameter("id");
         DAOcart daoCart = new DAOcart();
         List<entity.cart> list2 = daoCart.getAll(username);
         DAOorder daoOrder = new DAOorder();
-        List<orders> list = daoOrder.getAll();
+        DAOproduct daoProduct = new DAOproduct();
+        List<product> list3 = daoProduct.getAll();
+        DAOsize daoSize = new DAOsize();
+        List<size> list4 = daoSize.getAll();
+        System.out.println(size);
         switch (urlPath) {
             case INSERT_ORDERS:
                 daoOrder.insertOrder(address, currentDate, status, phoneNumber, username, usernameStaff);
                 int orderID = daoOrder.getOrderId();
-                for (int i = 0; i < list2.size(); i++) {                   
-                    daoOrder.insertOrderDetail(list2.get(i).getQuantity(),list2.get(i).getProductID(), orderID);                   
+                System.out.println(id);
+                if (id != null) {
+                    int id2 = Integer.parseInt(id);
+                    for (int i = 0; i < list3.size(); i++) {
+                        if (list3.get(i).getId() == id2) {
+                            if (list3.get(i).getQuantity() > 0) {
+                                quantityP = list3.get(i).getQuantity() - 1;
+                                daoOrder.insertOrderDetail(1, id2, orderID);
+                                daoProduct.updateQuan(quantityP, list3.get(i).getId());
+                                response.sendRedirect("productList");
+                            }
+                            if (list3.get(i).getQuantity() <= 0) {
+                                String nameP = list3.get(i).getName();
+                                String quanP = String.valueOf(list3.get(i).getQuantity());
+                                String ms = "<script>\n"
+                                        + "        alert(\"Sold out! " + nameP + "Only have " + quanP + "left\")\n"
+                                        + "    </script>";
+                                request.setAttribute("ms", ms);
+                                request.setAttribute("productList", list3);
+                                request.getRequestDispatcher("product.jsp").forward(request, response);
+                            }
+                        }
+                    }
                 }
-                daoCart.deleteAllCart(username);
-                response.sendRedirect("productList");
+                if (id == null) {
+                    for (int i = 0; i < list3.size(); i++) {
+                        temp = 0;
+                        totalQ = 0;
+                        for (int j = 0; j < list2.size(); j++) {
+                            if (list3.get(i).getId() == list2.get(j).getProductID()) {
+                                if (list3.get(i).getQuantity() >= list2.get(j).getQuantity()) {
+                                    if (temp == 0) {
+                                        for (int k = 0; k < list2.size(); k++) {
+                                            if (list2.get(i).getProductID() == list2.get(k).getProductID()) {
+                                                totalQ = totalQ + list2.get(k).getQuantity();
+                                                quanS = list2.get(k).getQuantity();
+                                            }
+                                        }
+                                        daoOrder.insertOrderDetail(totalQ, list2.get(j).getProductID(), orderID);
+                                        daoProduct.updateQuan(totalQ, list2.get(j).getProductID());
+                                        daoCart.deleteCart(list2.get(j).getProductID(), username);
+                                        temp++;
+                                    }
+                                }
+                                if (list3.get(i).getQuantity() < list2.get(j).getQuantity()) {
+                                    String nameP = list3.get(i).getName();
+                                    String quanP = String.valueOf(list3.get(i).getQuantity());
+                                    String ms = "<script>\n"
+                                            + "        alert(\"Sold out! " + nameP + "Only have " + quanP + "left\")\n"
+                                            + "    </script>";
+                                    request.setAttribute("ms", ms);
+                                    request.setAttribute("productList", list3);
+                                    request.getRequestDispatcher("product.jsp").forward(request, response);
+                                    temp++;
+                                }
+                            }
+                        }
+                    }
+                    if (totalQ != 0) {
+                        response.sendRedirect("productList");
+                    }
+                }
+
                 break;
         }
     }

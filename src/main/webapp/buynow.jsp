@@ -133,13 +133,13 @@
                         </div>                    
                         <div class="row">
                             <div id="back" class="col-8">
-                                <a href="loadCart">CART ${size} fdsfdsfds</a>
+                                <a href="loadCart">CART</a>
                             </div>
                             <div id="complete" class="col-4">
                                 <input type="submit" value="COMPLETE">
                             </div>
                         </div>
-                        <input type="hidden" name="size" id="size" value="${size}">
+                        <input type="hidden" name="id" class="id" value="${id}">
                     </form>
 
 
@@ -147,21 +147,20 @@
 
                 <div class="col-md-5">
                     <div class="row">
-                        <c:forEach items="${requestScope.cartList}" var="cart">
-                            <div class="col-2">
-                                <img id="product"
-                                     src="${picUrlMap[cart.productID]}"
-                                     alt="">
-                            </div>
-                            <div class="col-8">
-                                <b>${nameProduct[cart.productID]}</b>
-                                <p>Quantity: ${cart.quantity}</p>
-                                <p>Size: ${cart.size_name} </p>
-                            </div>
-                            <div class="col-2">
-                                <p class="price">${cart.price}</p>
-                            </div>
-                        </c:forEach>          
+                        <div class="col-2">
+                            <img id="product"
+                                 src="${pic}"
+                                 alt="">
+                        </div>
+                        <div class="col-8">
+                            <b>${name}</b>
+                            <p>${quantity}</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="price">${price}</p>
+                        </div>
+                        
+                    </div>                 
                     <hr>
 
                     <div id="line" class="row">
@@ -169,7 +168,7 @@
                             <h5>Total</h5>
                         </div>
                         <div class="col-2">
-                            <h5 class="price">${sum}</h5>
+                            <h5 class="price">${price}</h5>
                         </div>
                     </div>
                 </div>

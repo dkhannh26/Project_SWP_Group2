@@ -70,6 +70,18 @@ public class DAOproduct extends DBconnect.DBconnect {
         }
         return null;
     }
+        public void updateQuan(int quantity, int product_id) {
+        String sql = "update product\n"
+                + "set quantity = ?\n"
+                + "where product_id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, quantity);
+            ps.setInt(2, product_id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
 
     public void update(product p) {
         String sql = "UPDATE [dbo].[product]\n"

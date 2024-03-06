@@ -103,12 +103,12 @@
         <div class="content">
             <h2 id="highlight">Your Cart</h2>
         </div>
-        <c:forEach items="${requestScope.cartList}" var="cart">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="status">
+        <div class="status">
                         <p>You currently have <b>${quanP} products</b> in your cart</p>
                     </div>
+        <c:forEach items="${requestScope.cartList}" var="cart">
+            <div class="row">
+                <div class="col-md-8">                   
                     <div class="product">
                         <div class="row">
                             <div class="col-2">
@@ -116,7 +116,7 @@
                             </div>
                             <div class="col-8">
                                 <b id="highlight">${nameProduct[cart.productID]}</b>
-                                <p>S</p>
+                                <p>${cart.size_name}</p>                               
                                 <div class="quan">
                                     <input type="number" name="quantity" value="${cart.quantity}">
                                     <button onclick="incrementQuantity(this)" data-product-id="${cart.productID}">+</button>
@@ -124,6 +124,7 @@
                                     <input type="hidden" name="id" class="id" value="${cart.productID}">
                                     <input type="hidden" name="price" class="price" value="${cart.price}">
                                     <input type="hidden" name="quantity" class="quantity" value="${cart.quantity}">
+                                    <input type="hidden" name="size" class="size" value="${cart.size_name}">
                                 </div>
                                 <b>${cart.getPrice()}</b>
                             </div>
@@ -131,6 +132,7 @@
                                 <button class="btn btn-danger" onclick="deleteCartItem(this)" data-product-id="${cart.productID}">Delete</button>
                                 <input type="hidden" name="price" class="price" value="${cart.price}">
                                 <input type="hidden" name="quantity" class="quantity" value="${cart.quantity}">
+                                <input type="hidden" name="size" class="size" value="${cart.size_name}">
                             </div>
                         </div>
                         <div class="row">
@@ -155,6 +157,7 @@
                     </ul>
                     <form action="payment" method="get">
                         <button class="payment">PAYMENT</button>
+                        <input type="hidden" name="size" class="size" value="${cart.size_name}">
                     </form>
                 </div>
                 <div class="policy">
@@ -170,8 +173,9 @@
                 input.value = parseInt(input.value) + 1;
                 const id = button.getAttribute('data-product-id');
                 const price = button.parentElement.querySelector('.price').value;
+                const size = button.parentElement.querySelector('.size').value;
                 // Sử dụng orderName, address, và phoneNumber để thực hiện việc gửi dữ liệu lên servlet
-                window.location.href = 'cartIncrease?id=' + id + "&price=" + price + "&quantity=" + quantity;
+                window.location.href = 'cartIncrease?id=' + id + "&price=" + price + "&quantity=" + quantity + "&size=" + size;
             }
 
             function decrementQuantity(button) {
@@ -181,7 +185,8 @@
                     input.value = parseInt(input.value) - 1;
                     const id = button.getAttribute('data-product-id');
                     const price = button.parentElement.querySelector('.price').value;
-                    window.location.href = 'cartDecrease?id=' + id + "&price=" + price + "&quantity=" + quantity;
+                    const size = button.parentElement.querySelector('.size').value;
+                    window.location.href = 'cartIncrease?id=' + id + "&price=" + price + "&quantity=" + quantity + "&size=" + size;
                 }
             }
             function deleteCartItem(button) {
@@ -190,7 +195,8 @@
                     const id = button.getAttribute('data-product-id');
                     const price = button.parentElement.querySelector('.price').value;
                     const quantity = button.parentElement.querySelector('.quantity').value;
-                    window.location.href = 'cartDelete?id=' + id + "&price=" + price + "&quantity=" + quantity;
+                    const size = button.parentElement.querySelector('.size').value;
+                    window.location.href = 'cartDelete?id=' + id + "&price=" + price + "&quantity=" + quantity + "&size=" + size;
                 }
             }
         </script>

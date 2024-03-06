@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 import static url.productURL.URL_PRODUCT_DETAIL;
 import entity.product;
-import static url.productURL.URL_PRODUCT_BUY;
 import static url.productURL.URL_PRODUCT_LIST;
 
 /**

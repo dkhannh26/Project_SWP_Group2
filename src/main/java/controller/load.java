@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import static url.cartURL.URL_BUYNOW;
 import static url.load.LOAD_CART;
 import static url.load.LOAD_PAYMENT;
 
@@ -24,7 +25,7 @@ import static url.load.LOAD_PAYMENT;
  *
  * @author Administrator
  */
-@WebServlet(name = "load2", urlPatterns = {LOAD_CART, LOAD_PAYMENT})
+@WebServlet(name = "load2", urlPatterns = {LOAD_CART, LOAD_PAYMENT, URL_BUYNOW})
 public class load extends HttpServlet {
 
     /**
@@ -44,7 +45,7 @@ public class load extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet load2</title>");            
+            out.println("<title>Servlet load2</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet load2 at " + request.getContextPath() + "</h1>");
@@ -65,6 +66,7 @@ public class load extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String size = request.getParameter("size");
         String urlPath = request.getServletPath();
         String username = "son";
         int quanP = 0;
@@ -85,22 +87,33 @@ public class load extends HttpServlet {
             sum = sum + list3.get(i).getPrice();
             quanP++;
         }
+        request.setAttribute("size", size);
         request.setAttribute("nameProduct", nameProduct);
         request.setAttribute("quanP", quanP);
         request.setAttribute("picUrlMap", picUrlMap);
         request.setAttribute("sum", sum);
-        request.setAttribute("cartList", list3);       
+        request.setAttribute("cartList", list3);
+        System.out.println(size);
         switch (urlPath) {
             case LOAD_CART:
                 request.getRequestDispatcher("cart.jsp").forward(request, response);
                 break;
             case LOAD_PAYMENT:
+                request.getRequestDispatcher("payment.jsp").forward(request, response);
+                break;
+            case URL_BUYNOW:
+                String pic = request.getParameter("picURL");
                 String name = request.getParameter("name");
                 float price = Float.parseFloat(request.getParameter("price"));
                 int quantity = Integer.parseInt(request.getParameter("quantity"));
-                System.out.println(name + " " + price + " " + quantity);
-                request.getRequestDispatcher("payment.jsp").forward(request, response);
-                break;
+                int id = Integer.parseInt(request.getParameter("id"));
+                request.setAttribute("pic", pic);
+                request.setAttribute("name", name);
+                request.setAttribute("price", price);
+                request.setAttribute("quantity", quantity);
+                request.setAttribute("id", id);
+                System.out.println(name + " " + price + " " + id);
+                request.getRequestDispatcher("buynow.jsp").forward(request, response);
         }
     }
 

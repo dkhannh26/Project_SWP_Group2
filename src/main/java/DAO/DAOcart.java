@@ -30,7 +30,7 @@ public class DAOcart extends DBconnect.DBconnect {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 cart c = new cart(rs.getInt("cart_id"), rs.getString("username"), rs.getInt("product_id"), rs.getInt("quantity"),
-                        rs.getInt("price"));
+                        rs.getInt("price"), rs.getString("size_name"));
                 list.add(c);
             }
         } catch (Exception e) {
@@ -39,38 +39,41 @@ public class DAOcart extends DBconnect.DBconnect {
         return list;
     }
 
-    public void insertCart(int quantity, float price, String username, int product_id) {
+    public void insertCart(int quantity, float price, String username, int product_id,String size_name) {
         String sql = "insert into\n"
                 + "cart\n"
-                + "values(?,?,?,?)";
+                + "values(?,?,?,?,?)";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-
+            PreparedStatement st = connection.prepareStatement(sql);           
             st.setInt(1, quantity);
             st.setFloat(2, price);
             st.setString(3, username);
             st.setInt(4, product_id);
+            st.setString(5,size_name);
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
-    public void updateCart(String username, int product_id, int quantity, float price) {
+    public void updateCart(String username, int product_id, int quantity, float price, String size_name) {
         String sql = "update cart\n"
                 + "set username = ?,\n"
                 + "product_id = ?,\n"
                 + "quantity = ?,\n"
-                + "price = ?\n"
-                + "where username = ? and product_id=?";
+                + "price = ?,\n"
+                + "size_name = ?\n"
+                + "where username = ? and product_id=? and size_name = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
             st.setInt(2, product_id);
             st.setInt(3, quantity);
             st.setFloat(4, price);
-            st.setString(5, username);
-            st.setInt(6, product_id);
+            st.setString(5,size_name);
+            st.setString(6, username);
+            st.setInt(7, product_id);
+            st.setString(8,size_name);
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -84,6 +87,19 @@ public class DAOcart extends DBconnect.DBconnect {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, product_id);
             st.setString(2, username);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    public void deleteCartBySize(int product_id, String username,String size_name) {
+        String sql = "delete from cart \n"
+                + "where product_id = ? and username = ? and size_name = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, product_id);
+            st.setString(2, username);
+            st.setString(3, size_name);
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -131,7 +147,7 @@ public class DAOcart extends DBconnect.DBconnect {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 cart c = new cart(rs.getInt("cart_id"), rs.getString("username"), rs.getInt("product_id"), rs.getInt("quantity"),
-                        rs.getInt("price"));
+                        rs.getInt("price"),rs.getString("size_name"));
                 return c;
             }
         } catch (SQLException e) {

@@ -680,6 +680,7 @@
                 }
             }
         </style>
+        ${ms}
     </head>
 
     <body>
@@ -844,7 +845,7 @@
                                     </p>
                                     <div class="productButton">
                                         <button type="button" class="addBtn"><a href="productDetail?id=${product.getId()}">Add to cart</a></button>
-                                        <button type="button" class="right"><a href="loadPayment?name=${product.name} &price=${product.price} &quantity=1">Buy now</a></button>
+                                        <button type="button" class="right"><a href="productBuy?name=${product.name} &price=${product.price} &quantity=1&picURL=${product.picURL} &id=${product.id}">Buy now</a></button>
                                     </div>
                                 </div>
                                 <a href="updateJSPProduct?id=${product.getId()}">Update</a>
