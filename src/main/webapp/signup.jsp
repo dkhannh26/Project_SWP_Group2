@@ -786,10 +786,10 @@
                     <div class="form-group">
                         <label for="address"></label>
                         <input type="text" id="address" name="address" placeholder="Address" required>
-                    </div>
+                    </div>          
                     <div class="form-group">
                         <label for="phone"></label>
-                        <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Phone number" required>
+                        <input type="tel" id="phoneNumber"  name="phoneNumber" placeholder="Phone number" pattern="[0]{1}[0-9]{9}">
                     </div>
 
                     <div class = "foot">

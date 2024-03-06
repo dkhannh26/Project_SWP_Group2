@@ -1,7 +1,7 @@
 <%-- 
-    Document   : product.jsp
-    Created on : Feb 27, 2024, 6:21:56 PM
-    Author     : LENOVO
+    Document   : femaleProduct
+    Created on : Mar 5, 2024, 7:42:28 PM
+    Author     : thinh
 --%>
 
 <%@page import="java.text.NumberFormat"%>
@@ -21,6 +21,7 @@
         <!-- bootstrap -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <!-- bootstrap icon -->
+        <link rel="stylesheet" href="/css/style copy.css">
         <!-- <link rel="stylesheet" href="grid.css"> -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
         <link rel="icon" href="/images/LG.png" type="image/x-icon">
@@ -689,23 +690,26 @@
                     <ul class="headerList">
                         <li class="headerListItem"><a href="">Home page ${id}</a></li>
                         <li class="headerListItem">
-                            <a href="http://localhost:8080/Project_SWP_Group2/productList/male">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/t_shirt">T-shirt</a></li>
-
-                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/pant">Long pants</a></li>
-                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/short">Shorts</a></li>
-                                <!--<li><a href="">Discount</a></li>-->
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/t_shirt">T-shirt</a></li>
+                                <li><a href="">Jackets, sweatshirts, sweaters</a></li>
+                                <li><a href="">Long pants</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/skirt">Skirt</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/dress">Dress</a></li>
+                                <li><a href="">Discount</a></li>
                             </ul>
                         </li>
                         <li class="headerListItem">
-                            <a href="http://localhost:8080/Project_SWP_Group2/productList/female">Women's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="">Women's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/t_shirt">T-shirt</a></li>
-                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/pant">Long pants</a></li>
-                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/dress">Dress</a></li>
-                                <!--<li><a href="">Discount</a></li>-->
-
+                                <li><a href="">T-shirt</a></li>
+                                <li><a href="">Shirt</a></li>
+                                <li><a href="">Jackets, sweatshirts, sweaters</a></li>
+                                <li><a href="">Long pants</a></li>
+                                <li><a href="">Skirt</a></li>
+                                <li><a href="">Dress</a></li>
+                                <li><a href="">Discount</a></li>
                             </ul>
                         </li>
                         <li class="headerListItem"><a href="">Accessory</a></li>
@@ -817,15 +821,19 @@
                 <a href="addProduct.jsp" target="target">add</a>
                 <div class="row" id="product">
 
-                    <c:forEach items="${requestScope.productList}" var="product">
+                    <c:forEach items="${requestScope.list}" var="product">
                         <div class="col-md-3 p-2">
                             <div class="product">
                                 <div class="productImg">
-                                    <img src="${path}${product.getPicURL()}" alt="img">
+                                    <img src="${product.getPicURL()}" alt="img">dasdssad
                                 </div>
+
+
                                 <c:set var="formattedPrice">
                                     <fmt:formatNumber type="number" value="${product.getPrice()}" pattern="###,###" />
                                 </c:set>
+
+
                                 <div class="productDetail">
                                     <h3>${product.getName()}</h3>
                                     <p>

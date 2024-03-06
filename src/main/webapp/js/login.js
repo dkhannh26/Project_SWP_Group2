@@ -6,6 +6,12 @@
 
 const loginForm = document.getElementById("loginForm");
 
+document.cookie = "code" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+document.cookie = "input" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+document.cookie = "email" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+
+
 
 function getURL() {
     var type = document.getElementById("account").value;
