@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -62,11 +63,24 @@ public class customerController extends HttpServlet {
         }
     }
 
+    private void deleteCookie(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Cookie[] cookies = request.getCookies();
+        for (int i = 0; i < cookies.length; i++) {
+            Cookie cookie = cookies[i];
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+        }
+    }
+
     protected void updatePass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String password = request.getParameter("password");
         password = getMd5(password);
         String email = request.getParameter("email");
-        boolean isSuccess = daoCustomer.updatePasswordByEmail(password, email);
+
+//        deleteCookie(request, response);
+
+        boolean isSuccess = daoCustomer.updatePasswordByEmailOrUsername(password, email);
         ResponseData data = new ResponseData();
         data.setIsSuccess(isSuccess);
         data.setDescription("");

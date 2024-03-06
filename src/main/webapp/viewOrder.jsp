@@ -1,33 +1,30 @@
 <%-- 
-    Document   : product.jsp
-    Created on : Feb 27, 2024, 6:21:56 PM
-    Author     : LENOVO
+    Document   : viewOrder
+    Created on : Mar 6, 2024, 8:42:45 PM
+    Author     : thinh
 --%>
 
-<%@page import="java.text.NumberFormat"%>
-<%@page import="java.text.DecimalFormat"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
         <!-- bootstrap -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <!-- bootstrap icon -->
-        <link rel="stylesheet" href="/css/style copy.css">
-        <!-- <link rel="stylesheet" href="grid.css"> -->
+
+        <title>Orders</title>
+        <link rel="stylesheet" href="./css/viewOrder.css">
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
         <link rel="icon" href="/images/LG.png" type="image/x-icon">
+        <script src="https://kit.fontawesome.com/1bd876819f.js" crossorigin="anonymous"></script>
 
-        <title>DOTAI</title>
         <style>
+
             * {
                 margin: 0;
                 padding: 0;
@@ -67,11 +64,6 @@
                 justify-content: center;
                 display: flex;
             }
-            
-             #filter {
-                width: 7%;
-            }
-
 
             .header_title {
                 display: flex;
@@ -449,131 +441,11 @@
                 transition: 0.3s;
             }
             /* end header */
-
             hr {
                 margin-top: 0;
                 margin-bottom: 10px;
             }
 
-            /* main content */
-            .main {
-                max-width: 1200px;
-                margin: 30px auto 50px;
-            }
-
-            .mainContent {
-                max-width: 100%;
-            }
-
-            .mainHeading {
-                text-align: center;
-                margin-bottom: 30px;
-            }
-
-            .headingContent a {
-                text-decoration: none;
-                color: var(--text-color);
-                font-weight: bold;
-                box-sizing: border-box;
-            }
-
-            .productImg img {
-                width: 100%;
-            }
-
-            .productDetail {
-                padding: 15px 12px 15px;
-                background-color: rgba(255, 255, 255, 0.83);
-                position: relative;
-                transition: 0.3s;
-            }
-
-            .productDetail h3 {
-                font-size: 15px;
-                color: black;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            .productDetail p {
-                margin: 0;
-            }
-
-            .price {
-                font-weight: bold;
-                color: black;
-            }
-
-            .productButton {
-                transition: 0.3s;
-                color: white;
-                width: 90%;
-                display: flex;
-                text-align: center;
-                padding: 5px;
-                position: absolute;
-                display: none;
-                transform: translateY(20%);
-                background-color: var(--bg-color);
-                border-radius: 4px;
-                justify-content: center;
-                line-height: 2;
-            }
-
-            .productDetail:hover .productButton {
-                display: flex;
-            }
-
-            .productDetail:hover {
-                transform: translateY(-50%);
-            }
-
-            .productButton * {
-                width: 50%;
-            }
-
-            .productButton .right {
-                background: white;
-                position: relative;
-                color: white;
-                background: transparent;
-                border-radius: 4px;
-                overflow: hidden;
-                border: none;
-                font-weight: bold;
-            }
-
-            .addBtn {
-                border: none;
-                background-color: var(--bg-color);
-                border-radius: 4px;
-            }
-
-            .addBtn span {
-                color: white;
-            }
-
-            .productButton .right:hover {
-                color: #a0816c;
-            }
-
-            .right span {
-                background-color: white;
-                height: 100%;
-                width: 0;
-                position: absolute;
-                left: 0;
-                bottom: 0;
-                transition: 0.4s;
-                z-index: -1;
-            }
-
-            .productButton .right:hover span {
-                width: 100%;
-            }
-
-            /* END main content */
 
             /* footer */
             footer {
@@ -657,31 +529,6 @@
             }
 
             /* END footer */
-
-            @media (max-width: 768px) and (min-width: 601px) {
-                .headerListItem {
-                    font-size: 12px;
-                    height: 18px;
-                }
-
-                .headerListItem:hover {
-                    font-size: 13px;
-                }
-
-                .dropdown-icon {
-                    height: 18px;
-                }
-
-                .productDetail h3 {
-                    height: 50px;
-                }
-            }
-            @media (max-width: 1024px) {
-                .infoBox,
-                .searchBox, .cartBox {
-                    right: 0;
-                }
-            }
         </style>
     </head>
 
@@ -690,40 +537,37 @@
         <header class="header">
             <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
             <div class="headerContent">
-                <div class="logo"><a href="/headerDemo.html">DOTAI</a></div>
+                <div class="logo"><a href="productList">DOTAI</a></div>
                 <nav>
                     <ul class="headerList">
-                        <li class="headerListItem"><a href="/headerDemo.html">Home page ${id}</a></li>
+                        <li class="headerListItem"><a href="productList">Home page</a></li>
                         <li class="headerListItem">
-                            <a href="">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="http://localhost:8080/Project_SWP_Group2/productList/male">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="">T-shirt</a></li>
-                                <li><a href="">Shirt</a></li>
-                                <li><a href="">Jackets, sweatshirts, sweaters</a></li>
-                                <li><a href="">Long pants</a></li>
-                                <li><a href="">Shorts</a></li>
-                                <li><a href="">Discount</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/t_shirt">T-shirt</a></li>
+
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/pant">Long pants</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/short">Shorts</a></li>
+                                <!--<li><a href="">Discount</a></li>-->
                             </ul>
                         </li>
                         <li class="headerListItem">
-                            <a href="">Women's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="http://localhost:8080/Project_SWP_Group2/productList/female">Women's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="">T-shirt</a></li>
-                                <li><a href="">Shirt</a></li>
-                                <li><a href="">Jackets, sweatshirts, sweaters</a></li>
-                                <li><a href="">Long pants</a></li>
-                                <li><a href="">Skirt</a></li>
-                                <li><a href="">Dress</a></li>
-                                <li><a href="">Discount</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/t_shirt">T-shirt</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/pant">Long pants</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/dress">Dress</a></li>
+                                <!--<li><a href="">Discount</a></li>-->
+
                             </ul>
                         </li>
-                        <li class="headerListItem"><a href="">Accessory</a></li>
+                        <!--<li class="headerListItem"><a href="">Accessory</a></li>-->
                         <li class="headerListItem">
-                            <a href="">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="./aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="">Contact</a></li>
-                                <li><a href="">View order</a></li>
-                                <li><a href="">Exchange policy</a></li>
+                                <li><a href="./contact.jsp">Contact</a></li>
+                                <li><a href="./viewOrder.jsp">View order</a></li>
+                                <li><a href="./policy.jsp">Exchange policy</a></li>
                                 <li><a href="">Order's history</a></li>
                         </li>
                     </ul>
@@ -743,69 +587,11 @@
                     </div>
                     <div class="headerToolIcon">
                         <a href="http://localhost:8080/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
-                        <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->
-
-                        <!-- khi đã login thì khi nhấp vào icon -> box này hiện ra -->
-                        <div class="infoBox box" id="box2">
-                            <div class="infoBox-content">
-                                <h2>ACCOUNT INFORMATION</h2>
-                                <ul class="infoBox-list">
-                                    <li>Username</li>
-                                    <li><i class="infoBox-icon bi bi-dot"></i><a href="/login.html">My account</a></li>
-                                    <li><i class="infoBox-icon bi bi-dot"></i><a href="">Address</a></li>
-                                    <li><i class="infoBox-icon bi bi-dot"></i><a href="">Log out</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                        <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->     
+                    </div> 
                     <div class="headerToolIcon">
                         <i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i>
-                        <div class="cartBox box" id="box3">
-                            <div class="cartBox-content">
-                                <h2>SHOPPING CART</h2>
-                                <div class="noneProduct">
-                                    <div class="cartIcon"><i class="bi bi-cart2 icon"></i></div>
-                                    <p>There are currently no products</p>
-                                </div>
-                                <!-- nếu có product thì haveProduct display: block -->
-                                <div class="haveProduct">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-4 miniCartImg">
-                                                <img src="images/img1.jpg" alt="">
-                                            </div>
-                                            <div class="col-md-8 miniCartDetail">
-                                                <p>DOTAI - Áo thun wash Cafe Clementine 8122
-                                                    <span>Color / size</span>
-                                                </p>
-                                                <div class="miniCart-quan">
-                                                    <span>1</span>
-                                                </div>
-                                                <div class="miniCart-price">
-                                                    <span>000,000 VND</span>
-                                                </div>
-                                                <div class="deleteBtn">
-                                                    <i class="bi bi-x-lg"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="sumPrice">
-                                    <table>
-                                        <tr>
-                                            <td class="tbTextLeft">TOTAL MONEY:</td>
-                                            <td class="tbTextRight">0<span>VND</span></td>
-                                        </tr>
-                                        <tr class="cartButton">
-                                            <td><button class="miniCartButton" onclick="redirectCartPage()">View
-                                                    cart</button></td>
-                                            <td><button class="miniCartButton btnRight">Pay</button></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -814,147 +600,154 @@
         </header>
         <!-- end header -->
 
-        <!-- main -->
-        <main class="main">
-            <div class="mainHeading">
-                <h2 class="headingContent">
-                    <a href="">Dotai</a>
-                </h2>
-                <p>New products</p>
-            </div>
-            
-            <form action="sortProduct" method="get">
-               
-                <div style="display: flex; margin: 100px 0 20px 0;">
-                    <select name="sortID" id="filter" class="form-control ml-5 mb-2">
-                        <option value="Increase">Increase</option>
-                        <option value="Decrease">Decrease</option>
-                        <option value="BestSeller">Best Seller</option>
-                         <option value="New">New Arrival</option>
-                    </select>
-                    <button type="submit" class="filter"> Submit</button>
-                </div>
-            </form>
-            
-            <div class="mainContent container ">
-                <a href="addProduct.jsp" target="target">add</a>
-                <div class="row" id="product">
-
-                    <c:forEach items="${requestScope.productList}" var="product">
-                        <div class="col-md-3 p-2">
-                            <div class="product">
-                                <div class="productImg">
-                                    <img src="${product.getPicURL()}" alt="img">
-                                    <!--<img src="./images/img1.jpg" alt="img">-->
-                                    
+        <div class="mid">
+            <div class="row">
+                <div class="col-md-9 order-box-content">
+                    <div class="content">
+                        <h2 id="highlight"><b>List of orders</b></h2>
+                    </div>
+                    <!-- <div class="content">
+                        <h2 id="highlight"><b>List of orders</b></h2>
+                    </div>
+    
+                    <div class="order container">
+                        <div id="header-order" class="row">
+                            <div class="col-3">
+                                <p>ID: </p>
+                            </div>
+                            <div class="col-5">
+                                <p>Date: </p>
+                            </div>
+                            <div class="col-3" id="status">
+                                <p>Delivered</p>
+                            </div>
+                            <div class="col-1">
+                                icon
+                            </div>
+                        </div>
+                        
+    
+                        <div class="product container">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="https://product.hstatic.net/1000296747/product/d3a5a3cf2dd77268fb54481ebcce161d_e9c60a724acb45b4978c53249ba5dbb6_medium.jpeg"
+                                        alt="">
                                 </div>
-
-
-                                <c:set var="formattedPrice">
-                                    <fmt:formatNumber type="number" value="${product.getPrice()}" pattern="###,###" />
-                                </c:set>
-
-
-                                <div class="productDetail">
-                                    <h3>${product.getName()}</h3>
-                                    <p>
-                                        <span class="price">${formattedPrice} VND</span>
-                                        <span class="price-sale"></span>
-                                    </p>
-                                    <div class="productButton">
-                                        <button type="button" class="addBtn"><span>Add to cart</span></button>
-                                        <button type="button" class="right"><span></span>Buy now</button>
+                                <div class="col-6">
+                                    <h6 id="proName"><b>DOTAI - Striped wool cardigan</b></h6>
+                                    <p>Product classification: L</p>
+                                    <p>X1</p>
+                                </div>
+                                <div class="col-4">
+                                    <div id="price">
+                                        <div class="row">
+                                            <p class="col-md-6 origin-price">369,000 VND</p>
+                                            <p class="col-md-6 saled-price">350,000 VND</p>
+                                        </div>
+                                    </div>
+                                    <div class="feedback">
+                                        <button class="feedback-btn">Feedback</button>
                                     </div>
                                 </div>
-                                <a href="updateJSPProduct?id=${product.getId()}">Update</a>
-                                <a href="#" onclick="doDelete('${product.getId()}')">Delete</a>
+    
                             </div>
                         </div>
-
-                    </c:forEach>
-
-                    <div class="col-md-3 p-2">
-                        <div class="product">
-                            <div class="productImg">
-                                <img src="images/img1.jpg" alt="img">
+    
+                        <hr class="hr">
+    
+                        <div id="product-bottom" class="row">
+                            <div class="col-3">
+                                <p>Quantity: </p>
                             </div>
-                            <div class="productDetail">
-                                <h3>DOTAI - Áo thun wash Cafe Clementine 8122</h3>
-                                <p>
-                                    <span class="price">195,000 VND</span>
-                                    <span class="price-sale"></span>
-                                </p>
-                                <div class="productButton">
-                                    <button type="button" class="addBtn"><span>Add to cart</span></button>
-                                    <button type="button" class="right"><span></span>Buy now</button>
-                                </div>
+                            <div class="col-5">
+                                <p>Address: </p>
                             </div>
-                            <!-- <div class="productAction">
-                                    <div class="action-inner">
-                                        <button type="button" class="btn btn-outline-primary"><span>Add to cart</span></button>
-                                        <button type="button" class="btn btn-secondary right"><span>Buy now</span></button>
+                            <div id="total" class="col-4">
+                                <p>Total: <span>350,000 VND</span></p>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="user-info">
+                        <div id="header-order" class="row">
+                            <div class="col-3">
+                                <p>ID: </p>
+                            </div>
+                            <div class="col-5">
+                                <p>Date: </p>
+                            </div>
+                            <div class="col-3" id="status">
+                                <p>Delivered</p>
+                            </div>
+                            <div class="col-1">
+                                <div class="dropdown">
+                                    <div class="edit-info-btn">
+                                        <button><i class="fa-regular fa-pen-to-square"></i></button>
                                     </div>
-                                </div> -->
-                        </div>
-                    </div>
-                    <div class="col-md-3 p-2">
-                        <div class="product">
-                            <div class="productImg">
-                                <img src="images/img2.jpg" alt="img">
+                                </div>
                             </div>
-                            <div class="productDetail">
-                                <h3>DOTAI - Áo thun viền cổ WILDHEART 8121</h3>
-                                <p>
-                                    <span class="price">190,000 VND</span>
-                                    <span class="price-sale"></span>
-                                </p>
-                                <div class="productButton">
-                                    <button type="button" class="addBtn"><span>Add</span></button>
-                                    <button type="button" class="right"><span></span>Buy now</button>
+                        </div>
+                        <div class="dropdown-container">
+                            <div id="mid-order" class="row">
+                                <div id="product" class="col-2">
+                                    <img src="https://product.hstatic.net/1000296747/product/d3a5a3cf2dd77268fb54481ebcce161d_e9c60a724acb45b4978c53249ba5dbb6_medium.jpeg"
+                                         alt="">
+                                </div>
+                                <div class="col-6">
+                                    <h6 id="proName"><b>DOTAI - Striped wool cardigan</b></h6>
+                                    <p>Product classification: L</p>
+                                    <p>X1</p>
+                                </div>
+                                <div class="col-4">
+                                    <div id="price">
+                                        <div class="row">
+                                            <p class="col-md-6 origin-price">369,000 VND</p>
+                                            <p class="col-md-6 saled-price">350,000 VND</p>
+                                        </div>
+                                    </div>
+                                    <div class="feedback">
+                                        <button class="feedback-btn">Feedback</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info">
+                            <hr class="hr">
+                            <div id="product-bottom" class="row">
+                                <div class="col-3">
+                                    <p>Quantity: </p>
+                                </div>
+                                <div class="col-5">
+                                    <p>Address: </p>
+                                </div>
+                                <div class="col-4">
+                                    <p id="total">Total: <span>350,000 VND</span></p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 p-2">
-                        <div class="product">
-                            <div class="productImg">
-                                <img src="images/img3.jpg" alt="img">
-                            </div>
-                            <div class="productDetail">
-                                <h3>DOTAI - Quần dài jeans wash 8116</h3>
-                                <p>
-                                    <span class="price">395,000 VND</span>
-                                    <span class="price-sale"></span>
-                                </p>
-                                <div class="productButton">
-                                    <button type="button" class="addBtn"><span>Add to cart</span></button>
-                                    <button type="button" class="right"><span></span>Buy now</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 p-2">
-                        <div class="product">
-                            <div class="productImg">
-                                <img src="images/img4.jpg" alt="img">
-                            </div>
-                            <div class="productDetail">
-                                <h3>DOTAI - Áo thun tay ngắn Confitería 8115</h3>
-                                <p>
-                                    <span class="price">195,000 VND</span>
-                                    <span class="price-sale"></span>
-                                </p>
-                                <div class="productButton">
-                                    <button type="button" class="addBtn"><span>Add to cart</span></button>
-                                    <button type="button" class="right"><span></span>Buy now</button>
-                                </div>
-                            </div>
-                        </div>
+
+
+                </div>
+
+
+
+
+
+                <div class="col-md-3">
+                    <div class="page">
+                        <h5 id="highlight"><b>Page category</b></h5>
+                        <hr>
+                        <h6><a href="">Contact</a></h6>
+                        <hr>
+                        <h6><a href="">Exchange policy</a></h6>
+                        <hr>
+                        <h6><a href="">Order's history</a></h6>
                     </div>
                 </div>
             </div>
-        </main>
-        <!-- end main -->
+
+        </div>
 
         <!-- footer -->
         <footer>
@@ -1020,37 +813,9 @@
 
         </footer>
         <!-- end footer -->
-
-
-        <script src="./js/header.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script type="text/javascript">
-                                    function doDelete(id) {
-                                        if (confirm("Do you want to delete this product (" + id + ")?")) {
-                                            window.location = "deleteProduct?id=" + id;
-                                        }
-                                    }
-
-
-                                    function searchByName(name) {
-                                        var search = name.value
-
-                                        $.ajax({
-                                            url: "/Project_SWP_Group2/searchProductByAJAX",
-                                            type: "get",
-                                            data: {
-                                                txt: search
-                                            },
-                                            success: function (data) {
-                                                var row = document.getElementById("product");
-                                                row.innerHTML = data;
-                                            },
-                                            error: function (xhr) {
-
-                                            }
-                                        })
-                                    }
-        </script>
+        <script src="js/jquery-3.7.0.min.js"></script>
+        <script src="js/jquery.validate.min.js"></script>
+        <script src="./js/viewOrder.js"></script>
     </body>
 
 </html>

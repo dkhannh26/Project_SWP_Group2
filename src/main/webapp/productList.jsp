@@ -1,22 +1,31 @@
 <%-- 
-    Document   : login
-    Created on : Feb 28, 2024, 5:18:02 PM
-    Author     : thinh
+    Document   : product.jsp
+    Created on : Feb 27, 2024, 6:21:56 PM
+    Author     : LENOVO
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@page import="java.text.NumberFormat"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login</title>
-        <link rel="stylesheet" href="./boostrap/bootstrap.min.css"/>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- bootstrap icon -->
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        <!-- bootstrap -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <!-- bootstrap icon -->
+        <!-- <link rel="stylesheet" href="grid.css"> -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-        <link rel = "icon" href =  "./images/LG.png" type = "image/x-icon"> 
-        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <link rel="icon" href="/images/LG.png" type="image/x-icon">
+
+        <title>DOTAI</title>
         <style>
             * {
                 margin: 0;
@@ -25,9 +34,11 @@
                 box-sizing: border-box;
                 color: rgb(151, 143, 137);
             }
+
             img {
                 width: 100%;
             }
+
             :root {
                 --logo-color: #a0816c;
                 --nav-list-color: #a0816c;
@@ -39,9 +50,11 @@
             body::-webkit-scrollbar {
                 width: 0.5em;
             }
+
             body::-webkit-scrollbar-track {
                 box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
             }
+
             body::-webkit-scrollbar-thumb {
                 border-radius: 50px;
                 background-color: var(--bg-color);
@@ -53,6 +66,11 @@
                 justify-content: center;
                 display: flex;
             }
+
+            #filter {
+                width: 7%;
+            }
+
 
             .header_title {
                 display: flex;
@@ -117,7 +135,7 @@
 
             .dropdown-icon {
                 margin-left: 2px;
-                font-size: 	0.7500em;
+                font-size: 0.7500em;
             }
 
             .dropdownMenu {
@@ -171,6 +189,42 @@
                 font-size: 26px;
             }
 
+            .searchBox {
+                width: 420px;
+                position: absolute;
+                top: 100px;
+                right: 13%;
+                left: auto;
+                z-index: 990;
+                background-color: #fff;
+                box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                display: none;
+            }
+            .search-input {
+                position: relative;
+            }
+            .search-input input {
+                width: 100%;
+                border: 1px solid #e7e7e7;
+                background-color: #f6f6f6;
+                height: 44px;
+                padding: 8px 50px 8px 20px;
+                font-size: 1em;
+            }
+            .search-input button {
+                position: absolute;
+                right: 1px;
+                top: 1px;
+                height: 97%;
+                width: 15%;
+                border: none;
+                background-color: #f6f6f6;
+            }
+            .search-input input:focus {
+                outline: none;
+                border-color: var(--bg-color);
+            }
+
             .infoBox {
                 width: auto;
                 min-width: 260px;
@@ -183,40 +237,50 @@
                 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
                 display: none;
             }
-            .infoBox-content, .cartBox-content {
+
+            .infoBox-content,
+            .cartBox-content,
+            .searchBox-content {
                 width: 100%;
                 height: 100%;
                 max-height: 100%;
                 overflow: hidden;
                 padding: 9px 20px 20px;
             }
+
             .headerToolIcon h2 {
-                font-size: 15px;
+                font-size: 1.3em;
                 text-align: center;
                 padding-bottom: 9px;
                 color: var(--text-color);
                 border-bottom: 1px solid #e7e7e7;
             }
+
             .infoBox-content ul {
                 padding: 0;
                 margin: 0;
             }
+
             .infoBox-content ul li {
                 list-style-type: none;
             }
+
             .infoBox-content ul li:first-child {
                 color: black;
                 padding-left: 7px;
             }
+
             .infoBox-list li a {
                 text-decoration: none;
                 font-size: 14px;
                 color: black;
                 padding: 0;
             }
+
             .infoBox-list li a:hover {
                 color: var(--text-color);
             }
+
             .bi-dot {
                 color: black;
             }
@@ -232,22 +296,31 @@
                 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
                 display: none;
             }
+
             .noneProduct {
                 padding: 0 0 10px;
             }
+
             .shopping-cart-icon {
                 margin: 0 auto 7px;
                 display: block;
                 width: 15%;
                 height: 15%;
             }
+
+            .product {
+                margin-top: 50px;
+            }
+
             .cartIcon {
                 justify-content: center;
                 display: flex;
             }
+
             .cartIcon i {
                 font-size: 2.5em;
             }
+
             .noneProduct p {
                 text-align: center;
                 font-size: 14px;
@@ -258,22 +331,27 @@
                 margin-bottom: 8px;
                 display: none;
             }
+
             .bi-x-lg {
                 cursor: pointer;
             }
+
             .miniCartImg {
                 padding-left: 0;
             }
+
             .miniCartDetail {
                 padding-right: 0;
                 position: relative;
             }
+
             .miniCartDetail p {
                 font-size: 0.8em;
                 color: black;
                 font-weight: bold;
                 padding-right: 20px;
             }
+
             .miniCartDetail p span {
                 display: block;
                 text-align: left;
@@ -281,7 +359,8 @@
                 font-weight: normal;
                 font-size: 12px;
             }
-            .miniCart-quan span{
+
+            .miniCart-quan span {
                 float: left;
                 width: auto;
                 color: black;
@@ -293,11 +372,13 @@
                 font-size: 13px;
                 background: #f7f7f7;
             }
+
             .miniCart-price span {
                 color: #677279;
                 float: left;
                 font-weight: 500;
             }
+
             .miniCartDetail .deleteBtn {
                 position: absolute;
                 top: 0;
@@ -307,6 +388,7 @@
                 width: 19px;
                 height: 19px;
             }
+
             .miniCartDetail .deleteBtn * {
                 color: black;
             }
@@ -314,20 +396,27 @@
             .sumPrice {
                 border-top: 1px solid #e7e7e7;
             }
+
             .sumPrice table {
                 width: 100%;
             }
+
             .sumPrice td {
                 width: 50%;
             }
-            .sumPrice .tbTextLeft, .tbTextRight {
+
+            .sumPrice .tbTextLeft,
+            .tbTextRight {
                 padding: 10px 0;
             }
-            .sumPrice .tbTextRight, span {
+
+            .sumPrice .tbTextRight,
+            span {
                 text-align: right;
                 color: red;
                 font-weight: bold;
             }
+
             .miniCartButton {
                 width: 100%;
                 border-radius: 2px;
@@ -339,21 +428,26 @@
                 height: 30px;
                 font-weight: bold;
             }
+
             .cartButton td:first-child {
                 padding-right: 5px;
             }
+
             .cartButton td:last-child {
                 padding-left: 5px;
             }
+
             .cartButton .btnRight {
                 transition: 0.3s;
             }
+
             .cartButton .btnRight:hover {
                 background-color: white;
                 border: 1px solid var(--bg-color);
                 color: var(--text-color);
                 transition: 0.3s;
             }
+            /* end header */
 
             hr {
                 margin-top: 0;
@@ -425,16 +519,20 @@
                 justify-content: center;
                 line-height: 2;
             }
+
             .productDetail:hover .productButton {
                 display: flex;
             }
+
             .productDetail:hover {
                 transform: translateY(-50%);
             }
-            .productButton *{
+
+            .productButton * {
                 width: 50%;
             }
-            .productButton .right{
+
+            .productButton .right {
                 background: white;
                 position: relative;
                 color: white;
@@ -444,16 +542,19 @@
                 border: none;
                 font-weight: bold;
             }
+
             .addBtn {
                 border: none;
                 background-color: var(--bg-color);
                 border-radius: 4px;
             }
+
             .addBtn span {
                 color: white;
             }
+
             .productButton .right:hover {
-                color:#a0816c;
+                color: #a0816c;
             }
 
             .right span {
@@ -470,6 +571,7 @@
             .productButton .right:hover span {
                 width: 100%;
             }
+
             /* END main content */
 
             /* footer */
@@ -514,9 +616,11 @@
             #img-footer {
                 margin: 0 auto;
             }
+
             .phone {
                 position: relative;
             }
+
             .bi-telephone {
                 cursor: pointer;
                 font-size: 3em;
@@ -545,7 +649,8 @@
             .contact-link:hover {
                 background-color: var(--bg-color);
 
-                .bi-facebook::before, .bi-instagram::before{
+                .bi-facebook::before,
+                .bi-instagram::before {
                     color: white;
                 }
             }
@@ -557,194 +662,42 @@
                     font-size: 12px;
                     height: 18px;
                 }
+
                 .headerListItem:hover {
                     font-size: 13px;
                 }
+
                 .dropdown-icon {
                     height: 18px;
                 }
+
                 .productDetail h3 {
                     height: 50px;
                 }
-                .infoBox {
-                    right:  0;
+            }
+            @media (max-width: 1024px) {
+                .infoBox,
+                .searchBox, .cartBox {
+                    right: 0;
                 }
             }
-            #wrapper h2 {
-                color: #a0816c;
-                margin-top: 0px;
-                font-size: 30px;
-                font-family: "Quicksand", sans-serif;
-            }
 
-            #wrapper h3 {
-                font-size: 19px;
-                color: #9E9E9E;
-                margin-top: -11px;
-                font-family: "Quicksand", sans-serif;
-            }
-
-            #wrapper h4 {
-                text-align: left;
-                font-family: "Quicksand", sans-serif;
-                font-size: 15px;
-                color: #9E9E9E;
-            }
-
-            .highlight {
-                color: #7069f0;
-            }
-
-            .highlight2 {
-                color: #CFB997;
-            }
-
-            /* 
-            hr {
-                margin-bottom: 26px;
-                margin-top: -9px;
-            } */
-
-            #wrapper {
-                text-align: center;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                min-height: 80vh;
-            }
-
-            #wrapper .form-group1 {
-                display: flex;
-            }
-
-            form {
-                border: 1px solid #a0816c;
-                border-radius: 5px;
-                padding: 30px;
-                margin: 30px 0;
-            }
-
-            input {
-                margin: 8px 0;
-                height: fit-content;
-                width: 300px;
-                outline: none;
-                border: 1px solid#a0816c;
-                padding: 5px;
-                border-radius: 0;
-                font-size: inherit;
-                display: center;
-
-            }
-
-            .form-group {
-
-                position: relative;
-                display: flex;
-                margin-top: 5px;
-            }
-
-            #account {
-                background-color: #FFFFFF;
-                color: black;
-                width: 100%;
-                height: 32px;
-                text-align: center;
-                border: 1px solid#a0816c;
-                border-radius: 0;
-                margin-top: 10px;
-                font-size: inherit;
-            }
-            select {
-                border:1px solid #a0816c;
-                padding: 5px;
-                font-size: 16px;
-            }
-            select:focus{
-                outline: none;
-                border: 1px solid #a0816c;
-            }
-
-            .policyText {
-                margin: 10px 0;
-            }
-
-            .policyText h4 {
-                margin: 0;
-            }
-
-            label {
-                position: absolute;
-                padding: 0px 5px;
-                left: 10px;
-                top: 35%;
-                pointer-events: none;
-                transform: translateY(-10%);
-                background: #fff;
-                transition: all 0.3s ease-in-out;
-                font-size: inherit;
-
-            }
-
-            .form-group input:focus+label,
-            .form-group input:valid+label {
-                top: 0px;
-                font-size: 13px;
-                font-weight: 500;
-                color: #a0816c;
-            }
-
-            .form-group input:focus {
-                border: 2px solid #a0816c;
-            }
-
-            .log {
-                margin-right: 175px;
-            }
-
-            .login {
-                background: #a0816c;
-                color: #fff;
-                padding: 10px 0;
-                outline: none;
-                width: 100%;
-                height: fit-content;
-                font-size: 19px;
-                border: none;
-
-            }
-
-            .login:hover {
-                opacity: 0.85;
-            }
-
-            .other-options {
-                padding: 5px 0;
-            }
-            .other-options p {
-                margin: 0;
-                font-size: 0.9em;
-            }
-
-            .bao {
-                width: 44%;
-                margin: 0 auto;
+            .productImg img {
+                height: 378px;
+                object-fit: cover;
             }
         </style>
-
-
     </head>
 
     <body>
-
         <!-- header -->
         <header class="header">
             <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
             <div class="headerContent">
-                <div class="logo"><a href="productList">DOTAI</a></div>
+                <div class="logo"><a href="http://localhost:8080/Project_SWP_Group2/productList">DOTAI</a></div>
                 <nav>
                     <ul class="headerList">
-                        <li class="headerListItem"><a href="productList">Home page</a></li>
+                        <li class="headerListItem"><a href="http://localhost:8080/Project_SWP_Group2/productList">Home page</a></li>
                         <li class="headerListItem">
                             <a href="http://localhost:8080/Project_SWP_Group2/productList/male">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
@@ -767,11 +720,11 @@
                         </li>
                         <!--<li class="headerListItem"><a href="">Accessory</a></li>-->
                         <li class="headerListItem">
-                            <a href="./aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="http://localhost:8080/Project_SWP_Group2/aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="./contact.jsp">Contact</a></li>
-                                <li><a href="./viewOrder.jsp">View order</a></li>
-                                <li><a href="./policy.jsp">Exchange policy</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/contact.jsp">Contact</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/viewOrder.jsp">View order</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/policy.jsp">Exchange policy</a></li>
                                 <li><a href="">Order's history</a></li>
                         </li>
                     </ul>
@@ -794,9 +747,9 @@
                         <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->     
                     </div>
                     <div class="headerToolIcon">
-                    <i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i>
-                   
-                </div>
+                        <i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i>
+
+                    </div>
                 </div>
             </div>
 
@@ -804,46 +757,63 @@
         </header>
         <!-- end header -->
 
-        <div id="wrapper">
-            <form id="loginForm" action="http://localhost:8080/Project_SWP_Group2/login/customer" method="POST">
-                <div class="bao">
-                    <h2>LOG IN </h2>
-                    <h3>Enter your email and password</h3>
-                    <hr>
-                    <div class="form-group">
-                        <input type="text" name="input" id="input" required>
-                        <label for="email">Username/Email</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" name="password" required>
-                        <label for="password">Password</label>
-                    </div>
-                    <form>
-                        <div>
-                            <b>Join With Account</b>
-                            <select id="account" onchange="getURL()" name="account">
-                                <option value="customer">Customer</option>
-                                <option value="staff">Staff</option>
-                            </select>
-                        </div>
+        <!-- main -->
+        <main class="main">
+            <div class="mainHeading">
+                <h2 class="headingContent">
+                    <a href="">Dotai</a>
+                </h2>
+                <p>New products</p>
+            </div>
 
-                    </form>
+            <form action="sortProduct" method="get">
 
-                    <div class="policyText">
-                        <h4>This site is protected by reCAPTCHA and the Google <a hreft="" class="highlight">Privacy
-                                Policy</a> and <a href="" class="highlight">Terms of Service</a> apply.</h4>
-                    </div>
-                    <div class="g-recaptcha" data-sitekey="6LdZuIkpAAAAAJkyWF_aBPQcctXb-PqjyNorBG28"></div><br>
-                    <div id="error">${message}</div>
-                    <button class="login">Log In</button>
-                    <div class="other-options">
-                        <p>Create new account?<a href="http://localhost:8080/Project_SWP_Group2/signup.jsp" class="highlight2"> Join with us</a></p>
-                        <p>Forgotten password?<a href="http://localhost:8080/Project_SWP_Group2/forgot.jsp" class="highlight2"> Reset Password</a></p>
-
-                    </div>
+                <div style="display: flex; margin: 100px 0 20px 0;">
+                    <select name="sortID" id="filter" class="form-control ml-5 mb-2">
+                        <option value="Increase">Increase</option>
+                        <option value="Decrease">Decrease</option>
+                        <option value="BestSeller">Best Seller</option>
+                        <option value="New">New Arrival</option>
+                    </select>
+                    <button type="submit" class="filter"> Submit</button>
                 </div>
             </form>
-        </div>
+
+            <div class="mainContent container ">
+
+                <div class="row" id="product">
+
+                    <c:forEach items="${requestScope.productList}" var="product">
+                        <div class="col-md-3 p-2">
+                            <div class="product">
+                                <div class="productImg">
+
+                                    <img src="${path}${product.getPicURL()}" alt="img">
+
+                                </div>
+                                <c:set var="formattedPrice">
+                                    <fmt:formatNumber type="number" value="${product.getPrice()}" pattern="###,###" />
+                                </c:set>
+                                <div class="productDetail">
+                                    <h3>${product.getName()}</h3>
+                                    <p>
+                                        <span class="price">${formattedPrice} VND</span>
+                                        <span class="price-sale"></span>
+                                    </p>
+                                    <div class="productButton">
+                                        <button type="button" class="addBtn"><span>Add to cart</span></button>
+                                        <button type="button" class="right"><span></span>Buy now</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </c:forEach>
+                </div>
+            </div>
+        </main>
+        <!-- end main -->
 
         <!-- footer -->
         <footer>
@@ -853,12 +823,18 @@
             </div>
 
             <div class="row" id="img-footer">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_1_img.jpg?v=55" alt="">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_2_img.jpg?v=55" alt="">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_3_img.jpg?v=55" alt="">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_4_img.jpg?v=55" alt="">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_5_img.jpg?v=55" alt="">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_6_img.jpg?v=55" alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_1_img.jpg?v=55"
+                     alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_2_img.jpg?v=55"
+                     alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_3_img.jpg?v=55"
+                     alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_4_img.jpg?v=55"
+                     alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_5_img.jpg?v=55"
+                     alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_6_img.jpg?v=55"
+                     alt="">
             </div>
 
             <div class="items-footer">
@@ -866,7 +842,8 @@
                     <div class="col-sm-3">
                         <h4 id="highlight">About Dotai</h4>
                         <p>Vintage and basic wardrobe for boys and girls.Vintage and basic wardrobe for boys and girls.</p>
-                        <img src="//theme.hstatic.net/1000296747/1000891809/14/footer_logobct_img.png?v=55" alt="..." class="bct">
+                        <img src="//theme.hstatic.net/1000296747/1000891809/14/footer_logobct_img.png?v=55" alt="..."
+                             class="bct">
                     </div>
                     <div class="col-sm-3">
                         <h4 id="highlight">Contact</h4>
@@ -885,7 +862,7 @@
                         <h4 id="highlight">Customer care</h4>
                         <div class="row phone">
                             <div class="col-sm-3"><i class="bi bi-telephone icon"></i></div>
-                            <div class="col-9"> 
+                            <div class="col-9">
                                 <h4 id="highlight">0123.456.789</h4>
                                 <a href="">info@dotai.vn</a>
                             </div>
@@ -903,7 +880,36 @@
         </footer>
         <!-- end footer -->
 
-        <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script> <!-- lucide.dev icon -->
-        <script src="./js/login.js"></script>
 
+        <script src="/Project_SWP_Group2/js/header.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script type="text/javascript">
+                            function doDelete(id) {
+                                if (confirm("Do you want to delete this product (" + id + ")?")) {
+                                    window.location = "deleteProduct?id=" + id;
+                                }
+                            }
+
+
+                            function searchByName(name) {
+                                var search = name.value
+
+                                $.ajax({
+                                    url: "/Project_SWP_Group2/searchProductByAJAX",
+                                    type: "get",
+                                    data: {
+                                        txt: search
+                                    },
+                                    success: function (data) {
+                                        var row = document.getElementById("product");
+                                        row.innerHTML = data;
+                                    },
+                                    error: function (xhr) {
+
+                                    }
+                                })
+                            }
+        </script>
     </body>
+
+</html>

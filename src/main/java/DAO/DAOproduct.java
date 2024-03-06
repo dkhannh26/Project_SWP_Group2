@@ -35,6 +35,24 @@ public class DAOproduct extends DBconnect.DBconnect {
         }
         return list;
     }
+    
+    
+    public List<product> get8RandomProduct() {
+        List<product> list = new ArrayList<>();
+        String sql = "select top 8* from product order by newid()";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                product p = new product(rs.getInt("product_id"), rs.getInt("quantity"), rs.getInt("price"), rs.getInt("category_id"), rs.getInt("promo_id"), rs.getString("name"),
+                        rs.getString("description"), rs.getString("pic_url"));
+                list.add(p);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
 
     public product getProductById(String id) {
 
@@ -142,6 +160,7 @@ public class DAOproduct extends DBconnect.DBconnect {
         }
         return list;
     }
+
 
     public List<product> sortIncrease() {
         List<product> list = new ArrayList<>();
@@ -466,13 +485,95 @@ public class DAOproduct extends DBconnect.DBconnect {
 //        }
 //        return null;
 //    }
-    public static void main(String[] args) {
-        DAOproduct product = new DAOproduct();
-//        List<product> list = product.search("%quan%");
-        List<product> list = product.getAll();
 
-//        for (int i = 0; i < 5; i++) {
-//        System.out.println(list.get(2));
+    public List<product> getFemaleProduct() {
+        DAOcategory DAOcategory = new DAOcategory();
+        String listId = DAOcategory.getIdGender("female");
+
+
+        List<product> list = new ArrayList<>();
+        String sql = "select * from product where category_id in " + listId;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                product p = new product(rs.getInt("product_id"), rs.getInt("quantity"), rs.getInt("price"), rs.getInt("category_id"), rs.getInt("promo_id"), rs.getString("name"),
+                        rs.getString("description"), rs.getString("pic_url"));
+                list.add(p);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
     }
+
+
+    public List<product> getMaleProduct() {
+        DAOcategory DAOcategory = new DAOcategory();
+        String listId = DAOcategory.getIdGender("male");
+
+        List<product> list = new ArrayList<>();
+        String sql = "select * from product where category_id in " + listId;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                product p = new product(rs.getInt("product_id"), rs.getInt("quantity"), rs.getInt("price"), rs.getInt("category_id"), rs.getInt("promo_id"), rs.getString("name"),
+                        rs.getString("description"), rs.getString("pic_url"));
+                list.add(p);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<product> getFemaleProductByType(String type) {
+        DAOcategory DAOcategory = new DAOcategory();
+        int id = DAOcategory.getIdType(type,"female");
+
+        List<product> list = new ArrayList<>();
+        String sql = "select * from product\n"
+                + "where category_id = " + id;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                product p = new product(rs.getInt("product_id"), rs.getInt("quantity"), rs.getInt("price"), rs.getInt("category_id"), rs.getInt("promo_id"), rs.getString("name"),
+                        rs.getString("description"), rs.getString("pic_url"));
+                list.add(p);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<product> getMaleProductByType(String type) {
+        DAOcategory DAOcategory = new DAOcategory();
+        int id = DAOcategory.getIdType(type, "male");
+
+        List<product> list = new ArrayList<>();
+        String sql = "select * from product\n"
+                + "where category_id = " + id;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                product p = new product(rs.getInt("product_id"), rs.getInt("quantity"), rs.getInt("price"), rs.getInt("category_id"), rs.getInt("promo_id"), rs.getString("name"),
+                        rs.getString("description"), rs.getString("pic_url"));
+                list.add(p);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+//    public static void main(String[] args) {
+//        DAOproduct dao = new DAOproduct();
+//        
+//        System.out.println(dao.getFemaleProductByType("dress"));
+//    }
 
 }

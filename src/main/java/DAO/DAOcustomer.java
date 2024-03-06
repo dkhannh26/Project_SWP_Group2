@@ -87,12 +87,13 @@ public class DAOcustomer extends DBconnect.DBconnect {
         return false;
     }
 
-    public boolean updatePasswordByEmail(String password, String email) {
-        String sql = "update customer set password = ? where email = ?";
+    public boolean updatePasswordByEmailOrUsername(String password, String input) {
+        String sql = "update customer set password = ? where email = ? or username = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, password);
-            st.setString(2, email);
+            st.setString(2, input);
+            st.setString(3, input);
             st.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -131,4 +132,25 @@ public class DAOcustomer extends DBconnect.DBconnect {
         }
         return null;
     }
+
+    public boolean updateUserProfile(String email, String address, String phoneNumber, String fullName) {
+        String sql = "update customer\n"
+                + "set address = ?, \n"
+                + "phoneNumber = ?,\n"
+                + "fullName = ?\n"
+                + "where email = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, address);
+            st.setString(2, phoneNumber);
+            st.setString(3, fullName);
+            st.setString(4, email);
+            st.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
 }

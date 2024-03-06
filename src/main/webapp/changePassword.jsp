@@ -1,24 +1,24 @@
 <%-- 
-    Document   : login
-    Created on : Feb 28, 2024, 5:18:02 PM
+    Document   : changePassword
+    Created on : Mar 5, 2024, 9:00:58 AM
     Author     : thinh
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
         <link rel="stylesheet" href="./boostrap/bootstrap.min.css"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- bootstrap icon -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
         <link rel = "icon" href =  "./images/LG.png" type = "image/x-icon"> 
-        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <!-- font-awesome -->
+        <script src="https://kit.fontawesome.com/1bd876819f.js" crossorigin="anonymous"></script>
+
         <style>
-            * {
+            *{
                 margin: 0;
                 padding: 0;
                 font-family: 'Quicksand', sans-serif;
@@ -570,208 +570,165 @@
                     right:  0;
                 }
             }
-            #wrapper h2 {
-                color: #a0816c;
-                margin-top: 0px;
-                font-size: 30px;
+            body{
+                height: 600px;
                 font-family: "Quicksand", sans-serif;
+                margin: 0 10%;
+                color: #444;
             }
 
-            #wrapper h3 {
-                font-size: 19px;
-                color: #9E9E9E;
-                margin-top: -11px;
-                font-family: "Quicksand", sans-serif;
-            }
-
-            #wrapper h4 {
-                text-align: left;
-                font-family: "Quicksand", sans-serif;
-                font-size: 15px;
-                color: #9E9E9E;
-            }
-
-            .highlight {
-                color: #7069f0;
-            }
-
-            .highlight2 {
-                color: #CFB997;
-            }
-
-            /* 
-            hr {
-                margin-bottom: 26px;
-                margin-top: -9px;
-            } */
-
-            #wrapper {
-                text-align: center;
+            .flex {
                 display: flex;
-                justify-content: center;
+            }
+
+            .content{
+                text-align: center;
+                border-bottom:#a0816c solid 2px;
+                margin: 5% 0;
+            }
+
+            .highlight{
+                color: #a0816c;
+            }
+
+            .info-content{
+                border-bottom:rgb(172, 162, 162) solid 1px;
+                padding: 12px 0;
+            }
+
+            .user-name {
+                background-color: #d9edf7;
+                justify-content: space-between;
+            }
+
+            .user-name h6 {
                 align-items: center;
-                min-height: 80vh;
+                margin: 0;
+                line-height: 2;
+                margin-left: 10px;
             }
 
-            #wrapper .form-group1 {
-                display: flex;
-            }
-
-            form {
-                border: 1px solid #a0816c;
-                border-radius: 5px;
-                padding: 30px;
-                margin: 30px 0;
-            }
-
-            input {
-                margin: 8px 0;
-                height: fit-content;
-                width: 300px;
-                outline: none;
-                border: 1px solid#a0816c;
-                padding: 5px;
-                border-radius: 0;
-                font-size: inherit;
-                display: center;
-
-            }
-
-            .form-group {
-
-                position: relative;
-                display: flex;
-                margin-top: 5px;
-            }
-
-            #account {
-                background-color: #FFFFFF;
-                color: black;
-                width: 100%;
-                height: 32px;
+            .dropdown-container {
                 text-align: center;
-                border: 1px solid#a0816c;
-                border-radius: 0;
-                margin-top: 10px;
-                font-size: inherit;
-            }
-            select {
-                border:1px solid #a0816c;
-                padding: 5px;
-                font-size: 16px;
-            }
-            select:focus{
-                outline: none;
-                border: 1px solid #a0816c;
-            }
-
-            .policyText {
-                margin: 10px 0;
-            }
-
-            .policyText h4 {
-                margin: 0;
-            }
-
-            label {
-                position: absolute;
-                padding: 0px 5px;
-                left: 10px;
-                top: 35%;
-                pointer-events: none;
-                transform: translateY(-10%);
-                background: #fff;
-                transition: all 0.3s ease-in-out;
-                font-size: inherit;
-
-            }
-
-            .form-group input:focus+label,
-            .form-group input:valid+label {
-                top: 0px;
-                font-size: 13px;
-                font-weight: 500;
-                color: #a0816c;
-            }
-
-            .form-group input:focus {
-                border: 2px solid #a0816c;
-            }
-
-            .log {
-                margin-right: 175px;
-            }
-
-            .login {
-                background: #a0816c;
-                color: #fff;
-                padding: 10px 0;
-                outline: none;
                 width: 100%;
-                height: fit-content;
-                font-size: 19px;
+                background-color: #fbfbfb;
+            }
+
+            .dropdown-container .text-field {
+                width: 90%;
+                border: 1px solid #ebebeb;
+                padding-left: 10px;
+            }
+
+            .dropdown-container .input-group .input-icon {
+                width: 35px;
+                height: 34px;
+                line-height: 34px;
+                background-color: #ebebeb;
+            }
+
+            .dropdown-container .input-group {
+                padding: 20px 0 20px 25px;
+            }
+
+            .user-info .edit-info-btn button{
+                color: #a0816c;
                 border: none;
-
+                background-color: #d9edf7;
             }
 
-            .login:hover {
-                opacity: 0.85;
+            .update-info-btn {
+                padding-bottom: 20px;
             }
 
-            .other-options {
-                padding: 5px 0;
-            }
-            .other-options p {
-                margin: 0;
-                font-size: 0.9em;
+            .update-info-btn button{
+                font-weight: bold;
+                border: none;
+                height: 40px;
+                padding: 5px 20px;
+                margin: 0 20px;
+                border-radius: 5px;
             }
 
-            .bao {
-                width: 44%;
-                margin: 0 auto;
+            .update-info-btn .update-btn {
+                background-color: #000;
+                color: #fff;
             }
+
+            .update-info-btn .update-btn:hover {
+                background-color: #a0816c;
+            }
+
+            .update-info-btn .cancel-btn {
+                background-color: rgb(162, 162, 162);
+                color: #000;
+            }
+
+            .update-info-btn .cancel-btn:hover {
+                background-color: rgb(210, 209, 209);
+            }
+
+            .option li a{
+                list-style-type: circle;
+                padding-left: 1rem;
+                text-decoration: none;
+                color: #444;
+            }
+            .option{
+                list-style-type: circle;
+            }
+            .info{
+                padding-left: 0;
+                list-style: none;
+                background-color: #fbfbfb;
+            }
+
+            .info li {
+                margin-left: 10px;
+            }
+
+
         </style>
-
-
     </head>
-
     <body>
-
         <!-- header -->
         <header class="header">
-            <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
+            <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND</strong></div>
             <div class="headerContent">
-                <div class="logo"><a href="productList">DOTAI</a></div>
+                <div class="logo"><a href="/headerDemo.html">DOTAI</a></div>
                 <nav>
                     <ul class="headerList">
-                        <li class="headerListItem"><a href="productList">Home page</a></li>
+                        <li class="headerListItem"><a href="/headerDemo.html">Home page</a></li>
                         <li class="headerListItem">
-                            <a href="http://localhost:8080/Project_SWP_Group2/productList/male">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/t_shirt">T-shirt</a></li>
-
-                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/pant">Long pants</a></li>
-                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/short">Shorts</a></li>
-                                <!--<li><a href="">Discount</a></li>-->
+                                <li><a href="">T-shirt</a></li>
+                                <li><a href="">Shirt</a></li>
+                                <li><a href="">Jackets, sweatshirts, sweaters</a></li>
+                                <li><a href="">Long pants</a></li>
+                                <li><a href="">Shorts</a></li>
+                                <li><a href="">Discount</a></li>
                             </ul>
                         </li>
                         <li class="headerListItem">
-                            <a href="http://localhost:8080/Project_SWP_Group2/productList/female">Women's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="">Women's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/t_shirt">T-shirt</a></li>
-                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/pant">Long pants</a></li>
-                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/dress">Dress</a></li>
-                                <!--<li><a href="">Discount</a></li>-->
-
+                                <li><a href="">T-shirt</a></li>
+                                <li><a href="">Shirt</a></li>
+                                <li><a href="">Jackets, sweatshirts, sweaters</a></li>
+                                <li><a href="">Long pants</a></li>
+                                <li><a href="">Skirt</a></li>
+                                <li><a href="">Dress</a></li>
+                                <li><a href="">Discount</a></li>
                             </ul>
                         </li>
-                        <!--<li class="headerListItem"><a href="">Accessory</a></li>-->
+                        <li class="headerListItem"><a href="">Accessory</a></li>
                         <li class="headerListItem">
-                            <a href="./aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="./contact.jsp">Contact</a></li>
-                                <li><a href="./viewOrder.jsp">View order</a></li>
-                                <li><a href="./policy.jsp">Exchange policy</a></li>
+                                <li><a href="">Contact</a></li>
+                                <li><a href="">View order</a></li>
+                                <li><a href="">Exchange policy</a></li>
                                 <li><a href="">Order's history</a></li>
                         </li>
                     </ul>
@@ -780,23 +737,74 @@
                     <div class="headerToolIcon">
                         <i class="bi bi-search icon" onclick="toggleBox('box1')"></i>
                         <div class="searchBox box" id="box1">
-                            <div class="searchBox-content">
-                                <h2>SEARCH</h2>
-                                <div class="search-input">
-                                    <input oninput="searchByName(this)" name="search" type="text" size="20" placeholder="Search for products...">
-                                    <button><i class="bi bi-search"></i></button>
-                                </div>
+
+                        </div>
+                    </div>
+                    <div class="headerToolIcon">
+                        <i class="bi bi-person icon" onclick="toggleBox('box2')"></i>
+                        <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->
+
+                        <!-- khi đã login thì khi nhấp vào icon -> box này hiện ra -->
+                        <div class="infoBox box" id="box2">
+                            <div class="infoBox-content">
+                                <h2>ACCOUNT INFORMATION</h2>
+                                <ul class="infoBox-list">
+                                    <li>Username</li>
+                                    <li><i class="infoBox-icon bi bi-dot"></i><a href="/login.html">My account</a></li>
+                                    <li><i class="infoBox-icon bi bi-dot"></i><a href="">Address</a></li>
+                                    <li><i class="infoBox-icon bi bi-dot"></i><a href="">Log out</a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                     <div class="headerToolIcon">
-                        <a href="http://localhost:8080/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
-                        <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->     
+                        <i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i>
+                        <div class="cartBox box" id="box3">
+                            <div class="cartBox-content">
+                                <h2>SHOPPING CART</h2>
+                                <div class="noneProduct">
+                                    <div class="cartIcon"><i class="bi bi-cart2 icon"></i></div>
+                                    <p>There are currently no products</p>
+                                </div>
+                                <!-- nếu có product thì haveProduct display: block -->
+                                <div class="haveProduct">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-4 miniCartImg">
+                                                <img src="images/img1.jpg" alt="">
+                                            </div>
+                                            <div class="col-md-8 miniCartDetail">
+                                                <p>DOTAI - Áo thun wash Cafe Clementine 8122
+                                                    <span>Color / size</span>
+                                                </p>
+                                                <div class="miniCart-quan">
+                                                    <span>1</span>
+                                                </div>
+                                                <div class="miniCart-price">
+                                                    <span>000,000 VND</span>
+                                                </div>
+                                                <div class="deleteBtn">
+                                                    <i class="bi bi-x-lg"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sumPrice">
+                                    <table>
+                                        <tr>
+                                            <td class="tbTextLeft">TOTAL MONEY:</td>
+                                            <td class="tbTextRight">0<span>VND</span></td>
+                                        </tr>
+                                        <tr class="cartButton">
+                                            <td><button class="miniCartButton" onclick="redirectCartPage()">View cart</button></td>
+                                            <td><button class="miniCartButton btnRight">Pay</button></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="headerToolIcon">
-                    <i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i>
-                   
-                </div>
                 </div>
             </div>
 
@@ -804,45 +812,57 @@
         </header>
         <!-- end header -->
 
-        <div id="wrapper">
-            <form id="loginForm" action="http://localhost:8080/Project_SWP_Group2/login/customer" method="POST">
-                <div class="bao">
-                    <h2>LOG IN </h2>
-                    <h3>Enter your email and password</h3>
-                    <hr>
-                    <div class="form-group">
-                        <input type="text" name="input" id="input" required>
-                        <label for="email">Username/Email</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" name="password" required>
-                        <label for="password">Password</label>
-                    </div>
-                    <form>
-                        <div>
-                            <b>Join With Account</b>
-                            <select id="account" onchange="getURL()" name="account">
-                                <option value="customer">Customer</option>
-                                <option value="staff">Staff</option>
-                            </select>
-                        </div>
+        <!--       
 
+        -->        <div class="content">
+            <h2 id="highlight">Your Account</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <h6 id="highlight"><b>ACCOUNT</b></h6>
+                <ul class="option">
+                    <li><a href="">Account information</a></li>
+                    <li><a href="changePassword.jsp">Change password</a></li>
+                    <li><a href="login.jsp">Sign out</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h5 class="info-content"><b>CHANGE PASSWORD</b></h5>
+                <div class="user-info">
+                    <form action="" method="">
+                        <div class="dropdown-container">
+                            <div class="input-group"> 
+                                <label for="">Current Password</label>
+
+                                <input class="text-field" id="currentPassword" name="currentPassword" type="password" >
+                            </div>
+                            <div class="input-group">
+                                <label for="">New Password</label>
+
+
+                                <input class="text-field" id="newPassword1" name="newPassword1" type="password">
+                            </div>
+                            <div class="input-group">
+                                <label for="">Confirm Password</label>
+
+
+                                <input class="text-field" id="newPassword2" name="newPassword2" type="password">
+                            </div>
+                            <div id="message" class="message">
+
+                            </div>
+                            <div class="update-info-btn">
+                                <button class="update-btn btn-changePass">Change</button>
+                                <button type="reset" class="cancel-btn">Cancel</button>
+                            </div>
+
+                        </div>
                     </form>
 
-                    <div class="policyText">
-                        <h4>This site is protected by reCAPTCHA and the Google <a hreft="" class="highlight">Privacy
-                                Policy</a> and <a href="" class="highlight">Terms of Service</a> apply.</h4>
-                    </div>
-                    <div class="g-recaptcha" data-sitekey="6LdZuIkpAAAAAJkyWF_aBPQcctXb-PqjyNorBG28"></div><br>
-                    <div id="error">${message}</div>
-                    <button class="login">Log In</button>
-                    <div class="other-options">
-                        <p>Create new account?<a href="http://localhost:8080/Project_SWP_Group2/signup.jsp" class="highlight2"> Join with us</a></p>
-                        <p>Forgotten password?<a href="http://localhost:8080/Project_SWP_Group2/forgot.jsp" class="highlight2"> Reset Password</a></p>
 
-                    </div>
                 </div>
-            </form>
+            </div>
         </div>
 
         <!-- footer -->
@@ -902,8 +922,8 @@
 
         </footer>
         <!-- end footer -->
-
-        <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script> <!-- lucide.dev icon -->
-        <script src="./js/login.js"></script>
-
+        <script src="js/jquery-3.7.0.min.js"></script>
+        <script src="js/jquery.validate.min.js"></script>
+        <script src="js/changePass.js"></script>
     </body>
+</html>
