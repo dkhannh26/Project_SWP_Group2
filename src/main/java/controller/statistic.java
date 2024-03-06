@@ -6,7 +6,6 @@
 package controller;
 
 import DAO.DAOproduct;
-import entity.product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,14 +13,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  *
  * @author LENOVO
  */
-@WebServlet(name="sortProduct", urlPatterns={"/sortProduct"})
-public class sortProduct extends HttpServlet {
+@WebServlet(name="statistic", urlPatterns={"/statistic"})
+public class statistic extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,43 +36,43 @@ public class sortProduct extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet sortProduct</title>");  
+            out.println("<title>Servlet statistic</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet sortProduct at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet statistic at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     } 
 
-   
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /** 
+     * Handles the HTTP <code>GET</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        DAO.DAOproduct DAOproduct = new DAOproduct();
+        int numberOfOrder = DAOproduct.getNumberOfOrder();
+        String date = request.getParameter("date");
+        request.setAttribute("numberOfOrder", numberOfOrder);
         
-        String sortId = request.getParameter("sortID");
-        
-        DAO.DAOproduct dao = new DAOproduct();
-     
-        
-        if (sortId.equals("Increase")) {
-            List<product> productList = dao.sortIncrease();
-            request.setAttribute("productList", productList);
-              request.getRequestDispatcher("product.jsp").forward(request, response);
-        } else if (sortId.equals("Decrease")){
-            List<product> productList = dao.sortDecrease();
-            request.setAttribute("productList", productList);
-            request.getRequestDispatcher("product.jsp").forward(request, response);
-        } else if (sortId.equals("BestSeller")){
-            List<product> productList = dao.sortBestSeller();
-            request.setAttribute("productList", productList);
-            request.getRequestDispatcher("product.jsp").forward(request, response);
-        } else if (sortId.equals("New")){
-            List<product> productList = dao.sortNew();
-            request.setAttribute("productList", productList);
-            request.getRequestDispatcher("product.jsp").forward(request, response);
+        if(date.equals("date")) {
+            String dateFrom = request.getParameter("from");
+            String dateTo = request.getParameter("to");
+            
+            request.setAttribute("dateFrom", dateFrom);
+            request.setAttribute("dateTo", dateTo);
+            
+            
+            request.getRequestDispatcher("statistic.jsp").forward(request, response);
         }
         
+        request.getRequestDispatcher("statistic.jsp").forward(request, response);
     } 
 
     /** 

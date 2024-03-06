@@ -202,6 +202,40 @@ public class DAOproduct extends DBconnect.DBconnect {
         }
         return list;
     }
+
+    public List<product> sortNew() {
+        List<product> list = new ArrayList<>();
+        String sql = "select * from product ORDER BY product_id DESC";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                product p = new product(rs.getInt("product_id"), rs.getInt("quantity"), rs.getInt("price"), rs.getInt("category_id"), rs.getInt("promo_id"), rs.getString("name"),
+                        rs.getString("description"), rs.getString("pic_url"));
+                list.add(p);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public int getNumberOfOrder() {
+        int number = 0;
+        String sql = "SELECT COUNT(*) AS total FROM orders";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+               number = rs.getInt("total");
+         
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return number;
+    }
+
 //
 //    public List<product> getTop() {
 //        List<product> list = new ArrayList<>();
@@ -219,7 +253,6 @@ public class DAOproduct extends DBconnect.DBconnect {
 //        }
 //        return list;
 //    }
-
 //    public List<product> getBottom() {
 //        List<product> list = new ArrayList<>();
 //        String sql = "select * from product where type=1";

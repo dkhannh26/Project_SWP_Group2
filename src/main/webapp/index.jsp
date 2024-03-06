@@ -18,6 +18,7 @@
             <button>Submit</button>
             <a href="./login.jsp">login</a>
             <a href="productList" > list </a>
+            <a href="statistic?date=none" > statistic </a>
         </form>
     </body>
 </html>

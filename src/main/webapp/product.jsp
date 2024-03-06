@@ -830,6 +830,7 @@
                         <option value="Increase">Increase</option>
                         <option value="Decrease">Decrease</option>
                         <option value="BestSeller">Best Seller</option>
+                         <option value="New">New Arrival</option>
                     </select>
                     <button type="submit" class="filter"> Submit</button>
                 </div>
