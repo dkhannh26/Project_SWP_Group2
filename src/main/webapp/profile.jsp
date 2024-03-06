@@ -29,9 +29,11 @@
                 box-sizing: border-box;
                 color: rgb(151, 143, 137);
             }
+
             img {
                 width: 100%;
             }
+
             :root {
                 --logo-color: #a0816c;
                 --nav-list-color: #a0816c;
@@ -43,9 +45,11 @@
             body::-webkit-scrollbar {
                 width: 0.5em;
             }
+
             body::-webkit-scrollbar-track {
                 box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
             }
+
             body::-webkit-scrollbar-thumb {
                 border-radius: 50px;
                 background-color: var(--bg-color);
@@ -121,7 +125,7 @@
 
             .dropdown-icon {
                 margin-left: 2px;
-                font-size: 	0.7500em;
+                font-size: 0.7500em;
             }
 
             .dropdownMenu {
@@ -175,6 +179,42 @@
                 font-size: 26px;
             }
 
+            .searchBox {
+                width: 420px;
+                position: absolute;
+                top: 100px;
+                right: 13%;
+                left: auto;
+                z-index: 990;
+                background-color: #fff;
+                box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                display: none;
+            }
+            .search-input {
+                position: relative;
+            }
+            .search-input input {
+                width: 100%;
+                border: 1px solid #e7e7e7;
+                background-color: #f6f6f6;
+                height: 44px;
+                padding: 8px 50px 8px 20px;
+                font-size: 1em;
+            }
+            .search-input button {
+                position: absolute;
+                right: 1px;
+                top: 1px;
+                height: 97%;
+                width: 15%;
+                border: none;
+                background-color: #f6f6f6;
+            }
+            .search-input input:focus {
+                outline: none;
+                border-color: var(--bg-color);
+            }
+
             .infoBox {
                 width: auto;
                 min-width: 260px;
@@ -187,40 +227,50 @@
                 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
                 display: none;
             }
-            .infoBox-content, .cartBox-content {
+
+            .infoBox-content,
+            .cartBox-content,
+            .searchBox-content {
                 width: 100%;
                 height: 100%;
                 max-height: 100%;
                 overflow: hidden;
                 padding: 9px 20px 20px;
             }
+
             .headerToolIcon h2 {
-                font-size: 15px;
+                font-size: 1.3em;
                 text-align: center;
                 padding-bottom: 9px;
                 color: var(--text-color);
                 border-bottom: 1px solid #e7e7e7;
             }
+
             .infoBox-content ul {
                 padding: 0;
                 margin: 0;
             }
+
             .infoBox-content ul li {
                 list-style-type: none;
             }
+
             .infoBox-content ul li:first-child {
                 color: black;
                 padding-left: 7px;
             }
+
             .infoBox-list li a {
                 text-decoration: none;
                 font-size: 14px;
                 color: black;
                 padding: 0;
             }
+
             .infoBox-list li a:hover {
                 color: var(--text-color);
             }
+
             .bi-dot {
                 color: black;
             }
@@ -236,22 +286,31 @@
                 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
                 display: none;
             }
+
             .noneProduct {
                 padding: 0 0 10px;
             }
+
             .shopping-cart-icon {
                 margin: 0 auto 7px;
                 display: block;
                 width: 15%;
                 height: 15%;
             }
+
+            .product {
+                margin-top: 50px;
+            }
+
             .cartIcon {
                 justify-content: center;
                 display: flex;
             }
+
             .cartIcon i {
                 font-size: 2.5em;
             }
+
             .noneProduct p {
                 text-align: center;
                 font-size: 14px;
@@ -262,22 +321,27 @@
                 margin-bottom: 8px;
                 display: none;
             }
+
             .bi-x-lg {
                 cursor: pointer;
             }
+
             .miniCartImg {
                 padding-left: 0;
             }
+
             .miniCartDetail {
                 padding-right: 0;
                 position: relative;
             }
+
             .miniCartDetail p {
                 font-size: 0.8em;
                 color: black;
                 font-weight: bold;
                 padding-right: 20px;
             }
+
             .miniCartDetail p span {
                 display: block;
                 text-align: left;
@@ -285,7 +349,8 @@
                 font-weight: normal;
                 font-size: 12px;
             }
-            .miniCart-quan span{
+
+            .miniCart-quan span {
                 float: left;
                 width: auto;
                 color: black;
@@ -297,11 +362,13 @@
                 font-size: 13px;
                 background: #f7f7f7;
             }
+
             .miniCart-price span {
                 color: #677279;
                 float: left;
                 font-weight: 500;
             }
+
             .miniCartDetail .deleteBtn {
                 position: absolute;
                 top: 0;
@@ -311,6 +378,7 @@
                 width: 19px;
                 height: 19px;
             }
+
             .miniCartDetail .deleteBtn * {
                 color: black;
             }
@@ -318,20 +386,27 @@
             .sumPrice {
                 border-top: 1px solid #e7e7e7;
             }
+
             .sumPrice table {
                 width: 100%;
             }
+
             .sumPrice td {
                 width: 50%;
             }
-            .sumPrice .tbTextLeft, .tbTextRight {
+
+            .sumPrice .tbTextLeft,
+            .tbTextRight {
                 padding: 10px 0;
             }
-            .sumPrice .tbTextRight, span {
+
+            .sumPrice .tbTextRight,
+            span {
                 text-align: right;
                 color: red;
                 font-weight: bold;
             }
+
             .miniCartButton {
                 width: 100%;
                 border-radius: 2px;
@@ -343,22 +418,26 @@
                 height: 30px;
                 font-weight: bold;
             }
+
             .cartButton td:first-child {
                 padding-right: 5px;
             }
+
             .cartButton td:last-child {
                 padding-left: 5px;
             }
+
             .cartButton .btnRight {
                 transition: 0.3s;
             }
+
             .cartButton .btnRight:hover {
                 background-color: white;
                 border: 1px solid var(--bg-color);
                 color: var(--text-color);
                 transition: 0.3s;
             }
-
+            /* end header */
             hr {
                 margin-top: 0;
                 margin-bottom: 10px;
@@ -518,9 +597,11 @@
             #img-footer {
                 margin: 0 auto;
             }
+
             .phone {
                 position: relative;
             }
+
             .bi-telephone {
                 cursor: pointer;
                 font-size: 3em;
@@ -549,13 +630,13 @@
             .contact-link:hover {
                 background-color: var(--bg-color);
 
-                .bi-facebook::before, .bi-instagram::before{
+                .bi-facebook::before,
+                .bi-instagram::before {
                     color: white;
                 }
             }
 
             /* END footer */
-
             @media (max-width: 768px) and (min-width: 601px) {
                 .headerListItem {
                     font-size: 12px;
@@ -753,9 +834,9 @@
                         <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->     
                     </div>
                     <div class="headerToolIcon">
-                    <i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i>
-                   
-                </div>
+                        <i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i>
+
+                    </div>
                 </div>
             </div>
 
