@@ -227,8 +227,139 @@ public class DAOproduct extends DBconnect.DBconnect {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-               number = rs.getInt("total");
-         
+                number = rs.getInt("total");
+
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return number;
+    }
+
+    public int getNumberOfOrderByDate(String from, String to) {
+        int number = 0;
+        String sql = "SELECT COUNT(*) AS total FROM orders\n"
+                + "WHERE date >= ? AND date <= ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, from);
+            st.setString(2, to);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                number = rs.getInt("total");
+
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return number;
+    }
+
+    public int getNumberOfProductByDate(String from, String to) {
+        int number = 0;
+        String sql = "SELECT sum(order_detail.quantity) as total\n"
+                + "FROM   order_detail INNER JOIN\n"
+                + "             orders ON order_detail.order_id = orders.order_id\n"
+                + "			 Where date >= ? AND date <= ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, from);
+            st.setString(2, to);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                number = rs.getInt("total");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return number;
+    }
+
+    public int getNumberOfProduct() {
+        int number = 0;
+        String sql = "select sum(quantity) as total from order_detail";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                number = rs.getInt("total");
+
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return number;
+    }
+
+    public int getRevenue() {
+        int number = 0;
+        String sql = "SELECT sum(order_detail.quantity * product.price) AS total\n"
+                + "FROM   order_detail INNER JOIN\n"
+                + "             product ON order_detail.product_id = product.product_id";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                number = rs.getInt("total");
+
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return number;
+    }
+
+    public int getRevenueByDate(String from, String to) {
+        int number = 0;
+        String sql = "SELECT sum(order_detail.quantity * product.price) AS total\n"
+                + "FROM   order_detail INNER JOIN\n"
+                + "             product ON order_detail.product_id = product.product_id INNER JOIN\n"
+                + "             orders ON order_detail.order_id = orders.order_id\n"
+                + "			  Where date >= ? AND date <= ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, from);
+            st.setString(2, to);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                number = rs.getInt("total");
+
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return number;
+    }
+
+    public int getNumberOfCustomer() {
+        int number = 0;
+        String sql = "select count(DISTINCT  usernameCustomer) as total from orders";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                number = rs.getInt("total");
+
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return number;
+    }
+
+    public int getNumberOfCustomerByDate(String from, String to) {
+        int number = 0;
+        String sql = "select count(DISTINCT  usernameCustomer) as total \n"
+                + "from orders\n"
+                + "Where date >= ? AND date <= ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, from);
+            st.setString(2, to);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                number = rs.getInt("total");
+
             }
         } catch (Exception e) {
             System.out.println(e);

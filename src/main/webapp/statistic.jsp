@@ -265,7 +265,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+<!--                            <tr>
                                 <th scope="row">
                                     <img src="/images/img1.jpg" alt="">
                                 </th>
@@ -277,7 +277,7 @@
                                     <button type="button" class="btn btn-primary">Update</button>
                                     <button type="button" class="btn btn-danger">Delete</button>
                                 </td>
-                            </tr>
+                            </tr>-->
 
                         </tbody>
                     </table>
@@ -293,7 +293,7 @@
                             <h2>Products</h2>
                             <span><i class="bi bi-box"></i></span>
                         </div>
-                        <h1>5.000</h1>
+                        <h1>${numberOfProduct}</h1>
                     </div>
 
                     <div class="card">
@@ -309,7 +309,7 @@
                             <h2>Revenue</h2>
                             <span><i class="bi bi-currency-dollar"></i></span>
                         </div>
-                        <h1>10.000</h1>
+                        <h1>${revenue}</h1>
                     </div>
 
                     <div class="card">
@@ -317,14 +317,14 @@
                             <h2>Customers</h2>
                             <span><i class="bi bi-people"></i></span>
                         </div>
-                        <h1>50</h1>
+                        <h1>${numberOfCustomer}</h1>
                     </div>
                 </div>
                 <div>
                     <form action="statistic" method="get">
                        <input type="date" name="from"> - <input type="date" name="to">
                        <button name="date" value="date">Submit</button>
-                       <h1>${dateFrom} ${dateTo} </h1>
+                       <h1>${dateFrom}   =>    ${dateTo} </h1>
                     </form>
                 </div>
             </div>
