@@ -739,42 +739,39 @@
 
         <!-- header -->
         <header class="header">
-            <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND</strong></div>
+            <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
             <div class="headerContent">
-                <div class="logo"><a href="/headerDemo.html">DOTAI</a></div>
+                <div class="logo"><a href="productList">DOTAI</a></div>
                 <nav>
                     <ul class="headerList">
-                        <li class="headerListItem"><a href="/headerDemo.html">Home page</a></li>
+                        <li class="headerListItem"><a href="productList">Home page</a></li>
                         <li class="headerListItem">
-                            <a href="">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="http://localhost:8080/Project_SWP_Group2/productList/male">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="">T-shirt</a></li>
-                                <li><a href="">Shirt</a></li>
-                                <li><a href="">Jackets, sweatshirts, sweaters</a></li>
-                                <li><a href="">Long pants</a></li>
-                                <li><a href="">Shorts</a></li>
-                                <li><a href="">Discount</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/t_shirt">T-shirt</a></li>
+
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/pant">Long pants</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/short">Shorts</a></li>
+                                <!--<li><a href="">Discount</a></li>-->
                             </ul>
                         </li>
                         <li class="headerListItem">
-                            <a href="">Women's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="http://localhost:8080/Project_SWP_Group2/productList/female">Women's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="">T-shirt</a></li>
-                                <li><a href="">Shirt</a></li>
-                                <li><a href="">Jackets, sweatshirts, sweaters</a></li>
-                                <li><a href="">Long pants</a></li>
-                                <li><a href="">Skirt</a></li>
-                                <li><a href="">Dress</a></li>
-                                <li><a href="">Discount</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/t_shirt">T-shirt</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/pant">Long pants</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/dress">Dress</a></li>
+                                <!--<li><a href="">Discount</a></li>-->
+
                             </ul>
                         </li>
-                        <li class="headerListItem"><a href="">Accessory</a></li>
+                        <!--<li class="headerListItem"><a href="">Accessory</a></li>-->
                         <li class="headerListItem">
-                            <a href="">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="./aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="">Contact</a></li>
-                                <li><a href="">View order</a></li>
-                                <li><a href="">Exchange policy</a></li>
+                                <li><a href="./contact.jsp">Contact</a></li>
+                                <li><a href="./viewOrder.jsp">View order</a></li>
+                                <li><a href="./policy.jsp">Exchange policy</a></li>
                                 <li><a href="">Order's history</a></li>
                         </li>
                     </ul>
@@ -783,74 +780,23 @@
                     <div class="headerToolIcon">
                         <i class="bi bi-search icon" onclick="toggleBox('box1')"></i>
                         <div class="searchBox box" id="box1">
-
-                        </div>
-                    </div>
-                    <div class="headerToolIcon">
-                        <i class="bi bi-person icon" onclick="toggleBox('box2')"></i>
-                        <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->
-
-                        <!-- khi đã login thì khi nhấp vào icon -> box này hiện ra -->
-                        <div class="infoBox box" id="box2">
-                            <div class="infoBox-content">
-                                <h2>ACCOUNT INFORMATION</h2>
-                                <ul class="infoBox-list">
-                                    <li>Username</li>
-                                    <li><i class="infoBox-icon bi bi-dot"></i><a href="/login.html">My account</a></li>
-                                    <li><i class="infoBox-icon bi bi-dot"></i><a href="">Address</a></li>
-                                    <li><i class="infoBox-icon bi bi-dot"></i><a href="">Log out</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="headerToolIcon">
-                        <i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i>
-                        <div class="cartBox box" id="box3">
-                            <div class="cartBox-content">
-                                <h2>SHOPPING CART</h2>
-                                <div class="noneProduct">
-                                    <div class="cartIcon"><i class="bi bi-cart2 icon"></i></div>
-                                    <p>There are currently no products</p>
-                                </div>
-                                <!-- nếu có product thì haveProduct display: block -->
-                                <div class="haveProduct">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-4 miniCartImg">
-                                                <img src="images/img1.jpg" alt="">
-                                            </div>
-                                            <div class="col-md-8 miniCartDetail">
-                                                <p>DOTAI - Áo thun wash Cafe Clementine 8122
-                                                    <span>Color / size</span>
-                                                </p>
-                                                <div class="miniCart-quan">
-                                                    <span>1</span>
-                                                </div>
-                                                <div class="miniCart-price">
-                                                    <span>000,000 VND</span>
-                                                </div>
-                                                <div class="deleteBtn">
-                                                    <i class="bi bi-x-lg"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="sumPrice">
-                                    <table>
-                                        <tr>
-                                            <td class="tbTextLeft">TOTAL MONEY:</td>
-                                            <td class="tbTextRight">0<span>VND</span></td>
-                                        </tr>
-                                        <tr class="cartButton">
-                                            <td><button class="miniCartButton" onclick="redirectCartPage()">View cart</button></td>
-                                            <td><button class="miniCartButton btnRight">Pay</button></td>
-                                        </tr>
-                                    </table>
+                            <div class="searchBox-content">
+                                <h2>SEARCH</h2>
+                                <div class="search-input">
+                                    <input oninput="searchByName(this)" name="search" type="text" size="20" placeholder="Search for products...">
+                                    <button><i class="bi bi-search"></i></button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="headerToolIcon">
+                        <a href="http://localhost:8080/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
+                        <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->     
+                    </div>
+                    <div class="headerToolIcon">
+                    <i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i>
+                   
+                </div>
                 </div>
             </div>
 
@@ -959,5 +905,5 @@
 
         <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script> <!-- lucide.dev icon -->
         <script src="./js/login.js"></script>
-        
+
     </body>

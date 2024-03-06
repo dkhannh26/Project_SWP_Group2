@@ -1,8 +1,9 @@
 <%-- 
-    Document   : index.jsp
-    Created on : Mar 6, 2024, 5:17:16 PM
+    Document   : contact
+    Created on : Mar 6, 2024, 8:32:59 PM
     Author     : thinh
 --%>
+
 
 <%@page import="java.text.NumberFormat"%>
 <%@page import="java.text.DecimalFormat"%>
@@ -21,14 +22,13 @@
         <!-- bootstrap -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <!-- bootstrap icon -->
+        <link rel="stylesheet" href="/css/style copy.css">
         <!-- <link rel="stylesheet" href="grid.css"> -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
         <link rel="icon" href="/images/LG.png" type="image/x-icon">
 
         <title>DOTAI</title>
         <style>
-
-
             * {
                 margin: 0;
                 padding: 0;
@@ -93,7 +93,7 @@
             }
 
             .headerContent {
-                justify-content: space-around;
+                justify-content: space-between;
             }
 
             .logo a {
@@ -451,125 +451,90 @@
                 margin-bottom: 10px;
             }
 
-            /* main content */
-            .main {
+            /* main contact */
+            .main-contact {
                 max-width: 1200px;
-                margin: 30px auto 50px;
+                margin: 30px auto;
             }
-
-            .mainContent {
-                max-width: 100%;
-            }
-
-            .mainHeading {
-                text-align: center;
-                margin-bottom: 30px;
-            }
-
-            .headingContent a {
-                text-decoration: none;
-                color: var(--text-color);
+            .main-contact h2 {
+                font-size: 1.4em;
                 font-weight: bold;
-                box-sizing: border-box;
+                color: #b7ab8d;
+                margin: 30px 0;
             }
-
-            .productImg img {
-                width: 100%;
+            .contact-list {
+                list-style-type: none;
+                padding: 0;
             }
-
-            .productDetail {
-                padding: 15px 12px 15px;
-                background-color: rgba(255, 255, 255, 0.83);
-                position: relative;
-                transition: 0.3s;
+            .contact-list li {
+                margin-bottom: 20px;
             }
-
-            .productDetail h3 {
+            .contact-list li span {
+                width: 35px;
+                height: 35px;
+                line-height: 35px;
+                border-radius: 50%;
+                float: left;
+                border: 1px solid #ddd;
+                text-align: center;
                 font-size: 15px;
-                color: black;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
             }
-
-            .productDetail p {
-                margin: 0;
-            }
-
-            .price {
-                font-weight: bold;
+            .contact-list li span i {
                 color: black;
             }
-
-            .productButton {
-                transition: 0.3s;
-                color: white;
-                width: 90%;
-                display: flex;
-                text-align: center;
-                padding: 5px;
-                position: absolute;
-                display: none;
-                transform: translateY(20%);
-                background-color: var(--bg-color);
-                border-radius: 4px;
-                justify-content: center;
-                line-height: 2;
+            .contact-list li p {
+                width: calc(100% - 35px);
+                float: left;
+                padding-left: 15px;
+                margin-bottom: 15px;
+                color: #696969;
+                font-weight: 500;
+                font-size: 14px;
             }
-
-            .productDetail:hover .productButton {
-                display: flex;
+            .contact-list li p strong {
+                color: black;
             }
-
-            .productDetail:hover {
-                transform: translateY(-50%);
+            .contact-right p {
+                font-size: 14px;
+                color: #696969;
+                font-weight: 500;
             }
-
-            .productButton * {
-                width: 50%;
+            .input-group {
+                margin-bottom: 20px;
             }
-
-            .productButton .right {
-                background: white;
-                position: relative;
-                color: white;
-                background: transparent;
-                border-radius: 4px;
-                overflow: hidden;
-                border: none;
-                font-weight: bold;
-            }
-
-            .addBtn {
-                border: none;
-                background-color: var(--bg-color);
-                border-radius: 4px;
-            }
-
-            .addBtn span {
-                color: white;
-            }
-
-            .productButton .right:hover {
-                color: #a0816c;
-            }
-
-            .right span {
-                background-color: white;
-                height: 100%;
-                width: 0;
-                position: absolute;
-                left: 0;
-                bottom: 0;
-                transition: 0.4s;
-                z-index: -1;
-            }
-
-            .productButton .right:hover span {
+            .input-group input {
                 width: 100%;
+                padding: 8px 20px;
+                height: 45px;
+                border: 1px solid #e7e7e7;
+                font-size: 14px;
             }
+            .input-group input:focus {
+                outline: none;
+                border-color: 1px solid var(--bg-color);
+            }
+            .input-group textarea {
+                overflow: auto;
+                width: 100%;
+                height: 130px;
+                padding: 20px 20px;
+                border: 1px solid #e7e7e7;
+                resize: none;
+                font-size: 14px;
+            }
+            .input-group textarea:focus {
+                outline: none;
+                border-color: 1px solid var(--bg-color);
+            }
+            .submit-button button {
+                width: 20%;
+                height: 35px;
+                border: none;
+                background-color: #b7ab8d;
+                color: white;
 
-            /* END main content */
+            }
+            /* end main contact*/
 
             /* footer */
             footer {
@@ -678,23 +643,18 @@
                     right: 0;
                 }
             }
-
-            .productImg img {
-                height: 378px;
-                object-fit: cover;
-            }
         </style>
     </head>
 
     <body>
-<!--         header 
--->        <header class="header">
+        <!-- header -->
+        <header class="header">
             <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
             <div class="headerContent">
-                <div class="logo"><a href="">DOTAI</a></div>
+                <div class="logo"><a href="productList">DOTAI</a></div>
                 <nav>
                     <ul class="headerList">
-                        <li class="headerListItem"><a href="">Home page</a></li>
+                        <li class="headerListItem"><a href="productList">Home page</a></li>
                         <li class="headerListItem">
                             <a href="http://localhost:8080/Project_SWP_Group2/productList/male">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
@@ -702,7 +662,7 @@
 
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/pant">Long pants</a></li>
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/short">Shorts</a></li>
-                                <li><a href="">Discount</a></li>
+                                <!--<li><a href="">Discount</a></li>-->
                             </ul>
                         </li>
                         <li class="headerListItem">
@@ -711,11 +671,11 @@
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/t_shirt">T-shirt</a></li>
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/pant">Long pants</a></li>
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/dress">Dress</a></li>
-                                <li><a href="">Discount</a></li>
+                                <!--<li><a href="">Discount</a></li>-->
 
                             </ul>
                         </li>
-                        <li class="headerListItem"><a href="">Accessory</a></li>
+                        <!--<li class="headerListItem"><a href="">Accessory</a></li>-->
                         <li class="headerListItem">
                             <a href="./aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
@@ -741,8 +701,8 @@
                     </div>
                     <div class="headerToolIcon">
                         <a href="http://localhost:8080/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
-                         
-                    </div> 
+                        <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->     
+                    </div>
                     <div class="headerToolIcon">
                     <i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i>
                    
@@ -751,52 +711,85 @@
             </div>
 
             <hr width="100%" , color="#d0a587" />
-        </header><!--
-         end header -->
-  
-    
-    
-        <!-- main -->
-        <main class="main">
-            <div class="mainHeading">
-                <h2 class="headingContent">
-                    <a href="">Dotai</a>
-                </h2>
-                <p>New products</p>
-            </div>
-            <div class="mainContent container ">
+        </header>
+        <!-- end header -->
 
-                <div class="row" id="product">
-
-                    <c:forEach items="${requestScope.productList}" var="product">
-                        <div class="col-md-3 p-2">
-                            <div class="product">
-                                <div class="productImg">
-                                    <img src="${path}${product.getPicURL()}" alt="img">
-                                </div>
-                                <c:set var="formattedPrice">
-                                    <fmt:formatNumber type="number" value="${product.getPrice()}" pattern="###,###" />
-                                </c:set>
-                                <div class="productDetail">
-                                    <h3>${product.getName()}</h3>
-                                    <p>
-                                        <span class="price">${formattedPrice} VND</span>
-                                        <span class="price-sale"></span>
-                                    </p>
-                                    <div class="productButton">
-                                        <button type="button" class="addBtn"><span>Add to cart</span></button>
-                                        <button type="button" class="right"><span></span>Buy now</button>
+        <main>
+            <div class="main-contact ">
+                <div class="row">
+                    <div class="col-md-5">
+                        <h2>Contact Info</h2>
+                        <ul class="contact-list">
+                            <li>
+                                <span><i class="bi bi-geo-alt-fill"></i></span>
+                                <p>
+                                    <strong>Address</strong> 
+                                    <br>
+                                    10/12D. Nguyen Trai, Cai Khe Ward, Ninh Kieu District, City. Can Tho.
+                                </p>
+                            </li>
+                            <li>
+                                <span><i class="bi bi-envelope"></i></span>
+                                <p>
+                                    <strong>Email</strong> 
+                                    <br>
+                                    info@noobita.vn
+                                </p>
+                            </li>
+                            <li>
+                                <span><i class="bi bi-telephone-fill"></i></span>
+                                <p>
+                                    <strong>Phone</strong> 
+                                    <br>
+                                    0817.637.376 - 0917.637.376
+                                </p>
+                            </li>
+                            <li>
+                                <span><i class="bi bi-clock"></i></span>
+                                <p>
+                                    <strong>Working time</strong> 
+                                    <br>
+                                    Every day of the week
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-7 contact-right">
+                        <h2>Send us your questions</h2>
+                        <p>If you have any questions, you can send us a request, and we will contact you as soon as possible.</p>
+                        <div>
+                            <form action="">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <input type="text" placeholder="Your name">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="input-group">
+                                            <input type="text" placeholder="Your email">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="input-group">
+                                            <input type="text" placeholder="Your your phone number">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <textarea placeholder="Content"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 submit-button">
+                                        <button>SEND US</button>
                                     </div>
                                 </div>
-                                
-                            </div>
+                            </form>
                         </div>
-                    </c:forEach>
-
+                    </div>
                 </div>
             </div>
         </main>
-        <!-- end main -->
 
         <!-- footer -->
         <footer>
@@ -864,34 +857,12 @@
         <!-- end footer -->
 
 
-        <script src="./js/header.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script type="text/javascript">
-                                    function doDelete(id) {
-                                        if (confirm("Do you want to delete this product (" + id + ")?")) {
-                                            window.location = "deleteProduct?id=" + id;
-                                        }
+                                function doDelete(id) {
+                                    if (confirm("Do you want to delete this product (" + id + ")?")) {
+                                        window.location = "deleteProduct?id=" + id;
                                     }
-
-
-                                    function searchByName(name) {
-                                        var search = name.value
-
-                                        $.ajax({
-                                            url: "/Project_SWP_Group2/searchProductByAJAX",
-                                            type: "get",
-                                            data: {
-                                                txt: search
-                                            },
-                                            success: function (data) {
-                                                var row = document.getElementById("product");
-                                                row.innerHTML = data;
-                                            },
-                                            error: function (xhr) {
-
-                                            }
-                                        })
-                                    }
+                                }
         </script>
     </body>
 

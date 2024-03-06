@@ -56,7 +56,7 @@ public class maleProductController extends HttpServlet {
         List<product> list = DAOproduct.getMaleProductByType("t-shirt");
         request.setAttribute("productList", list);
         request.setAttribute("path", "../.");
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/productList.jsp").forward(request, response);
     }
 
     private void getPant(HttpServletRequest request, HttpServletResponse response)
@@ -65,7 +65,7 @@ public class maleProductController extends HttpServlet {
         request.setAttribute("productList", list);
         request.setAttribute("path", "../.");
 
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/productList.jsp").forward(request, response);
     }
 
     private void getShort(HttpServletRequest request, HttpServletResponse response)
@@ -74,7 +74,7 @@ public class maleProductController extends HttpServlet {
         request.setAttribute("productList", list);
         request.setAttribute("path", "../.");
 
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/productList.jsp").forward(request, response);
     }
 
     private void getMaleProduct(HttpServletRequest request, HttpServletResponse response)
@@ -82,7 +82,7 @@ public class maleProductController extends HttpServlet {
         List<product> list = DAOproduct.getMaleProduct();
         request.setAttribute("productList", list);
         request.setAttribute("path", ".");
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/productList.jsp").forward(request, response);
     }
 
 }

@@ -22,7 +22,7 @@ import static url.productURL.URL_PRODUCT_LIST;
  * @author LENOVO
  */
 @WebServlet(name = "productList", urlPatterns = {URL_PRODUCT_LIST})
-public class productList extends HttpServlet {
+public class home extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -59,9 +59,9 @@ public class productList extends HttpServlet {
         switch (urlPath) {
             case URL_PRODUCT_LIST:
                 DAOproduct DAOproduct = new DAOproduct();
-                List<product> productList = DAOproduct.getAll();
+                List<product> productList = DAOproduct.get8RandomProduct();
                 request.setAttribute("productList", productList);
-                request.getRequestDispatcher("femaleProduct.jsp").forward(request, response);
+                request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
 
         }

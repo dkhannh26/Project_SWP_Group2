@@ -35,6 +35,24 @@ public class DAOproduct extends DBconnect.DBconnect {
         }
         return list;
     }
+    
+    
+    public List<product> get8RandomProduct() {
+        List<product> list = new ArrayList<>();
+        String sql = "select top 8* from product order by newid()";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                product p = new product(rs.getInt("product_id"), rs.getInt("quantity"), rs.getInt("price"), rs.getInt("category_id"), rs.getInt("promo_id"), rs.getString("name"),
+                        rs.getString("description"), rs.getString("pic_url"));
+                list.add(p);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
 
     public product getProductById(String id) {
 

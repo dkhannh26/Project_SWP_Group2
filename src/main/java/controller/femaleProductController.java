@@ -56,7 +56,7 @@ public class femaleProductController extends HttpServlet {
         request.setAttribute("productList", list);
         request.setAttribute("path", "../.");
 
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/productList.jsp").forward(request, response);
     }
 
     private void getPant(HttpServletRequest request, HttpServletResponse response)
@@ -65,7 +65,7 @@ public class femaleProductController extends HttpServlet {
         request.setAttribute("productList", list);
         request.setAttribute("path", "../.");
 
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/productList.jsp").forward(request, response);
     }
 
     private void getDress(HttpServletRequest request, HttpServletResponse response)
@@ -74,7 +74,7 @@ public class femaleProductController extends HttpServlet {
         request.setAttribute("productList", list);
         request.setAttribute("path", "../.");
 
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/productList.jsp").forward(request, response);
     }
 
     private void getFemaleProduct(HttpServletRequest request, HttpServletResponse response)
@@ -83,7 +83,7 @@ public class femaleProductController extends HttpServlet {
         request.setAttribute("productList", list);
                 request.setAttribute("path", ".");
 
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/productList.jsp").forward(request, response);
     }
 
 }

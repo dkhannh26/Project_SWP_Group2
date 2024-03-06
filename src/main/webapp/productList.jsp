@@ -1,7 +1,7 @@
 <%-- 
-    Document   : index.jsp
-    Created on : Mar 6, 2024, 5:17:16 PM
-    Author     : thinh
+    Document   : product.jsp
+    Created on : Feb 27, 2024, 6:21:56 PM
+    Author     : LENOVO
 --%>
 
 <%@page import="java.text.NumberFormat"%>
@@ -27,8 +27,6 @@
 
         <title>DOTAI</title>
         <style>
-
-
             * {
                 margin: 0;
                 padding: 0;
@@ -687,14 +685,14 @@
     </head>
 
     <body>
-<!--         header 
--->        <header class="header">
+        <!-- header -->
+        <header class="header">
             <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
             <div class="headerContent">
-                <div class="logo"><a href="">DOTAI</a></div>
+                <div class="logo"><a href="http://localhost:8080/Project_SWP_Group2/productList">DOTAI</a></div>
                 <nav>
                     <ul class="headerList">
-                        <li class="headerListItem"><a href="">Home page</a></li>
+                        <li class="headerListItem"><a href="http://localhost:8080/Project_SWP_Group2/productList">Home page</a></li>
                         <li class="headerListItem">
                             <a href="http://localhost:8080/Project_SWP_Group2/productList/male">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
@@ -702,7 +700,7 @@
 
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/pant">Long pants</a></li>
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/short">Shorts</a></li>
-                                <li><a href="">Discount</a></li>
+                                <!--<li><a href="">Discount</a></li>-->
                             </ul>
                         </li>
                         <li class="headerListItem">
@@ -711,17 +709,17 @@
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/t_shirt">T-shirt</a></li>
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/pant">Long pants</a></li>
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/dress">Dress</a></li>
-                                <li><a href="">Discount</a></li>
+                                <!--<li><a href="">Discount</a></li>-->
 
                             </ul>
                         </li>
-                        <li class="headerListItem"><a href="">Accessory</a></li>
+                        <!--<li class="headerListItem"><a href="">Accessory</a></li>-->
                         <li class="headerListItem">
-                            <a href="./aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="http://localhost:8080/Project_SWP_Group2/aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="./contact.jsp">Contact</a></li>
-                                <li><a href="./viewOrder.jsp">View order</a></li>
-                                <li><a href="./policy.jsp">Exchange policy</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/contact.jsp">Contact</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/viewOrder.jsp">View order</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/policy.jsp">Exchange policy</a></li>
                                 <li><a href="">Order's history</a></li>
                         </li>
                     </ul>
@@ -741,8 +739,8 @@
                     </div>
                     <div class="headerToolIcon">
                         <a href="http://localhost:8080/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
-                         
-                    </div> 
+                        <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->     
+                    </div>
                     <div class="headerToolIcon">
                     <i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i>
                    
@@ -751,11 +749,9 @@
             </div>
 
             <hr width="100%" , color="#d0a587" />
-        </header><!--
-         end header -->
-  
-    
-    
+        </header>
+        <!-- end header -->
+
         <!-- main -->
         <main class="main">
             <div class="mainHeading">
@@ -784,15 +780,14 @@
                                         <span class="price-sale"></span>
                                     </p>
                                     <div class="productButton">
-                                        <button type="button" class="addBtn"><span>Add to cart</span></button>
-                                        <button type="button" class="right"><span></span>Buy now</button>
+
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
-                    </c:forEach>
 
+                    </c:forEach>
                 </div>
             </div>
         </main>
@@ -867,31 +862,31 @@
         <script src="./js/header.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script type="text/javascript">
-                                    function doDelete(id) {
-                                        if (confirm("Do you want to delete this product (" + id + ")?")) {
-                                            window.location = "deleteProduct?id=" + id;
-                                        }
+                            function doDelete(id) {
+                                if (confirm("Do you want to delete this product (" + id + ")?")) {
+                                    window.location = "deleteProduct?id=" + id;
+                                }
+                            }
+
+
+                            function searchByName(name) {
+                                var search = name.value
+
+                                $.ajax({
+                                    url: "/Project_SWP_Group2/searchProductByAJAX",
+                                    type: "get",
+                                    data: {
+                                        txt: search
+                                    },
+                                    success: function (data) {
+                                        var row = document.getElementById("product");
+                                        row.innerHTML = data;
+                                    },
+                                    error: function (xhr) {
+
                                     }
-
-
-                                    function searchByName(name) {
-                                        var search = name.value
-
-                                        $.ajax({
-                                            url: "/Project_SWP_Group2/searchProductByAJAX",
-                                            type: "get",
-                                            data: {
-                                                txt: search
-                                            },
-                                            success: function (data) {
-                                                var row = document.getElementById("product");
-                                                row.innerHTML = data;
-                                            },
-                                            error: function (xhr) {
-
-                                            }
-                                        })
-                                    }
+                                })
+                            }
         </script>
     </body>
 
