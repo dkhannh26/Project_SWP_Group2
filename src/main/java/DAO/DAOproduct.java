@@ -162,7 +162,28 @@ public class DAOproduct extends DBconnect.DBconnect {
     }
 
 
-    public List<product> sortIncrease() {
+
+    public List<product> getFemaleProduct() {
+        DAOcategory DAOcategory = new DAOcategory();
+        String listId = DAOcategory.getIdGender("female");
+        List<product> list = new ArrayList<>();
+        String sql = "select * from product where category_id in " + listId;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                product p = new product(rs.getInt("product_id"), rs.getInt("quantity"), rs.getInt("price"), rs.getInt("category_id"), rs.getInt("promo_id"), rs.getString("name"),
+                        rs.getString("description"), rs.getString("pic_url"));
+                list.add(p);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+        public List<product> sortIncrease() {
+
         List<product> list = new ArrayList<>();
         String sql = "SELECT * FROM product\n"
                 + "ORDER BY price";
@@ -385,128 +406,6 @@ public class DAOproduct extends DBconnect.DBconnect {
         }
         return number;
     }
-
-//
-//    public List<product> getTop() {
-//        List<product> list = new ArrayList<>();
-//        String sql = "select * from product where type=0";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            ResultSet rs = st.executeQuery();
-//            while (rs.next()) {
-//                product p = new product(rs.getInt("type"), rs.getInt("pro_quan"), rs.getInt("pro_id"), rs.getString("pro_name"),
-//                        rs.getInt("pro_sale"), rs.getInt("pro_price"), rs.getString("pro_pic"), rs.getString("pro_des"));
-//                list.add(p);
-//            }
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//        return list;
-//    }
-//    public List<product> getBottom() {
-//        List<product> list = new ArrayList<>();
-//        String sql = "select * from product where type=1";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            ResultSet rs = st.executeQuery();
-//            while (rs.next()) {
-//                product p = new product(rs.getInt("type"), rs.getInt("pro_quan"), rs.getInt("pro_id"), rs.getString("pro_name"),
-//                        rs.getInt("pro_sale"), rs.getInt("pro_price"), rs.getString("pro_pic"), rs.getString("pro_des"));
-//                list.add(p);
-//            }
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//        return list;
-//    }
-//
-//    public void insert(product p) {
-//        String sql = "INSERT INTO [dbo].[product]\n"
-//                + "           ([type]\n"
-//                + "           ,[pro_quan]\n"
-//                + "           ,[pro_id]\n"
-//                + "           ,[pro_name]\n"
-//                + "           ,[pro_sale]\n"
-//                + "           ,[pro_price]\n"
-//                + "           ,[pro_pic]\n"
-//                + "           ,[pro_des])\n"
-//                + "     VALUES\n"
-//                + "           (?,?,?,?,?,?,?,?)";
-//
-//        try {
-//
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            st.setInt(1, p.getType());
-//            st.setInt(2, p.getPro_quan());
-//            st.setInt(3, p.getPro_id());
-//            st.setString(4, p.getPro_name());
-//            st.setInt(5, p.getPro_sale());
-//            st.setInt(6, p.getPro_price());
-//            st.setString(7, p.getPro_pic());
-//            st.setString(8, p.getPro_des());
-//            st.executeUpdate();
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//
-//    }
-//
-//
-//
-//
-//    public void updateQuan(int quan, int id) {
-//        String sql = "update product\n"
-//                + "set pro_quan = ?\n"
-//                + "where pro_id = ?";
-//        try {
-//            PreparedStatement ps = connection.prepareStatement(sql);
-//            ps.setInt(1, quan);
-//            ps.setInt(2, id);
-//            ps.executeUpdate();
-//        } catch (Exception e) {
-//        }
-//    }
-//
-//    public product getProductById(String id) {
-//
-//        String sql = "select * from product where pro_id=?";
-//
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            st.setString(1, id);
-//            ResultSet rs = st.executeQuery();
-//            if (rs.next()) {
-//                product p = new product(rs.getInt("type"), rs.getInt("pro_quan"), rs.getInt("pro_id"), rs.getString("pro_name"),
-//                        rs.getInt("pro_sale"), rs.getInt("pro_price"), rs.getString("pro_pic"), rs.getString("pro_des"));
-//                return p;
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//        }
-//        return null;
-//    }
-
-    public List<product> getFemaleProduct() {
-        DAOcategory DAOcategory = new DAOcategory();
-        String listId = DAOcategory.getIdGender("female");
-
-
-        List<product> list = new ArrayList<>();
-        String sql = "select * from product where category_id in " + listId;
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                product p = new product(rs.getInt("product_id"), rs.getInt("quantity"), rs.getInt("price"), rs.getInt("category_id"), rs.getInt("promo_id"), rs.getString("name"),
-                        rs.getString("description"), rs.getString("pic_url"));
-                list.add(p);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return list;
-    }
-
 
     public List<product> getMaleProduct() {
         DAOcategory DAOcategory = new DAOcategory();

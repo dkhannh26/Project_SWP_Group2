@@ -60,8 +60,24 @@ public class cookieHandle extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+
+        Cookie[] cookies = request.getCookies();
+        String input = "";
+        for (Cookie cooky : cookies) {
+            if (cooky.getName().equals("input")) {
+                input = cooky.getValue();
+                break;
+            }
+        }
         deleteCookie(request, response);
-        response.sendRedirect("/Project_SWP_Group2/productList");
+
+        if (input.equals("admin")) {
+            response.sendRedirect("/Project_SWP_Group2/login.jsp");
+
+        } else {
+            response.sendRedirect("/Project_SWP_Group2/productList");
+
+        }
     }
 
     /**

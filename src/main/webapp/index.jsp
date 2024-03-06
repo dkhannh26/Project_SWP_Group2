@@ -23,7 +23,8 @@
         <!-- bootstrap icon -->
         <!-- <link rel="stylesheet" href="grid.css"> -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-        <link rel="icon" href="/images/LG.png" type="image/x-icon">
+                <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+
 
         <title>DOTAI</title>
         <style>
@@ -688,14 +689,7 @@
 
     <body>
 
-        <h1>Hello World!</h1>
-        <form action="productList" method="get">
-            <h1> ${input} </h1>
-            <button>Submit</button>
-            <a href="./login.jsp">login</a>
-            <a href="productList" > list </a>
-            <a href="statistic?date=none" > statistic </a>
-        </form>
+
 
 <!--         header 
 -->        <header class="header">

@@ -13,7 +13,8 @@
         <link rel="stylesheet" href="./boostrap/bootstrap.min.css"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- bootstrap icon -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-        <link rel = "icon" href =  "./images/LG.png" type = "image/x-icon"> 
+                <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+
         <!-- font-awesome -->
         <script src="https://kit.fontawesome.com/1bd876819f.js" crossorigin="anonymous"></script>
 

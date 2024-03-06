@@ -25,7 +25,8 @@
         <link rel="stylesheet" href="/css/style copy.css">
         <!-- <link rel="stylesheet" href="grid.css"> -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-        <link rel="icon" href="/images/LG.png" type="image/x-icon">
+                <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+
 
         <title>DOTAI</title>
         <style>
