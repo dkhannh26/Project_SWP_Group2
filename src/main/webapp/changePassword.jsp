@@ -1,6 +1,6 @@
 <%-- 
-    Document   : signup
-    Created on : Feb 27, 2024, 9:22:36 PM
+    Document   : changePassword
+    Created on : Mar 5, 2024, 9:00:58 AM
     Author     : thinh
 --%>
 
@@ -9,14 +9,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Sign up</title>
+        <title>JSP Page</title>
         <link rel="stylesheet" href="./boostrap/bootstrap.min.css"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- bootstrap icon -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
                 <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
 
+        <!-- font-awesome -->
+        <script src="https://kit.fontawesome.com/1bd876819f.js" crossorigin="anonymous"></script>
+
         <style>
-            * {
+            *{
                 margin: 0;
                 padding: 0;
                 font-family: 'Quicksand', sans-serif;
@@ -114,8 +117,8 @@
             }
 
             .dropdown-icon {
-                width: 18px;
                 margin-left: 2px;
+                font-size: 	0.7500em;
             }
 
             .dropdownMenu {
@@ -158,13 +161,15 @@
                 padding: 5px;
             }
 
-            /* .headerToolIcon {
-                padding-left: 10px;
-            } */
+            .headerToolIcon {
+                width: 45px;
+                justify-content: center;
+                display: flex;
+            }
 
             .icon {
                 cursor: pointer;
-                width: 30px;
+                font-size: 26px;
             }
 
             .infoBox {
@@ -213,7 +218,7 @@
             .infoBox-list li a:hover {
                 color: var(--text-color);
             }
-            .infoBox-icon * {
+            .bi-dot {
                 color: black;
             }
 
@@ -237,6 +242,13 @@
                 width: 15%;
                 height: 15%;
             }
+            .cartIcon {
+                justify-content: center;
+                display: flex;
+            }
+            .cartIcon i {
+                font-size: 2.5em;
+            }
             .noneProduct p {
                 text-align: center;
                 font-size: 14px;
@@ -246,6 +258,9 @@
             .haveProduct {
                 margin-bottom: 8px;
                 display: none;
+            }
+            .bi-x-lg {
+                cursor: pointer;
             }
             .miniCartImg {
                 padding-left: 0;
@@ -500,10 +515,18 @@
             #img-footer {
                 margin: 0 auto;
             }
-
-            .phone-icon {
-                width: 100%;
-                height: 100%;
+            .phone {
+                position: relative;
+            }
+            .bi-telephone {
+                cursor: pointer;
+                font-size: 3em;
+                /* width: 85px; */
+                /* height: 60px; */
+                /* display: flex; */
+                position: absolute;
+                top: -16%;
+                left: 15px;
             }
 
             .contact-item {
@@ -511,17 +534,19 @@
             }
 
             .contact-link {
-                margin: 5px;
+                margin-right: 10px;
                 border: 1px solid #a0816c;
                 border-radius: 5px;
                 padding: 5px;
-
+                width: 35.6px;
+                justify-content: center;
+                display: flex;
             }
 
             .contact-link:hover {
                 background-color: var(--bg-color);
 
-                .contact-icon * {
+                .bi-facebook::before, .bi-instagram::before{
                     color: white;
                 }
             }
@@ -546,99 +571,125 @@
                     right:  0;
                 }
             }
-
-            #wrapper {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-
+            body{
+                height: 600px;
+                font-family: "Quicksand", sans-serif;
+                margin: 0 10%;
+                color: #444;
             }
-            .bao {
+
+            .flex {
+                display: flex;
+            }
+
+            .content{
                 text-align: center;
-                margin-top: 42px;
-                width:48%;
-                margin:0 auto;
-                margin-top:42px;
+                border-bottom:#a0816c solid 2px;
+                margin: 5% 0;
             }
-            #wrapper h2 {
+
+            .highlight{
                 color: #a0816c;
-                margin-top: 0px;
-                font-size: 28px;
-                font-family: "Quicksand", sans-serif;
             }
 
-            form {
-                border: 1px solid #a0816c;
-                border-radius: 5px;
-                padding: 0px;
-                min-height: 80vh;
-            }
-            .form-group input{
-                margin: 8px 0;
-                height: fit-content;
-                width: 300px;
-                outline: none;
-                border: 2px solid#a0816c;
-                padding: 5px;
-                border-radius: 0;
-                font-size: inherit;
-            }
-            .check label {
-                display: flex;
-            }
-            #wrapper h4 {
-                text-align: left;
-                font-family: "Quicksand", sans-serif;
-                font-size: 15px;
-                color: #9e9e9e;
-            }
-            .btn-register{
-                background: #a0816c;
-                color: #fff;
-                padding: 10px 0;
-                outline: none;
-                width: 40%;
-                height: fit-content;
-                font-size: 14px;
-                border: none;
-
-            }
-            .back-button {
-                display: inline-block;
-                background-color: #fff;
-                color:#a0816c;
-                padding: 10px 20px;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                text-decoration: none;
-                font-size: 14px;
-                font-family: "Quicksand", sans-serif;
+            .info-content{
+                border-bottom:rgb(172, 162, 162) solid 1px;
+                padding: 12px 0;
             }
 
-            .back-arrow {
-                margin-right: 5px;
+            .user-name {
+                background-color: #d9edf7;
+                justify-content: space-between;
             }
 
-            .highlight {
-                color: #7069f0;
+            .user-name h6 {
+                align-items: center;
+                margin: 0;
+                line-height: 2;
+                margin-left: 10px;
             }
-            .foot {
+
+            .dropdown-container {
+                text-align: center;
                 width: 100%;
+                background-color: #fbfbfb;
             }
-            .btn-register:hover {
-                background-color:#8d481b;
-            }
-            .back-arrow:hover{
-                color:#642d08;
-            }
-            .back-button:hover{
-                color:#642d08;
-            }
-        </style>
 
+            .dropdown-container .text-field {
+                width: 90%;
+                border: 1px solid #ebebeb;
+                padding-left: 10px;
+            }
+
+            .dropdown-container .input-group .input-icon {
+                width: 35px;
+                height: 34px;
+                line-height: 34px;
+                background-color: #ebebeb;
+            }
+
+            .dropdown-container .input-group {
+                padding: 20px 0 20px 25px;
+            }
+
+            .user-info .edit-info-btn button{
+                color: #a0816c;
+                border: none;
+                background-color: #d9edf7;
+            }
+
+            .update-info-btn {
+                padding-bottom: 20px;
+            }
+
+            .update-info-btn button{
+                font-weight: bold;
+                border: none;
+                height: 40px;
+                padding: 5px 20px;
+                margin: 0 20px;
+                border-radius: 5px;
+            }
+
+            .update-info-btn .update-btn {
+                background-color: #000;
+                color: #fff;
+            }
+
+            .update-info-btn .update-btn:hover {
+                background-color: #a0816c;
+            }
+
+            .update-info-btn .cancel-btn {
+                background-color: rgb(162, 162, 162);
+                color: #000;
+            }
+
+            .update-info-btn .cancel-btn:hover {
+                background-color: rgb(210, 209, 209);
+            }
+
+            .option li a{
+                list-style-type: circle;
+                padding-left: 1rem;
+                text-decoration: none;
+                color: #444;
+            }
+            .option{
+                list-style-type: circle;
+            }
+            .info{
+                padding-left: 0;
+                list-style: none;
+                background-color: #fbfbfb;
+            }
+
+            .info li {
+                margin-left: 10px;
+            }
+
+
+        </style>
     </head>
     <body>
         <!-- header -->
@@ -762,49 +813,57 @@
         </header>
         <!-- end header -->
 
-        <div id="wrapper">
-            <form action="" method="">
-                <div class="bao">
-                    <h2>Register An Account</h2>
-                    <hr>
-                    <div class="form-group">
-                        <label for="fullname"></label>
-                        <input type="text" id="fullName" name="fullName" placeholder="Fullname" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="username"></label>
-                        <input type="text" id="username" name="username" placeholder="Username" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password"></label>
-                        <input type="password" id="password" name="password" placeholder="Password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email"></label>
-                        <input type="email" id="email" name="email" placeholder="Email" required>
-                    </div>
+        <!--       
 
-                    <div class="form-group">
-                        <label for="address"></label>
-                        <input type="text" id="address" name="address" placeholder="Address" required>
-                    </div>          
-                    <div class="form-group">
-                        <label for="phone"></label>
-                        <input type="tel" id="phoneNumber"  name="phoneNumber" placeholder="Phone number" pattern="[0]{1}[0-9]{9}" required>
-                    </div>
+        -->        <div class="content">
+            <h2 id="highlight">Your Account</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <h6 id="highlight"><b>ACCOUNT</b></h6>
+                <ul class="option">
+                    <li><a href="">Account information</a></li>
+                    <li><a href="changePassword.jsp">Change password</a></li>
+                    <li><a href="login.jsp">Sign out</a></li>
+                </ul>
+            </div>
 
-                    <div class = "foot">
-                        <h4>This site is protected by reCAPTCHA and the Google <a href="" class="highlight">Privacy
-                                Policy</a> and <a href="" class="highlight">Terms of Service</a> apply.</h4>
-                    </div>
-                    <div>
-                        <button class="btn-register">Register</button>
-                    </div>
+            <div class="col-md-8">
+                <h5 class="info-content"><b>CHANGE PASSWORD</b></h5>
+                <div class="user-info">
+                    <form action="" method="">
+                        <div class="dropdown-container">
+                            <div class="input-group"> 
+                                <label for="">Current Password</label>
+
+                                <input class="text-field" id="currentPassword" name="currentPassword" type="password" >
+                            </div>
+                            <div class="input-group">
+                                <label for="">New Password</label>
+
+
+                                <input class="text-field" id="newPassword1" name="newPassword1" type="password">
+                            </div>
+                            <div class="input-group">
+                                <label for="">Confirm Password</label>
+
+
+                                <input class="text-field" id="newPassword2" name="newPassword2" type="password">
+                            </div>
+                            <div id="message" class="message">
+
+                            </div>
+                            <div class="update-info-btn">
+                                <button class="update-btn btn-changePass">Change</button>
+                                <button type="reset" class="cancel-btn">Cancel</button>
+                            </div>
+
+                        </div>
+                    </form>
+
+
                 </div>
-                <a href="login.jsp" class="back-button">
-                    <span class="back-arrow">&larr;</span>Quay lại trang chủ
-                </a>
-            </form>
+            </div>
         </div>
 
         <!-- footer -->
@@ -864,10 +923,8 @@
 
         </footer>
         <!-- end footer -->
-
-
         <script src="js/jquery-3.7.0.min.js"></script>
         <script src="js/jquery.validate.min.js"></script>
-        <script src="js/signUp.js"></script>
+        <script src="js/changePass.js"></script>
     </body>
 </html>

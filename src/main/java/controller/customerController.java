@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -62,11 +63,26 @@ public class customerController extends HttpServlet {
         }
     }
 
+    private void deleteCookie(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Cookie[] cookies = request.getCookies();
+        for (int i = 0; i < cookies.length; i++) {
+            Cookie cookie = cookies[i];
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+        }
+    }
+
     protected void updatePass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String password = request.getParameter("password");
         password = getMd5(password);
         String email = request.getParameter("email");
-        boolean isSuccess = daoCustomer.updatePasswordByEmail(password, email);
+
+
+//        deleteCookie(request, response);
+
+        boolean isSuccess = daoCustomer.updatePasswordByEmailOrUsername(password, email);
+
         ResponseData data = new ResponseData();
         data.setIsSuccess(isSuccess);
         data.setDescription("");
@@ -108,12 +124,12 @@ public class customerController extends HttpServlet {
     public static String getCode(HttpServletRequest request, HttpServletResponse response, String email) throws ServletException, IOException {
         String mess = "";
         HttpSession s = request.getSession();
-        final String userName = "dotaiverify@gmail.com"; // Tài khoản email gửi
-        final String password = "uclz vips nxek dzbl"; // Mật khẩu email gửi
+        final String userName = "dotaiverify@gmail.com"; // TÃ i khoáº£n email gá»­i
+        final String password = "uclz vips nxek dzbl"; // Máº­t kháº©u email gá»­i
 
         Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com"); // SMTP server của bạn
-        props.put("mail.smtp.port", "587"); // Cổng SMTP của bạn (thường là 587 hoặc 25)
+        props.put("mail.smtp.host", "smtp.gmail.com"); // SMTP server cá»§a báº¡n
+        props.put("mail.smtp.port", "587"); // Cá»•ng SMTP cá»§a báº¡n (thÆ°á»�ng lÃ  587 hoáº·c 25)
 
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");

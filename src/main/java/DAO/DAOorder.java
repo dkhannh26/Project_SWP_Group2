@@ -25,8 +25,8 @@ public class DAOorder extends DBconnect.DBconnect {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                orders o = new orders(rs.getInt("order_id"), rs.getString("address"), rs.getDate("date"), rs.getString("date"),
-                        rs.getString("phone_number"), rs.getString("usernameCustomer"), rs.getString("usernameStaff"));
+                orders o = new orders(rs.getInt("order_id"), rs.getString("address"), rs.getDate("date"), rs.getString("status"),
+                        rs.getString("phone_number"), rs.getString("usernameCustomer"), rs.getString("usernameStaff"),rs.getInt("total"));
                 list.add(o);
             }
         } catch (Exception e) {
@@ -35,10 +35,28 @@ public class DAOorder extends DBconnect.DBconnect {
         return list;
     }
 
-    public void insertOrder(String address, Date date, String status, String phoneNumber, String usernameCustomer, String usernameStaff) {
+    public List<orders> orderUser(String usernameCustomer) {
+        List<orders> list = new ArrayList<>();
+        String sql = "select * from orders where usernameCustomer = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, usernameCustomer);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                orders o = new orders(rs.getInt("order_id"), rs.getString("address"), rs.getDate("date"), rs.getString("date"),
+                        rs.getString("phone_number"), rs.getString("usernameCustomer"), rs.getString("usernameStaff"),rs.getInt("total"));
+                list.add(o);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public void insertOrder(String address, Date date, String status, String phoneNumber, String usernameCustomer, String usernameStaff,int total) {
         String sql = "insert into\n"
                 + "orders\n"
-                + "values(?,?,?,?,?,?)";
+                + "values(?,?,?,?,?,?,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, address);
@@ -47,21 +65,23 @@ public class DAOorder extends DBconnect.DBconnect {
             st.setString(4, phoneNumber);
             st.setString(5, usernameCustomer);
             st.setString(6, usernameStaff);
+            st.setInt(7, total);
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
-    public void insertOrderDetail(int quantity, int productID, int orderID) {
+    public void insertOrderDetail(int quantity, String size_name, int productID, int orderID) {
         String sql = "insert into\n"
                 + "order_detail\n"
-                + "values(?,?,?)";
+                + "values(?,?,?,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, quantity);
-            st.setInt(2, productID);
-            st.setInt(3, orderID);
+            st.setString(2, size_name);
+            st.setInt(3, productID);
+            st.setInt(4, orderID);
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -84,5 +104,17 @@ public class DAOorder extends DBconnect.DBconnect {
             System.out.println(e);
         }
         return order_id;
+    }
+    public void updateStatus(String status, int order_id) {
+        String sql = "update orders\n"
+                + "set status = ?\n"
+                + "where order_id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, status);
+            ps.setInt(2, order_id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
     }
 }

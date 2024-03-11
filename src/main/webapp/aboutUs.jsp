@@ -15,347 +15,427 @@
         <link rel="stylesheet" href="./boostrap/bootstrap.min.css"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- bootstrap icon -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-        <link rel = "icon" href =  "./images/LG.png" type = "image/x-icon"> 
+                <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <!-- bootstrap -->
         <style>
             * {
-                margin: 0;
-                padding: 0;
-                font-family: 'Quicksand', sans-serif;
-                box-sizing: border-box;
-                color: rgb(151, 143, 137);
-            }
-            img {
-                width: 100%;
-            }
-            :root {
-                --logo-color: #a0816c;
-                --nav-list-color: #a0816c;
-                --icon-color: #a0816c;
-                --text-color: #a0816c;
-                --bg-color: #a0816c;
-            }
+            margin: 0;
+            padding: 0;
+            font-family: 'Quicksand', sans-serif;
+            box-sizing: border-box;
+            color: rgb(151, 143, 137);
+        }
 
-            body::-webkit-scrollbar {
-                width: 0.5em;
-            }
-            body::-webkit-scrollbar-track {
-                box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-            }
-            body::-webkit-scrollbar-thumb {
-                border-radius: 50px;
-                background-color: var(--bg-color);
-                outline: 1px solid slategrey;
-            }
+        img {
+            width: 100%;
+        }
 
-            nav {
-                height: 70px;
-                justify-content: center;
-                display: flex;
-            }
+        :root {
+            --logo-color: #a0816c;
+            --nav-list-color: #a0816c;
+            --icon-color: #a0816c;
+            --text-color: #a0816c;
+            --bg-color: #a0816c;
+        }
 
-            .header_title {
-                display: flex;
-                text-align: center;
-                justify-content: center;
-                align-items: center;
-                background-color: #f5f5f5;
-                font-size: 0.8125rem;
-                font-weight: 500;
-                height: 30px;
-            }
+        body::-webkit-scrollbar {
+            width: 0.5em;
+        }
 
-            .headerContent {
-                max-width: 1200px;
-                margin: 0 auto;
-            }
+        body::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        }
 
-            .headerContent,
-            .headerList,
-            .headerTool {
-                display: flex;
-                align-items: center;
-            }
+        body::-webkit-scrollbar-thumb {
+            border-radius: 50px;
+            background-color: var(--bg-color);
+            outline: 1px solid slategrey;
+        }
 
-            .headerContent {
-                justify-content: space-around;
-            }
+        nav {
+            height: 70px;
+            justify-content: center;
+            display: flex;
+        }
 
-            .logo a {
-                text-decoration: none;
-                color: var(--logo-color);
-                font-size: 1.5em;
-                font-weight: bold;
-            }
+        .header_title {
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            height: 30px;
+        }
 
-            .logo a:hover {
-                color: var(--logo-color);
-            }
+        .headerContent {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-            .headerList {
-                margin: 0;
-                list-style-type: none;
-            }
+        .headerContent,
+        .headerList,
+        .headerTool {
+            display: flex;
+            align-items: center;
+        }
 
-            /* hiệu ứng hover */
-            .headerListItem {
-                transition: font-size 0.3s ease;
-                height: 24px;
-            }
+        .headerContent {
+            justify-content: space-between;
+        }
 
-            .headerListItem:hover {
-                font-size: 18px;
-            }
+        .logo a {
+            text-decoration: none;
+            color: var(--logo-color);
+            font-size: 1.5em;
+            font-weight: bold;
+        }
 
-            /* hiệu ứng hover */
-            .headerListItem a {
-                margin: 0 10px;
-                padding: 22px 0;
-                text-decoration: none;
-                color: var(--text-color);
-            }
+        .logo a:hover {
+            color: var(--logo-color);
+        }
 
-            .dropdown-icon {
-                margin-left: 2px;
-                font-size: 	0.7500em;
-            }
+        .headerList {
+            margin: 0;
+            list-style-type: none;
+        }
 
-            .dropdownMenu {
-                position: absolute;
-                width: 200px;
-                padding: 0;
-                margin-top: 17px;
-                background-color: #fff;
-                display: none;
-                z-index: 1;
-                box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-            }
+        /* hiệu ứng hover */
+        .headerListItem {
+            transition: font-size 0.3s ease;
+            height: 24px;
+        }
 
-            .dropdownMenu li {
-                list-style-type: none;
-                margin: 0;
-                border-bottom: 1px solid rgb(235 202 178);
-            }
+        .headerListItem:hover {
+            font-size: 18px;
+        }
 
-            .dropdownMenu li a {
-                text-decoration: none;
-                padding: 5px 15px;
-                margin: 0;
-                width: fit-content;
-                display: flex;
-                font-size: 0.9em;
-                width: 100%;
-                color: var(--text-color);
-            }
+        /* hiệu ứng hover */
+        .headerListItem a {
+            margin: 0 10px;
+            padding: 22px 0;
+            text-decoration: none;
+            color: var(--text-color);
+        }
 
-            .dropdownMenu li:hover {
-                background-color: #f1f1f1
-            }
+        .dropdown-icon {
+            margin-left: 2px;
+            font-size: 0.7500em;
+        }
 
-            .headerListItem:hover .dropdownMenu {
-                display: block;
-            }
+        .dropdownMenu {
+            position: absolute;
+            width: 200px;
+            padding: 0;
+            margin-top: 17px;
+            background-color: #fff;
+            display: none;
+            z-index: 1;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
 
-            .headerTool a {
-                padding: 5px;
-            }
+        .dropdownMenu li {
+            list-style-type: none;
+            margin: 0;
+            border-bottom: 1px solid rgb(235 202 178);
+        }
 
-            .headerToolIcon {
-                width: 45px;
-                justify-content: center;
-                display: flex;
-            }
+        .dropdownMenu li a {
+            text-decoration: none;
+            padding: 5px 15px;
+            margin: 0;
+            width: fit-content;
+            display: flex;
+            font-size: 0.9em;
+            width: 100%;
+            color: var(--text-color);
+        }
 
-            .icon {
-                cursor: pointer;
-                font-size: 26px;
-            }
+        .dropdownMenu li:hover {
+            background-color: #f1f1f1
+        }
 
-            .infoBox {
-                width: auto;
-                min-width: 260px;
-                position: absolute;
-                top: 100px;
-                right: 13%;
-                left: auto;
-                z-index: 990;
-                background-color: #fff;
-                box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-                display: none;
-            }
-            .infoBox-content, .cartBox-content {
-                width: 100%;
-                height: 100%;
-                max-height: 100%;
-                overflow: hidden;
-                padding: 9px 20px 20px;
-            }
-            .headerToolIcon h2 {
-                font-size: 15px;
-                text-align: center;
-                padding-bottom: 9px;
-                color: var(--text-color);
-                border-bottom: 1px solid #e7e7e7;
-            }
-            .infoBox-content ul {
-                padding: 0;
-                margin: 0;
-            }
-            .infoBox-content ul li {
-                list-style-type: none;
-            }
-            .infoBox-content ul li:first-child {
-                color: black;
-                padding-left: 7px;
-            }
-            .infoBox-list li a {
-                text-decoration: none;
-                font-size: 14px;
-                color: black;
-                padding: 0;
-            }
-            .infoBox-list li a:hover {
-                color: var(--text-color);
-            }
-            .bi-dot {
-                color: black;
-            }
+        .headerListItem:hover .dropdownMenu {
+            display: block;
+        }
 
-            .cartBox {
-                width: 340px;
-                position: absolute;
-                top: 100px;
-                right: 13%;
-                left: auto;
-                z-index: 990;
-                background-color: #fff;
-                box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-                display: none;
-            }
-            .noneProduct {
-                padding: 0 0 10px;
-            }
-            .shopping-cart-icon {
-                margin: 0 auto 7px;
-                display: block;
-                width: 15%;
-                height: 15%;
-            }
-            .cartIcon {
-                justify-content: center;
-                display: flex;
-            }
-            .cartIcon i {
-                font-size: 2.5em;
-            }
-            .noneProduct p {
-                text-align: center;
-                font-size: 14px;
-                margin: 0;
-            }
+        .headerTool a {
+            padding: 5px;
+        }
 
-            .haveProduct {
-                margin-bottom: 8px;
-                display: none;
-            }
-            .bi-x-lg {
-                cursor: pointer;
-            }
-            .miniCartImg {
-                padding-left: 0;
-            }
-            .miniCartDetail {
-                padding-right: 0;
-                position: relative;
-            }
-            .miniCartDetail p {
-                font-size: 0.8em;
-                color: black;
-                font-weight: bold;
-                padding-right: 20px;
-            }
-            .miniCartDetail p span {
-                display: block;
-                text-align: left;
-                color: #677279;
-                font-weight: normal;
-                font-size: 12px;
-            }
-            .miniCart-quan span{
-                float: left;
-                width: auto;
-                color: black;
-                margin-right: 12px;
-                padding: 6px 12px;
-                text-align: center;
-                line-height: 1;
-                font-weight: normal;
-                font-size: 13px;
-                background: #f7f7f7;
-            }
-            .miniCart-price span {
-                color: #677279;
-                float: left;
-                font-weight: 500;
-            }
-            .miniCartDetail .deleteBtn {
-                position: absolute;
-                top: 0;
-                right: 0px;
-                line-height: 20px;
-                text-align: center;
-                width: 19px;
-                height: 19px;
-            }
-            .miniCartDetail .deleteBtn * {
-                color: black;
-            }
+        .headerToolIcon {
+            width: 45px;
+            justify-content: center;
+            display: flex;
+        }
 
-            .sumPrice {
-                border-top: 1px solid #e7e7e7;
-            }
-            .sumPrice table {
-                width: 100%;
-            }
-            .sumPrice td {
-                width: 50%;
-            }
-            .sumPrice .tbTextLeft, .tbTextRight {
-                padding: 10px 0;
-            }
-            .sumPrice .tbTextRight, span {
-                text-align: right;
-                color: red;
-                font-weight: bold;
-            }
-            .miniCartButton {
-                width: 100%;
-                border-radius: 2px;
-                width: 100%;
-                background-color: var(--bg-color);
-                border: none;
-                color: white;
-                font-size: 13px;
-                height: 30px;
-                font-weight: bold;
-            }
-            .cartButton td:first-child {
-                padding-right: 5px;
-            }
-            .cartButton td:last-child {
-                padding-left: 5px;
-            }
-            .cartButton .btnRight {
-                transition: 0.3s;
-            }
-            .cartButton .btnRight:hover {
-                background-color: white;
-                border: 1px solid var(--bg-color);
-                color: var(--text-color);
-                transition: 0.3s;
-            }
+        .icon {
+            cursor: pointer;
+            font-size: 26px;
+        }
 
+        .searchBox {
+            width: 420px;
+            position: absolute;
+            top: 100px;
+            right: 13%;
+            left: auto;
+            z-index: 990;
+            background-color: #fff;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            display: none;
+        }
+        .search-input {
+            position: relative;
+        }
+        .search-input input {
+            width: 100%;
+            border: 1px solid #e7e7e7;
+            background-color: #f6f6f6;
+            height: 44px;
+            padding: 8px 50px 8px 20px;
+            font-size: 1em;
+        }
+        .search-input button {
+            position: absolute;
+            right: 1px;
+            top: 1px;
+            height: 97%;
+            width: 15%;
+            border: none;
+            background-color: #f6f6f6;
+        }
+        .search-input input:focus {
+            outline: none;
+            border-color: var(--bg-color);
+        }
+
+        .infoBox {
+            width: auto;
+            min-width: 260px;
+            position: absolute;
+            top: 100px;
+            right: 13%;
+            left: auto;
+            z-index: 990;
+            background-color: #fff;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            display: none;
+        }
+
+        .infoBox-content,
+        .cartBox-content,
+        .searchBox-content {
+            width: 100%;
+            height: 100%;
+            max-height: 100%;
+            overflow: hidden;
+            padding: 9px 20px 20px;
+        }
+
+        .headerToolIcon h2 {
+            font-size: 1.3em;
+            text-align: center;
+            padding-bottom: 9px;
+            color: var(--text-color);
+            border-bottom: 1px solid #e7e7e7;
+        }
+
+        .infoBox-content ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        .infoBox-content ul li {
+            list-style-type: none;
+        }
+
+        .infoBox-content ul li:first-child {
+            color: black;
+            padding-left: 7px;
+        }
+
+        .infoBox-list li a {
+            text-decoration: none;
+            font-size: 14px;
+            color: black;
+            padding: 0;
+        }
+
+        .infoBox-list li a:hover {
+            color: var(--text-color);
+        }
+
+        .bi-dot {
+            color: black;
+        }
+
+        .cartBox {
+            width: 340px;
+            position: absolute;
+            top: 100px;
+            right: 13%;
+            left: auto;
+            z-index: 990;
+            background-color: #fff;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            display: none;
+        }
+
+        .noneProduct {
+            padding: 0 0 10px;
+        }
+
+        .shopping-cart-icon {
+            margin: 0 auto 7px;
+            display: block;
+            width: 15%;
+            height: 15%;
+        }
+
+        .product {
+            margin-top: 50px;
+        }
+
+        .cartIcon {
+            justify-content: center;
+            display: flex;
+        }
+
+        .cartIcon i {
+            font-size: 2.5em;
+        }
+
+        .noneProduct p {
+            text-align: center;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .haveProduct {
+            margin-bottom: 8px;
+            display: none;
+        }
+
+        .bi-x-lg {
+            cursor: pointer;
+        }
+
+        .miniCartImg {
+            padding-left: 0;
+        }
+
+        .miniCartDetail {
+            padding-right: 0;
+            position: relative;
+        }
+
+        .miniCartDetail p {
+            font-size: 0.8em;
+            color: black;
+            font-weight: bold;
+            padding-right: 20px;
+        }
+
+        .miniCartDetail p span {
+            display: block;
+            text-align: left;
+            color: #677279;
+            font-weight: normal;
+            font-size: 12px;
+        }
+
+        .miniCart-quan span {
+            float: left;
+            width: auto;
+            color: black;
+            margin-right: 12px;
+            padding: 6px 12px;
+            text-align: center;
+            line-height: 1;
+            font-weight: normal;
+            font-size: 13px;
+            background: #f7f7f7;
+        }
+
+        .miniCart-price span {
+            color: #677279;
+            float: left;
+            font-weight: 500;
+        }
+
+        .miniCartDetail .deleteBtn {
+            position: absolute;
+            top: 0;
+            right: 0px;
+            line-height: 20px;
+            text-align: center;
+            width: 19px;
+            height: 19px;
+        }
+
+        .miniCartDetail .deleteBtn * {
+            color: black;
+        }
+
+        .sumPrice {
+            border-top: 1px solid #e7e7e7;
+        }
+
+        .sumPrice table {
+            width: 100%;
+        }
+
+        .sumPrice td {
+            width: 50%;
+        }
+
+        .sumPrice .tbTextLeft,
+        .tbTextRight {
+            padding: 10px 0;
+        }
+
+        .sumPrice .tbTextRight,
+        span {
+            text-align: right;
+            color: red;
+            font-weight: bold;
+        }
+
+        .miniCartButton {
+            width: 100%;
+            border-radius: 2px;
+            width: 100%;
+            background-color: var(--bg-color);
+            border: none;
+            color: white;
+            font-size: 13px;
+            height: 30px;
+            font-weight: bold;
+        }
+
+        .cartButton td:first-child {
+            padding-right: 5px;
+        }
+
+        .cartButton td:last-child {
+            padding-left: 5px;
+        }
+
+        .cartButton .btnRight {
+            transition: 0.3s;
+        }
+
+        .cartButton .btnRight:hover {
+            background-color: white;
+            border: 1px solid var(--bg-color);
+            color: var(--text-color);
+            transition: 0.3s;
+        }
+        /* end header */
             hr {
                 margin-top: 0;
                 margin-bottom: 10px;
@@ -603,42 +683,39 @@
 
         <!-- header -->
         <header class="header">
-            <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND</strong></div>
+            <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
             <div class="headerContent">
-                <div class="logo"><a href="/headerDemo.html">DOTAI</a></div>
+                <div class="logo"><a href="productList">DOTAI</a></div>
                 <nav>
                     <ul class="headerList">
-                        <li class="headerListItem"><a href="/headerDemo.html">Home page</a></li>
+                        <li class="headerListItem"><a href="productList">Home page</a></li>
                         <li class="headerListItem">
-                            <a href="">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="http://localhost:8080/Project_SWP_Group2/productList/male">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="">T-shirt</a></li>
-                                <li><a href="">Shirt</a></li>
-                                <li><a href="">Jackets, sweatshirts, sweaters</a></li>
-                                <li><a href="">Long pants</a></li>
-                                <li><a href="">Shorts</a></li>
-                                <li><a href="">Discount</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/t_shirt">T-shirt</a></li>
+
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/pant">Long pants</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/short">Shorts</a></li>
+                                <!--<li><a href="">Discount</a></li>-->
                             </ul>
                         </li>
                         <li class="headerListItem">
-                            <a href="">Women's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="http://localhost:8080/Project_SWP_Group2/productList/female">Women's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="">T-shirt</a></li>
-                                <li><a href="">Shirt</a></li>
-                                <li><a href="">Jackets, sweatshirts, sweaters</a></li>
-                                <li><a href="">Long pants</a></li>
-                                <li><a href="">Skirt</a></li>
-                                <li><a href="">Dress</a></li>
-                                <li><a href="">Discount</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/t_shirt">T-shirt</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/pant">Long pants</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/dress">Dress</a></li>
+                                <!--<li><a href="">Discount</a></li>-->
+
                             </ul>
                         </li>
-                        <li class="headerListItem"><a href="">Accessory</a></li>
+                        <!--<li class="headerListItem"><a href="">Accessory</a></li>-->
                         <li class="headerListItem">
-                            <a href="">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="./aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="">Contact</a></li>
-                                <li><a href="">View order</a></li>
-                                <li><a href="">Exchange policy</a></li>
+                                <li><a href="./contact.jsp">Contact</a></li>
+                                <li><a href="./viewOrder.jsp">View order</a></li>
+                                <li><a href="./policy.jsp">Exchange policy</a></li>
                                 <li><a href="">Order's history</a></li>
                         </li>
                     </ul>
@@ -647,74 +724,23 @@
                     <div class="headerToolIcon">
                         <i class="bi bi-search icon" onclick="toggleBox('box1')"></i>
                         <div class="searchBox box" id="box1">
-
-                        </div>
-                    </div>
-                    <div class="headerToolIcon">
-                        <i class="bi bi-person icon" onclick="toggleBox('box2')"></i>
-                        <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->
-
-                        <!-- khi đã login thì khi nhấp vào icon -> box này hiện ra -->
-                        <div class="infoBox box" id="box2">
-                            <div class="infoBox-content">
-                                <h2>ACCOUNT INFORMATION</h2>
-                                <ul class="infoBox-list">
-                                    <li>Username</li>
-                                    <li><i class="infoBox-icon bi bi-dot"></i><a href="/login.html">My account</a></li>
-                                    <li><i class="infoBox-icon bi bi-dot"></i><a href="">Address</a></li>
-                                    <li><i class="infoBox-icon bi bi-dot"></i><a href="">Log out</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="headerToolIcon">
-                        <i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i>
-                        <div class="cartBox box" id="box3">
-                            <div class="cartBox-content">
-                                <h2>SHOPPING CART</h2>
-                                <div class="noneProduct">
-                                    <div class="cartIcon"><i class="bi bi-cart2 icon"></i></div>
-                                    <p>There are currently no products</p>
-                                </div>
-                                <!-- nếu có product thì haveProduct display: block -->
-                                <div class="haveProduct">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-4 miniCartImg">
-                                                <img src="images/img1.jpg" alt="">
-                                            </div>
-                                            <div class="col-md-8 miniCartDetail">
-                                                <p>DOTAI - Áo thun wash Cafe Clementine 8122
-                                                    <span>Color / size</span>
-                                                </p>
-                                                <div class="miniCart-quan">
-                                                    <span>1</span>
-                                                </div>
-                                                <div class="miniCart-price">
-                                                    <span>000,000 VND</span>
-                                                </div>
-                                                <div class="deleteBtn">
-                                                    <i class="bi bi-x-lg"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="sumPrice">
-                                    <table>
-                                        <tr>
-                                            <td class="tbTextLeft">TOTAL MONEY:</td>
-                                            <td class="tbTextRight">0<span>VND</span></td>
-                                        </tr>
-                                        <tr class="cartButton">
-                                            <td><button class="miniCartButton" onclick="redirectCartPage()">View cart</button></td>
-                                            <td><button class="miniCartButton btnRight">Pay</button></td>
-                                        </tr>
-                                    </table>
+                            <div class="searchBox-content">
+                                <h2>SEARCH</h2>
+                                <div class="search-input">
+                                    <input oninput="searchByName(this)" name="search" type="text" size="20" placeholder="Search for products...">
+                                    <button><i class="bi bi-search"></i></button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="headerToolIcon">
+                        <a href="http://localhost:8080/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
+                        <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->     
+                    </div>
+                    <div class="headerToolIcon">
+                    <i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i>
+                   
+                </div>
                 </div>
             </div>
 
@@ -837,6 +863,13 @@
         <!-- end footer -->
 
         <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script> <!-- lucide.dev icon -->
+        <script type="text/javascript">
+                           function doDelete(id) {
+                               if (confirm("Do you want to delete this product (" + id + ")?")) {
+                                   window.location = "deleteProduct?id=" + id;
+                               }
+                           }
+        </script>
     </body>
 
 </html>

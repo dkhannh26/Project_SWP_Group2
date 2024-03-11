@@ -74,6 +74,7 @@ $(document).ready(function () {
                         var data1 = JSON.parse(data);
                         console.log(data1);
                         if (data1.isSuccess) {
+
                             alert("Change password successfully")
                             window.location.href = "login.jsp";
 //                            $("#messageUpdate").html("Change password successfully"); 
@@ -107,4 +108,10 @@ function getCookie(name) {
         }
     }
     return "";
+
+}
+
+function deleteCookie(name) {
+    document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
 }

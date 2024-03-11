@@ -79,6 +79,7 @@ public class CRUDproduct extends HttpServlet {
         String urlPath = request.getServletPath();
         switch (urlPath) {
             case UPDATE_JSP_PRODUCT:
+
                 int id = Integer.parseInt(request.getParameter("id"));
                 DAOproduct dao = new DAOproduct();
                 product c = dao.getProductById(id);
@@ -118,6 +119,7 @@ public class CRUDproduct extends HttpServlet {
                 break;
 
             case DELETE_PRODUCT:
+
                 id = Integer.parseInt(request.getParameter("id"));
                 request.setAttribute("id", id);
                 dao = new DAOproduct();
@@ -162,7 +164,7 @@ public class CRUDproduct extends HttpServlet {
                 List<product> productList = dao.search("%" + name + "%");
 
                 request.setAttribute("productList", productList);
-                request.getRequestDispatcher("product.jsp").forward(request, response);
+                request.getRequestDispatcher("productList.jsp").forward(request, response);
                 break;
             case SEARCH_PRODUCT_AJAX:
                 dao = new DAOproduct();
@@ -173,7 +175,7 @@ public class CRUDproduct extends HttpServlet {
                 for (product o : productList) {
                     NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.ENGLISH);
 
-                    // Định dạng số
+                    // Ä�á»‹nh dáº¡ng sá»‘
                     String formattedNumber = numberFormat.format(o.getPrice());
                     out.println("  <div class=\"col-md-3 p-2\">\n"
                             + "                            <div class=\"product\">\n"

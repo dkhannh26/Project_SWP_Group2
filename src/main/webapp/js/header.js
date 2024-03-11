@@ -1,4 +1,5 @@
 
+
 function redirectCartPage() {
     window.location.href = "/cart.html";
 }
@@ -52,5 +53,6 @@ function toggleBox(boxId) {
 //         });
 //     }
 // });
+
 
 

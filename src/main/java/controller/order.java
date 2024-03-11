@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,12 +23,14 @@ import java.util.Date;
 import java.util.List;
 import static url.orderURL.INSERT_ORDERS;
 import static url.orderURL.INSERT_ORDERS_DETAILS;
+import static url.orderURL.URL_ORDER_LIST;
+import static url.orderURL.URL_UPDATE_STATUS;
 
 /**
  *
  * @author Administrator
  */
-@WebServlet(name = "order", urlPatterns = {INSERT_ORDERS, INSERT_ORDERS_DETAILS})
+@WebServlet(name = "order", urlPatterns = {INSERT_ORDERS, INSERT_ORDERS_DETAILS, URL_ORDER_LIST, URL_UPDATE_STATUS})
 public class order extends HttpServlet {
 
     /**
@@ -69,11 +72,18 @@ public class order extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String size = request.getParameter("size");
+        int total = 0;
         int totalQ = 0;
         int temp = 0;
-        int quanS =0;
+        int quanS = 0;
         int quantityP = 0;
-        String username = "son";
+        String username = "";
+        Cookie arr[] = request.getCookies();
+        for (Cookie o : arr) {
+            if (o.getName().equals("input")) {
+                username = o.getValue();
+            }
+        }
         String urlPath = request.getServletPath();
         long currentTimeMillis = System.currentTimeMillis();
         Date currentDate = new Date(currentTimeMillis);
@@ -82,82 +92,133 @@ public class order extends HttpServlet {
         String phoneNumber = request.getParameter("phoneNumber");
         String usernameStaff = request.getParameter("usernameStaff");
         String id = request.getParameter("id");
+        String total1 = request.getParameter("total");
+        System.out.println(total1 + "sddfdsafsd");
+        if (total1 != null) {
+            total = Integer.parseInt(total1);
+        }
         DAOcart daoCart = new DAOcart();
-        List<entity.cart> list2 = daoCart.getAll(username);
+        List<entity.cart> cartList = daoCart.getAll(username);
         DAOorder daoOrder = new DAOorder();
+        List<orders> orderList = daoOrder.getAll();
         DAOproduct daoProduct = new DAOproduct();
-        List<product> list3 = daoProduct.getAll();
+        List<product> productList = daoProduct.getAll();
         DAOsize daoSize = new DAOsize();
-        List<size> list4 = daoSize.getAll();
-        System.out.println(size);
+        List<size> sizeList = daoSize.getAll();
         switch (urlPath) {
             case INSERT_ORDERS:
-                daoOrder.insertOrder(address, currentDate, status, phoneNumber, username, usernameStaff);
+                daoOrder.insertOrder(address, currentDate, status, phoneNumber, username, usernameStaff, total);
                 int orderID = daoOrder.getOrderId();
                 System.out.println(id);
                 if (id != null) {
                     int id2 = Integer.parseInt(id);
-                    for (int i = 0; i < list3.size(); i++) {
-                        if (list3.get(i).getId() == id2) {
-                            if (list3.get(i).getQuantity() > 0) {
-                                quantityP = list3.get(i).getQuantity() - 1;
-                                daoOrder.insertOrderDetail(1, id2, orderID);
-                                daoProduct.updateQuan(quantityP, list3.get(i).getId());
+                    for (int i = 0; i < productList.size(); i++) {
+                        if (productList.get(i).getId() == id2) {
+                            if (productList.get(i).getQuantity() > 0) {
+                                quantityP = productList.get(i).getQuantity() - 1;
+                                daoOrder.insertOrderDetail(1, size, id2, orderID);
+                                daoProduct.updateQuan(quantityP, productList.get(i).getId());
                                 response.sendRedirect("productList");
                             }
-                            if (list3.get(i).getQuantity() <= 0) {
-                                String nameP = list3.get(i).getName();
-                                String quanP = String.valueOf(list3.get(i).getQuantity());
+                            if (productList.get(i).getQuantity() <= 0) {
+                                String nameP = productList.get(i).getName();
+                                String quanP = String.valueOf(productList.get(i).getQuantity());
                                 String ms = "<script>\n"
                                         + "        alert(\"Sold out! " + nameP + "Only have " + quanP + "left\")\n"
                                         + "    </script>";
                                 request.setAttribute("ms", ms);
-                                request.setAttribute("productList", list3);
+                                request.setAttribute("productList", productList);
                                 request.getRequestDispatcher("product.jsp").forward(request, response);
                             }
                         }
                     }
                 }
                 if (id == null) {
-                    for (int i = 0; i < list3.size(); i++) {
+                    for (int i = 0; i < productList.size(); i++) {
                         temp = 0;
                         totalQ = 0;
-                        for (int j = 0; j < list2.size(); j++) {
-                            if (list3.get(i).getId() == list2.get(j).getProductID()) {
-                                if (list3.get(i).getQuantity() >= list2.get(j).getQuantity()) {
-                                    if (temp == 0) {
-                                        for (int k = 0; k < list2.size(); k++) {
-                                            if (list2.get(i).getProductID() == list2.get(k).getProductID()) {
-                                                totalQ = totalQ + list2.get(k).getQuantity();
-                                                quanS = list2.get(k).getQuantity();
-                                            }
+                        String sizeP = "";
+                        for (int j = 0; j < cartList.size(); j++) {
+                            if (productList.get(i).getId() == cartList.get(j).getProductID()) {
+                                if (productList.get(i).getQuantity() >= cartList.get(j).getQuantity()) {
+                                    for (int k = 0; k < sizeList.size(); k++) {
+                                        if (cartList.get(j).getProductID() == sizeList.get(k).getProduct_id() && cartList.get(j).getSize_name().equals(sizeList.get(k).getSize_name())) {
+                                            totalQ = totalQ + cartList.get(j).getQuantity();
+                                            sizeP = sizeList.get(k).getSize_name();
+                                            quanS = sizeList.get(k).getQuantity() - cartList.get(j).getQuantity();
+//                                            daoSize.updateQuanSize(quanS, sizeList.get(k).getProduct_id(), sizeList.get(k).getSize_name());
                                         }
-                                        daoOrder.insertOrderDetail(totalQ, list2.get(j).getProductID(), orderID);
-                                        daoProduct.updateQuan(totalQ, list2.get(j).getProductID());
-                                        daoCart.deleteCart(list2.get(j).getProductID(), username);
-                                        temp++;
                                     }
+                                    daoOrder.insertOrderDetail(totalQ, sizeP, cartList.get(j).getProductID(), orderID);
+//                                    daoProduct.updateQuan(totalQ, cartList.get(j).getProductID());
+                                    daoCart.deleteCart(cartList.get(j).getProductID(), username);
+                                    totalQ = 0;
                                 }
-                                if (list3.get(i).getQuantity() < list2.get(j).getQuantity()) {
-                                    String nameP = list3.get(i).getName();
-                                    String quanP = String.valueOf(list3.get(i).getQuantity());
+                                if (productList.get(i).getQuantity() < cartList.get(j).getQuantity()) {
+                                    String nameP = productList.get(i).getName();
+                                    String quanP = String.valueOf(productList.get(i).getQuantity());
                                     String ms = "<script>\n"
                                             + "        alert(\"Sold out! " + nameP + "Only have " + quanP + "left\")\n"
                                             + "    </script>";
                                     request.setAttribute("ms", ms);
-                                    request.setAttribute("productList", list3);
+                                    request.setAttribute("productList", productList);
                                     request.getRequestDispatcher("product.jsp").forward(request, response);
                                     temp++;
                                 }
                             }
                         }
                     }
-                    if (totalQ != 0) {
+                    if (temp == 0) {
                         response.sendRedirect("productList");
                     }
                 }
-
                 break;
+            case URL_ORDER_LIST:
+                int numberOfOrder = 0;
+                int numberOfProduct = 0;
+                int revenue = 0;
+                int numberOfCustomer = 0;
+                DAO.DAOproduct DAOproduct = new DAOproduct();
+                String date = request.getParameter("date");
+
+                if (date.equals("date")) {
+                    String dateFrom = request.getParameter("from");
+                    String dateTo = request.getParameter("to");
+                    request.setAttribute("dateFrom", dateFrom);
+                    request.setAttribute("dateTo", dateTo);
+
+                    numberOfOrder = DAOproduct.getNumberOfOrderByDate(dateFrom, dateTo);
+                    numberOfProduct = DAOproduct.getNumberOfProductByDate(dateFrom, dateTo);
+                    revenue = DAOproduct.getRevenueByDate(dateFrom, dateTo);
+                    numberOfCustomer = DAOproduct.getNumberOfCustomerByDate(dateFrom, dateTo);
+
+                    request.setAttribute("numberOfProduct", numberOfProduct);
+                    request.setAttribute("numberOfOrder", numberOfOrder);
+                    request.setAttribute("revenue", revenue);
+                    request.setAttribute("numberOfCustomer", numberOfCustomer);
+                } else {
+                    numberOfProduct = DAOproduct.getNumberOfProduct();
+                    numberOfOrder = DAOproduct.getNumberOfOrder();
+                    revenue = DAOproduct.getRevenue();
+                    numberOfCustomer = DAOproduct.getNumberOfCustomer();
+
+                    request.setAttribute("numberOfOrder", numberOfOrder);
+                    request.setAttribute("numberOfProduct", numberOfProduct);
+                    request.setAttribute("revenue", revenue);
+                    request.setAttribute("numberOfCustomer", numberOfCustomer);
+
+                }
+                request.setAttribute("orderList", orderList);
+
+                request.getRequestDispatcher("staff.jsp").forward(request, response);
+                break;
+            case URL_UPDATE_STATUS:
+                System.out.println("dfkjadsfdsn");
+                int orderId = Integer.parseInt(request.getParameter("orderId"));
+                String newStatus = request.getParameter("status");
+                daoOrder.updateStatus(newStatus, orderId);
+                response.getWriter().write("success");
+
         }
     }
 

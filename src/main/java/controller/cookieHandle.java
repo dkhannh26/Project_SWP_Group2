@@ -8,26 +8,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
-import DAO.DAOproduct;
-import DAO.DAOpromo;
-import entity.promo;
-import java.util.HashMap;
-import java.util.Map;
-import static url.productURL.URL_PRODUCT_DETAIL;
-import entity.product;
-import static url.productURL.URL_PRODUCT_LIST;
 
 /**
  *
- * @author LENOVO
+ * @author thinh
  */
-
-@WebServlet(name = "productList", urlPatterns = {URL_PRODUCT_LIST, URL_PRODUCT_DETAIL})
-public class productList extends HttpServlet {
+@WebServlet(name = "cookieHandle", urlPatterns = {"/cookieHandle"})
+public class cookieHandle extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,38 +37,46 @@ public class productList extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet productList</title>");
+            out.println("<title>Servlet cookieHandle</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet productList at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet cookieHandle at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
-    DAOproduct DAOproduct = new DAOproduct();
-    DAOpromo promo = new DAOpromo();
+
+    private void deleteCookie(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Cookie[] cookies = request.getCookies();
+        for (int i = 0; i < cookies.length; i++) {
+            Cookie cookie = cookies[i];
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+        }
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String urlPath = request.getServletPath();
-        switch (urlPath) {
-            case URL_PRODUCT_LIST:                
-                List<product> productList = DAOproduct.getAll();
-                request.setAttribute("productList", productList);
-                request.getRequestDispatcher("product.jsp").forward(request, response);
+//        processRequest(request, response);
+
+        Cookie[] cookies = request.getCookies();
+        String input = "";
+        for (Cookie cooky : cookies) {
+            if (cooky.getName().equals("input")) {
+                input = cooky.getValue();
                 break;
-            case URL_PRODUCT_DETAIL:
-                List<product> productList2 = DAOproduct.getAll();
-                List<promo> promoList = promo.getAll();
-                Map<Integer, Integer> promoMap = new HashMap<>();
-                for (promo promo : promoList) {
-                    promoMap.put(promo.getPromoID(), promo.getPromoPercent());
-                }
-                int id = Integer.parseInt(request.getParameter("id"));
-                product p = DAOproduct.getProductById(id);
-                request.setAttribute("promoMap", promoMap);
-                request.setAttribute("p", p);
-                request.getRequestDispatcher("productDetail.jsp").forward(request, response);
+            }
+        }
+        deleteCookie(request, response);
+
+        if (input.equals("admin")) {
+            response.sendRedirect("/Project_SWP_Group2/login.jsp");
+
+        } else {
+            response.sendRedirect("/Project_SWP_Group2/productList");
+
         }
     }
 

@@ -34,12 +34,14 @@ public class DAOstaff extends DBconnect.DBconnect{
         return listAccount;
     }
     
-       public boolean checkLogin(String username, String password) {
-        String sql = "select * from staff where username = ? and password = ?";
+       public boolean checkLogin(String input, String password) {
+        String sql = "select * from staff where (username = ? or email = ?) and password = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, username);
-            st.setString(2, password);
+            st.setString(1, input);
+            st.setString(2, input);
+
+            st.setString(3, password);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 return true;

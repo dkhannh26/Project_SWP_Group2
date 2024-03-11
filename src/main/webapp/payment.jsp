@@ -105,7 +105,7 @@
                                                     src="https://cdn.icon-icons.com/icons2/3054/PNG/512/account_profile_user_icon_190494.png"
                                                     alt=""></div>
                             <div id="accountinfo" class="col-10">
-                                <p></p>
+                                <p>${username}</p>
                                 <a href="">Sign out</a>
                             </div>
                         </div>
@@ -133,13 +133,15 @@
                         </div>                    
                         <div class="row">
                             <div id="back" class="col-8">
-                                <a href="loadCart">CART ${size} fdsfdsfds</a>
+                                <a href="loadCart">CART</a>
                             </div>
                             <div id="complete" class="col-4">
                                 <input type="submit" value="COMPLETE">
+                                <input type="hidden" name="size" id="size" value="${size}">
+                                <input type="hidden" name="total" id="total" value="${sum}">
                             </div>
                         </div>
-                        <input type="hidden" name="size" id="size" value="${size}">
+
                     </form>
 
 
@@ -162,46 +164,46 @@
                                 <p class="price">${cart.price}</p>
                             </div>
                         </c:forEach>          
-                    <hr>
+                        <hr>
 
-                    <div id="line" class="row">
-                        <div class="col-10">
-                            <h5>Total</h5>
-                        </div>
-                        <div class="col-2">
-                            <h5 class="price">${sum}</h5>
+                        <div id="line" class="row">
+                            <div class="col-10">
+                                <h5>Total</h5>
+                            </div>
+                            <div class="col-2">
+                                <h5 class="price">${sum}</h5>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <script src="js/jquery-3.7.0.min.js"></script> 
-        <script src="js/jquery.validate.min.js"></script> 
-        <script>
-            var validator = $("#payment").validate(
-                    {
-                        rules: {
-                            phoneNumber: {
-                                required: true,
-                                minlength: 10,
-                                digits: true
-                            },
-                            newaddress: {
-                                minlength: 3
-                            }
+            <script src="js/jquery-3.7.0.min.js"></script> 
+            <script src="js/jquery.validate.min.js"></script> 
+            <script>
+                var validator = $("#payment").validate(
+                        {
+                            rules: {
+                                phoneNumber: {
+                                    required: true,
+                                    minlength: 10,
+                                    digits: true
+                                },
+                                newaddress: {
+                                    minlength: 3
+                                }
 
-                        },
-                        messages: {
-                            phoneNumber: {
-                                required: "Phone number is required",
-                                digits: "Please enter only digits"
                             },
-                            newaddress: {
+                            messages: {
+                                phoneNumber: {
+                                    required: "Phone number is required",
+                                    digits: "Please enter only digits"
+                                },
+                                newaddress: {
+                                }
                             }
                         }
-                    }
-            );
-        </script>
+                );
+            </script>
 
     </body>
 

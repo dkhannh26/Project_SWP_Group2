@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -68,16 +69,22 @@ public class cart extends HttpServlet {
      */
     DAOproduct product = new DAOproduct();
     DAOcart cart = new DAOcart();
-    String username = "son";
     DAOpromo promo = new DAOpromo();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String username = "";
+        Cookie arr[] = request.getCookies();
+        for (Cookie o : arr) {
+            if (o.getName().equals("input")) {
+                username = o.getValue();
+            }
+        }
         String size = request.getParameter("size");
-        System.out.println(size);
+        System.out.println(size + "cart");
         int id = 0;
-        float price = 0;
+        int price = 0;
         int quantity = 0;
         String urlPath = request.getServletPath();
         String ms = "<script>\n"
@@ -90,7 +97,7 @@ public class cart extends HttpServlet {
             id = Integer.parseInt(idParam);
         }
         if (priceParam != null) {
-            price = Float.parseFloat(priceParam);
+            price = Integer.parseInt(priceParam);
         }
         if (quantityParam != null) {
             quantity = Integer.parseInt(quantityParam);
@@ -99,7 +106,9 @@ public class cart extends HttpServlet {
         List<product> list = product.getAll();
         List<promo> promoList = promo.getAll();
         List<entity.cart> list2 = cart.getAll(username);
-        float price2 = 0;
+        int price2 = 0;
+        System.out.println(id);
+        System.out.println(username);
         switch (urlPath) {
             case URL_CART_INSERT:
                 int temp = 0;
@@ -137,10 +146,16 @@ public class cart extends HttpServlet {
 
                     }
                 }
-                if (temp == 0) {
+                if (temp == 0 && !username.equals("")) {
+                    boolean check = username.equals("");
                     cart.insertCart(quantity, price2, username, id,size);
                 }
-                response.sendRedirect("loadCart");
+                if(!username.equals("")){
+                    response.sendRedirect("loadCart?size="+size);
+                }else{
+                    response.sendRedirect("http://localhost:8080/Project_SWP_Group2/profile");
+                }
+                
                 break;
             case URL_CART_INCREASE:
                 for (int i = 0; i < list2.size(); i++) {
@@ -162,7 +177,7 @@ public class cart extends HttpServlet {
 
                     }
                 }
-                response.sendRedirect("loadCart");
+                response.sendRedirect("loadCart?size="+size +"&id="+id);
                 break;
             case URL_CART_DECREASE:
                 for (int i = 0; i < list2.size(); i++) {
@@ -182,7 +197,7 @@ public class cart extends HttpServlet {
 
                     }
                 }
-                response.sendRedirect("loadCart");
+                response.sendRedirect("loadCart?size="+size);
                 break;
             case URL_CART_DELETE:
                 cart.deleteCartBySize(id, username,size);

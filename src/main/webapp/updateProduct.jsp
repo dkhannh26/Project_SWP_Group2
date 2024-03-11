@@ -10,6 +10,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+
+                <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
         <style>
             .error {
                 color: red;

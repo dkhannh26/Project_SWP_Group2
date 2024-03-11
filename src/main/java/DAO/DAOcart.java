@@ -20,10 +20,7 @@ public class DAOcart extends DBconnect.DBconnect {
 
     public List<cart> getAll(String username) {
         List<cart> list = new ArrayList<>();
-        String sql = "SELECT	*   \n"
-                + "FROM            cart INNER JOIN\n"
-                + "                         product ON cart.product_id = product.product_id\n"
-                + "						 where username = ?";
+        String sql = "select *from cart where username = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
@@ -39,7 +36,7 @@ public class DAOcart extends DBconnect.DBconnect {
         return list;
     }
 
-    public void insertCart(int quantity, float price, String username, int product_id,String size_name) {
+    public void insertCart(int quantity, int price, String username, int product_id,String size_name) {
         String sql = "insert into\n"
                 + "cart\n"
                 + "values(?,?,?,?,?)";
@@ -56,7 +53,7 @@ public class DAOcart extends DBconnect.DBconnect {
         }
     }
 
-    public void updateCart(String username, int product_id, int quantity, float price, String size_name) {
+    public void updateCart(String username, int product_id, int quantity, int price, String size_name) {
         String sql = "update cart\n"
                 + "set username = ?,\n"
                 + "product_id = ?,\n"

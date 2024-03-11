@@ -1,34 +1,29 @@
 <%-- 
-    Document   : index.jsp
-    Created on : Mar 6, 2024, 5:17:16 PM
+    Document   : viewOrder
+    Created on : Mar 6, 2024, 8:42:45 PM
     Author     : thinh
 --%>
 
-<%@page import="java.text.NumberFormat"%>
-<%@page import="java.text.DecimalFormat"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
         <!-- bootstrap -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <!-- bootstrap icon -->
-        <!-- <link rel="stylesheet" href="grid.css"> -->
+
+        <title>Orders</title>
+        <link rel="stylesheet" href="./css/viewOrder.css">
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
         <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+        <script src="https://kit.fontawesome.com/1bd876819f.js" crossorigin="anonymous"></script>
 
-
-        <title>DOTAI</title>
         <style>
-
 
             * {
                 margin: 0;
@@ -446,131 +441,11 @@
                 transition: 0.3s;
             }
             /* end header */
-
             hr {
                 margin-top: 0;
                 margin-bottom: 10px;
             }
 
-            /* main content */
-            .main {
-                max-width: 1200px;
-                margin: 30px auto 50px;
-            }
-
-            .mainContent {
-                max-width: 100%;
-            }
-
-            .mainHeading {
-                text-align: center;
-                margin-bottom: 30px;
-            }
-
-            .headingContent a {
-                text-decoration: none;
-                color: var(--text-color);
-                font-weight: bold;
-                box-sizing: border-box;
-            }
-
-            .productImg img {
-                width: 100%;
-            }
-
-            .productDetail {
-                padding: 15px 12px 15px;
-                background-color: rgba(255, 255, 255, 0.83);
-                position: relative;
-                transition: 0.3s;
-            }
-
-            .productDetail h3 {
-                font-size: 15px;
-                color: black;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            .productDetail p {
-                margin: 0;
-            }
-
-            .price {
-                font-weight: bold;
-                color: black;
-            }
-
-            .productButton {
-                transition: 0.3s;
-                color: white;
-                width: 90%;
-                display: flex;
-                text-align: center;
-                padding: 5px;
-                position: absolute;
-                display: none;
-                transform: translateY(20%);
-                background-color: var(--bg-color);
-                border-radius: 4px;
-                justify-content: center;
-                line-height: 2;
-            }
-
-            .productDetail:hover .productButton {
-                display: flex;
-            }
-
-            .productDetail:hover {
-                transform: translateY(-50%);
-            }
-
-            .productButton * {
-                width: 50%;
-            }
-
-            .productButton .right {
-                background: white;
-                position: relative;
-                color: white;
-                background: transparent;
-                border-radius: 4px;
-                overflow: hidden;
-                border: none;
-                font-weight: bold;
-            }
-
-            .addBtn {
-                border: none;
-                background-color: var(--bg-color);
-                border-radius: 4px;
-            }
-
-            .addBtn span {
-                color: white;
-            }
-
-            .productButton .right:hover {
-                color: #a0816c;
-            }
-
-            .right span {
-                background-color: white;
-                height: 100%;
-                width: 0;
-                position: absolute;
-                left: 0;
-                bottom: 0;
-                transition: 0.4s;
-                z-index: -1;
-            }
-
-            .productButton .right:hover span {
-                width: 100%;
-            }
-
-            /* END main content */
 
             /* footer */
             footer {
@@ -654,67 +529,18 @@
             }
 
             /* END footer */
-
-            @media (max-width: 768px) and (min-width: 601px) {
-                .headerListItem {
-                    font-size: 12px;
-                    height: 18px;
-                }
-
-                .headerListItem:hover {
-                    font-size: 13px;
-                }
-
-                .dropdown-icon {
-                    height: 18px;
-                }
-
-                .productDetail h3 {
-                    height: 50px;
-                }
-            }
-            .sizeOptions {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: #fff;
-                padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-                z-index: 999;
-            }
-            .sizeOptions select {
-                margin-right: 10px;
-                color: black;
-
-            }
-            @media (max-width: 1024px) {
-                .infoBox,
-                .searchBox, .cartBox {
-                    right: 0;
-                }
-            }
-
-            .productImg img {
-                height: 378px;
-                object-fit: cover;
-            }
         </style>
     </head>
 
     <body>
-
-
-
-        <!--         header 
-        -->        <header class="header">
+        <!-- header -->
+        <header class="header">
             <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
             <div class="headerContent">
-                <div class="logo"><a href="">DOTAI</a></div>
+                <div class="logo"><a href="productList">DOTAI</a></div>
                 <nav>
                     <ul class="headerList">
-                        <li class="headerListItem"><a href="">Home page</a></li>
+                        <li class="headerListItem"><a href="productList">Home page</a></li>
                         <li class="headerListItem">
                             <a href="http://localhost:8080/Project_SWP_Group2/productList/male">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
@@ -722,7 +548,7 @@
 
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/pant">Long pants</a></li>
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/short">Shorts</a></li>
-                                <li><a href="">Discount</a></li>
+                                <!--<li><a href="">Discount</a></li>-->
                             </ul>
                         </li>
                         <li class="headerListItem">
@@ -731,18 +557,18 @@
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/t_shirt">T-shirt</a></li>
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/pant">Long pants</a></li>
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/dress">Dress</a></li>
-                                <li><a href="">Discount</a></li>
+                                <!--<li><a href="">Discount</a></li>-->
 
                             </ul>
                         </li>
-                        <li class="headerListItem"><a href="">Accessory</a></li>
+                        <!--<li class="headerListItem"><a href="">Accessory</a></li>-->
                         <li class="headerListItem">
                             <a href="./aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
                                 <li><a href="./contact.jsp">Contact</a></li>
                                 <li><a href="./viewOrder.jsp">View order</a></li>
                                 <li><a href="./policy.jsp">Exchange policy</a></li>
-                                <li><a href="orderList?date=none">Order's history</a></li>
+                                <li><a href="">Order's history</a></li>
                         </li>
                     </ul>
                 </nav>
@@ -761,75 +587,167 @@
                     </div>
                     <div class="headerToolIcon">
                         <a href="http://localhost:8080/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
-
+                        <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->     
                     </div> 
                     <div class="headerToolIcon">
-                        <a href="loadCart"><i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i></a>
-                    </div>
+                        <i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i>
+
                     </div>
                 </div>
             </div>
 
             <hr width="100%" , color="#d0a587" />
-        </header><!--
-         end header -->
+        </header>
+        <!-- end header -->
 
-
-
-        <!-- main -->
-        <main class="main">
-            <div class="mainHeading">
-                <h2 class="headingContent">
-                    <a href="">Dotai</a>
-                </h2>
-                <p>New products</p>
-            </div>
-            <div class="mainContent container ">
-
-                <div class="row" id="product">
-
-                    <c:forEach items="${requestScope.productList}" var="product">
-                        <div class="col-md-3 p-2">
-                            <div class="product">
-                                <div class="productImg">
-                                    <img src="${path}${product.getPicURL()}" alt="img">
+        <div class="mid">
+            <div class="row">
+                <div class="col-md-9 order-box-content">
+                    <div class="content">
+                        <h2 id="highlight"><b>List of orders</b></h2>
+                    </div>
+                    <!-- <div class="content">
+                        <h2 id="highlight"><b>List of orders</b></h2>
+                    </div>
+    
+                    <div class="order container">
+                        <div id="header-order" class="row">
+                            <div class="col-3">
+                                <p>ID: </p>
+                            </div>
+                            <div class="col-5">
+                                <p>Date: </p>
+                            </div>
+                            <div class="col-3" id="status">
+                                <p>Delivered</p>
+                            </div>
+                            <div class="col-1">
+                                icon
+                            </div>
+                        </div>
+                        
+    
+                        <div class="product container">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="https://product.hstatic.net/1000296747/product/d3a5a3cf2dd77268fb54481ebcce161d_e9c60a724acb45b4978c53249ba5dbb6_medium.jpeg"
+                                        alt="">
                                 </div>
-                                <c:set var="formattedPrice">
-                                    <fmt:formatNumber type="number" value="${product.getPrice()}" pattern="###,###" />
-                                </c:set>
-                                <div class="productDetail">
-                                    <h3>${product.getName()}</h3>
-                                    <p>
-                                        <span class="price">${formattedPrice} VND</span>
-                                        <span class="price-sale"></span>
-                                    </p>
-                                    <div class="productButton">
-                                        <button type="button" class="addBtn"><a href="productDetail?id=${product.getId()}">Add to cart</a></button>
-                                        <button type="button" class="right" onclick="showSizeOptions(this)">Buy now ${product.getId()}</button>
-                                        <input type="hidden" name="idP" class="idP" value="${product.getId()}">
-                                        <div id="sizeOptions_${product.getId()}" class="sizeOptions" style="display: none;">
-                                            <label for="size_${product.getId()}">Choose Size:</label>
-                                            <select id="size_${product.getId()}">
-                                                <option value="S">S</option>
-                                                <option value="M">M</option>
-                                                <option value="L">L</option>
-                                            </select>
-                                            <button onclick="buyNow(this)">Confirm</button>
-                                            <input type="hidden" name="name" class="name" value="${product.name}">
-                                            <input type="hidden" name="price" class="price" value="${product.price}">
-                                            <input type="hidden" name="picUrl" class="picUrl" value="${product.picURL}">
-                                            <input type="hidden" name="id" class="id" value="${product.id}">
+                                <div class="col-6">
+                                    <h6 id="proName"><b>DOTAI - Striped wool cardigan</b></h6>
+                                    <p>Product classification: L</p>
+                                    <p>X1</p>
+                                </div>
+                                <div class="col-4">
+                                    <div id="price">
+                                        <div class="row">
+                                            <p class="col-md-6 origin-price">369,000 VND</p>
+                                            <p class="col-md-6 saled-price">350,000 VND</p>
                                         </div>
+                                    </div>
+                                    <div class="feedback">
+                                        <button class="feedback-btn">Feedback</button>
+                                    </div>
+                                </div>
+    
+                            </div>
+                        </div>
+    
+                        <hr class="hr">
+    
+                        <div id="product-bottom" class="row">
+                            <div class="col-3">
+                                <p>Quantity: </p>
+                            </div>
+                            <div class="col-5">
+                                <p>Address: </p>
+                            </div>
+                            <div id="total" class="col-4">
+                                <p>Total: <span>350,000 VND</span></p>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="user-info">
+                        <div id="header-order" class="row">
+                            <div class="col-3">
+                                <p>ID: </p>
+                            </div>
+                            <div class="col-5">
+                                <p>Date: </p>
+                            </div>
+                            <div class="col-3" id="status">
+                                <p>Delivered</p>
+                            </div>
+                            <div class="col-1">
+                                <div class="dropdown">
+                                    <div class="edit-info-btn">
+                                        <button><i class="fa-regular fa-pen-to-square"></i></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </c:forEach>
+                        <div class="dropdown-container">
+                            <div id="mid-order" class="row">
+                                <div id="product" class="col-2">
+                                    <img src="https://product.hstatic.net/1000296747/product/d3a5a3cf2dd77268fb54481ebcce161d_e9c60a724acb45b4978c53249ba5dbb6_medium.jpeg"
+                                         alt="">
+                                </div>
+                                <div class="col-6">
+                                    <h6 id="proName"><b>DOTAI - Striped wool cardigan</b></h6>
+                                    <p>Product classification: L</p>
+                                    <p>X1</p>
+                                </div>
+                                <div class="col-4">
+                                    <div id="price">
+                                        <div class="row">
+                                            <p class="col-md-6 origin-price">369,000 VND</p>
+                                            <p class="col-md-6 saled-price">350,000 VND</p>
+                                        </div>
+                                    </div>
+                                    <div class="feedback">
+                                        <button class="feedback-btn">Feedback</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info">
+                            <hr class="hr">
+                            <div id="product-bottom" class="row">
+                                <div class="col-3">
+                                    <p>Quantity: </p>
+                                </div>
+                                <div class="col-5">
+                                    <p>Address: </p>
+                                </div>
+                                <div class="col-4">
+                                    <p id="total">Total: <span>350,000 VND</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                 </div>
+
+
+
+
+
+                <div class="col-md-3">
+                    <div class="page">
+                        <h5 id="highlight"><b>Page category</b></h5>
+                        <hr>
+                        <h6><a href="">Contact</a></h6>
+                        <hr>
+                        <h6><a href="">Exchange policy</a></h6>
+                        <hr>
+                        <h6><a href="">Order's history</a></h6>
+                    </div>
+                </div>
             </div>
-        </main>
-        <!-- end main -->
+
+        </div>
 
         <!-- footer -->
         <footer>
@@ -895,56 +813,9 @@
 
         </footer>
         <!-- end footer -->
-
-
-        <script src="./js/header.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script type="text/javascript">
-                                                function doDelete(id) {
-                                                    if (confirm("Do you want to delete this product (" + id + ")?")) {
-                                                        window.location = "deleteProduct?id=" + id;
-                                                    }
-                                                }
-
-
-                                                function searchByName(name) {
-                                                    var search = name.value;
-
-                                                    $.ajax({
-                                                        url: "/Project_SWP_Group2/searchProductByAJAX",
-                                                        type: "get",
-                                                        data: {
-                                                            txt: search
-                                                        },
-                                                        success: function (data) {
-                                                            var row = document.getElementById("product");
-                                                            row.innerHTML = data;
-                                                        },
-                                                        error: function (xhr) {
-
-                                                        }
-                                                    });
-                                                }
-                                                function showSizeOptions(button) {
-                                                    const idP = button.parentElement.querySelector('.idP').value;
-                                                    var sizeOptions = document.getElementById('sizeOptions_' + idP);
-                                                    if (sizeOptions.style.display === "block") {
-                                                        sizeOptions.style.display = "none";
-                                                    } else {
-                                                        sizeOptions.style.display = "block";
-                                                    }
-                                                }
-
-                                                function buyNow(button) {
-                                                    var name = button.parentElement.querySelector('.name').value;
-                                                    var price = button.parentElement.querySelector('.price').value;
-                                                    var picUrl = button.parentElement.querySelector('.picUrl').value;
-                                                    var id = button.parentElement.querySelector('.id').value;
-                                                    var size = button.parentElement.querySelector('select').value;
-                                                    window.location.href = 'productBuy?name=' + name + "&price=" + price + "&quantity=1" + "&size=" + size + "&picURL=" + picUrl + "&id=" + id;
-                                                }
-        </script>
-
+        <script src="js/jquery-3.7.0.min.js"></script>
+        <script src="js/jquery.validate.min.js"></script>
+        <script src="./js/viewOrder.js"></script>
     </body>
 
 </html>

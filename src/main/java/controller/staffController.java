@@ -23,28 +23,36 @@ import static url.staffURL.URL_LOGIN_STAFF;
  *
  * @author thinh
  */
-@WebServlet(name="staffController", urlPatterns={URL_LOGIN_STAFF})
+
+@WebServlet(name = "staffController", urlPatterns = {URL_LOGIN_STAFF})
 public class staffController extends HttpServlet {
+
     DAOstaff daoStaff = new DAOstaff();
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-         String urlPath = request.getServletPath();
+            throws ServletException, IOException {
+        String urlPath = request.getServletPath();
         switch (urlPath) {
             case URL_LOGIN_STAFF:
                 login(request, response);
                 break;
-     
+
         }
     }
-    
-     protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("username");
+
+    protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String input = request.getParameter("input");
         String password = request.getParameter("password");
         password = getMd5(password);
-        boolean isSuccess = daoStaff.checkLogin(username, password);
+        boolean isSuccess = daoStaff.checkLogin(input, password);
         if (isSuccess) {
-            request.getRequestDispatcher("/product.jsp").forward(request, response);
+            if (input.equals("admin")) {
+                response.sendRedirect("/Project_SWP_Group2/statistic?date=none");
+            } else {
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
+
+            }
         } else {
             request.setAttribute("message", "<div id=\"message\" style=\"color: red\">Incorrect username or password</div>");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
@@ -77,8 +85,9 @@ public class staffController extends HttpServlet {
         }
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

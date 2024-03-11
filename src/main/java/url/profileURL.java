@@ -6,7 +6,8 @@
 /**
  *
  * @author thinh
- */package url;
+ */
+package url;
 
 /**
  *
@@ -15,6 +16,8 @@
 public class profileURL {
 
     public static final String URL_PROFILE = "/profile";
-    
-}
 
+    public static final String URL_UPDATE = "/profile/update";
+    public static final String URL_CHANGEPASS = "/profile/changePassword";
+
+}

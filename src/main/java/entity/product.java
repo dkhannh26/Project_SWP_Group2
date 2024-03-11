@@ -116,4 +116,6 @@ public class product {
         return "product{" + "id=" + id + ", quantity=" + quantity + ", price=" + price + ", categoryID=" + categoryID + ", promoID=" + promoID + ", name=" + name + ", description=" + description + ", picURL=" + picURL + '}';
     }
     
+
 }
+

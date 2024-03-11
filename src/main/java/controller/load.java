@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -68,7 +69,13 @@ public class load extends HttpServlet {
             throws ServletException, IOException {
         String size = request.getParameter("size");
         String urlPath = request.getServletPath();
-        String username = "son";
+        String username = "";
+        Cookie arr[] = request.getCookies();
+        for (Cookie o : arr) {
+            if (o.getName().equals("input")) {
+                username = o.getValue();
+            }
+        }
         int quanP = 0;
         DAOcart cart = new DAOcart();
         DAOproduct productDao = new DAOproduct();
@@ -93,7 +100,7 @@ public class load extends HttpServlet {
         request.setAttribute("picUrlMap", picUrlMap);
         request.setAttribute("sum", sum);
         request.setAttribute("cartList", list3);
-        System.out.println(size);
+        System.out.println(size + "load");
         switch (urlPath) {
             case LOAD_CART:
                 request.getRequestDispatcher("cart.jsp").forward(request, response);
@@ -102,18 +109,23 @@ public class load extends HttpServlet {
                 request.getRequestDispatcher("payment.jsp").forward(request, response);
                 break;
             case URL_BUYNOW:
-                String pic = request.getParameter("picURL");
-                String name = request.getParameter("name");
-                float price = Float.parseFloat(request.getParameter("price"));
-                int quantity = Integer.parseInt(request.getParameter("quantity"));
-                int id = Integer.parseInt(request.getParameter("id"));
-                request.setAttribute("pic", pic);
-                request.setAttribute("name", name);
-                request.setAttribute("price", price);
-                request.setAttribute("quantity", quantity);
-                request.setAttribute("id", id);
-                System.out.println(name + " " + price + " " + id);
-                request.getRequestDispatcher("buynow.jsp").forward(request, response);
+                if (!username.equals("")) {
+                    String pic = request.getParameter("picURL");
+                    String name = request.getParameter("name");
+                    int price = Integer.parseInt(request.getParameter("price"));
+                    int quantity = Integer.parseInt(request.getParameter("quantity"));
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    request.setAttribute("pic", pic);
+                    request.setAttribute("name", name);
+                    request.setAttribute("price", price);
+                    request.setAttribute("quantity", quantity);
+                    request.setAttribute("id", id);
+                    System.out.println(name + " " + price + " " + id);
+                    request.getRequestDispatcher("buynow.jsp").forward(request, response);
+                } else {
+                    response.sendRedirect("http://localhost:8080/Project_SWP_Group2/profile");
+                }
+
         }
     }
 

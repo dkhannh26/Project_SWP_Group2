@@ -1,20 +1,32 @@
 <%-- 
-    Document   : signup
-    Created on : Feb 27, 2024, 9:22:36 PM
-    Author     : thinh
+    Document   : product.jsp
+    Created on : Feb 27, 2024, 6:21:56 PM
+    Author     : LENOVO
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.text.NumberFormat"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Sign up</title>
-        <link rel="stylesheet" href="./boostrap/bootstrap.min.css"/>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- bootstrap icon -->
-        <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-                <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+<html lang="en">
 
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        <!-- bootstrap -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <!-- bootstrap icon -->
+        <!-- <link rel="stylesheet" href="grid.css"> -->
+        <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
+               <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+
+
+        <title>DOTAI</title>
         <style>
             * {
                 margin: 0;
@@ -23,9 +35,11 @@
                 box-sizing: border-box;
                 color: rgb(151, 143, 137);
             }
+
             img {
                 width: 100%;
             }
+
             :root {
                 --logo-color: #a0816c;
                 --nav-list-color: #a0816c;
@@ -37,9 +51,11 @@
             body::-webkit-scrollbar {
                 width: 0.5em;
             }
+
             body::-webkit-scrollbar-track {
                 box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
             }
+
             body::-webkit-scrollbar-thumb {
                 border-radius: 50px;
                 background-color: var(--bg-color);
@@ -51,6 +67,11 @@
                 justify-content: center;
                 display: flex;
             }
+
+            #filter {
+                width: 7%;
+            }
+
 
             .header_title {
                 display: flex;
@@ -114,8 +135,8 @@
             }
 
             .dropdown-icon {
-                width: 18px;
                 margin-left: 2px;
+                font-size: 0.7500em;
             }
 
             .dropdownMenu {
@@ -158,13 +179,51 @@
                 padding: 5px;
             }
 
-            /* .headerToolIcon {
-                padding-left: 10px;
-            } */
+            .headerToolIcon {
+                width: 45px;
+                justify-content: center;
+                display: flex;
+            }
 
             .icon {
                 cursor: pointer;
-                width: 30px;
+                font-size: 26px;
+            }
+
+            .searchBox {
+                width: 420px;
+                position: absolute;
+                top: 100px;
+                right: 13%;
+                left: auto;
+                z-index: 990;
+                background-color: #fff;
+                box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                display: none;
+            }
+            .search-input {
+                position: relative;
+            }
+            .search-input input {
+                width: 100%;
+                border: 1px solid #e7e7e7;
+                background-color: #f6f6f6;
+                height: 44px;
+                padding: 8px 50px 8px 20px;
+                font-size: 1em;
+            }
+            .search-input button {
+                position: absolute;
+                right: 1px;
+                top: 1px;
+                height: 97%;
+                width: 15%;
+                border: none;
+                background-color: #f6f6f6;
+            }
+            .search-input input:focus {
+                outline: none;
+                border-color: var(--bg-color);
             }
 
             .infoBox {
@@ -179,41 +238,51 @@
                 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
                 display: none;
             }
-            .infoBox-content, .cartBox-content {
+
+            .infoBox-content,
+            .cartBox-content,
+            .searchBox-content {
                 width: 100%;
                 height: 100%;
                 max-height: 100%;
                 overflow: hidden;
                 padding: 9px 20px 20px;
             }
+
             .headerToolIcon h2 {
-                font-size: 15px;
+                font-size: 1.3em;
                 text-align: center;
                 padding-bottom: 9px;
                 color: var(--text-color);
                 border-bottom: 1px solid #e7e7e7;
             }
+
             .infoBox-content ul {
                 padding: 0;
                 margin: 0;
             }
+
             .infoBox-content ul li {
                 list-style-type: none;
             }
+
             .infoBox-content ul li:first-child {
                 color: black;
                 padding-left: 7px;
             }
+
             .infoBox-list li a {
                 text-decoration: none;
                 font-size: 14px;
                 color: black;
                 padding: 0;
             }
+
             .infoBox-list li a:hover {
                 color: var(--text-color);
             }
-            .infoBox-icon * {
+
+            .bi-dot {
                 color: black;
             }
 
@@ -228,15 +297,31 @@
                 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
                 display: none;
             }
+
             .noneProduct {
                 padding: 0 0 10px;
             }
+
             .shopping-cart-icon {
                 margin: 0 auto 7px;
                 display: block;
                 width: 15%;
                 height: 15%;
             }
+
+            .product {
+                margin-top: 50px;
+            }
+
+            .cartIcon {
+                justify-content: center;
+                display: flex;
+            }
+
+            .cartIcon i {
+                font-size: 2.5em;
+            }
+
             .noneProduct p {
                 text-align: center;
                 font-size: 14px;
@@ -247,19 +332,27 @@
                 margin-bottom: 8px;
                 display: none;
             }
+
+            .bi-x-lg {
+                cursor: pointer;
+            }
+
             .miniCartImg {
                 padding-left: 0;
             }
+
             .miniCartDetail {
                 padding-right: 0;
                 position: relative;
             }
+
             .miniCartDetail p {
                 font-size: 0.8em;
                 color: black;
                 font-weight: bold;
                 padding-right: 20px;
             }
+
             .miniCartDetail p span {
                 display: block;
                 text-align: left;
@@ -267,7 +360,8 @@
                 font-weight: normal;
                 font-size: 12px;
             }
-            .miniCart-quan span{
+
+            .miniCart-quan span {
                 float: left;
                 width: auto;
                 color: black;
@@ -279,11 +373,13 @@
                 font-size: 13px;
                 background: #f7f7f7;
             }
+
             .miniCart-price span {
                 color: #677279;
                 float: left;
                 font-weight: 500;
             }
+
             .miniCartDetail .deleteBtn {
                 position: absolute;
                 top: 0;
@@ -293,6 +389,7 @@
                 width: 19px;
                 height: 19px;
             }
+
             .miniCartDetail .deleteBtn * {
                 color: black;
             }
@@ -300,20 +397,27 @@
             .sumPrice {
                 border-top: 1px solid #e7e7e7;
             }
+
             .sumPrice table {
                 width: 100%;
             }
+
             .sumPrice td {
                 width: 50%;
             }
-            .sumPrice .tbTextLeft, .tbTextRight {
+
+            .sumPrice .tbTextLeft,
+            .tbTextRight {
                 padding: 10px 0;
             }
-            .sumPrice .tbTextRight, span {
+
+            .sumPrice .tbTextRight,
+            span {
                 text-align: right;
                 color: red;
                 font-weight: bold;
             }
+
             .miniCartButton {
                 width: 100%;
                 border-radius: 2px;
@@ -325,21 +429,26 @@
                 height: 30px;
                 font-weight: bold;
             }
+
             .cartButton td:first-child {
                 padding-right: 5px;
             }
+
             .cartButton td:last-child {
                 padding-left: 5px;
             }
+
             .cartButton .btnRight {
                 transition: 0.3s;
             }
+
             .cartButton .btnRight:hover {
                 background-color: white;
                 border: 1px solid var(--bg-color);
                 color: var(--text-color);
                 transition: 0.3s;
             }
+            /* end header */
 
             hr {
                 margin-top: 0;
@@ -411,16 +520,20 @@
                 justify-content: center;
                 line-height: 2;
             }
+
             .productDetail:hover .productButton {
                 display: flex;
             }
+
             .productDetail:hover {
                 transform: translateY(-50%);
             }
-            .productButton *{
+
+            .productButton * {
                 width: 50%;
             }
-            .productButton .right{
+
+            .productButton .right {
                 background: white;
                 position: relative;
                 color: white;
@@ -430,16 +543,19 @@
                 border: none;
                 font-weight: bold;
             }
+
             .addBtn {
                 border: none;
                 background-color: var(--bg-color);
                 border-radius: 4px;
             }
+
             .addBtn span {
                 color: white;
             }
+
             .productButton .right:hover {
-                color:#a0816c;
+                color: #a0816c;
             }
 
             .right span {
@@ -456,6 +572,7 @@
             .productButton .right:hover span {
                 width: 100%;
             }
+
             /* END main content */
 
             /* footer */
@@ -501,9 +618,19 @@
                 margin: 0 auto;
             }
 
-            .phone-icon {
-                width: 100%;
-                height: 100%;
+            .phone {
+                position: relative;
+            }
+
+            .bi-telephone {
+                cursor: pointer;
+                font-size: 3em;
+                /* width: 85px; */
+                /* height: 60px; */
+                /* display: flex; */
+                position: absolute;
+                top: -16%;
+                left: 15px;
             }
 
             .contact-item {
@@ -511,17 +638,20 @@
             }
 
             .contact-link {
-                margin: 5px;
+                margin-right: 10px;
                 border: 1px solid #a0816c;
                 border-radius: 5px;
                 padding: 5px;
-
+                width: 35.6px;
+                justify-content: center;
+                display: flex;
             }
 
             .contact-link:hover {
                 background-color: var(--bg-color);
 
-                .contact-icon * {
+                .bi-facebook::before,
+                .bi-instagram::before {
                     color: white;
                 }
             }
@@ -533,152 +663,69 @@
                     font-size: 12px;
                     height: 18px;
                 }
+
                 .headerListItem:hover {
                     font-size: 13px;
                 }
+
                 .dropdown-icon {
                     height: 18px;
                 }
+
                 .productDetail h3 {
                     height: 50px;
                 }
-                .infoBox {
-                    right:  0;
+            }
+            @media (max-width: 1024px) {
+                .infoBox,
+                .searchBox, .cartBox {
+                    right: 0;
                 }
             }
 
-            #wrapper {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-
-            }
-            .bao {
-                text-align: center;
-                margin-top: 42px;
-                width:48%;
-                margin:0 auto;
-                margin-top:42px;
-            }
-            #wrapper h2 {
-                color: #a0816c;
-                margin-top: 0px;
-                font-size: 28px;
-                font-family: "Quicksand", sans-serif;
-            }
-
-            form {
-                border: 1px solid #a0816c;
-                border-radius: 5px;
-                padding: 0px;
-                min-height: 80vh;
-            }
-            .form-group input{
-                margin: 8px 0;
-                height: fit-content;
-                width: 300px;
-                outline: none;
-                border: 2px solid#a0816c;
-                padding: 5px;
-                border-radius: 0;
-                font-size: inherit;
-            }
-            .check label {
-                display: flex;
-            }
-            #wrapper h4 {
-                text-align: left;
-                font-family: "Quicksand", sans-serif;
-                font-size: 15px;
-                color: #9e9e9e;
-            }
-            .btn-register{
-                background: #a0816c;
-                color: #fff;
-                padding: 10px 0;
-                outline: none;
-                width: 40%;
-                height: fit-content;
-                font-size: 14px;
-                border: none;
-
-            }
-            .back-button {
-                display: inline-block;
-                background-color: #fff;
-                color:#a0816c;
-                padding: 10px 20px;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                text-decoration: none;
-                font-size: 14px;
-                font-family: "Quicksand", sans-serif;
-            }
-
-            .back-arrow {
-                margin-right: 5px;
-            }
-
-            .highlight {
-                color: #7069f0;
-            }
-            .foot {
-                width: 100%;
-            }
-            .btn-register:hover {
-                background-color:#8d481b;
-            }
-            .back-arrow:hover{
-                color:#642d08;
-            }
-            .back-button:hover{
-                color:#642d08;
+            .productImg img {
+                height: 378px;
+                object-fit: cover;
             }
         </style>
-
     </head>
+
     <body>
         <!-- header -->
         <header class="header">
-            <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND</strong></div>
+            <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
             <div class="headerContent">
-                <div class="logo"><a href="/headerDemo.html">DOTAI</a></div>
+                <div class="logo"><a href="http://localhost:8080/Project_SWP_Group2/productList">DOTAI</a></div>
                 <nav>
                     <ul class="headerList">
-                        <li class="headerListItem"><a href="/headerDemo.html">Home page</a></li>
+                        <li class="headerListItem"><a href="http://localhost:8080/Project_SWP_Group2/productList">Home page</a></li>
                         <li class="headerListItem">
-                            <a href="">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="http://localhost:8080/Project_SWP_Group2/productList/male">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="">T-shirt</a></li>
-                                <li><a href="">Shirt</a></li>
-                                <li><a href="">Jackets, sweatshirts, sweaters</a></li>
-                                <li><a href="">Long pants</a></li>
-                                <li><a href="">Shorts</a></li>
-                                <li><a href="">Discount</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/t_shirt">T-shirt</a></li>
+
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/pant">Long pants</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/short">Shorts</a></li>
+                                <!--<li><a href="">Discount</a></li>-->
                             </ul>
                         </li>
                         <li class="headerListItem">
-                            <a href="">Women's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="http://localhost:8080/Project_SWP_Group2/productList/female">Women's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="">T-shirt</a></li>
-                                <li><a href="">Shirt</a></li>
-                                <li><a href="">Jackets, sweatshirts, sweaters</a></li>
-                                <li><a href="">Long pants</a></li>
-                                <li><a href="">Skirt</a></li>
-                                <li><a href="">Dress</a></li>
-                                <li><a href="">Discount</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/t_shirt">T-shirt</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/pant">Long pants</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/dress">Dress</a></li>
+                                <!--<li><a href="">Discount</a></li>-->
+
                             </ul>
                         </li>
-                        <li class="headerListItem"><a href="">Accessory</a></li>
+                        <!--<li class="headerListItem"><a href="">Accessory</a></li>-->
                         <li class="headerListItem">
-                            <a href="">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="http://localhost:8080/Project_SWP_Group2/aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="">Contact</a></li>
-                                <li><a href="">View order</a></li>
-                                <li><a href="">Exchange policy</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/contact.jsp">Contact</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/viewOrder.jsp">View order</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/policy.jsp">Exchange policy</a></li>
                                 <li><a href="">Order's history</a></li>
                         </li>
                     </ul>
@@ -687,73 +734,22 @@
                     <div class="headerToolIcon">
                         <i class="bi bi-search icon" onclick="toggleBox('box1')"></i>
                         <div class="searchBox box" id="box1">
-
+                            <div class="searchBox-content">
+                                <h2>SEARCH</h2>
+                                <div class="search-input">
+                                    <input oninput="searchByName(this)" name="search" type="text" size="20" placeholder="Search for products...">
+                                    <button><i class="bi bi-search"></i></button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="headerToolIcon">
-                        <i class="bi bi-person icon" onclick="toggleBox('box2')"></i>
-                        <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->
-
-                        <!-- khi đã login thì khi nhấp vào icon -> box này hiện ra -->
-                        <div class="infoBox box" id="box2">
-                            <div class="infoBox-content">
-                                <h2>ACCOUNT INFORMATION</h2>
-                                <ul class="infoBox-list">
-                                    <li>Username</li>
-                                    <li><i class="infoBox-icon bi bi-dot"></i><a href="/login.html">My account</a></li>
-                                    <li><i class="infoBox-icon bi bi-dot"></i><a href="">Address</a></li>
-                                    <li><i class="infoBox-icon bi bi-dot"></i><a href="">Log out</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        <a href="http://localhost:8080/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
+                        <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->     
                     </div>
                     <div class="headerToolIcon">
                         <i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i>
-                        <div class="cartBox box" id="box3">
-                            <div class="cartBox-content">
-                                <h2>SHOPPING CART</h2>
-                                <div class="noneProduct">
-                                    <div class="cartIcon"><i class="bi bi-cart2 icon"></i></div>
-                                    <p>There are currently no products</p>
-                                </div>
-                                <!-- nếu có product thì haveProduct display: block -->
-                                <div class="haveProduct">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-4 miniCartImg">
-                                                <img src="images/img1.jpg" alt="">
-                                            </div>
-                                            <div class="col-md-8 miniCartDetail">
-                                                <p>DOTAI - Áo thun wash Cafe Clementine 8122
-                                                    <span>Color / size</span>
-                                                </p>
-                                                <div class="miniCart-quan">
-                                                    <span>1</span>
-                                                </div>
-                                                <div class="miniCart-price">
-                                                    <span>000,000 VND</span>
-                                                </div>
-                                                <div class="deleteBtn">
-                                                    <i class="bi bi-x-lg"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="sumPrice">
-                                    <table>
-                                        <tr>
-                                            <td class="tbTextLeft">TOTAL MONEY:</td>
-                                            <td class="tbTextRight">0<span>VND</span></td>
-                                        </tr>
-                                        <tr class="cartButton">
-                                            <td><button class="miniCartButton" onclick="redirectCartPage()">View cart</button></td>
-                                            <td><button class="miniCartButton btnRight">Pay</button></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -762,50 +758,64 @@
         </header>
         <!-- end header -->
 
-        <div id="wrapper">
-            <form action="" method="">
-                <div class="bao">
-                    <h2>Register An Account</h2>
-                    <hr>
-                    <div class="form-group">
-                        <label for="fullname"></label>
-                        <input type="text" id="fullName" name="fullName" placeholder="Fullname" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="username"></label>
-                        <input type="text" id="username" name="username" placeholder="Username" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password"></label>
-                        <input type="password" id="password" name="password" placeholder="Password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email"></label>
-                        <input type="email" id="email" name="email" placeholder="Email" required>
-                    </div>
+        <!-- main -->
+        <main class="main">
+            <div class="mainHeading">
+                <h2 class="headingContent">
+                    <a href="">Dotai</a>
+                </h2>
+                <p>New products</p>
+            </div>
 
-                    <div class="form-group">
-                        <label for="address"></label>
-                        <input type="text" id="address" name="address" placeholder="Address" required>
-                    </div>          
-                    <div class="form-group">
-                        <label for="phone"></label>
-                        <input type="tel" id="phoneNumber"  name="phoneNumber" placeholder="Phone number" pattern="[0]{1}[0-9]{9}" required>
-                    </div>
+            <form action="http://localhost:8080/Project_SWP_Group2/sortProduct" method="get">
 
-                    <div class = "foot">
-                        <h4>This site is protected by reCAPTCHA and the Google <a href="" class="highlight">Privacy
-                                Policy</a> and <a href="" class="highlight">Terms of Service</a> apply.</h4>
-                    </div>
-                    <div>
-                        <button class="btn-register">Register</button>
-                    </div>
+
+                <div style="display: flex; margin: 100px 0 20px 0;">
+                    <select name="sortID" id="filter" class="form-control ml-5 mb-2">
+                        <option value="Increase">Increase</option>
+                        <option value="Decrease">Decrease</option>
+                        <option value="BestSeller">Best Seller</option>
+                        <option value="New">New Arrival</option>
+                    </select>
+                    <button type="submit" class="filter"> Submit</button>
                 </div>
-                <a href="login.jsp" class="back-button">
-                    <span class="back-arrow">&larr;</span>Quay lại trang chủ
-                </a>
             </form>
-        </div>
+
+            <div class="mainContent container ">
+
+                <div class="row" id="product">
+
+                    <c:forEach items="${requestScope.productList}" var="product">
+                        <div class="col-md-3 p-2">
+                            <div class="product">
+                                <div class="productImg">
+
+                                    <img src="${path}${product.getPicURL()}" alt="img">
+
+                                </div>
+                                <c:set var="formattedPrice">
+                                    <fmt:formatNumber type="number" value="${product.getPrice()}" pattern="###,###" />
+                                </c:set>
+                                <div class="productDetail">
+                                    <h3>${product.getName()}</h3>
+                                    <p>
+                                        <span class="price">${formattedPrice} VND</span>
+                                        <span class="price-sale"></span>
+                                    </p>
+                                    <div class="productButton">
+                                        <button type="button" class="addBtn"><a href="productDetail?id=${product.getId()}">Add to cart</a></button>
+                                        <button type="button" class="right"><a href="productBuy?name=${product.name} &price=${product.price} &quantity=1&picURL=${product.picURL} &id=${product.id}">Buy now</a></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </c:forEach>
+                </div>
+            </div>
+        </main>
+        <!-- end main -->
 
         <!-- footer -->
         <footer>
@@ -815,12 +825,18 @@
             </div>
 
             <div class="row" id="img-footer">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_1_img.jpg?v=55" alt="">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_2_img.jpg?v=55" alt="">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_3_img.jpg?v=55" alt="">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_4_img.jpg?v=55" alt="">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_5_img.jpg?v=55" alt="">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_6_img.jpg?v=55" alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_1_img.jpg?v=55"
+                     alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_2_img.jpg?v=55"
+                     alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_3_img.jpg?v=55"
+                     alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_4_img.jpg?v=55"
+                     alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_5_img.jpg?v=55"
+                     alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_6_img.jpg?v=55"
+                     alt="">
             </div>
 
             <div class="items-footer">
@@ -828,7 +844,8 @@
                     <div class="col-sm-3">
                         <h4 id="highlight">About Dotai</h4>
                         <p>Vintage and basic wardrobe for boys and girls.Vintage and basic wardrobe for boys and girls.</p>
-                        <img src="//theme.hstatic.net/1000296747/1000891809/14/footer_logobct_img.png?v=55" alt="..." class="bct">
+                        <img src="//theme.hstatic.net/1000296747/1000891809/14/footer_logobct_img.png?v=55" alt="..."
+                             class="bct">
                     </div>
                     <div class="col-sm-3">
                         <h4 id="highlight">Contact</h4>
@@ -847,7 +864,7 @@
                         <h4 id="highlight">Customer care</h4>
                         <div class="row phone">
                             <div class="col-sm-3"><i class="bi bi-telephone icon"></i></div>
-                            <div class="col-9"> 
+                            <div class="col-9">
                                 <h4 id="highlight">0123.456.789</h4>
                                 <a href="">info@dotai.vn</a>
                             </div>
@@ -866,8 +883,35 @@
         <!-- end footer -->
 
 
-        <script src="js/jquery-3.7.0.min.js"></script>
-        <script src="js/jquery.validate.min.js"></script>
-        <script src="js/signUp.js"></script>
+        <script src="/Project_SWP_Group2/js/header.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script type="text/javascript">
+                        function doDelete(id) {
+                            if (confirm("Do you want to delete this product (" + id + ")?")) {
+                                window.location = "deleteProduct?id=" + id;
+                            }
+                        }
+
+
+                        function searchByName(name) {
+                            var search = name.value
+
+                            $.ajax({
+                                url: "/Project_SWP_Group2/searchProductByAJAX",
+                                type: "get",
+                                data: {
+                                    txt: search
+                                },
+                                success: function (data) {
+                                    var row = document.getElementById("product");
+                                    row.innerHTML = data;
+                                },
+                                error: function (xhr) {
+
+                                }
+                            })
+                        }
+        </script>
     </body>
+
 </html>

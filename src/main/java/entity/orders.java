@@ -18,9 +18,9 @@ public class orders {
     String phoneNumber;
     String usernameCustomer;
     String usernameStaff;
-    
+    int total;
 
-    public orders(int orderID, String address, Date date, String status, String phoneNumber, String usernameCustomer, String usernameStaff) {
+    public orders(int orderID, String address, Date date, String status, String phoneNumber, String usernameCustomer, String usernameStaff, int total) {
         this.orderID = orderID;
         this.address = address;
         this.date = date;
@@ -28,13 +28,14 @@ public class orders {
         this.phoneNumber = phoneNumber;
         this.usernameCustomer = usernameCustomer;
         this.usernameStaff = usernameStaff;
+        this.total = total;
     }
 
-    public int getOrderId() {
+    public int getOrderID() {
         return orderID;
     }
 
-    public void setOrderId(int orderID) {
+    public void setOrderID(int orderID) {
         this.orderID = orderID;
     }
 
@@ -86,9 +87,17 @@ public class orders {
         this.usernameStaff = usernameStaff;
     }
 
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
     @Override
     public String toString() {
-        return "orders{" + "orderID=" + orderID + ", address=" + address + ", date=" + date + ", status=" + status + ", phoneNumber=" + phoneNumber + ", usernameCustomer=" + usernameCustomer + ", usernameStaff=" + usernameStaff + '}';
+        return "orders{" + "orderID=" + orderID + ", address=" + address + ", date=" + date + ", status=" + status + ", phoneNumber=" + phoneNumber + ", usernameCustomer=" + usernameCustomer + ", usernameStaff=" + usernameStaff + ", total=" + total + '}';
     }
     
 }
