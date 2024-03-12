@@ -106,7 +106,12 @@ public class load extends HttpServlet {
                 request.getRequestDispatcher("cart.jsp").forward(request, response);
                 break;
             case LOAD_PAYMENT:
-                request.getRequestDispatcher("payment.jsp").forward(request, response);
+                if(sum != 0){
+                    request.getRequestDispatcher("payment.jsp").forward(request, response);
+                }else{                  
+                    request.getRequestDispatcher("cart.jsp").forward(request, response);
+                }
+                
                 break;
             case URL_BUYNOW:
                 if (!username.equals("")) {

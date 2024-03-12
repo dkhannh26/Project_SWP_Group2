@@ -696,7 +696,7 @@
         <header class="header">
             <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND</strong></div>
             <div class="headerContent">
-                <div class="logo"><a href="/headerDemo.html">DOTAI</a></div>
+                <div class="logo"><a href="productList">DOTAI</a></div>
                 <nav>
                     <ul class="headerList">
                         <li class="headerListItem"><a href="/headerDemo.html">Home page</a></li>

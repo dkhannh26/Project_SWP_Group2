@@ -84,7 +84,7 @@ public class cart extends HttpServlet {
         String size = request.getParameter("size");
         System.out.println(size + "cart");
         int id = 0;
-        int price = 0;
+        float price = 0;
         int quantity = 0;
         String urlPath = request.getServletPath();
         String ms = "<script>\n"
@@ -97,7 +97,7 @@ public class cart extends HttpServlet {
             id = Integer.parseInt(idParam);
         }
         if (priceParam != null) {
-            price = Integer.parseInt(priceParam);
+            price = Float.parseFloat(priceParam);
         }
         if (quantityParam != null) {
             quantity = Integer.parseInt(quantityParam);
@@ -106,7 +106,7 @@ public class cart extends HttpServlet {
         List<product> list = product.getAll();
         List<promo> promoList = promo.getAll();
         List<entity.cart> list2 = cart.getAll(username);
-        int price2 = 0;
+        float price2 = 0;
         System.out.println(id);
         System.out.println(username);
         switch (urlPath) {

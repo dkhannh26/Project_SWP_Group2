@@ -511,15 +511,16 @@
                                                     });
 
                                                     const handleColor = () => {
-                                                        let id = document.querySelector("id${order.orderID}");
-                                                        if (id.innerHTML === 'accept') {
-                                                            id.classList.add('red')
+                                                        let status = document.querySelectorAll('.status');
+                                                        status.forEach(element => {
+                                                            if (element.innerHTML === 'reject') {
+                                                                element.classList.add('red');
+                                                            } else if (element.innerHTML === 'accept') {
+                                                                element.classList.add('green');
 
-
-                                                        } else if (id.innerHTML === 'reject') {
-                                                            id.classList.add('green')
-                                                        }
-                                                    }
+                                                            }
+                                                        });
+                                                    };
 
 
                                                     document.addEventListener('DOMContentLoaded', function () {
@@ -574,7 +575,7 @@
                                                             success: function (response) {
                                                                 console.log(id);
                                                                 id.innerHTML = status;
-
+                                                                handleColor();
                                                             }
                                                         });
                                                     }

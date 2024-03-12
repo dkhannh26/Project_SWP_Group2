@@ -766,185 +766,185 @@
                     <div class="headerToolIcon">
                         <a href="loadCart"><i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i></a>
                     </div>
-                    </div>
                 </div>
             </div>
+        </div>
 
-            <hr width="100%" , color="#d0a587" />
-        </header><!--
-         end header -->
+        <!--            <hr width="100%" , color="#d0a587" />-->
+        <<img src="./images/banner.jpg" alt="alt"/>
+    </header><!--
+     end header -->
 
 
 
-        <!-- main -->
-        <main class="main">
-            <div class="mainHeading">
-                <h2 class="headingContent">
-                    <a href="">Dotai</a>
-                </h2>
-                <p>New products</p>
-            </div>
-            <div class="mainContent container ">
+    <!-- main -->
+    <main class="main">
+        <div class="mainHeading">
+            <h2 class="headingContent">
+                <a href="">Dotai Home</a>
+            </h2>
+        </div>
+        <div class="mainContent container ">
 
-                <div class="row" id="product">
+            <div class="row" id="product">
 
-                    <c:forEach items="${requestScope.productList}" var="product">
-                        <div class="col-md-3 p-2">
-                            <div class="product">
-                                <div class="productImg">
-                                    <img src="${path}${product.getPicURL()}" alt="img">
-                                </div>
-                                <c:set var="formattedPrice">
-                                    <fmt:formatNumber type="number" value="${product.getPrice()}" pattern="###,###" />
-                                </c:set>
-                                <div class="productDetail">
-                                    <h3>${product.getName()}</h3>
-                                    <p>
-                                        <span class="price">${formattedPrice} VND</span>
-                                        <span class="price-sale"></span>
-                                    </p>
-                                    <div class="productButton">
-                                        <button type="button" class="addBtn"><a href="productDetail?id=${product.getId()}">Add to cart</a></button>
-                                        <button type="button" class="right" onclick="showSizeOptions(this)">Buy now ${product.getId()}</button>
-                                        <input type="hidden" name="idP" class="idP" value="${product.getId()}">
-                                        <div id="sizeOptions_${product.getId()}" class="sizeOptions" style="display: none;">
-                                            <label for="size_${product.getId()}">Choose Size:</label>
-                                            <select id="size_${product.getId()}">
-                                                <option value="S">S</option>
-                                                <option value="M">M</option>
-                                                <option value="L">L</option>
-                                            </select>
-                                            <button onclick="buyNow(this)">Confirm</button>
-                                            <input type="hidden" name="name" class="name" value="${product.name}">
-                                            <input type="hidden" name="price" class="price" value="${product.price}">
-                                            <input type="hidden" name="picUrl" class="picUrl" value="${product.picURL}">
-                                            <input type="hidden" name="id" class="id" value="${product.id}">
-                                        </div>
+                <c:forEach items="${requestScope.productList}" var="product">
+                    <div class="col-md-3 p-2">
+                        <div class="product">
+                            <div class="productImg">
+                                <img src="${path}${product.getPicURL()}" alt="img">
+                            </div>
+                            <c:set var="formattedPrice">
+                                <fmt:formatNumber type="number" value="${product.getPrice()}" pattern="###,###" />
+                            </c:set>
+                            <div class="productDetail">
+                                <h3>${product.getName()}</h3>
+                                <p>
+                                    <span class="price">${formattedPrice} VND</span>
+                                    <span class="price-sale"></span>
+                                </p>
+                                <div class="productButton">
+                                    <button type="button" class="addBtn"><a href="productDetail?id=${product.getId()}">Add to cart</a></button>
+                                    <button type="button" class="right" onclick="showSizeOptions(this)">Buy now ${product.getId()}</button>
+                                    <input type="hidden" name="idP" class="idP" value="${product.getId()}">
+                                    <div id="sizeOptions_${product.getId()}" class="sizeOptions" style="display: none;">
+                                        <label for="size_${product.getId()}">Choose Size:</label>
+                                        <select id="size_${product.getId()}">
+                                            <option value="S">S</option>
+                                            <option value="M">M</option>
+                                            <option value="L">L</option>
+                                        </select>
+                                        <button onclick="buyNow(this)">Confirm</button>
+                                        <input type="hidden" name="name" class="name" value="${product.name}">
+                                        <input type="hidden" name="price" class="price" value="${product.price}">
+                                        <input type="hidden" name="picUrl" class="picUrl" value="${product.picURL}">
+                                        <input type="hidden" name="id" class="id" value="${product.id}">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </c:forEach>
+                    </div>
+                </c:forEach>
 
+            </div>
+        </div>
+    </main>
+    <!-- end main -->
+
+    <!-- footer -->
+    <footer>
+        <div class="content-footer">
+            <h3 id="highlight">Follow us on Instagram</h3>
+            <p>@dotai.vn & @fired.vn</p>
+        </div>
+
+        <div class="row" id="img-footer">
+            <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_1_img.jpg?v=55"
+                 alt="">
+            <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_2_img.jpg?v=55"
+                 alt="">
+            <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_3_img.jpg?v=55"
+                 alt="">
+            <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_4_img.jpg?v=55"
+                 alt="">
+            <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_5_img.jpg?v=55"
+                 alt="">
+            <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_6_img.jpg?v=55"
+                 alt="">
+        </div>
+
+        <div class="items-footer">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h4 id="highlight">About Dotai</h4>
+                    <p>Vintage and basic wardrobe for boys and girls.Vintage and basic wardrobe for boys and girls.</p>
+                    <img src="//theme.hstatic.net/1000296747/1000891809/14/footer_logobct_img.png?v=55" alt="..."
+                         class="bct">
                 </div>
-            </div>
-        </main>
-        <!-- end main -->
-
-        <!-- footer -->
-        <footer>
-            <div class="content-footer">
-                <h3 id="highlight">Follow us on Instagram</h3>
-                <p>@dotai.vn & @fired.vn</p>
-            </div>
-
-            <div class="row" id="img-footer">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_1_img.jpg?v=55"
-                     alt="">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_2_img.jpg?v=55"
-                     alt="">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_3_img.jpg?v=55"
-                     alt="">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_4_img.jpg?v=55"
-                     alt="">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_5_img.jpg?v=55"
-                     alt="">
-                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_6_img.jpg?v=55"
-                     alt="">
-            </div>
-
-            <div class="items-footer">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <h4 id="highlight">About Dotai</h4>
-                        <p>Vintage and basic wardrobe for boys and girls.Vintage and basic wardrobe for boys and girls.</p>
-                        <img src="//theme.hstatic.net/1000296747/1000891809/14/footer_logobct_img.png?v=55" alt="..."
-                             class="bct">
-                    </div>
-                    <div class="col-sm-3">
-                        <h4 id="highlight">Contact</h4>
-                        <p><b>Address:</b> 100 Nguyen Van Cu, An Khanh Ward, Ninh Kieu District, City. Can Tho</p>
-                        <p><b>Phone:</b> 0123.456.789 - 0999.999.999</p>
-                        <p><b>Email:</b> info@dotai.vn</p>
-                    </div>
-                    <div class="col-sm-3">
-                        <h4 id="highlight">Customer support</h4>
-                        <ul class="CS">
-                            <li><a href="">Search</a></li>
-                            <li><a href="">Introduce</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-sm-3">
-                        <h4 id="highlight">Customer care</h4>
-                        <div class="row phone">
-                            <div class="col-sm-3"><i class="bi bi-telephone icon"></i></div>
-                            <div class="col-9">
-                                <h4 id="highlight">0123.456.789</h4>
-                                <a href="">info@dotai.vn</a>
-                            </div>
-                        </div>
-                        <h5 id="highlight">Follow Us</h5>
-                        <div class="contact-item">
-                            <a href="" class="contact-link"><i class="bi bi-facebook contact-icon"></i></a>
-                            <a href="" class="contact-link"><i class="bi bi-instagram contact-icon"></i></a>
+                <div class="col-sm-3">
+                    <h4 id="highlight">Contact</h4>
+                    <p><b>Address:</b> 100 Nguyen Van Cu, An Khanh Ward, Ninh Kieu District, City. Can Tho</p>
+                    <p><b>Phone:</b> 0123.456.789 - 0999.999.999</p>
+                    <p><b>Email:</b> info@dotai.vn</p>
+                </div>
+                <div class="col-sm-3">
+                    <h4 id="highlight">Customer support</h4>
+                    <ul class="CS">
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Introduce</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h4 id="highlight">Customer care</h4>
+                    <div class="row phone">
+                        <div class="col-sm-3"><i class="bi bi-telephone icon"></i></div>
+                        <div class="col-9">
+                            <h4 id="highlight">0123.456.789</h4>
+                            <a href="">info@dotai.vn</a>
                         </div>
                     </div>
+                    <h5 id="highlight">Follow Us</h5>
+                    <div class="contact-item">
+                        <a href="" class="contact-link"><i class="bi bi-facebook contact-icon"></i></a>
+                        <a href="" class="contact-link"><i class="bi bi-instagram contact-icon"></i></a>
+                    </div>
                 </div>
             </div>
+        </div>
 
 
-        </footer>
-        <!-- end footer -->
+    </footer>
+    <!-- end footer -->
 
 
-        <script src="./js/header.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script type="text/javascript">
-                                                function doDelete(id) {
-                                                    if (confirm("Do you want to delete this product (" + id + ")?")) {
-                                                        window.location = "deleteProduct?id=" + id;
+    <script src="./js/header.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript">
+                                            function doDelete(id) {
+                                                if (confirm("Do you want to delete this product (" + id + ")?")) {
+                                                    window.location = "deleteProduct?id=" + id;
+                                                }
+                                            }
+                                                
+                                                
+                                            function searchByName(name) {
+                                                var search = name.value;
+                                                    
+                                                $.ajax({
+                                                    url: "/Project_SWP_Group2/searchProductByAJAX",
+                                                    type: "get",
+                                                    data: {
+                                                        txt: search
+                                                    },
+                                                    success: function (data) {
+                                                        var row = document.getElementById("product");
+                                                        row.innerHTML = data;
+                                                    },
+                                                    error: function (xhr) {
+                                                            
                                                     }
+                                                });
+                                            }
+                                            function showSizeOptions(button) {
+                                                const idP = button.parentElement.querySelector('.idP').value;
+                                                var sizeOptions = document.getElementById('sizeOptions_' + idP);
+                                                if (sizeOptions.style.display === "block") {
+                                                    sizeOptions.style.display = "none";
+                                                } else {
+                                                    sizeOptions.style.display = "block";
                                                 }
+                                            }
+                                                
+                                            function buyNow(button) {
+                                                var name = button.parentElement.querySelector('.name').value;
+                                                var price = button.parentElement.querySelector('.price').value;
+                                                var picUrl = button.parentElement.querySelector('.picUrl').value;
+                                                var id = button.parentElement.querySelector('.id').value;
+                                                var size = button.parentElement.querySelector('select').value;
+                                                window.location.href = 'productBuy?name=' + name + "&price=" + price + "&quantity=1" + "&size=" + size + "&picURL=" + picUrl + "&id=" + id;
+                                            }
+    </script>
 
-
-                                                function searchByName(name) {
-                                                    var search = name.value;
-
-                                                    $.ajax({
-                                                        url: "/Project_SWP_Group2/searchProductByAJAX",
-                                                        type: "get",
-                                                        data: {
-                                                            txt: search
-                                                        },
-                                                        success: function (data) {
-                                                            var row = document.getElementById("product");
-                                                            row.innerHTML = data;
-                                                        },
-                                                        error: function (xhr) {
-
-                                                        }
-                                                    });
-                                                }
-                                                function showSizeOptions(button) {
-                                                    const idP = button.parentElement.querySelector('.idP').value;
-                                                    var sizeOptions = document.getElementById('sizeOptions_' + idP);
-                                                    if (sizeOptions.style.display === "block") {
-                                                        sizeOptions.style.display = "none";
-                                                    } else {
-                                                        sizeOptions.style.display = "block";
-                                                    }
-                                                }
-
-                                                function buyNow(button) {
-                                                    var name = button.parentElement.querySelector('.name').value;
-                                                    var price = button.parentElement.querySelector('.price').value;
-                                                    var picUrl = button.parentElement.querySelector('.picUrl').value;
-                                                    var id = button.parentElement.querySelector('.id').value;
-                                                    var size = button.parentElement.querySelector('select').value;
-                                                    window.location.href = 'productBuy?name=' + name + "&price=" + price + "&quantity=1" + "&size=" + size + "&picURL=" + picUrl + "&id=" + id;
-                                                }
-        </script>
-
-    </body>
+</body>
 
 </html>

@@ -36,7 +36,7 @@ public class DAOcart extends DBconnect.DBconnect {
         return list;
     }
 
-    public void insertCart(int quantity, int price, String username, int product_id,String size_name) {
+    public void insertCart(int quantity, float price, String username, int product_id,String size_name) {
         String sql = "insert into\n"
                 + "cart\n"
                 + "values(?,?,?,?,?)";
@@ -53,7 +53,7 @@ public class DAOcart extends DBconnect.DBconnect {
         }
     }
 
-    public void updateCart(String username, int product_id, int quantity, int price, String size_name) {
+    public void updateCart(String username, int product_id, int quantity, float price, String size_name) {
         String sql = "update cart\n"
                 + "set username = ?,\n"
                 + "product_id = ?,\n"
