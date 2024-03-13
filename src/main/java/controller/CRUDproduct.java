@@ -175,35 +175,21 @@ public class CRUDproduct extends HttpServlet {
                 for (product o : productList) {
                     NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.ENGLISH);
 
-                    // Ä�á»‹nh dáº¡ng sá»‘
+        
                     String formattedNumber = numberFormat.format(o.getPrice());
-                    out.println("  <div class=\"col-md-3 p-2\">\n"
-                            + "                            <div class=\"product\">\n"
-                            + "                                <div class=\"productImg\">\n"
-                            + "                                    <img src=\"" + o.getPicURL() + "\" alt=\"img\">\n"
-                            + "                                </div>\n"
-                            + "\n"
-                            + "\n"
-                            + "                                <c:set var=\"formattedPrice\">\n"
-                            + "                                    <fmt:formatNumber type=\"number\" value=\"" + o.getPrice() + "\" pattern=\"###,###\" />\n"
-                            + "                                </c:set>\n"
-                            + "\n"
-                            + "\n"
-                            + "                                <div class=\"productDetail\">\n"
-                            + "                                    <h3>" + o.getName() + "</h3>\n"
-                            + "                                    <p>\n"
-                            + "                                        <span class=\"price\"> " + formattedNumber + " VND</span>\n"
-                            + "                                        <span class=\"price-sale\"></span>\n"
-                            + "                                    </p>\n"
-                            + "                                    <div class=\"productButton\">\n"
-                            + "                                        <button type=\"button\" class=\"addBtn\"><span>Add to cart</span></button>\n"
-                            + "                                        <button type=\"button\" class=\"right\"><span></span>Buy now</button>\n"
-                            + "                                    </div>\n"
-                            + "                                </div>\n"
-                            + "                                <a  href =\"updateJSPProduct?id=" + o.getId() + "\">Update</a>\n"
-                            + "                                <a  href=\"#\" onclick=\"doDelete('" + o.getId() + "')\">Delete</a> \n"
-                            + "                            </div>\n"
-                            + "                        </div> ");
+                    out.println(" <div class=\"search-product\">\n" +
+"                                            <div class=\"search-info\">\n" +
+"                                                <div class=\"title\">\n" +
+"                                                    <a href=\"/Project_SWP_Group2/productDetail?id="+o.getId()+"\">"+o.getName()+"</a>\n" +
+"                                                    <p>"+formattedNumber+" VND</p>\n" +
+"                                                </div>\n" +
+"                                                <div class=\"search-img\">\n" +
+"                                                    <a href=\"\">\n" +
+"                                                        <img src=\""+o.getPicURL()+"\" alt=\"img\">\n" +
+"                                                    </a>\n" +
+"                                                </div>\n" +
+"                                            </div>\n" +
+"                                            <hr>");
                 }
                 break;
 

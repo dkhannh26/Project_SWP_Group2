@@ -114,10 +114,10 @@ public class DAOorder extends DBconnect.DBconnect {
                 + "values(?,?,?,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, quantity);
-            st.setString(2, size_name);
-            st.setInt(3, productID);
-            st.setInt(4, orderID);
+            st.setInt(1, orderID);
+            st.setInt(2, productID);
+            st.setString(3, size_name);
+            st.setInt(4, quantity);
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);

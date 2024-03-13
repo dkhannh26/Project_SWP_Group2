@@ -730,6 +730,13 @@
                                     <input oninput="searchByName(this)" name="search" type="text" size="20" placeholder="Search for products...">
                                     <button><i class="bi bi-search"></i></button>
                                 </div>
+                                <div class="search-list">
+                                    <div class="search-list" id="search-ajax">
+                                        <c:forEach items="${requestScope.productList}" var="product">
+                        
+                                        </c:forEach>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
