@@ -991,7 +991,7 @@
         <!-- end footer -->
 
         <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script> <!-- lucide.dev icon -->
-        <script src="js/jquery-3.7.0.min.js"></script>
-        <script src="js/jquery.validate.min.js"></script>
-        <script src="./js/login.js"></script>
+        <script src="/Project_SWP_Group2/js/jquery-3.7.0.min.js"></script>
+        <script src="/Project_SWP_Group2/js/jquery.validate.min.js"></script>
+        <script src="/Project_SWP_Group2/js/login.js"></script>
     </body>

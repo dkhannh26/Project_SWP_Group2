@@ -205,6 +205,61 @@
                 text-align: center;
             }
             /* statistic */
+            /*chart*/
+            .chart {
+                display: flex;
+                align-items: center;
+            }
+            .chart-heading {
+                font-family: "Rubik", sans-serif;
+                color: #023047;
+                text-transform: uppercase;
+                font-size: 24px;
+                text-align: center;
+            }
+
+            .chart-container {
+                width: 380px;
+            }
+
+            .chart-container-col{
+                width: 500px;
+            }
+
+            .programming-stats {
+                font-family: "Rubik", sans-serif;
+                display: flex;
+                align-items: center;
+                gap: 24px;
+                margin: 0 auto;
+                width: fit-content;
+                box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.3);
+                border-radius: 20px;
+                padding: 8px 32px;
+                color: #023047;
+                transition: all 400ms ease;
+            }
+
+            .programming-stats:hover {
+                transform: scale(1.02);
+                box-shadow: 0 4px 16px -7px rgba(0, 0, 0, 0.3);
+            }
+
+            .programming-stats .details ul {
+                list-style: none;
+                padding: 0;
+            }
+
+            .programming-stats .details ul li {
+                font-size: 16px;
+                margin: 12px 0;
+                text-transform: uppercase;
+            }
+
+            .programming-stats .details .percentage {
+                font-weight: 700;
+                color: #e63946;
+            }
         </style>
     </head>
 
@@ -323,11 +378,28 @@
                     </div>
                     <div>
                         <form action="statistic" method="get">
-                            <input type="date" name="from"> - <input type="date" name="to">
+                            <select id="mySelect" name="year">
+                                <option value="">--Select Year--</option>
+                                <option value="2024">2024</option>
+                                <option value="2023">2023</option>
+                                <option value="2022">2022</option>
+                                <option value="2021">2021</option>
+                            </select>
                             <button name="date" value="date">Submit</button>
-                            <h1>${dateFrom}   =>    ${dateTo} </h1>
+                            <h1>   </h1>
                         </form>
                     </div>
+
+                    <div class="chart">
+                        <div class="chart-container">
+                            <canvas class="my-chart"></canvas>
+                        </div>
+
+                        <div class="chart-container-col">
+                            <canvas class="my-chart-line" width="1000"  height="900"></canvas>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="order-manage">
@@ -397,7 +469,7 @@
             </div>
         </div>
 
-
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const links = document.querySelectorAll('.nav-link');
@@ -416,6 +488,65 @@
                     });
                 });
             });
+
+
+
+            const chartData = {
+                labels: ["1", "2", "3", "4"],
+                data: [${quarter1},${quarter2},${quarter3},${quarter4}],
+            };
+//    data: [${quarter1},${quarter2},${quarter3},${quarter4}],     
+
+            const myChart = document.querySelector(".my-chart");
+            const ul = document.querySelector(".programming-stats .details ul");
+
+            new Chart(myChart, {
+                type: "doughnut",
+                data: {
+                    labels: chartData.labels,
+                    datasets: [
+                        {
+                            label: "Quarter revenue",
+                            data: chartData.data,
+                        },
+                    ],
+                }
+
+            });
+
+
+            const ctx = document.querySelector('.my-chart-line');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', ],
+                    datasets: [{
+                            label: 'monthly revenue',
+                            data: [${revenue1},${revenue2},${revenue3},${revenue4},${revenue5},${revenue6},${revenue7},${revenue8},${revenue9},${revenue10},${revenue11},${revenue12}],
+                            borderWidth: 1,
+                            backgroundColor: 'rgba(231, 189, 111, 0.799)',
+                            barThickness: 30
+                        }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            const populateUl = () => {
+                chartData.labels.forEach((l, i) => {
+                    let li = document.createElement("li");
+                    li.innerHTML = `${l}: <span class='percentage'>${chartData.data[i]}%</span>`;
+                    ul.appendChild(li);
+                });
+            };
+
+            populateUl();
         </script>
     </body>
 
