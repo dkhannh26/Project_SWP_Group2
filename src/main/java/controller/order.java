@@ -126,6 +126,10 @@ public class order extends HttpServlet {
         for (product product : productList) {
             priceProduct.put(product.getId(), product.getPrice());
         }
+        Map<Integer, Integer> promoID = new HashMap<>();
+                for (product product : productList) {
+                    promoID.put(product.getId(), product.getPromoID());
+                }
         switch (urlPath) {
             case INSERT_ORDERS:
                 if (newaddress.equals("")) {
@@ -200,10 +204,7 @@ public class order extends HttpServlet {
                 int numberOfProduct = 0;
                 int revenue = 0;
                 int numberOfCustomer = 0;
-                Map<Integer, Integer> promoID = new HashMap<>();
-                for (product product : productList) {
-                    promoID.put(product.getId(), product.getPromoID());
-                }
+                
                 DAO.DAOproduct DAOproduct = new DAOproduct();
 
                 String date = request.getParameter("date");
@@ -287,6 +288,7 @@ public class order extends HttpServlet {
                 for (orderDetail orders : orderDetailList) {
                     ordersQuantityMap.put(orders.getOrderID(), orders.getQuantity());
                 }
+                request.setAttribute("promoID", promoID);
                 request.setAttribute("promoMap", promoMap);
                 request.setAttribute("priceP", priceP);
                 request.setAttribute("picUrlMap", picUrlMap);

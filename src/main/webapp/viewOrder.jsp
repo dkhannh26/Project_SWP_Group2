@@ -702,14 +702,14 @@
                                             </div>
                                             <div class="col-6">
                                                 <h6 id="proName"><b>${nameProduct[orderDetail.productID]}</b></h6>
-                                                <p>${orderDetail.size_name}</p>
-                                                <p>${orderDetail.quantity}</p>
+                                                <p>Size: ${orderDetail.size_name}</p>
+                                                <p>Quantity: ${orderDetail.quantity}</p>
                                             </div>
                                             <div class="col-4">
                                                 <div id="price">
                                                     <div class="row">
                                                         <c:set var="formattedPrice">
-                                                            <fmt:formatNumber type="number" value="${(priceProduct[orderDetail.productID] - (priceProduct[orderDetail.productID] * promoMap[promoID[orderDetail.productID]])/100) * orderDetail.quantity}" pattern="#" />
+                                                            <fmt:formatNumber type="number" value="${(priceP[orderDetail.productID] - (priceP[orderDetail.productID] * promoMap[promoID[orderDetail.productID]])/100) * orderDetail.quantity}" pattern="#" />
                                                         </c:set>
                                                         <p class="col-md-6 origin-price">${priceP[orderDetail.productID]}VND</p>
                                                         <p class="col-md-6 saled-price">${formattedPrice}VND</p>
@@ -731,7 +731,7 @@
                                         <p>Quantity: </p>
                                     </div>
                                     <div class="col-5">
-                                        <p>${ordersUser.address}</p>
+                                        <p>Address: ${ordersUser.address}</p>
                                     </div>
                                     <div class="col-4">
                                         <p id="total">Total: <span>${ordersUser.total}VND</span></p>
