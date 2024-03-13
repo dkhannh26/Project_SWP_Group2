@@ -72,6 +72,7 @@
                 list-style-type: none;
                 background-color: #2f2b2b;
                 padding: 0;
+                height: 900px;
             }
 
             .nav-list li {
@@ -492,7 +493,7 @@
 
 
             const chartData = {
-                labels: ["1", "2", "3", "4"],
+                labels: ["quarter 1", "quarter 2", "quarter 3", "quarter 4"],
                 data: [${quarter1},${quarter2},${quarter3},${quarter4}],
             };
 //    data: [${quarter1},${quarter2},${quarter3},${quarter4}],     
