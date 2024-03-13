@@ -26,6 +26,7 @@
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
+                font-family: "Quicksand", sans-serif;
             }
 
             html,
@@ -38,7 +39,7 @@
 
             header {
                 height: 50px;
-                background-color: #2f2b2b;
+                background-color: #a0816c;
             }
 
             .header-top,
@@ -77,7 +78,7 @@
 
             .nav-list {
                 list-style-type: none;
-                background-color: #2f2b2b;
+                background-color: #b4acac;
                 padding: 0;
                 margin: 0;
             }
@@ -100,23 +101,26 @@
                 width: 100%;
                 padding: 70px;
             }
-            .main-content > div {
+
+            .main-content>div {
                 display: none;
             }
 
             /* product management */
-            .filter {
-                padding: 8px;
+            .add-goods-btn {
+                text-align: right;
+                margin-bottom: 10px;
             }
-
-            .filter-add-btn {
-                float: right;
+            .add-goods-btn button {
                 border: none;
                 background-color: #2f2b2b;
-                color: white;
                 padding: 8px;
                 border-radius: 5px;
-
+                margin-right: 0;
+            }
+            .add-goods-btn button a {
+                text-decoration: none;
+                color: white;
             }
 
             .product-table .table tbody tr th {
@@ -130,6 +134,7 @@
             .product-table .td-button {
                 width: 15%;
             }
+
             /* product management */
 
             /* personal-info  */
@@ -138,15 +143,19 @@
                 margin: 50px auto;
                 box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
             }
+
             .personal-main table {
                 width: 100%;
                 border-collapse: collapse;
             }
-            .personal-main table th, td {
+
+            .personal-main table th,
+            td {
                 padding: 8px;
                 text-align: left;
                 border-bottom: 1px solid #ddd;
             }
+
             /* personal-info  */
 
             /* accout-manage */
@@ -155,9 +164,11 @@
                 outline: none;
                 width: 20%;
             }
+
             .phoneNum-col {
                 width: 12%;
             }
+
             /* accout-manage */
 
             /* statistic */
@@ -167,6 +178,7 @@
                 gap: 20px;
                 margin: 20px 0;
             }
+
             .card {
                 display: flex;
                 flex-direction: column;
@@ -176,32 +188,41 @@
                 border-radius: 30px;
                 box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
             }
+
             .card:first-child {
                 background-color: red;
             }
-            .card:nth-child(2){
+
+            .card:nth-child(2) {
                 background-color: green;
             }
-            .card:nth-child(3){
+
+            .card:nth-child(3) {
                 background-color: orange;
             }
-            .card:nth-child(4){
+
+            .card:nth-child(4) {
                 background-color: blue;
             }
+
             .card-inner {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
             }
-            .card-inner > span{
+
+            .card-inner>span {
                 font-size: 2em;
             }
+
             .card-inner h2 {
                 font-size: 1.5em;
             }
+
             .card h1 {
                 font-size: 1.5em;
             }
+
             input[type="date"] {
                 border-radius: 5px;
                 padding: 5px;
@@ -211,6 +232,7 @@
                 border: none;
                 outline: none;
             }
+
             ::-webkit-calendar-picker-indicator {
                 cursor: pointer;
                 padding: 5px;
@@ -218,6 +240,7 @@
                 border-radius: 2px;
                 text-align: center;
             }
+
             /* statistic */
 
             /* order-manage */
@@ -226,31 +249,42 @@
                 overflow: auto;
                 box-shadow: 0 .4rem .8rem #0005;
             }
+
             .order-table {
                 width: 100%;
                 overflow: overlay;
             }
-            .order-table, th, td {
+
+            .order-table,
+            th,
+            td {
                 padding: 1rem;
             }
+
             .order-table td {
                 border: none;
             }
+
             .order-table thead {
                 background-color: #7a777ffe;
             }
+
             .order-table tbody {
                 background-color: #eff2f5;
             }
+
             .order-table tbody tr:hover {
                 background-color: #fff6;
             }
+
             .tb-address {
                 max-width: 300px;
             }
+
             .th-status {
                 text-align: center;
             }
+
             .status {
                 padding: 0.4rem 0;
                 border-radius: 2rem;
@@ -258,32 +292,62 @@
                 background-color: #ebc474;
                 margin: 0;
             }
+
             .stt-pending {
                 background-color: #ebc474;
             }
+
             .stt-delivering {
                 background-color: #6fcaea;
             }
+
             .stt-delivered {
                 background-color: #86e49d;
                 color: #006b21;
             }
+
             .stt-cancelled {
                 background-color: #d893a3;
                 color: #b30021;
             }
+
             .order-table button {
                 height: 37px;
                 width: 37px;
                 border: none;
                 border-radius: 6px;
             }
+
             .accept-btn {
                 background-color: rgb(59, 245, 59);
             }
+
             .reject-btn {
                 background-color: red;
             }
+
+            .view-btn {
+                background-color: #7a777ffe;
+                color: white;
+            }
+
+            .item {
+                display: none;
+            }
+
+            /* .order-table thead, .order-table td {
+                border: none;
+            }
+            .order-table thead, .order-table tbody {
+                border-radius: .8rem;
+            }
+            .order-table thead {
+                background-color: rgb(201 180 180);
+            }
+            .order-table tbody tr:hover {
+                background-color: #fff6;
+            } */
+            /* order-manage */
             .red {
                 background-color: red;
             }
@@ -460,9 +524,27 @@
                                                 <button class="accept-btn" onclick="updateOrderStatus(${order.orderID}, 'accept')"><i class="bi bi-check-lg"></i></button>
                                                 <button class="reject-btn" onclick="updateOrderStatus(${order.orderID}, 'reject')"><i class="bi bi-x-lg"></i></button>
                                                 </c:if>
+                                            <button class="view-btn"><i class="bi bi-eye"></i></button>
                                         </td>
                                     </tr>
-                                </c:forEach>
+                                <tbody class="item">
+                                    <c:forEach items="${requestScope.orderDetailList}" var="orderDetail">
+                                        <c:if test="${order.orderID eq orderDetail.orderID}">
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                           ${orderDetail.productID}
+                                        </td>
+                                        <td>${nameProduct[orderDetail.productID]}</td>
+                                        <td>${orderDetail.size_name}</td>
+                                        <td>${orderDetail.quantity}</td>
+                                        <td>${(priceProduct[orderDetail.productID] - (priceProduct[orderDetail.productID] * promoMap[promoID[orderDetail.productID]])/100) * orderDetail.quantity}</td>
+                                        <td></td>
+                                    </tr>
+                                    </c:if>
+                                    </c:forEach>
+                                </tbody>
+                            </c:forEach>
 
                             </tbody>
                         </table>
@@ -579,6 +661,20 @@
                                                             }
                                                         });
                                                     }
+                                                    document.addEventListener("DOMContentLoaded", function () {
+                                                        const viewBtn = document.querySelectorAll('.view-btn');
+                                                        const dropdownItem = document.querySelectorAll('.item');
+                                                        viewBtn.forEach(function (edit, i) {
+                                                            edit.addEventListener('click', function () {
+                                                                if (dropdownItem[i].style.display === "none") {
+                                                                    dropdownItem[i].style.display = "contents";
+                                                                } else {
+                                                                    dropdownItem[i].style.display = "none";
+                                                                }
+
+                                                            });
+                                                        })
+                                                    });
         </script>
     </body>
 

@@ -7,9 +7,12 @@ package controller;
 import DAO.DAOcart;
 import DAO.DAOorder;
 import DAO.DAOproduct;
+import DAO.DAOpromo;
 import DAO.DAOsize;
+import entity.orderDetail;
 import entity.orders;
 import entity.product;
+import entity.promo;
 import entity.size;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,17 +23,20 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import static url.orderURL.INSERT_ORDERS;
 import static url.orderURL.INSERT_ORDERS_DETAILS;
 import static url.orderURL.URL_ORDER_LIST;
 import static url.orderURL.URL_UPDATE_STATUS;
+import static url.orderURL.URL_VIEW_ORDERS;
 
 /**
  *
  * @author Administrator
  */
-@WebServlet(name = "order", urlPatterns = {INSERT_ORDERS, INSERT_ORDERS_DETAILS, URL_ORDER_LIST, URL_UPDATE_STATUS})
+@WebServlet(name = "order", urlPatterns = {INSERT_ORDERS, INSERT_ORDERS_DETAILS, URL_ORDER_LIST, URL_UPDATE_STATUS, URL_VIEW_ORDERS})
 public class order extends HttpServlet {
 
     /**
@@ -72,7 +78,7 @@ public class order extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String size = request.getParameter("size");
-        int total = 0;
+        float total = 0;
         int totalQ = 0;
         int temp = 0;
         int quanS = 0;
@@ -88,26 +94,46 @@ public class order extends HttpServlet {
         long currentTimeMillis = System.currentTimeMillis();
         Date currentDate = new Date(currentTimeMillis);
         String address = request.getParameter("address");
+        String newaddress = request.getParameter("newaddress");
         String status = "wait";
         String phoneNumber = request.getParameter("phoneNumber");
         String usernameStaff = request.getParameter("usernameStaff");
         String id = request.getParameter("id");
         String total1 = request.getParameter("total");
-        System.out.println(total1 + "sddfdsafsd");
         if (total1 != null) {
-            total = Integer.parseInt(total1);
+            total = Float.parseFloat(total1);
         }
         DAOcart daoCart = new DAOcart();
         List<entity.cart> cartList = daoCart.getAll(username);
         DAOorder daoOrder = new DAOorder();
-        List<orders> orderList = daoOrder.getAll();
+        List<orders> orderList = daoOrder.getAllOrders();
+        List<orderDetail> orderDetailList = daoOrder.getAllOrdersDetail();
         DAOproduct daoProduct = new DAOproduct();
         List<product> productList = daoProduct.getAll();
         DAOsize daoSize = new DAOsize();
         List<size> sizeList = daoSize.getAll();
+        Map<Integer, String> nameProduct = new HashMap<>();
+        for (product product : productList) {
+            nameProduct.put(product.getId(), product.getName());
+        }
+        DAOpromo daoPromo = new DAOpromo();
+        List<promo> promoList = daoPromo.getAll();
+        Map<Integer, Integer> promoMap = new HashMap<>();
+        for (promo promo : promoList) {
+            promoMap.put(promo.getPromoID(), promo.getPromoPercent());
+        }
+        Map<Integer, Integer> priceProduct = new HashMap<>();
+        for (product product : productList) {
+            priceProduct.put(product.getId(), product.getPrice());
+        }
         switch (urlPath) {
             case INSERT_ORDERS:
-                daoOrder.insertOrder(address, currentDate, status, phoneNumber, username, usernameStaff, total);
+                if (newaddress.equals("")) {
+                    daoOrder.insertOrder(address, currentDate, status, phoneNumber, username, usernameStaff, total);
+                }
+                if (!newaddress.equals("")) {
+                    daoOrder.insertOrder(newaddress, currentDate, status, phoneNumber, username, usernameStaff, total);
+                }
                 int orderID = daoOrder.getOrderId();
                 System.out.println(id);
                 if (id != null) {
@@ -117,7 +143,6 @@ public class order extends HttpServlet {
                             if (productList.get(i).getQuantity() > 0) {
                                 quantityP = productList.get(i).getQuantity() - 1;
                                 daoOrder.insertOrderDetail(1, size, id2, orderID);
-                                daoProduct.updateQuan(quantityP, productList.get(i).getId());
                                 response.sendRedirect("productList");
                             }
                             if (productList.get(i).getQuantity() <= 0) {
@@ -145,12 +170,9 @@ public class order extends HttpServlet {
                                         if (cartList.get(j).getProductID() == sizeList.get(k).getProduct_id() && cartList.get(j).getSize_name().equals(sizeList.get(k).getSize_name())) {
                                             totalQ = totalQ + cartList.get(j).getQuantity();
                                             sizeP = sizeList.get(k).getSize_name();
-                                            quanS = sizeList.get(k).getQuantity() - cartList.get(j).getQuantity();
-//                                            daoSize.updateQuanSize(quanS, sizeList.get(k).getProduct_id(), sizeList.get(k).getSize_name());
                                         }
                                     }
                                     daoOrder.insertOrderDetail(totalQ, sizeP, cartList.get(j).getProductID(), orderID);
-//                                    daoProduct.updateQuan(totalQ, cartList.get(j).getProductID());
                                     daoCart.deleteCart(cartList.get(j).getProductID(), username);
                                     totalQ = 0;
                                 }
@@ -178,7 +200,12 @@ public class order extends HttpServlet {
                 int numberOfProduct = 0;
                 int revenue = 0;
                 int numberOfCustomer = 0;
+                Map<Integer, Integer> promoID = new HashMap<>();
+                for (product product : productList) {
+                    promoID.put(product.getId(), product.getPromoID());
+                }
                 DAO.DAOproduct DAOproduct = new DAOproduct();
+
                 String date = request.getParameter("date");
 
                 if (date.equals("date")) {
@@ -208,7 +235,12 @@ public class order extends HttpServlet {
                     request.setAttribute("numberOfCustomer", numberOfCustomer);
 
                 }
+                request.setAttribute("orderDetailList", orderDetailList);
                 request.setAttribute("orderList", orderList);
+                request.setAttribute("nameProduct", nameProduct);
+                request.setAttribute("priceProduct", priceProduct);
+                request.setAttribute("promoMap", promoMap);
+                request.setAttribute("promoID", promoID);
 
                 request.getRequestDispatcher("staff.jsp").forward(request, response);
                 break;
@@ -217,8 +249,53 @@ public class order extends HttpServlet {
                 int orderId = Integer.parseInt(request.getParameter("orderId"));
                 String newStatus = request.getParameter("status");
                 daoOrder.updateStatus(newStatus, orderId);
-                response.getWriter().write("success");
-
+                if (newStatus.equals("accept")) {
+                    for (int i = 0; i < orderDetailList.size(); i++) {
+                        if (orderId == orderDetailList.get(i).getOrderID()) {
+                            for (int j = 0; j < sizeList.size(); j++) {
+                                if (sizeList.get(j).getProduct_id() == orderDetailList.get(i).getProductID() && sizeList.get(j).getSize_name().equals(orderDetailList.get(i).getSize_name())) {
+                                    quanS = sizeList.get(j).getQuantity() - orderDetailList.get(i).getQuantity();
+                                    daoSize.updateQuanSize(quanS, orderDetailList.get(i).getProductID(), sizeList.get(j).getSize_name());
+                                }
+                            }
+                        }
+                    }
+                    List<size> sizeList2 = daoSize.getAll();
+                    for (int i = 0; i < productList.size(); i++) {
+                        int quanP = 0;
+                        for (int j = 0; j < sizeList2.size(); j++) {
+                            if (sizeList2.get(j).getProduct_id() == productList.get(i).getId()) {
+                                quanP = quanP + sizeList2.get(j).getQuantity();
+                            }
+                        }
+                        daoProduct.updateQuan(quanP, productList.get(i).getId());
+                    }
+                    response.getWriter().write("success");
+                }
+                break;
+            case URL_VIEW_ORDERS:
+                List<orders> ordersUserList = daoOrder.orderUser(username);
+                Map<Integer, String> picUrlMap = new HashMap<>();
+                for (product product : productList) {
+                    picUrlMap.put(product.getId(), product.getPicURL());
+                }
+                Map<Integer, Integer> priceP = new HashMap<>();
+                for (product product : productList) {
+                    priceP.put(product.getId(), product.getPrice());
+                }
+                Map<Integer, Integer> ordersQuantityMap = new HashMap<>();
+                for (orderDetail orders : orderDetailList) {
+                    ordersQuantityMap.put(orders.getOrderID(), orders.getQuantity());
+                }
+                request.setAttribute("promoMap", promoMap);
+                request.setAttribute("priceP", priceP);
+                request.setAttribute("picUrlMap", picUrlMap);
+                request.setAttribute("nameProduct", nameProduct);
+                request.setAttribute("orderDetailList", orderDetailList);
+                request.setAttribute("ordersQuantityMap", ordersQuantityMap);
+                request.setAttribute("ordersUserList", ordersUserList);
+                request.getRequestDispatcher("viewOrder.jsp").forward(request, response);
+                break;
         }
     }
 

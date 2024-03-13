@@ -28,9 +28,7 @@ import static url.productURL.URL_PRODUCT_LIST;
  *
  * @author LENOVO
  */
-
-
-@WebServlet(name = "productList", urlPatterns = {URL_PRODUCT_LIST,URL_PRODUCT_DETAIL})
+@WebServlet(name = "productList", urlPatterns = {URL_PRODUCT_LIST, URL_PRODUCT_DETAIL})
 public class home extends HttpServlet {
 
     /**
@@ -61,28 +59,30 @@ public class home extends HttpServlet {
 
     DAOproduct DAOproduct = new DAOproduct();
     DAOpromo promo = new DAOpromo();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String urlPath = request.getServletPath();
+        List<promo> promoList = promo.getAll();
+        Map<Integer, Integer> promoMap = new HashMap<>();
+        for (promo promo : promoList) {
+            promoMap.put(promo.getPromoID(), promo.getPromoPercent());
+        }
         switch (urlPath) {
             case URL_PRODUCT_DETAIL:
                 List<product> productList2 = DAOproduct.getAll();
-                List<promo> promoList = promo.getAll();
-                Map<Integer, Integer> promoMap = new HashMap<>();
-                for (promo promo : promoList) {
-                    promoMap.put(promo.getPromoID(), promo.getPromoPercent());
-                }
                 int id = Integer.parseInt(request.getParameter("id"));
                 product p = DAOproduct.getProductById(id);
                 request.setAttribute("promoMap", promoMap);
                 request.setAttribute("p", p);
                 request.getRequestDispatcher("productDetail.jsp").forward(request, response);
                 break;
-        
+
             case URL_PRODUCT_LIST:
                 DAOproduct DAOproduct = new DAOproduct();
                 List<product> productList = DAOproduct.get8RandomProduct();
+                request.setAttribute("promoMap", promoMap);
                 request.setAttribute("productList", productList);
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
@@ -90,7 +90,6 @@ public class home extends HttpServlet {
         }
 
     }
-
 
     /**
      * Handles the HTTP <code>POST</code> method.

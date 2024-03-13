@@ -117,7 +117,7 @@ public class load extends HttpServlet {
                 if (!username.equals("")) {
                     String pic = request.getParameter("picURL");
                     String name = request.getParameter("name");
-                    int price = Integer.parseInt(request.getParameter("price"));
+                    float price = Float.parseFloat(request.getParameter("price"));
                     int quantity = Integer.parseInt(request.getParameter("quantity"));
                     int id = Integer.parseInt(request.getParameter("id"));
                     request.setAttribute("pic", pic);

@@ -5,6 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.text.NumberFormat"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -667,65 +671,75 @@
                             </div>
                         </div>
                     </div> -->
-                    <div class="user-info">
-                        <div id="header-order" class="row">
-                            <div class="col-3">
-                                <p>ID: </p>
-                            </div>
-                            <div class="col-5">
-                                <p>Date: </p>
-                            </div>
-                            <div class="col-3" id="status">
-                                <p>Delivered</p>
-                            </div>
-                            <div class="col-1">
-                                <div class="dropdown">
-                                    <div class="edit-info-btn">
-                                        <button><i class="fa-regular fa-pen-to-square"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dropdown-container">
-                            <div id="mid-order" class="row">
-                                <div id="product" class="col-2">
-                                    <img src="https://product.hstatic.net/1000296747/product/d3a5a3cf2dd77268fb54481ebcce161d_e9c60a724acb45b4978c53249ba5dbb6_medium.jpeg"
-                                         alt="">
-                                </div>
-                                <div class="col-6">
-                                    <h6 id="proName"><b>DOTAI - Striped wool cardigan</b></h6>
-                                    <p>Product classification: L</p>
-                                    <p>X1</p>
-                                </div>
-                                <div class="col-4">
-                                    <div id="price">
-                                        <div class="row">
-                                            <p class="col-md-6 origin-price">369,000 VND</p>
-                                            <p class="col-md-6 saled-price">350,000 VND</p>
-                                        </div>
-                                    </div>
-                                    <div class="feedback">
-                                        <button class="feedback-btn">Feedback</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="info">
-                            <hr class="hr">
-                            <div id="product-bottom" class="row">
+                    <c:forEach items="${requestScope.ordersUserList}" var="ordersUser">      
+                        <div class="user-info">
+                            <div id="header-order" class="row">
                                 <div class="col-3">
-                                    <p>Quantity: </p>
+                                    <p>ID: ${ordersUser.orderID}</p>
                                 </div>
                                 <div class="col-5">
-                                    <p>Address: </p>
+                                    <p>Date: ${ordersUser.date}</p>
                                 </div>
-                                <div class="col-4">
-                                    <p id="total">Total: <span>350,000 VND</span></p>
+                                <div class="col-3" id="status">
+                                    <p>${ordersUser.status}</p>
+                                </div>                           
+                                <div class="col-1">
+                                    <div class="dropdown">
+
+                                        <div class="edit-info-btn">
+                                            <button><i class="fa-regular fa-pen-to-square"></i></button>
+                                        </div>
+                                    </div>
+                                </div>  
+                            </div>
+                            <div class="dropdown-container">
+                                <c:forEach items="${requestScope.orderDetailList}" var="orderDetail"> 
+                                    <c:if test="${ordersUser.orderID eq orderDetail.orderID}">
+                                        <div id="mid-order" class="row">
+                                            <div id="product" class="col-2">
+                                                <img src="${picUrlMap[orderDetail.productID]}"
+                                                     alt="">
+                                            </div>
+                                            <div class="col-6">
+                                                <h6 id="proName"><b>${nameProduct[orderDetail.productID]}</b></h6>
+                                                <p>${orderDetail.size_name}</p>
+                                                <p>${orderDetail.quantity}</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <div id="price">
+                                                    <div class="row">
+                                                        <c:set var="formattedPrice">
+                                                            <fmt:formatNumber type="number" value="${(priceProduct[orderDetail.productID] - (priceProduct[orderDetail.productID] * promoMap[promoID[orderDetail.productID]])/100) * orderDetail.quantity}" pattern="#" />
+                                                        </c:set>
+                                                        <p class="col-md-6 origin-price">${priceP[orderDetail.productID]}VND</p>
+                                                        <p class="col-md-6 saled-price">${formattedPrice}VND</p>
+                                                    </div>
+                                                </div>
+                                                <div class="feedback">
+                                                    <button class="feedback-btn">Feedback</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:if>
+                                </c:forEach>
+
+                            </div>
+                            <div class="info">
+                                <hr class="hr">
+                                <div id="product-bottom" class="row">
+                                    <div class="col-3">
+                                        <p>Quantity: </p>
+                                    </div>
+                                    <div class="col-5">
+                                        <p>${ordersUser.address}</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p id="total">Total: <span>${ordersUser.total}VND</span></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </c:forEach>
 
 
                 </div>
@@ -812,10 +826,33 @@
 
 
         </footer>
+
         <!-- end footer -->
         <script src="js/jquery-3.7.0.min.js"></script>
         <script src="js/jquery.validate.min.js"></script>
-        <script src="./js/viewOrder.js"></script>
+        <!--<script src="./js/viewOrder.js"></script>-->
+        <script>
+
+                            const editInfoBtn = document.querySelectorAll('.edit-info-btn');
+                            const dropdownContainer = document.querySelectorAll('.dropdown-container');
+
+                            editInfoBtn.forEach(function (edit, i) {
+                                edit.addEventListener('click', function () {
+
+                                    if (dropdownContainer[i].style.display === "none") {
+                                        dropdownContainer[i].style.display = "block";
+                                    } else {
+                                        dropdownContainer[i].style.display = "none";
+                                    }
+
+                                });
+                            });
+
+
+
+
+        </script>
+
     </body>
 
 </html>

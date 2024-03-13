@@ -740,7 +740,7 @@
                             <a href="./aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
                                 <li><a href="./contact.jsp">Contact</a></li>
-                                <li><a href="./viewOrder.jsp">View order</a></li>
+                                <li><a href="orderView">View order</a></li>
                                 <li><a href="./policy.jsp">Exchange policy</a></li>
                                 <li><a href="orderList?date=none">Order's history</a></li>
                         </li>
@@ -816,7 +816,7 @@
                                         </select>
                                         <button onclick="buyNow(this)">Confirm</button>
                                         <input type="hidden" name="name" class="name" value="${product.name}">
-                                        <input type="hidden" name="price" class="price" value="${product.price}">
+                                        <input type="hidden" name="price" class="price" value="${product.price - ((product.price * promoMap[product.promoID])/100)}">
                                         <input type="hidden" name="picUrl" class="picUrl" value="${product.picURL}">
                                         <input type="hidden" name="id" class="id" value="${product.id}">
                                     </div>

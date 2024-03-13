@@ -14,5 +14,6 @@ public class orderURL {
     public static final String INSERT_ORDERS_DETAILS = "/insertOrdersDetails";
     public static final String URL_ORDER_LIST = "/orderList";
     public static final String URL_UPDATE_STATUS = "/orderUpdateStatus";
+    public static final String URL_VIEW_ORDERS = "/orderView";
 
 }
