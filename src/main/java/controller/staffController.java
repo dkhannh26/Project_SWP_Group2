@@ -4,6 +4,7 @@
  */
 package controller;
 
+import DAO.DAOcategory;
 import DAO.DAOcustomer;
 import DAO.DAOproduct;
 import DAO.DAOstaff;
@@ -29,6 +30,7 @@ import java.util.Map;
 import payLoad.ResponseData;
 import static url.customerURL.URL_LOGIN_CUSTOMER;
 import static url.staffURL.URL_ACCOUNT_MANAGEMENT_STAFF;
+import static url.staffURL.URL_ADD_PRODUCT_STAFF;
 import static url.staffURL.URL_BOTH_DELETE_STAFF;
 import static url.staffURL.URL_CUSTOMER_DELETE_STAFF;
 import static url.staffURL.URL_LOGIN_STAFF;
@@ -39,17 +41,20 @@ import static url.staffURL.URL_SEARCH_ACCOUNT_STAFF;
 import static url.staffURL.URL_SEARCH_PRODUCT_STAFF;
 import static url.staffURL.URL_SORT_PRODUCT_STAFF;
 import static url.staffURL.URL_STAFF_DELETE_STAFF;
+import static url.staffURL.URL_UPDATE_ACCOUNT_STAFF;
+import static url.staffURL.URL_UPDATE_PRODUCT_STAFF;
 
 /**
  *
  * @author thinh
  */
-@WebServlet(name = "staffController", urlPatterns = {URL_BOTH_DELETE_STAFF, URL_CUSTOMER_DELETE_STAFF, URL_STAFF_DELETE_STAFF, URL_SEARCH_ACCOUNT_STAFF, URL_ACCOUNT_MANAGEMENT_STAFF, URL_PRODUCT_DELETE_STAFF, URL_LOGIN_STAFF, URL_PRODUCT_MANAGEMENT_STAFF, URL_SORT_PRODUCT_STAFF, URL_SEARCH_PRODUCT_STAFF, URL_PROFILE_STAFF})
+@WebServlet(name = "staffController", urlPatterns = {URL_UPDATE_ACCOUNT_STAFF, URL_ADD_PRODUCT_STAFF, URL_UPDATE_PRODUCT_STAFF, URL_BOTH_DELETE_STAFF, URL_CUSTOMER_DELETE_STAFF, URL_STAFF_DELETE_STAFF, URL_SEARCH_ACCOUNT_STAFF, URL_ACCOUNT_MANAGEMENT_STAFF, URL_PRODUCT_DELETE_STAFF, URL_LOGIN_STAFF, URL_PRODUCT_MANAGEMENT_STAFF, URL_SORT_PRODUCT_STAFF, URL_SEARCH_PRODUCT_STAFF, URL_PROFILE_STAFF})
 public class staffController extends HttpServlet {
 
     DAOstaff daoStaff = new DAOstaff();
     DAOcustomer daoCustomer = new DAOcustomer();
     DAOproduct daoProduct = new DAOproduct();
+    DAOcategory daoCategory = new DAOcategory();
     private Gson gson = new Gson();
 
     @Override
@@ -90,7 +95,88 @@ public class staffController extends HttpServlet {
             case URL_BOTH_DELETE_STAFF:
                 deleteBoth(request, response);
                 break;
+            case URL_UPDATE_PRODUCT_STAFF:
+                updateProduct(request, response);
+                break;
+            case URL_ADD_PRODUCT_STAFF:
+
+                addProduct(request, response);
+                break;
+            case URL_UPDATE_ACCOUNT_STAFF:
+                updateAccount(request, response);
+                break;
         }
+    }
+
+    protected void updateAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        String fullName = request.getParameter("fullname");
+        String phone = request.getParameter("phone");
+
+       boolean isSuccess = daoStaff.updateStaffProfile(email, address, phone, fullName) && daoCustomer.updateUserProfile(email, address, phone, fullName);
+        ResponseData data = new ResponseData();
+        data.setIsSuccess(isSuccess);
+        data.setData("");
+        data.setDescription("");
+        String json = gson.toJson(data);
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
+    }
+
+    protected void addProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String name = request.getParameter("name");
+        String quantity = request.getParameter("quantity");
+        String promo = request.getParameter("promo");
+        String price = request.getParameter("price");
+        String gender = request.getParameter("gender");
+        String type = request.getParameter("type");
+        String des = request.getParameter("des");
+        String url = request.getParameter("url");
+        //        /Project_SWP_Group2/images/female-dress-size.webp
+//        'C:\\fakepath\\banner.jpg'
+        int categoryID = daoCategory.getIdType(type, gender);
+        url = "/Project_SWP_Group2/images" + url.substring(11, url.length());
+
+        product p = new product(Integer.parseInt(quantity), Integer.parseInt(price), categoryID, Integer.parseInt(promo), name, des, url);
+        boolean isSuccess = daoProduct.insert(p);
+        ResponseData data = new ResponseData();
+        data.setIsSuccess(isSuccess);
+        data.setData("");
+        data.setDescription("");
+        String json = gson.toJson(data);
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
+    }
+
+    protected void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
+        product p = daoProduct.getProductById(Integer.parseInt(id));
+
+        String name = request.getParameter("name");
+        String promo = request.getParameter("promo");
+        String price = request.getParameter("price");
+        String description = request.getParameter("description");
+
+        p.setName(name);
+        p.setPromoID(Integer.parseInt(promo));
+        p.setPrice(Integer.parseInt(price));
+        p.setDescription(description);
+
+        boolean isSuccess = daoProduct.update(p);
+
+        ResponseData data = new ResponseData();
+        data.setIsSuccess(isSuccess);
+        data.setData("");
+        data.setDescription("");
+        String json = gson.toJson(data);
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
     }
 
     protected void deleteBoth(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

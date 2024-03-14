@@ -107,4 +107,24 @@ public class DAOstaff extends DBconnect.DBconnect {
         }
         return false;
     }
+    
+     public boolean updateStaffProfile(String email, String address, String phoneNumber, String fullName) {
+        String sql = "update staff\n"
+                + "set address = ?, \n"
+                + "phoneNumber = ?,\n"
+                + "fullName = ?\n"
+                + "where email = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, address);
+            st.setString(2, phoneNumber);
+            st.setString(3, fullName);
+            st.setString(4, email);
+            st.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
 }
