@@ -16,5 +16,7 @@ public class staffURL {
     public static final String URL_SORT_PRODUCT_STAFF = "/staff/product/sort";
     public static final String URL_SEARCH_PRODUCT_STAFF = "/staff/product/search";
     public static final String URL_PROFILE_STAFF = "/staff/profile";
+    public static final String URL_PRODUCT_DELETE_STAFF = "/staff/product/delete";
+    public static final String URL_ACCOUNT_MANAGEMENT_STAFF = "/staff/account";
 
 }

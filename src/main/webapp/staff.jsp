@@ -104,7 +104,7 @@
                 width: 100%;
                 padding: 70px;
                 overflow-y: scroll;
-                scrollbar-width: none;
+                /*scrollbar-width: none;*/
             }
 
             .main-content>div {
@@ -555,8 +555,6 @@
                     <hr>
                     <div class="personal-main">
                         <table>
-
-
                             <tr id="fullName">
                                 <th>Fullname:</th>
                                 <!--<td>Thanh Dy</td>-->
@@ -583,7 +581,7 @@
         <script src="/Project_SWP_Group2/js/jquery-3.7.0.min.js"></script>
         <script src="/Project_SWP_Group2/js/jquery.validate.min.js"></script>
         <script>
-
+                                                    
                                                     function search(e) {
                                                         var input = document.getElementById('search').value;
                                                         $.ajax({
@@ -624,7 +622,7 @@
                                                                             document.querySelector("table tbody").appendChild(newRow);
                                                                         })
                                                                     } else {
-
+                                                                        
                                                                     }
                                                                 })
                                                     }
@@ -636,7 +634,7 @@
                                                             data: {
                                                                 option: option
                                                             }
-
+                                                            
                                                         })
                                                                 .done(function (data) {
                                                                     var data1 = JSON.parse(data);
@@ -676,25 +674,25 @@
                                                     function getCookie(name) {
                                                         // Tách các cookie thành mảng các cặp key-value
                                                         var cookies = document.cookie.split(';');
-
+                                                        
                                                         // Duyệt qua từng cookie để tìm kiếm cookie có tên mong muốn
                                                         for (var i = 0; i < cookies.length; i++) {
                                                             var cookie = cookies[i].trim(); // Loại bỏ khoảng trắng ở đầu và cuối
-
+                                                            
                                                             // Kiểm tra xem cookie có bắt đầu bằng tên mong muốn không
                                                             if (cookie.indexOf(name + '=') === 0) {
                                                                 // Trả về giá trị của cookie
                                                                 return cookie.substring(name.length + 1); // Lấy phần giá trị của cookie (sau dấu '=')
                                                             }
                                                         }
-
+                                                        
                                                         // Nếu không tìm thấy cookie có tên mong muốn, trả về null
                                                         return null;
                                                     }
-
-
-
-
+                                                    
+                                                    
+                                                    
+                                                    
                                                     let status = document.querySelectorAll('.status');
                                                     status.forEach(element => {
                                                         if (element.innerHTML === 'reject') {
@@ -733,14 +731,14 @@
                                                                             method: "POST",
                                                                             url: "http://localhost:8080/Project_SWP_Group2/staff/product",
                                                                             data: {
-
                                                                             }
-
                                                                         })
                                                                                 .done(function (data) {
                                                                                     var data1 = JSON.parse(data);
 //                                                                                    console.log(data1.data);
                                                                                     if (data1.isSuccess) {
+                                                                                        document.querySelector("table tbody").innerHTML = ""
+//                                                                                       
                                                                                         var productList = data1.data;
                                                                                         productList.forEach(function (product) {
                                                                                             // Tạo một hàng mới
@@ -779,44 +777,47 @@
                                                                             data: {
                                                                                 input: input
                                                                             }
-
                                                                         })
                                                                                 .done(function (data) {
                                                                                     var data1 = JSON.parse(data);
+//                                                                            console.log(data1);
+                                                                                    var cells = document.querySelectorAll("table td");
+                                                                                    cells.forEach(function (cell) {
+                                                                                        cell.remove();
+                                                                                    });
 //                                                                                    console.log(data1.data);
                                                                                     if (data1.isSuccess) {
-
                                                                                         var trName = document.getElementById("fullName");
                                                                                         var trEmail = document.getElementById("email");
                                                                                         var trAddress = document.getElementById("address");
                                                                                         var trPhone = document.getElementById("phoneNumber");
-
+                                                                                        
                                                                                         var info = data1.data;
                                                                                         var fullName = document.createElement("td");
                                                                                         var phoneNumber = document.createElement("td");
                                                                                         var address = document.createElement("td");
                                                                                         var email = document.createElement("td");
-
-
+                                                                                        
+                                                                                        
                                                                                         // Đặt nội dung cho các ô dữ liệu
                                                                                         fullName.textContent = info.fullName;
                                                                                         phoneNumber.textContent = info.phoneNumber;
                                                                                         address.textContent = info.address;
                                                                                         email.textContent = info.email;
-
+                                                                                        
                                                                                         trName.appendChild(fullName);
                                                                                         trEmail.appendChild(email);
                                                                                         trAddress.appendChild(address);
                                                                                         trPhone.appendChild(phoneNumber);
-
-
+                                                                                        
+                                                                                        
                                                                                     }
                                                                                 });
-
+                                                                        
                                                                         break;
                                                                 }
-
-
+                                                                
+                                                                
                                                             });
                                                         });
                                                     });
@@ -864,7 +865,7 @@
                                                                 } else {
                                                                     dropdownItem[i].style.display = "none";
                                                                 }
-
+                                                                
                                                             });
                                                         })
                                                     });

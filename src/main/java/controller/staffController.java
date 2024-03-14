@@ -23,10 +23,14 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import payLoad.ResponseData;
 import static url.customerURL.URL_LOGIN_CUSTOMER;
+import static url.staffURL.URL_ACCOUNT_MANAGEMENT_STAFF;
 import static url.staffURL.URL_LOGIN_STAFF;
+import static url.staffURL.URL_PRODUCT_DELETE_STAFF;
 import static url.staffURL.URL_PRODUCT_MANAGEMENT_STAFF;
 import static url.staffURL.URL_PROFILE_STAFF;
 import static url.staffURL.URL_SEARCH_PRODUCT_STAFF;
@@ -36,7 +40,7 @@ import static url.staffURL.URL_SORT_PRODUCT_STAFF;
  *
  * @author thinh
  */
-@WebServlet(name = "staffController", urlPatterns = {URL_LOGIN_STAFF, URL_PRODUCT_MANAGEMENT_STAFF, URL_SORT_PRODUCT_STAFF, URL_SEARCH_PRODUCT_STAFF, URL_PROFILE_STAFF})
+@WebServlet(name = "staffController", urlPatterns = {URL_ACCOUNT_MANAGEMENT_STAFF, URL_PRODUCT_DELETE_STAFF, URL_LOGIN_STAFF, URL_PRODUCT_MANAGEMENT_STAFF, URL_SORT_PRODUCT_STAFF, URL_SEARCH_PRODUCT_STAFF, URL_PROFILE_STAFF})
 public class staffController extends HttpServlet {
 
     DAOstaff daoStaff = new DAOstaff();
@@ -64,7 +68,48 @@ public class staffController extends HttpServlet {
             case URL_PROFILE_STAFF:
                 profile(request, response);
                 break;
+            case URL_PRODUCT_DELETE_STAFF:
+                deleteProduct(request, response);
+                break;
+            case URL_ACCOUNT_MANAGEMENT_STAFF:
+
+                accountList(request, response);
+                break;
         }
+    }
+
+    protected void accountList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<customer> listCustomer = daoCustomer.getAll();
+        List<staff> listStaff = daoStaff.getAll();
+
+        ResponseData data = new ResponseData();
+        data.setIsSuccess(true);
+
+        Map<String, Object> combinedData = new HashMap<>();
+        combinedData.put("customers", listCustomer);
+        combinedData.put("staffs", listStaff);
+        data.setData(combinedData);
+
+//        data.setData(listCustomer + listStaff);
+        data.setDescription("");
+        String json = gson.toJson(data);
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
+    }
+
+    protected void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
+
+        boolean isSuccess = daoProduct.delete(Integer.parseInt(id));
+        ResponseData data = new ResponseData();
+        data.setIsSuccess(isSuccess);
+        data.setData("");
+        data.setDescription("");
+        String json = gson.toJson(data);
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
     }
 
     protected void profile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -78,7 +123,7 @@ public class staffController extends HttpServlet {
         }
         staff c = null;
         if (!input.equals("")) {
-             c = daoStaff.getStaffByEmailOrUsername(input);
+            c = daoStaff.getStaffByEmailOrUsername(input);
         } else {
 
         }

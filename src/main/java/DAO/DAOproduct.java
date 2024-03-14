@@ -70,7 +70,8 @@ public class DAOproduct extends DBconnect.DBconnect {
         }
         return null;
     }
-        public void updateQuan(int quantity, int product_id) {
+
+    public void updateQuan(int quantity, int product_id) {
         String sql = "update product\n"
                 + "set quantity = ?\n"
                 + "where product_id = ?";
@@ -110,19 +111,24 @@ public class DAOproduct extends DBconnect.DBconnect {
         }
     }
 
-    public void delete(int id) {
+    public boolean delete(int id) {
         String sql = "delete from order_detail where product_id=?\n"
                 + "delete from cart where product_id = ?\n"
-                + "delete from product where product_id = ?";
+                + "delete from product where product_id = ?\n"
+                + "delete from feedback where product_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
             st.setInt(2, id);
             st.setInt(3, id);
+            st.setInt(4, id);
+
             st.executeUpdate();
+            return true;
         } catch (Exception e) {
             System.out.println(e);
         }
+        return false;
     }
 
     public void insert(product p) {
@@ -173,6 +179,7 @@ public class DAOproduct extends DBconnect.DBconnect {
         }
         return list;
     }
+
     public List<product> get8RandomProduct() {
         List<product> list = new ArrayList<>();
         String sql = "select top 8* from product order by newid()";
@@ -189,6 +196,7 @@ public class DAOproduct extends DBconnect.DBconnect {
         }
         return list;
     }
+
     public List<product> getFemaleProduct() {
         DAOcategory DAOcategory = new DAOcategory();
         String listId = DAOcategory.getIdGender("female");
@@ -208,7 +216,7 @@ public class DAOproduct extends DBconnect.DBconnect {
         return list;
     }
 
-        public List<product> sortIncrease() {
+    public List<product> sortIncrease() {
 
         List<product> list = new ArrayList<>();
         String sql = "SELECT * FROM product\n"
@@ -455,7 +463,7 @@ public class DAOproduct extends DBconnect.DBconnect {
 
     public List<product> getFemaleProductByType(String type) {
         DAOcategory DAOcategory = new DAOcategory();
-        int id = DAOcategory.getIdType(type,"female");
+        int id = DAOcategory.getIdType(type, "female");
 
         List<product> list = new ArrayList<>();
         String sql = "select * from product\n"
