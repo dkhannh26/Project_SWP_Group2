@@ -29,18 +29,22 @@ import java.util.Map;
 import payLoad.ResponseData;
 import static url.customerURL.URL_LOGIN_CUSTOMER;
 import static url.staffURL.URL_ACCOUNT_MANAGEMENT_STAFF;
+import static url.staffURL.URL_BOTH_DELETE_STAFF;
+import static url.staffURL.URL_CUSTOMER_DELETE_STAFF;
 import static url.staffURL.URL_LOGIN_STAFF;
 import static url.staffURL.URL_PRODUCT_DELETE_STAFF;
 import static url.staffURL.URL_PRODUCT_MANAGEMENT_STAFF;
 import static url.staffURL.URL_PROFILE_STAFF;
+import static url.staffURL.URL_SEARCH_ACCOUNT_STAFF;
 import static url.staffURL.URL_SEARCH_PRODUCT_STAFF;
 import static url.staffURL.URL_SORT_PRODUCT_STAFF;
+import static url.staffURL.URL_STAFF_DELETE_STAFF;
 
 /**
  *
  * @author thinh
  */
-@WebServlet(name = "staffController", urlPatterns = {URL_ACCOUNT_MANAGEMENT_STAFF, URL_PRODUCT_DELETE_STAFF, URL_LOGIN_STAFF, URL_PRODUCT_MANAGEMENT_STAFF, URL_SORT_PRODUCT_STAFF, URL_SEARCH_PRODUCT_STAFF, URL_PROFILE_STAFF})
+@WebServlet(name = "staffController", urlPatterns = {URL_BOTH_DELETE_STAFF, URL_CUSTOMER_DELETE_STAFF, URL_STAFF_DELETE_STAFF, URL_SEARCH_ACCOUNT_STAFF, URL_ACCOUNT_MANAGEMENT_STAFF, URL_PRODUCT_DELETE_STAFF, URL_LOGIN_STAFF, URL_PRODUCT_MANAGEMENT_STAFF, URL_SORT_PRODUCT_STAFF, URL_SEARCH_PRODUCT_STAFF, URL_PROFILE_STAFF})
 public class staffController extends HttpServlet {
 
     DAOstaff daoStaff = new DAOstaff();
@@ -63,7 +67,7 @@ public class staffController extends HttpServlet {
                 sort(request, response);
                 break;
             case URL_SEARCH_PRODUCT_STAFF:
-                search(request, response);
+                searchProduct(request, response);
                 break;
             case URL_PROFILE_STAFF:
                 profile(request, response);
@@ -72,10 +76,79 @@ public class staffController extends HttpServlet {
                 deleteProduct(request, response);
                 break;
             case URL_ACCOUNT_MANAGEMENT_STAFF:
-
                 accountList(request, response);
                 break;
+            case URL_SEARCH_ACCOUNT_STAFF:
+                searchAccount(request, response);
+                break;
+            case URL_STAFF_DELETE_STAFF:
+                deleteStaff(request, response);
+                break;
+            case URL_CUSTOMER_DELETE_STAFF:
+                deleteCustomer(request, response);
+                break;
+            case URL_BOTH_DELETE_STAFF:
+                deleteBoth(request, response);
+                break;
         }
+    }
+
+    protected void deleteBoth(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String username = request.getParameter("username");
+
+        daoStaff.delete(username);
+        daoCustomer.delete(username);
+
+        ResponseData data = new ResponseData();
+        data.setIsSuccess(true);
+        data.setData("");
+        data.setDescription("");
+        String json = gson.toJson(data);
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
+    }
+
+    protected void deleteStaff(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String username = request.getParameter("username");
+
+        boolean isSuccess = daoStaff.delete(username);
+        ResponseData data = new ResponseData();
+        data.setIsSuccess(isSuccess);
+        data.setData("");
+        data.setDescription("");
+        String json = gson.toJson(data);
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
+    }
+
+    protected void deleteCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String username = request.getParameter("username");
+
+        boolean isSuccess = daoCustomer.delete(username);
+        ResponseData data = new ResponseData();
+        data.setIsSuccess(isSuccess);
+        data.setData("");
+        data.setDescription("");
+        String json = gson.toJson(data);
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
+    }
+
+    protected void searchAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String input = request.getParameter("input");
+        input = "%" + input + "%";
+        List<staff> list = daoStaff.search(input);
+        ResponseData data = new ResponseData();
+        data.setIsSuccess(true);
+        data.setData(list);
+        data.setDescription("");
+        String json = gson.toJson(data);
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
     }
 
     protected void accountList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -138,7 +211,7 @@ public class staffController extends HttpServlet {
         pw.flush();
     }
 
-    protected void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void searchProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String input = request.getParameter("input");
         input = "%" + input + "%";
         List<product> productList = daoProduct.search(input);

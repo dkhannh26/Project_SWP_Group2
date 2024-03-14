@@ -35,6 +35,44 @@ public class DAOstaff extends DBconnect.DBconnect {
         return listAccount;
     }
 
+    public boolean delete(String username) {
+        String sql = "delete from staff where username = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            st.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public List<staff> search(String name) {
+        List<staff> list = new ArrayList<>();
+        String sql = "select * from customer\n"
+                + "where fullName like ?\n"
+                + "union all \n"
+                + "select * from staff\n"
+                + "where fullName like ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, name);
+            st.setString(2, name);
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                staff p = new staff(rs.getString("username"),
+                        rs.getString("email"), rs.getString("password"), rs.getString("address"),
+                        rs.getString("phoneNumber"), rs.getString("fullName"));
+                list.add(p);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
     public staff getStaffByEmailOrUsername(String input) {
         String sql = "select * from staff where email = ? or username = ?";
         try {
