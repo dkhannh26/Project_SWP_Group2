@@ -672,7 +672,7 @@
                         </div>
                     </div> -->
                     <c:forEach items="${requestScope.ordersUserList}" var="ordersUser">    
-                        <c:if test="${ordersUser.status ne 'Received'}">
+                        <c:if test="${ordersUser.status ne 'Delivered' && ordersUser.status ne 'Cancelled'}">
                             <div class="user-info" id="user${ordersUser.orderID}">
                                 <div id="header-order" class="row">
                                     <div class="col-3">
@@ -743,7 +743,7 @@
                                             <p id="total">Total: <span>${formattedTotal} VND</span></p>
                                         </div>
                                         <div class="feedback col-2" style="margin: 5px 0">
-                                            <button class="feedback-btn" onclick="updateOrderStatus(${ordersUser.orderID}, 'Received'); hideOrder(${ordersUser.orderID});">Order Received</button>
+                                            <button class="feedback-btn" onclick="updateOrderStatus(${ordersUser.orderID}, 'Delivered'); hideOrder(${ordersUser.orderID});">Order Received</button>
                                         </div>
                                     </div>
                                 </div>

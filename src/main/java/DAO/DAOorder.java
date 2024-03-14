@@ -41,10 +41,10 @@ public class DAOorder extends DBconnect.DBconnect {
         String sql = "SELECT *\n"
                 + "FROM orders\n"
                 + "ORDER BY CASE \n"
-                + "    WHEN status = 'wait' THEN 1\n"
-                + "    WHEN status = 'accept' THEN 2\n"
-                + "    WHEN status = 'received' THEN 3\n"
-                + "    WHEN status = 'reject' THEN 4\n"
+                + "    WHEN status = 'Pending' THEN 1\n"
+                + "    WHEN status = 'Delivering' THEN 2\n"
+                + "    WHEN status = 'Delivered' THEN 3\n"
+                + "    WHEN status = 'Cancelled' THEN 4\n"
                 + "    ELSE 5\n"
                 + "END;";
         try {

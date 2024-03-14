@@ -96,7 +96,7 @@ public class order extends HttpServlet {
         Date currentDate = new Date(currentTimeMillis);
         String address = request.getParameter("address");
         String newaddress = request.getParameter("newaddress");
-        String status = "wait";
+        String status = "Pending";
         String phoneNumber = request.getParameter("phoneNumber");
         String usernameStaff = request.getParameter("usernameStaff");
         String id = request.getParameter("id");
@@ -276,7 +276,7 @@ public class order extends HttpServlet {
                 int orderId = Integer.parseInt(request.getParameter("orderId"));
                 String newStatus = request.getParameter("status");
                 daoOrder.updateStatus(newStatus, orderId);
-                if (newStatus.equals("accept")) {
+                if (newStatus.equals("Delivering")) {
                     for (int i = 0; i < orderDetailList.size(); i++) {
                         if (orderId == orderDetailList.get(i).getOrderID()) {
                             for (int j = 0; j < sizeList.size(); j++) {

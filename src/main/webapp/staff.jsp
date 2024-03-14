@@ -532,9 +532,9 @@
                                         <td><strong><i class="bi bi-currency-dollar"></i>${formattedPrice}</strong></td>
                                         <td class="action-btn">
 
-                                            <c:if test="${order.status eq 'wait'}">
-                                                <button class="accept-btn" onclick="updateOrderStatus(${order.orderID}, 'accept')"><i class="bi bi-check-lg"></i></button>
-                                                <button class="reject-btn" onclick="updateOrderStatus(${order.orderID}, 'reject')"><i class="bi bi-x-lg"></i></button>
+                                            <c:if test="${order.status eq 'Pending'}">
+                                                <button class="accept-btn" onclick="updateOrderStatus(${order.orderID}, 'Delivering')"><i class="bi bi-check-lg"></i></button>
+                                                <button class="reject-btn" onclick="updateOrderStatus(${order.orderID}, 'Cancelled')"><i class="bi bi-x-lg"></i></button>
                                                 </c:if>
                                             <button class="view-btn"><i class="bi bi-eye"></i></button>
                                         </td>
@@ -602,7 +602,7 @@
                                                             element.classList.add('green');
 
                                                         }
-                                                        else if (element.innerHTML === 'Received'){
+                                                        else if (element.innerHTML === 'Delivered'){
                                                                 element.classList.add('blue');
                                                             }
                                                     });
@@ -610,9 +610,9 @@
                                                     const handleColor = () => {
                                                         let status = document.querySelectorAll('.status');
                                                         status.forEach(element => {
-                                                            if (element.innerHTML === 'reject') {
+                                                            if (element.innerHTML === 'Cancelled') {
                                                                 element.classList.add('red');
-                                                            } else if (element.innerHTML === 'accept') {
+                                                            } else if (element.innerHTML === 'Delivering') {
                                                                 element.classList.add('green');
 
                                                             }
