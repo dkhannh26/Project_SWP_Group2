@@ -2,32 +2,47 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller;
 
+import DAO.DAOcustomer;
+import DAO.DAOproduct;
 import DAO.DAOstaff;
+import com.google.gson.Gson;
+import entity.customer;
+import entity.product;
+import entity.staff;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
+import payLoad.ResponseData;
 import static url.customerURL.URL_LOGIN_CUSTOMER;
 import static url.staffURL.URL_LOGIN_STAFF;
+import static url.staffURL.URL_PRODUCT_MANAGEMENT_STAFF;
+import static url.staffURL.URL_PROFILE_STAFF;
+import static url.staffURL.URL_SEARCH_PRODUCT_STAFF;
+import static url.staffURL.URL_SORT_PRODUCT_STAFF;
 
 /**
  *
  * @author thinh
  */
-
-@WebServlet(name = "staffController", urlPatterns = {URL_LOGIN_STAFF})
+@WebServlet(name = "staffController", urlPatterns = {URL_LOGIN_STAFF, URL_PRODUCT_MANAGEMENT_STAFF, URL_SORT_PRODUCT_STAFF, URL_SEARCH_PRODUCT_STAFF, URL_PROFILE_STAFF})
 public class staffController extends HttpServlet {
 
     DAOstaff daoStaff = new DAOstaff();
+    DAOcustomer daoCustomer = new DAOcustomer();
+    DAOproduct daoProduct = new DAOproduct();
+    private Gson gson = new Gson();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -37,8 +52,101 @@ public class staffController extends HttpServlet {
             case URL_LOGIN_STAFF:
                 login(request, response);
                 break;
+            case URL_PRODUCT_MANAGEMENT_STAFF:
+                listProduct(request, response);
+                break;
+            case URL_SORT_PRODUCT_STAFF:
+                sort(request, response);
+                break;
+            case URL_SEARCH_PRODUCT_STAFF:
+                search(request, response);
+                break;
+            case URL_PROFILE_STAFF:
+                profile(request, response);
+                break;
+        }
+    }
+
+    protected void profile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Cookie[] cookies = request.getCookies();
+        String input = "";
+        for (Cookie cooky : cookies) {
+            if (cooky.getName().equals("input")) {
+                input = cooky.getValue();
+                break;
+            }
+        }
+        staff c = null;
+        if (!input.equals("")) {
+             c = daoStaff.getStaffByEmailOrUsername(input);
+        } else {
 
         }
+
+        ResponseData data = new ResponseData();
+        data.setIsSuccess(true);
+        data.setData(c);
+        data.setDescription("");
+        String json = gson.toJson(data);
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
+    }
+
+    protected void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String input = request.getParameter("input");
+        input = "%" + input + "%";
+        List<product> productList = daoProduct.search(input);
+        ResponseData data = new ResponseData();
+        data.setIsSuccess(true);
+        data.setData(productList);
+        data.setDescription("");
+        String json = gson.toJson(data);
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
+    }
+
+    protected void sort(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String option = request.getParameter("option");
+        List<product> productList = null;
+        if (option.equals("Increase")) {
+            productList = daoProduct.sortIncrease();
+//            request.setAttribute("productList", productList);
+
+        } else if (option.equals("Decrease")) {
+            productList = daoProduct.sortDecrease();
+//            request.setAttribute("productList", productList);
+        }
+
+        ResponseData data = new ResponseData();
+        data.setIsSuccess(true);
+        data.setData(productList);
+        data.setDescription("");
+        String json = gson.toJson(data);
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
+    }
+
+    protected void listProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        List<product> list = daoProduct.getAll();
+        request.setAttribute("productList", list);
+
+        boolean isSuccess = false;
+        if (list != null) {
+            isSuccess = true;
+        }
+
+        ResponseData data = new ResponseData();
+        data.setIsSuccess(isSuccess);
+        data.setData(list);
+        data.setDescription("");
+        String json = gson.toJson(data);
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
     }
 
     protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -50,8 +158,7 @@ public class staffController extends HttpServlet {
             if (input.equals("admin")) {
                 response.sendRedirect("/Project_SWP_Group2/statistic?date=none");
             } else {
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
-
+                request.getRequestDispatcher("/staff.jsp").forward(request, response);
             }
         } else {
             request.setAttribute("message", "<div id=\"message\" style=\"color: red\">Incorrect username or password</div>");

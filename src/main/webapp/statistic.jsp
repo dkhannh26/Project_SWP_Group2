@@ -91,6 +91,8 @@
             .main-content {
                 width: 100%;
                 padding: 70px;
+                overflow-y: scroll;
+                scrollbar-width: none;
             }
             .main-content > div {
                 display: none;
@@ -246,12 +248,19 @@
                     <h3>Product Management</h3>
                     <hr>
                     <div class="filter">
-                        <select name="filter-price  " id="filter-price">
-                            <option value="volvo">Sort by price ascending</option>
-                            <option value="volvo">Sort by price in descending</option>
+                        <!--<form action="" method="">-->
+                        <select id="sortID"  id="filter-price" onchange="sort()">
+                            <option value="Increase">Sort by price ascending</option>
+                            <option value="Decrease">Sort by price in descending</option>
                         </select>
-                        <input type="text" placeholder="Search">
-                        <button class="filter-add-btn">Add new product</button>
+                        <!--<button class="btn-sort"> Submit</button>-->
+                        <!--</form>-->
+                        <!--<form action="" method="">-->
+                        <input id="search" type="text" placeholder="Search" oninput="search()">
+                        <!--<button class="btn-search"> Search</button>-->
+
+                        <!--</form>-->
+                         <button class="filter-add-btn">Add new product</button> 
                     </div>
                     <div class="product-table">
                         <table class="table">
@@ -266,19 +275,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!--                            <tr>
-                                                                <th scope="row">
-                                                                    <img src="/images/img1.jpg" alt="">
-                                                                </th>
-                                                                <td>NOOBITA - Qu?n dài jeans ?ng r?ng 8124</td>
-                                                                <td>12345</td>
-                                                                <td>1.000.000</td>
-                                                                <td>10</td>
-                                                                <td class="td-button">
-                                                                    <button type="button" class="btn btn-primary">Update</button>
-                                                                    <button type="button" class="btn btn-danger">Delete</button>
-                                                                </td>
-                                                            </tr>-->
+                                <tr>
+
+                                    <td class="td-button">
+                                        <button type="button" class="btn btn-primary">Update</button>
+                                        <button type="button" class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>
+
 
                             </tbody>
                         </table>
@@ -375,21 +379,21 @@
                     <hr>
                     <div class="personal-main">
                         <table>
-                            <tr>
+                            <tr id="fullName">
                                 <th>Fullname:</th>
-                                <td>Thanh Dy</td>
+                                <!--<td>Thanh Dy</td>-->
                             </tr>
-                            <tr>
+                            <tr id="phoneNumber">
                                 <th>Phone number:</th>
-                                <td>12345</td>
+                                <!--<td>12345</td>-->
                             </tr>
-                            <tr>
+                            <tr id="email">
                                 <th>Email:</th>
-                                <td>xyz@gmail.com</td>
+                                <!--<td>xyz@gmail.com</td>-->
                             </tr>
-                            <tr>
+                            <tr id="address">
                                 <th>Address:</th>
-                                <td>Can Tho</td>
+                                <!--<td>Can Tho</td>-->
                             </tr>
                         </table>
                     </div>
@@ -397,25 +401,227 @@
             </div>
         </div>
 
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="/Project_SWP_Group2/js/jquery-3.7.0.min.js"></script>
+        <script src="/Project_SWP_Group2/js/jquery.validate.min.js"></script>
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const links = document.querySelectorAll('.nav-link');
-                links.forEach(function (link) {
-                    link.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        const target = this.getAttribute('data-target');
-                        const contentDivs = document.querySelectorAll('.main-content > div');
-                        contentDivs.forEach(function (div) {
-                            if (div.classList.contains(target)) {
-                                div.style.display = 'block';
-                            } else {
-                                div.style.display = 'none';
+
+                            function search(e) {
+                                var input = document.getElementById('search').value;
+                                $.ajax({
+                                    method: "POST",
+                                    url: "http://localhost:8080/Project_SWP_Group2/staff/product/search",
+                                    data: {
+                                        input: input
+                                    }
+                                })
+                                        .done(function (data) {
+                                            var data1 = JSON.parse(data);
+//                                                                    console.log(data1)
+                                            if (data1.isSuccess) {
+                                                document.querySelector("table tbody").innerHTML = ""
+                                                var productList = data1.data;
+                                                productList.forEach(function (product) {
+                                                    // T?o m?t hàng m?i
+                                                    var newRow = document.createElement("tr");
+                                                    // T?o các ô d? li?u cho t?ng tr??ng
+                                                    var pictureCell = document.createElement("td");
+                                                    var nameCell = document.createElement("td");
+                                                    var categoryIdCell = document.createElement("td");
+                                                    var priceCell = document.createElement("td");
+                                                    var quantityCell = document.createElement("td");
+                                                    // ??t n?i dung cho các ô d? li?u
+                                                    pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
+                                                    nameCell.textContent = product.name;
+                                                    categoryIdCell.textContent = product.categoryID;
+                                                    priceCell.textContent = product.price;
+                                                    quantityCell.textContent = product.quantity;
+                                                    // Thêm các ô d? li?u vào hàng m?i
+                                                    newRow.appendChild(pictureCell);
+                                                    newRow.appendChild(nameCell);
+                                                    newRow.appendChild(categoryIdCell);
+                                                    newRow.appendChild(priceCell);
+                                                    newRow.appendChild(quantityCell);
+                                                    // Thêm hàng m?i vào tbody c?a b?ng
+                                                    document.querySelector("table tbody").appendChild(newRow);
+                                                })
+                                            } else {
+
+                                            }
+                                        })
                             }
-                        });
-                    });
-                });
-            });
+                            function sort(e) {
+                                var option = document.getElementById('sortID').value;
+                                $.ajax({
+                                    method: "POST",
+                                    url: "http://localhost:8080/Project_SWP_Group2/staff/product/sort",
+                                    data: {
+                                        option: option
+                                    }
+
+                                })
+                                        .done(function (data) {
+                                            var data1 = JSON.parse(data);
+                                            console.log(data1)
+                                            if (data1.isSuccess) {
+                                                document.querySelector("table tbody").innerHTML = ""
+                                                var productList = data1.data;
+                                                productList.forEach(function (product) {
+                                                    // T?o m?t hàng m?i
+                                                    var newRow = document.createElement("tr");
+                                                    // T?o các ô d? li?u cho t?ng tr??ng
+                                                    var pictureCell = document.createElement("td");
+                                                    var nameCell = document.createElement("td");
+                                                    var categoryIdCell = document.createElement("td");
+                                                    var priceCell = document.createElement("td");
+                                                    var quantityCell = document.createElement("td");
+                                                    // ??t n?i dung cho các ô d? li?u
+                                                    pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
+                                                    nameCell.textContent = product.name;
+                                                    categoryIdCell.textContent = product.categoryID;
+                                                    priceCell.textContent = product.price;
+                                                    quantityCell.textContent = product.quantity;
+                                                    // Thêm các ô d? li?u vào hàng m?i
+                                                    newRow.appendChild(pictureCell);
+                                                    newRow.appendChild(nameCell);
+                                                    newRow.appendChild(categoryIdCell);
+                                                    newRow.appendChild(priceCell);
+                                                    newRow.appendChild(quantityCell);
+                                                    // Thêm hàng m?i vào tbody c?a b?ng
+                                                    document.querySelector("table tbody").appendChild(newRow);
+                                                })
+                                            } else {
+                                                alert("fail")
+                                            }
+                                        });
+                            }
+                            function getCookie(name) {
+                                // Tách các cookie thành m?ng các c?p key-value
+                                var cookies = document.cookie.split(';');
+
+                                // Duy?t qua t?ng cookie ?? tìm ki?m cookie có tên mong mu?n
+                                for (var i = 0; i < cookies.length; i++) {
+                                    var cookie = cookies[i].trim(); // Lo?i b? kho?ng tr?ng ? ??u và cu?i
+
+                                    // Ki?m tra xem cookie có b?t ??u b?ng tên mong mu?n không
+                                    if (cookie.indexOf(name + '=') === 0) {
+                                        // Tr? v? giá tr? c?a cookie
+                                        return cookie.substring(name.length + 1); // L?y ph?n giá tr? c?a cookie (sau d?u '=')
+                                    }
+                                }
+
+                                // N?u không tìm th?y cookie có tên mong mu?n, tr? v? null
+                                return null;
+                            }
+
+
+
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const links = document.querySelectorAll('.nav-link');
+                                links.forEach(function (link) {
+                                    link.addEventListener('click', function (e) {
+                                        e.preventDefault();
+                                        const target = this.getAttribute('data-target');
+                                        const contentDivs = document.querySelectorAll('.main-content > div');
+                                        contentDivs.forEach(function (div) {
+                                            if (div.classList.contains(target)) {
+                                                div.style.display = 'block';
+                                            } else {
+                                                div.style.display = 'none';
+                                            }
+                                        });
+
+                                        switch (target) {
+                                            case 'product-manage':
+                                                $.ajax({
+                                                    method: "POST",
+                                                    url: "http://localhost:8080/Project_SWP_Group2/staff/product",
+                                                    data: {
+
+                                                    }
+
+                                                })
+                                                        .done(function (data) {
+                                                            var data1 = JSON.parse(data);
+//                                                                                    console.log(data1.data);
+                                                            if (data1.isSuccess) {
+                                                                var productList = data1.data;
+                                                                productList.forEach(function (product) {
+                                                                    // T?o m?t hàng m?i
+                                                                    var newRow = document.createElement("tr");
+                                                                    // T?o các ô d? li?u cho t?ng tr??ng
+                                                                    var pictureCell = document.createElement("td");
+                                                                    var nameCell = document.createElement("td");
+                                                                    var categoryIdCell = document.createElement("td");
+                                                                    var priceCell = document.createElement("td");
+                                                                    var quantityCell = document.createElement("td");
+                                                                    // ??t n?i dung cho các ô d? li?u
+                                                                    pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
+                                                                    nameCell.textContent = product.name;
+                                                                    categoryIdCell.textContent = product.categoryID;
+                                                                    priceCell.textContent = product.price;
+                                                                    quantityCell.textContent = product.quantity;
+                                                                    // Thêm các ô d? li?u vào hàng m?i
+                                                                    newRow.appendChild(pictureCell);
+                                                                    newRow.appendChild(nameCell);
+                                                                    newRow.appendChild(categoryIdCell);
+                                                                    newRow.appendChild(priceCell);
+                                                                    newRow.appendChild(quantityCell);
+                                                                    // Thêm hàng m?i vào tbody c?a b?ng
+                                                                    document.querySelector("table tbody").appendChild(newRow);
+                                                                })
+                                                            } else {
+                                                                alert('fail');
+                                                            }
+                                                        });
+                                                break;
+                                            case 'personal-info':
+                                                var input = getCookie("input");
+                                                $.ajax({
+                                                    method: "POST",
+                                                    url: "http://localhost:8080/Project_SWP_Group2/staff/profile",
+                                                    data: {
+                                                        input: input
+                                                    }
+
+                                                })
+                                                        .done(function (data) {
+                                                            var data1 = JSON.parse(data);
+//                                                                                    console.log(data1.data);
+                                                            if (data1.isSuccess) {
+
+                                                                var trName = document.getElementById("fullName");
+                                                                var trEmail = document.getElementById("email");
+                                                                var trAddress = document.getElementById("address");
+                                                                var trPhone = document.getElementById("phoneNumber");
+
+                                                                var info = data1.data;
+                                                                var fullName = document.createElement("td");
+                                                                var phoneNumber = document.createElement("td");
+                                                                var address = document.createElement("td");
+                                                                var email = document.createElement("td");
+
+
+                                                                // ??t n?i dung cho các ô d? li?u
+                                                                fullName.textContent = info.fullName;
+                                                                phoneNumber.textContent = info.phoneNumber;
+                                                                address.textContent = info.address;
+                                                                email.textContent = info.email;
+
+                                                                trName.appendChild(fullName);
+                                                                trEmail.appendChild(email);
+                                                                trAddress.appendChild(address);
+                                                                trPhone.appendChild(phoneNumber);
+
+
+                                                            }
+                                                        });
+
+                                                break;
+                                        }
+                                    });
+                                });
+                            });
         </script>
     </body>
 

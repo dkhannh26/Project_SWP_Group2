@@ -49,7 +49,7 @@
 
             .header-top {
                 max-width: 1200px;
-                height: 100%;
+                height: 50px;
                 margin: 0 auto;
                 align-items: center;
                 justify-content: space-between;
@@ -70,6 +70,9 @@
 
             .main {
                 display: flex;
+                height: calc(100% - 50px);
+                /*                overflow-y: scroll;
+                                scrollbar-width: none;*/
             }
 
             nav {
@@ -100,6 +103,8 @@
             .main-content {
                 width: 100%;
                 padding: 70px;
+                overflow-y: scroll;
+                scrollbar-width: none;
             }
 
             .main-content>div {
@@ -380,7 +385,7 @@
                 <div class="logo">DOTAI</div>
                 <div class="admin-info">
                     <div class="admin-name"><i class="bi bi-person-fill"></i>: Staff</div>
-                    <div class="signout"><i class="bi bi-box-arrow-right"></i> Sign out</div>
+                    <div class="signout"><a href="/Project_SWP_Group2/cookieHandle"><i class="bi bi-box-arrow-right"></i> Sign out</a></div>
                 </div>
             </div>
         </header>
@@ -409,11 +414,18 @@
                     <h3>Product Management</h3>
                     <hr>
                     <div class="filter">
-                        <select name="filter-price  " id="filter-price">
-                            <option value="volvo">Sort by price ascending</option>
-                            <option value="volvo">Sort by price in descending</option>
+                        <!--<form action="" method="">-->
+                        <select id="sortID"  id="filter-price" onchange="sort()">
+                            <option value="Increase">Sort by price ascending</option>
+                            <option value="Decrease">Sort by price in descending</option>
                         </select>
-                        <input type="text" placeholder="Search">
+                        <!--<button class="btn-sort"> Submit</button>-->
+                        <!--</form>-->
+                        <!--<form action="" method="">-->
+                        <input id="search" type="text" placeholder="Search" oninput="search()">
+                        <!--<button class="btn-search"> Search</button>-->
+
+                        <!--</form>-->
                         <!-- <button class="filter-add-btn">Add new product</button> -->
                     </div>
                     <div class="product-table">
@@ -429,19 +441,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">
-                                        <img src="/images/img1.jpg" alt="">
-                                    </th>
-                                    <td>DOTAI - Quần dài jeans ống rộng 8124</td>
-                                    <td>12345</td>
-                                    <td>1.000.000</td>
-                                    <td>10</td>
-                                    <!-- <td class="td-button">
-                                        <button type="button" class="btn btn-primary">Update</button>
-                                        <button type="button" class="btn btn-danger">Delete</button>
-                                    </td> -->
-                                </tr>
 
                             </tbody>
                         </table>
@@ -530,18 +529,18 @@
                                 <tbody class="item">
                                     <c:forEach items="${requestScope.orderDetailList}" var="orderDetail">
                                         <c:if test="${order.orderID eq orderDetail.orderID}">
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                           ${orderDetail.productID}
-                                        </td>
-                                        <td>${nameProduct[orderDetail.productID]}</td>
-                                        <td>${orderDetail.size_name}</td>
-                                        <td>${orderDetail.quantity}</td>
-                                        <td>${(priceProduct[orderDetail.productID] - (priceProduct[orderDetail.productID] * promoMap[promoID[orderDetail.productID]])/100) * orderDetail.quantity}</td>
-                                        <td></td>
-                                    </tr>
-                                    </c:if>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    ${orderDetail.productID}
+                                                </td>
+                                                <td>${nameProduct[orderDetail.productID]}</td>
+                                                <td>${orderDetail.size_name}</td>
+                                                <td>${orderDetail.quantity}</td>
+                                                <td>${(priceProduct[orderDetail.productID] - (priceProduct[orderDetail.productID] * promoMap[promoID[orderDetail.productID]])/100) * orderDetail.quantity}</td>
+                                                <td></td>
+                                            </tr>
+                                        </c:if>
                                     </c:forEach>
                                 </tbody>
                             </c:forEach>
@@ -556,21 +555,23 @@
                     <hr>
                     <div class="personal-main">
                         <table>
-                            <tr>
+
+
+                            <tr id="fullName">
                                 <th>Fullname:</th>
-                                <td>Thanh Dy</td>
+                                <!--<td>Thanh Dy</td>-->
                             </tr>
-                            <tr>
+                            <tr id="phoneNumber">
                                 <th>Phone number:</th>
-                                <td>12345</td>
+                                <!--<td>12345</td>-->
                             </tr>
-                            <tr>
+                            <tr id="email">
                                 <th>Email:</th>
-                                <td>xyz@gmail.com</td>
+                                <!--<td>xyz@gmail.com</td>-->
                             </tr>
-                            <tr>
+                            <tr id="address">
                                 <th>Address:</th>
-                                <td>Can Tho</td>
+                                <!--<td>Can Tho</td>-->
                             </tr>
                         </table>
                     </div>
@@ -579,19 +580,129 @@
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+        <script src="/Project_SWP_Group2/js/jquery-3.7.0.min.js"></script>
+        <script src="/Project_SWP_Group2/js/jquery.validate.min.js"></script>
         <script>
-                                                    let status = document.querySelectorAll('.status');
 
+                                                    function search(e) {
+                                                        var input = document.getElementById('search').value;
+                                                        $.ajax({
+                                                            method: "POST",
+                                                            url: "http://localhost:8080/Project_SWP_Group2/staff/product/search",
+                                                            data: {
+                                                                input: input
+                                                            }
+                                                        })
+                                                                .done(function (data) {
+                                                                    var data1 = JSON.parse(data);
+//                                                                    console.log(data1)
+                                                                    if (data1.isSuccess) {
+                                                                        document.querySelector("table tbody").innerHTML = ""
+                                                                        var productList = data1.data;
+                                                                        productList.forEach(function (product) {
+                                                                            // Tạo một hàng mới
+                                                                            var newRow = document.createElement("tr");
+                                                                            // Tạo các ô dữ liệu cho từng trường
+                                                                            var pictureCell = document.createElement("td");
+                                                                            var nameCell = document.createElement("td");
+                                                                            var categoryIdCell = document.createElement("td");
+                                                                            var priceCell = document.createElement("td");
+                                                                            var quantityCell = document.createElement("td");
+                                                                            // Đặt nội dung cho các ô dữ liệu
+                                                                            pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
+                                                                            nameCell.textContent = product.name;
+                                                                            categoryIdCell.textContent = product.categoryID;
+                                                                            priceCell.textContent = product.price;
+                                                                            quantityCell.textContent = product.quantity;
+                                                                            // Thêm các ô dữ liệu vào hàng mới
+                                                                            newRow.appendChild(pictureCell);
+                                                                            newRow.appendChild(nameCell);
+                                                                            newRow.appendChild(categoryIdCell);
+                                                                            newRow.appendChild(priceCell);
+                                                                            newRow.appendChild(quantityCell);
+                                                                            // Thêm hàng mới vào tbody của bảng
+                                                                            document.querySelector("table tbody").appendChild(newRow);
+                                                                        })
+                                                                    } else {
+
+                                                                    }
+                                                                })
+                                                    }
+                                                    function sort(e) {
+                                                        var option = document.getElementById('sortID').value;
+                                                        $.ajax({
+                                                            method: "POST",
+                                                            url: "http://localhost:8080/Project_SWP_Group2/staff/product/sort",
+                                                            data: {
+                                                                option: option
+                                                            }
+
+                                                        })
+                                                                .done(function (data) {
+                                                                    var data1 = JSON.parse(data);
+                                                                    console.log(data1)
+                                                                    if (data1.isSuccess) {
+                                                                        document.querySelector("table tbody").innerHTML = ""
+                                                                        var productList = data1.data;
+                                                                        productList.forEach(function (product) {
+                                                                            // Tạo một hàng mới
+                                                                            var newRow = document.createElement("tr");
+                                                                            // Tạo các ô dữ liệu cho từng trường
+                                                                            var pictureCell = document.createElement("td");
+                                                                            var nameCell = document.createElement("td");
+                                                                            var categoryIdCell = document.createElement("td");
+                                                                            var priceCell = document.createElement("td");
+                                                                            var quantityCell = document.createElement("td");
+                                                                            // Đặt nội dung cho các ô dữ liệu
+                                                                            pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
+                                                                            nameCell.textContent = product.name;
+                                                                            categoryIdCell.textContent = product.categoryID;
+                                                                            priceCell.textContent = product.price;
+                                                                            quantityCell.textContent = product.quantity;
+                                                                            // Thêm các ô dữ liệu vào hàng mới
+                                                                            newRow.appendChild(pictureCell);
+                                                                            newRow.appendChild(nameCell);
+                                                                            newRow.appendChild(categoryIdCell);
+                                                                            newRow.appendChild(priceCell);
+                                                                            newRow.appendChild(quantityCell);
+                                                                            // Thêm hàng mới vào tbody của bảng
+                                                                            document.querySelector("table tbody").appendChild(newRow);
+                                                                        })
+                                                                    } else {
+                                                                        alert("fail")
+                                                                    }
+                                                                });
+                                                    }
+                                                    function getCookie(name) {
+                                                        // Tách các cookie thành mảng các cặp key-value
+                                                        var cookies = document.cookie.split(';');
+
+                                                        // Duyệt qua từng cookie để tìm kiếm cookie có tên mong muốn
+                                                        for (var i = 0; i < cookies.length; i++) {
+                                                            var cookie = cookies[i].trim(); // Loại bỏ khoảng trắng ở đầu và cuối
+
+                                                            // Kiểm tra xem cookie có bắt đầu bằng tên mong muốn không
+                                                            if (cookie.indexOf(name + '=') === 0) {
+                                                                // Trả về giá trị của cookie
+                                                                return cookie.substring(name.length + 1); // Lấy phần giá trị của cookie (sau dấu '=')
+                                                            }
+                                                        }
+
+                                                        // Nếu không tìm thấy cookie có tên mong muốn, trả về null
+                                                        return null;
+                                                    }
+
+
+
+
+                                                    let status = document.querySelectorAll('.status');
                                                     status.forEach(element => {
                                                         if (element.innerHTML === 'reject') {
                                                             element.classList.add('red');
                                                         } else if (element.innerHTML === 'accept') {
                                                             element.classList.add('green');
-
                                                         }
                                                     });
-
                                                     const handleColor = () => {
                                                         let status = document.querySelectorAll('.status');
                                                         status.forEach(element => {
@@ -599,12 +710,9 @@
                                                                 element.classList.add('red');
                                                             } else if (element.innerHTML === 'accept') {
                                                                 element.classList.add('green');
-
                                                             }
                                                         });
                                                     };
-
-
                                                     document.addEventListener('DOMContentLoaded', function () {
                                                         const links = document.querySelectorAll('.nav-link');
                                                         links.forEach(function (link) {
@@ -619,22 +727,108 @@
                                                                         div.style.display = 'none';
                                                                     }
                                                                 });
+                                                                switch (target) {
+                                                                    case 'product-manage':
+                                                                        $.ajax({
+                                                                            method: "POST",
+                                                                            url: "http://localhost:8080/Project_SWP_Group2/staff/product",
+                                                                            data: {
+
+                                                                            }
+
+                                                                        })
+                                                                                .done(function (data) {
+                                                                                    var data1 = JSON.parse(data);
+//                                                                                    console.log(data1.data);
+                                                                                    if (data1.isSuccess) {
+                                                                                        var productList = data1.data;
+                                                                                        productList.forEach(function (product) {
+                                                                                            // Tạo một hàng mới
+                                                                                            var newRow = document.createElement("tr");
+                                                                                            // Tạo các ô dữ liệu cho từng trường
+                                                                                            var pictureCell = document.createElement("td");
+                                                                                            var nameCell = document.createElement("td");
+                                                                                            var categoryIdCell = document.createElement("td");
+                                                                                            var priceCell = document.createElement("td");
+                                                                                            var quantityCell = document.createElement("td");
+                                                                                            // Đặt nội dung cho các ô dữ liệu
+                                                                                            pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
+                                                                                            nameCell.textContent = product.name;
+                                                                                            categoryIdCell.textContent = product.categoryID;
+                                                                                            priceCell.textContent = product.price;
+                                                                                            quantityCell.textContent = product.quantity;
+                                                                                            // Thêm các ô dữ liệu vào hàng mới
+                                                                                            newRow.appendChild(pictureCell);
+                                                                                            newRow.appendChild(nameCell);
+                                                                                            newRow.appendChild(categoryIdCell);
+                                                                                            newRow.appendChild(priceCell);
+                                                                                            newRow.appendChild(quantityCell);
+                                                                                            // Thêm hàng mới vào tbody của bảng
+                                                                                            document.querySelector("table tbody").appendChild(newRow);
+                                                                                        })
+                                                                                    } else {
+                                                                                        alert('fail');
+                                                                                    }
+                                                                                });
+                                                                        break;
+                                                                    case 'personal-info':
+                                                                        var input = getCookie("input");
+                                                                        $.ajax({
+                                                                            method: "POST",
+                                                                            url: "http://localhost:8080/Project_SWP_Group2/staff/profile",
+                                                                            data: {
+                                                                                input: input
+                                                                            }
+
+                                                                        })
+                                                                                .done(function (data) {
+                                                                                    var data1 = JSON.parse(data);
+//                                                                                    console.log(data1.data);
+                                                                                    if (data1.isSuccess) {
+
+                                                                                        var trName = document.getElementById("fullName");
+                                                                                        var trEmail = document.getElementById("email");
+                                                                                        var trAddress = document.getElementById("address");
+                                                                                        var trPhone = document.getElementById("phoneNumber");
+
+                                                                                        var info = data1.data;
+                                                                                        var fullName = document.createElement("td");
+                                                                                        var phoneNumber = document.createElement("td");
+                                                                                        var address = document.createElement("td");
+                                                                                        var email = document.createElement("td");
+
+
+                                                                                        // Đặt nội dung cho các ô dữ liệu
+                                                                                        fullName.textContent = info.fullName;
+                                                                                        phoneNumber.textContent = info.phoneNumber;
+                                                                                        address.textContent = info.address;
+                                                                                        email.textContent = info.email;
+
+                                                                                        trName.appendChild(fullName);
+                                                                                        trEmail.appendChild(email);
+                                                                                        trAddress.appendChild(address);
+                                                                                        trPhone.appendChild(phoneNumber);
+
+
+                                                                                    }
+                                                                                });
+
+                                                                        break;
+                                                                }
+
+
                                                             });
                                                         });
                                                     });
-
                                                     var acceptBtns = document.querySelectorAll('.accept-btn');
                                                     var rejectBtns = document.querySelectorAll('.reject-btn');
-
                                                     // Thiết lập sự kiện cho tất cả các nút
                                                     acceptBtns.forEach(function (btn) {
                                                         btn.addEventListener('click', hideButtons);
                                                     });
-
                                                     rejectBtns.forEach(function (btn) {
                                                         btn.addEventListener('click', hideButtons);
                                                     });
-
                                                     // Hàm để ẩn cả hai nút trong cùng một thẻ td
                                                     function hideButtons(event) {
                                                         var clickedBtn = event.target; // Lấy nút đã được nhấp vào
@@ -643,7 +837,6 @@
                                                         var rejectBtn = tdElement.querySelector('.reject-btn'); // Lấy nút từ chối trong thẻ td
                                                         acceptBtn.style.display = 'none';
                                                         rejectBtn.style.display = 'none';
-
                                                     }
                                                     function updateOrderStatus(orderId, status) {
                                                         let id = document.querySelector(`#id` + orderId);

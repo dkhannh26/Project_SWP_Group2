@@ -16,7 +16,8 @@ import java.util.List;
  *
  * @author thinh
  */
-public class DAOstaff extends DBconnect.DBconnect{
+public class DAOstaff extends DBconnect.DBconnect {
+
     public List<staff> getAll() {
         List<staff> listAccount = new ArrayList<>();
         String sql = "select * from staff";
@@ -25,7 +26,7 @@ public class DAOstaff extends DBconnect.DBconnect{
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 staff a = new staff(rs.getString("username"),
-                        rs.getString("email"), rs.getString("password"),rs.getString("address"),rs.getString("phoneNumber"),rs.getString("fullName"));
+                        rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phoneNumber"), rs.getString("fullName"));
                 listAccount.add(a);
             }
         } catch (SQLException e) {
@@ -33,8 +34,25 @@ public class DAOstaff extends DBconnect.DBconnect{
         }
         return listAccount;
     }
-    
-       public boolean checkLogin(String input, String password) {
+
+    public staff getStaffByEmailOrUsername(String input) {
+        String sql = "select * from staff where email = ? or username = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, input);
+            st.setString(2, input);
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                staff c = new staff(rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phoneNumber"), rs.getString("fullName"));
+                return c;
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public boolean checkLogin(String input, String password) {
         String sql = "select * from staff where (username = ? or email = ?) and password = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
