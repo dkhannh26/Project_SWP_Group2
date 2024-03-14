@@ -6,6 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.text.NumberFormat"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -523,7 +526,10 @@
                                         <td class="tb-address">${order.address}</td>
                                         <td>${order.date}</td>
                                         <td><p class="status stt-pending" id="id${order.orderID}" onchange="handleColor()">${order.status}</p></td>
-                                        <td><strong><i class="bi bi-currency-dollar"></i>${order.total}</strong></td>
+                                        <c:set var="formattedPrice">
+                                <fmt:formatNumber type="number" value="${order.total}" pattern="###,###" />
+                            </c:set>
+                                        <td><strong><i class="bi bi-currency-dollar"></i>${formattedPrice}</strong></td>
                                         <td class="action-btn">
 
                                             <c:if test="${order.status eq 'wait'}">

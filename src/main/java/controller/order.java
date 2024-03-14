@@ -230,7 +230,7 @@ public class order extends HttpServlet {
                 int numberOfProduct = 0;
                 int revenue = 0;
                 int numberOfCustomer = 0;
-
+                List<orders> orderListSort = daoOrder.getAllOrdersSort();
                 DAO.DAOproduct DAOproduct = new DAOproduct();
 
                 String date = request.getParameter("date");
@@ -263,7 +263,7 @@ public class order extends HttpServlet {
 
                 }
                 request.setAttribute("orderDetailList", orderDetailList);
-                request.setAttribute("orderList", orderList);
+                request.setAttribute("orderList", orderListSort);
                 request.setAttribute("nameProduct", nameProduct);
                 request.setAttribute("priceProduct", priceProduct);
                 request.setAttribute("promoMap", promoMap);

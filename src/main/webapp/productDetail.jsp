@@ -833,11 +833,14 @@
                             <div class="col-2">
                                 <div class="sale">SALE: ${promoMap[p.promoID]}%</div>
                             </div>
+                            <c:set var="formattedPrice2">
+                                <fmt:formatNumber type="number" value="${p.price}" pattern="###,###" />
+                            </c:set>
                             <div class="col-2">
-                                <div class="oriprice">${p.price}</div>
+                                <div class="oriprice">${formattedPrice2}</div>
                             </div>
                             <c:set var="formattedPrice">
-                                <fmt:formatNumber type="number" value="${p.price - ((p.price * promoMap[p.promoID])/100)}" pattern="#" />
+                                <fmt:formatNumber type="number" value="${p.price - ((p.price * promoMap[p.promoID])/100)}" pattern="###,###" />
                             </c:set>
                             <div class="col-2">
                                 <div class="price">${formattedPrice}</div>
