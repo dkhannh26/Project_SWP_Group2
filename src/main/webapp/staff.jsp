@@ -349,12 +349,18 @@
             } */
             /* order-manage */
             .red {
-                background-color: red;
+                background-color: #d893a3;
+            color: #b30021;
             }
 
             .green {
-                background-color: rgb(59, 245, 59);
+                  background-color: #6fcaea;
 
+            }
+            .blue {
+                
+                background-color: #86e49d;
+            color: #006b21;
             }
 
 
@@ -590,6 +596,9 @@
                                                             element.classList.add('green');
 
                                                         }
+                                                        else if (element.innerHTML === 'Received'){
+                                                                element.classList.add('blue');
+                                                            }
                                                     });
 
                                                     const handleColor = () => {
@@ -600,6 +609,9 @@
                                                             } else if (element.innerHTML === 'accept') {
                                                                 element.classList.add('green');
 
+                                                            }
+                                                            else if (element.innerHTML === 'Received'){
+                                                                element.classList.add('blue');
                                                             }
                                                         });
                                                     };
@@ -648,7 +660,7 @@
                                                     function updateOrderStatus(orderId, status) {
                                                         let id = document.querySelector(`#id` + orderId);
                                                         $.ajax({
-                                                            url: 'orderUpdateStatus',
+                                                            url: '/Project_SWP_Group2/orderUpdateStatus',
                                                             method: 'GET',
                                                             data: {
                                                                 orderId: orderId,
@@ -657,6 +669,7 @@
                                                             success: function (response) {
                                                                 console.log(id);
                                                                 id.innerHTML = status;
+                                                                
                                                                 handleColor();
                                                             }
                                                         });

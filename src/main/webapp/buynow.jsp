@@ -8,6 +8,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@page import="java.text.NumberFormat"%>
+<%@page import="java.text.DecimalFormat"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,7 +107,7 @@
                                                     src="https://cdn.icon-icons.com/icons2/3054/PNG/512/account_profile_user_icon_190494.png"
                                                     alt=""></div>
                             <div id="accountinfo" class="col-10">
-                                <p></p>
+                                <p>${username}</p>
                                 <a href="">Sign out</a>
                             </div>
                         </div>
@@ -114,7 +117,7 @@
                         <div>
                             <b>Default address</b>
                             <div class="address"><input type="text" name="address"
-                                                        value="600, Nguyen Van Cu Street, An Binh Ward, Ninh Kieu District, Can Tho City.">
+                                                        value="${address}">
                             </div>
                         </div>
 
@@ -160,8 +163,11 @@
                             <p>Quantity: ${quantity}</p>
                             <p>Size: ${size}</p>
                         </div>
+                        <c:set var="formattedPrice">
+                                <fmt:formatNumber type="number" value="${price}" pattern="#" />
+                            </c:set>
                         <div class="col-2">
-                            <p class="price">${price}</p>
+                            <p class="price">${formattedPrice}</p>
                         </div>
 
                     </div>                 
@@ -172,7 +178,7 @@
                             <h5>Total</h5>
                         </div>
                         <div class="col-2">
-                            <h5 class="price">${price}</h5>
+                            <h5 class="price">${formattedPrice}</h5>
                         </div>
                     </div>
                 </div>

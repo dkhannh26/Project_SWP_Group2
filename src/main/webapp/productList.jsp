@@ -216,7 +216,7 @@
                 position: absolute;
                 right: 1px;
                 top: 1px;
-                height: 97%;
+                height: 42px;
                 width: 15%;
                 border: none;
                 background-color: #f6f6f6;
@@ -770,7 +770,7 @@
             <form action="http://localhost:8080/Project_SWP_Group2/sortProduct" method="get">
 
 
-                <div style="display: flex; margin: 100px 0 20px 0;">
+                <div style="display: flex;">
                     <select name="sortID" id="filter" class="form-control ml-5 mb-2">
                         <option value="Increase">Increase</option>
                         <option value="Decrease">Decrease</option>

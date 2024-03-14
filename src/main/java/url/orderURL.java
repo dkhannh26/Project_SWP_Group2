@@ -15,5 +15,6 @@ public class orderURL {
     public static final String URL_ORDER_LIST = "/orderList";
     public static final String URL_UPDATE_STATUS = "/orderUpdateStatus";
     public static final String URL_VIEW_ORDERS = "/orderView";
+    public static final String URL_HISTORY_ORDERS = "/orderHistoryView";
 
 }
