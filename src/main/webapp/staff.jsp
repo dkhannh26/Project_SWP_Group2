@@ -617,7 +617,7 @@
                     <hr>
                     <div class="personal-box" id="personal-box">
                         <div class="personal-btn">
-                            <button onclick="toggleEditPersonal()">Edit personal information</button>
+                            <button id="update-pro-btn" onclick="toggleEditPersonal(this)" data-name="" data-phone="" data-email="" data-address="">Edit personal information</button>
                         </div>
                         <div class="personal-main">
                             <table>
@@ -649,47 +649,55 @@
                         <hr>
                         <div class="row">
                             <div class="col-md-12">
-                                <input type="text" placeholder="Fullname">
+                                <input type="text" id="update-profile-name" placeholder="Fullname" >
                             </div>
                             <div class="col-md-12">
-                                <input type="text" placeholder="Phone number">
+                                <input type="text" placeholder="Phone number" id="update-profile-phone">
                             </div>
                             <div class="col-md-12">
-                                <input type="email" placeholder="Email">
+                                <input type="email" placeholder="Email" id="update-profile-email">
                             </div>
                             <div class="col-md-12">
-                                <input type="text" placeholder="Address">
+                                <input type="text" placeholder="Address" id="update-profile-address">
                             </div>
                             <div class="col-md-6">
-                                <button onclick="toggleEditPersonal()">CANCEL</button>
+                                <button onclick="toggleEditPersonal(this)">CANCEL</button>
                             </div>
                             <div class="col-md-6">
-                                <button>UPDATE</button>
+                                <button id="edit-profile-btn" onclick="updateProfile(this)" data-id="">UPDATE</button>
                             </div>
                         </div>
                     </div>
 
                     <div class="add-box container" id="change-password" style="display: none">
-                        <h1>Change password</h1>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input type="password" placeholder="Current password">
-                            </div>
-                            <div class="col-md-12">
-                                <input type="password" placeholder="New password">
-                            </div>
+                        <form action="" method="">
 
-                            <div class="col-md-12">
-                                <input type="text" placeholder="Confirm password">
+                            <h1>Change password</h1>
+                            <hr>                           
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="password" placeholder="Current password" id="currentPassword">
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="password" placeholder="New password" id="newPassword1">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <input type="password" placeholder="Confirm password" id="newPassword2">
+                                </div>
+
+                                <div id="message-changepass" class="message"></div>
+
+
+                                <div class="col-md-6">
+                                    <button id="cancel-changepass-btn">CANCEL</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="btn-changePass" >CHANGE</button>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <button onclick="toggleChangePassword()">CANCEL</button>
-                            </div>
-                            <div class="col-md-6">
-                                <button>CHANGE</button>
-                            </div>
-                        </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -700,7 +708,79 @@
         <script src="/Project_SWP_Group2/js/jquery.validate.min.js"></script>
         <script>
 
-                                    function toggleEditPersonal() {
+                                    $(document).ready(function (e) {
+                                        $('.btn-changePass').click(function (e) {
+                                            e.preventDefault();
+                                            var currentPass = document.getElementById("currentPassword").value;
+                                            var newPassword1 = document.getElementById("newPassword1").value;
+                                            var newPassword2 = document.getElementById("newPassword2").value;
+                                            var input = getCookie("input");
+                                            if (newPassword1 === newPassword2) {
+                                                $.ajax({
+                                                    method: "POST",
+                                                    url: "http://localhost:8080/Project_SWP_Group2/staff/profile/changepass",
+                                                    data: {
+                                                        input: input,
+                                                        currentPassword: currentPass,
+                                                        newPassword: newPassword2
+                                                    }
+                                                })
+                                                        .done(function (data) {
+                                                            var data1 = JSON.parse(data);
+                                                            console.log(data1);
+                                                            if (data1.isSuccess) {
+                                                                alert('Change password successfully')
+////                     
+                                                            } else {
+                                                                $("#message-changepass").html("Your current password is incorrect");
+                                                                document.getElementById("message-changepass").style.color = "red";
+                                                            }
+                                                        });
+                                            } else {
+                                                $("#message-changepass").html("Password is not match!");
+                                                document.getElementById("message-changepass").style.color = "red";
+                                            }
+
+
+                                        })
+
+                                        $("#cancel-changepass-btn").click(function (event) {
+                                            event.preventDefault(); // Prevent default form submission behavior
+                                            toggleChangePassword(); // Hide the form
+                                        });
+                                    })
+
+                                    function updateProfile(pro) {
+                                        var username = pro.getAttribute('data-id');
+
+                                        var email = document.getElementById('update-profile-email').value;
+                                        var address = document.getElementById('update-profile-address').value;
+                                        var fullname = document.getElementById('update-profile-name').value;
+                                        var phone = document.getElementById('update-profile-phone').value;
+                                        $.ajax({
+                                            method: "POST",
+                                            url: "http://localhost:8080/Project_SWP_Group2/staff/profile/update",
+                                            data: {
+                                                username: username,
+                                                email: email,
+                                                address: address,
+                                                fullname: fullname,
+                                                phone: phone
+                                            }
+                                        })
+                                                .done(function (data) {
+                                                    var data1 = JSON.parse(data);
+                                                    //                                                    console.log(data1);
+                                                    if (data1.isSuccess) {
+                                                        alert("update successfully");
+                                                        profile();
+                                                    } else {
+                                                        alert("fail")
+                                                    }
+                                                })
+                                    }
+
+                                    function toggleEditPersonal(profile) {
                                         var edit = document.getElementById('edit-personal');
                                         var personal = document.getElementById('personal-box');
                                         if (edit.style.display === "none") {
@@ -710,6 +790,18 @@
                                             edit.style.display = "none";
                                             personal.style.display = "block";
                                         }
+
+                                        var id = profile.getAttribute('data-id');
+                                        document.getElementById('edit-profile-btn').setAttribute('data-id', id);
+
+                                        var email = document.getElementById('update-profile-email');
+                                        email.value = profile.getAttribute('data-email');
+                                        var address = document.getElementById('update-profile-address');
+                                        address.value = profile.getAttribute('data-address');
+                                        var fullname = document.getElementById('update-profile-name');
+                                        fullname.value = profile.getAttribute('data-name');
+                                        var phone = document.getElementById('update-profile-phone');
+                                        phone.value = profile.getAttribute('data-phone');
                                     }
                                     function toggleChangePassword() {
                                         var edit = document.getElementById('change-password');
@@ -831,8 +923,99 @@
                                         return null;
                                     }
 
+                                    function profile() {
+                                        var input = getCookie("input");
+                                        $.ajax({
+                                            method: "POST",
+                                            url: "http://localhost:8080/Project_SWP_Group2/staff/profile",
+                                            data: {
+                                                input: input
+                                            }
+                                        })
+                                                .done(function (data) {
+                                                    var data1 = JSON.parse(data);
+//                                                                            console.log(data1);
+                                                    var cells = document.querySelectorAll("table td");
+                                                    cells.forEach(function (cell) {
+                                                        cell.remove();
+                                                    });
+//                                                                                    console.log(data1.data);
+                                                    if (data1.isSuccess) {
+                                                        var trName = document.getElementById("fullName");
+                                                        var trEmail = document.getElementById("email");
+                                                        var trAddress = document.getElementById("address");
+                                                        var trPhone = document.getElementById("phoneNumber");
+
+                                                        var info = data1.data;
+                                                        var fullName = document.createElement("td");
+                                                        var phoneNumber = document.createElement("td");
+                                                        var address = document.createElement("td");
+                                                        var email = document.createElement("td");
+                                                        document.getElementById('update-pro-btn').setAttribute('data-name', info.fullName);
+                                                        document.getElementById('update-pro-btn').setAttribute('data-phone', info.phoneNumber);
+                                                        document.getElementById('update-pro-btn').setAttribute('data-email', info.email);
+                                                        document.getElementById('update-pro-btn').setAttribute('data-address', info.address);
+                                                        document.getElementById('update-pro-btn').setAttribute('data-id', info.username);
+
+                                                        // Đặt nội dung cho các ô dữ liệu
+                                                        fullName.textContent = info.fullName;
+                                                        phoneNumber.textContent = info.phoneNumber;
+                                                        address.textContent = info.address;
+                                                        email.textContent = info.email;
+
+                                                        trName.appendChild(fullName);
+                                                        trEmail.appendChild(email);
+                                                        trAddress.appendChild(address);
+                                                        trPhone.appendChild(phoneNumber);
 
 
+                                                    }
+                                                });
+                                    }
+
+                                    function productList() {
+                                        $.ajax({
+                                            method: "POST",
+                                            url: "http://localhost:8080/Project_SWP_Group2/staff/product",
+                                            data: {
+                                            }
+                                        })
+                                                .done(function (data) {
+                                                    var data1 = JSON.parse(data);
+//                                                                                    console.log(data1.data);
+                                                    if (data1.isSuccess) {
+                                                        document.querySelector("table tbody").innerHTML = ""
+//                                                                                       
+                                                        var productList = data1.data;
+                                                        productList.forEach(function (product) {
+                                                            // Tạo một hàng mới
+                                                            var newRow = document.createElement("tr");
+                                                            // Tạo các ô dữ liệu cho từng trường
+                                                            var pictureCell = document.createElement("td");
+                                                            var nameCell = document.createElement("td");
+                                                            var categoryIdCell = document.createElement("td");
+                                                            var priceCell = document.createElement("td");
+                                                            var quantityCell = document.createElement("td");
+                                                            // Đặt nội dung cho các ô dữ liệu
+                                                            pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
+                                                            nameCell.textContent = product.name;
+                                                            categoryIdCell.textContent = product.categoryID;
+                                                            priceCell.textContent = product.price;
+                                                            quantityCell.textContent = product.quantity;
+                                                            // Thêm các ô dữ liệu vào hàng mới
+                                                            newRow.appendChild(pictureCell);
+                                                            newRow.appendChild(nameCell);
+                                                            newRow.appendChild(categoryIdCell);
+                                                            newRow.appendChild(priceCell);
+                                                            newRow.appendChild(quantityCell);
+                                                            // Thêm hàng mới vào tbody của bảng
+                                                            document.querySelector("table tbody").appendChild(newRow);
+                                                        })
+                                                    } else {
+                                                        alert('fail');
+                                                    }
+                                                });
+                                    }
 
                                     let status = document.querySelectorAll('.status');
                                     status.forEach(element => {
@@ -868,93 +1051,10 @@
                                                 });
                                                 switch (target) {
                                                     case 'product-manage':
-                                                        $.ajax({
-                                                            method: "POST",
-                                                            url: "http://localhost:8080/Project_SWP_Group2/staff/product",
-                                                            data: {
-                                                            }
-                                                        })
-                                                                .done(function (data) {
-                                                                    var data1 = JSON.parse(data);
-//                                                                                    console.log(data1.data);
-                                                                    if (data1.isSuccess) {
-                                                                        document.querySelector("table tbody").innerHTML = ""
-//                                                                                       
-                                                                        var productList = data1.data;
-                                                                        productList.forEach(function (product) {
-                                                                            // Tạo một hàng mới
-                                                                            var newRow = document.createElement("tr");
-                                                                            // Tạo các ô dữ liệu cho từng trường
-                                                                            var pictureCell = document.createElement("td");
-                                                                            var nameCell = document.createElement("td");
-                                                                            var categoryIdCell = document.createElement("td");
-                                                                            var priceCell = document.createElement("td");
-                                                                            var quantityCell = document.createElement("td");
-                                                                            // Đặt nội dung cho các ô dữ liệu
-                                                                            pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
-                                                                            nameCell.textContent = product.name;
-                                                                            categoryIdCell.textContent = product.categoryID;
-                                                                            priceCell.textContent = product.price;
-                                                                            quantityCell.textContent = product.quantity;
-                                                                            // Thêm các ô dữ liệu vào hàng mới
-                                                                            newRow.appendChild(pictureCell);
-                                                                            newRow.appendChild(nameCell);
-                                                                            newRow.appendChild(categoryIdCell);
-                                                                            newRow.appendChild(priceCell);
-                                                                            newRow.appendChild(quantityCell);
-                                                                            // Thêm hàng mới vào tbody của bảng
-                                                                            document.querySelector("table tbody").appendChild(newRow);
-                                                                        })
-                                                                    } else {
-                                                                        alert('fail');
-                                                                    }
-                                                                });
+                                                        productList();
                                                         break;
                                                     case 'personal-info':
-                                                        var input = getCookie("input");
-                                                        $.ajax({
-                                                            method: "POST",
-                                                            url: "http://localhost:8080/Project_SWP_Group2/staff/profile",
-                                                            data: {
-                                                                input: input
-                                                            }
-                                                        })
-                                                                .done(function (data) {
-                                                                    var data1 = JSON.parse(data);
-//                                                                            console.log(data1);
-                                                                    var cells = document.querySelectorAll("table td");
-                                                                    cells.forEach(function (cell) {
-                                                                        cell.remove();
-                                                                    });
-//                                                                                    console.log(data1.data);
-                                                                    if (data1.isSuccess) {
-                                                                        var trName = document.getElementById("fullName");
-                                                                        var trEmail = document.getElementById("email");
-                                                                        var trAddress = document.getElementById("address");
-                                                                        var trPhone = document.getElementById("phoneNumber");
-
-                                                                        var info = data1.data;
-                                                                        var fullName = document.createElement("td");
-                                                                        var phoneNumber = document.createElement("td");
-                                                                        var address = document.createElement("td");
-                                                                        var email = document.createElement("td");
-
-
-                                                                        // Đặt nội dung cho các ô dữ liệu
-                                                                        fullName.textContent = info.fullName;
-                                                                        phoneNumber.textContent = info.phoneNumber;
-                                                                        address.textContent = info.address;
-                                                                        email.textContent = info.email;
-
-                                                                        trName.appendChild(fullName);
-                                                                        trEmail.appendChild(email);
-                                                                        trAddress.appendChild(address);
-                                                                        trPhone.appendChild(phoneNumber);
-
-
-                                                                    }
-                                                                });
-
+                                                        profile();
                                                         break;
                                                 }
 

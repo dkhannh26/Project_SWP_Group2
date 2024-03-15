@@ -19,8 +19,12 @@ public class staffURL {
     public static final String URL_UPDATE_ACCOUNT_STAFF = "/staff/account/update";
 
     public static final String URL_ADD_PRODUCT_STAFF = "/staff/product/add";
+    public static final String URL_ADD_ACCOUNT_STAFF = "/staff/account/add";
 
     public static final String URL_PROFILE_STAFF = "/staff/profile";
+    public static final String URL_UPDATE_PROFILE_STAFF = "/staff/profile/update";
+    public static final String URL_CHANGEPASS_PROFILE_STAFF = "/staff/profile/changepass";
+
     public static final String URL_PRODUCT_DELETE_STAFF = "/staff/product/delete";
     public static final String URL_ACCOUNT_MANAGEMENT_STAFF = "/staff/account";
     public static final String URL_SEARCH_ACCOUNT_STAFF = "/staff/account/search";

@@ -30,8 +30,10 @@ import java.util.Map;
 import payLoad.ResponseData;
 import static url.customerURL.URL_LOGIN_CUSTOMER;
 import static url.staffURL.URL_ACCOUNT_MANAGEMENT_STAFF;
+import static url.staffURL.URL_ADD_ACCOUNT_STAFF;
 import static url.staffURL.URL_ADD_PRODUCT_STAFF;
 import static url.staffURL.URL_BOTH_DELETE_STAFF;
+import static url.staffURL.URL_CHANGEPASS_PROFILE_STAFF;
 import static url.staffURL.URL_CUSTOMER_DELETE_STAFF;
 import static url.staffURL.URL_LOGIN_STAFF;
 import static url.staffURL.URL_PRODUCT_DELETE_STAFF;
@@ -43,12 +45,13 @@ import static url.staffURL.URL_SORT_PRODUCT_STAFF;
 import static url.staffURL.URL_STAFF_DELETE_STAFF;
 import static url.staffURL.URL_UPDATE_ACCOUNT_STAFF;
 import static url.staffURL.URL_UPDATE_PRODUCT_STAFF;
+import static url.staffURL.URL_UPDATE_PROFILE_STAFF;
 
 /**
  *
  * @author thinh
  */
-@WebServlet(name = "staffController", urlPatterns = {URL_UPDATE_ACCOUNT_STAFF, URL_ADD_PRODUCT_STAFF, URL_UPDATE_PRODUCT_STAFF, URL_BOTH_DELETE_STAFF, URL_CUSTOMER_DELETE_STAFF, URL_STAFF_DELETE_STAFF, URL_SEARCH_ACCOUNT_STAFF, URL_ACCOUNT_MANAGEMENT_STAFF, URL_PRODUCT_DELETE_STAFF, URL_LOGIN_STAFF, URL_PRODUCT_MANAGEMENT_STAFF, URL_SORT_PRODUCT_STAFF, URL_SEARCH_PRODUCT_STAFF, URL_PROFILE_STAFF})
+@WebServlet(name = "staffController", urlPatterns = {URL_CHANGEPASS_PROFILE_STAFF, URL_UPDATE_PROFILE_STAFF, URL_ADD_ACCOUNT_STAFF, URL_UPDATE_ACCOUNT_STAFF, URL_ADD_PRODUCT_STAFF, URL_UPDATE_PRODUCT_STAFF, URL_BOTH_DELETE_STAFF, URL_CUSTOMER_DELETE_STAFF, URL_STAFF_DELETE_STAFF, URL_SEARCH_ACCOUNT_STAFF, URL_ACCOUNT_MANAGEMENT_STAFF, URL_PRODUCT_DELETE_STAFF, URL_LOGIN_STAFF, URL_PRODUCT_MANAGEMENT_STAFF, URL_SORT_PRODUCT_STAFF, URL_SEARCH_PRODUCT_STAFF, URL_PROFILE_STAFF})
 public class staffController extends HttpServlet {
 
     DAOstaff daoStaff = new DAOstaff();
@@ -105,7 +108,78 @@ public class staffController extends HttpServlet {
             case URL_UPDATE_ACCOUNT_STAFF:
                 updateAccount(request, response);
                 break;
+            case URL_ADD_ACCOUNT_STAFF:
+                addStaff(request, response);
+                break;
+            case URL_UPDATE_PROFILE_STAFF:
+                updateProfile(request, response);
+                break;
+            case URL_CHANGEPASS_PROFILE_STAFF:
+                changePassword(request, response);
+                break;
         }
+    }
+
+    protected void changePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String currentPassword = request.getParameter("currentPassword");
+        currentPassword = getMd5(currentPassword);
+        String newPassword = request.getParameter("newPassword");
+        newPassword = getMd5(newPassword);
+        String input = request.getParameter("input");
+        boolean isSuccess = false;
+        boolean isCorrect = daoStaff.checkLogin(input, currentPassword);
+        if (isCorrect) {
+            isSuccess = daoStaff.updatePasswordByEmailOrUsername(newPassword, input);
+
+        }
+        ResponseData data = new ResponseData();
+        data.setIsSuccess(isSuccess);
+        data.setDescription("");
+        data.setData("");
+        String json = gson.toJson(data);
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
+    }
+
+    protected void updateProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        String phone = request.getParameter("phone");
+        String fullName = request.getParameter("fullname");
+
+        boolean isSuccess = daoStaff.updateStaffProfile(username, email, address, phone, fullName);
+        ResponseData data = new ResponseData();
+        data.setIsSuccess(isSuccess);
+        data.setData("");
+        data.setDescription("");
+        String json = gson.toJson(data);
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
+
+    }
+
+    protected void addStaff(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        password = getMd5(password);
+        String email = request.getParameter("email");
+        String fullName = request.getParameter("fullName");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+
+        staff c = new staff(username, email, password, address, phone, fullName);
+        boolean isSuccess = daoStaff.signUp(c);
+        ResponseData data = new ResponseData();
+        data.setIsSuccess(isSuccess);
+        data.setData("");
+        data.setDescription("");
+        String json = gson.toJson(data);
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
     }
 
     protected void updateAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -115,7 +189,7 @@ public class staffController extends HttpServlet {
         String fullName = request.getParameter("fullname");
         String phone = request.getParameter("phone");
 
-       boolean isSuccess = daoStaff.updateStaffProfile(email, address, phone, fullName) && daoCustomer.updateUserProfile(email, address, phone, fullName);
+        boolean isSuccess = daoStaff.updateStaffProfile(email, address, phone, fullName) && daoCustomer.updateUserProfile(email, address, phone, fullName);
         ResponseData data = new ResponseData();
         data.setIsSuccess(isSuccess);
         data.setData("");

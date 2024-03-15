@@ -35,11 +35,70 @@ public class DAOstaff extends DBconnect.DBconnect {
         return listAccount;
     }
 
+    public boolean signUp(staff c) {
+        String sql = "insert into staff(username, email, [password], [address], phoneNumber, fullName)\n"
+                + "values\n"
+                + "(?,?,?,?,?,?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, c.getUsername());
+            st.setString(2, c.getEmail());
+            st.setString(3, c.getPassword());
+            st.setString(4, c.getAddress());
+            st.setString(5, c.getPhoneNumber());
+            st.setString(6, c.getFullName());
+            st.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean updatePasswordByEmailOrUsername(String password, String input) {
+        String sql = "update staff set password = ? where email = ? or username = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, password);
+            st.setString(2, input);
+            st.setString(3, input);
+            st.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+    
+    
     public boolean delete(String username) {
         String sql = "delete from staff where username = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
+            st.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean updateStaffProfile(String username, String email, String address, String phoneNumber, String fullName) {
+        String sql = "update staff\n"
+                + "set address = ?, \n"
+                + "phoneNumber = ?,\n"
+                + "email = ?,\n"
+                + "fullName = ?\n"
+                + "where username = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, address);
+            st.setString(2, phoneNumber);
+            st.setString(3, email);
+
+            st.setString(4, fullName);
+            st.setString(5, username);
             st.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -107,8 +166,8 @@ public class DAOstaff extends DBconnect.DBconnect {
         }
         return false;
     }
-    
-     public boolean updateStaffProfile(String email, String address, String phoneNumber, String fullName) {
+
+    public boolean updateStaffProfile(String email, String address, String phoneNumber, String fullName) {
         String sql = "update staff\n"
                 + "set address = ?, \n"
                 + "phoneNumber = ?,\n"
