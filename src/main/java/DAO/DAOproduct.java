@@ -124,7 +124,7 @@ public class DAOproduct extends DBconnect.DBconnect {
             st.setInt(2, id);
             st.setInt(3, id);
             st.setInt(4, id);
-
+      
             st.executeUpdate();
             return true;
         } catch (Exception e) {
