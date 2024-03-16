@@ -213,7 +213,7 @@
                 position: absolute;
                 right: 1px;
                 top: 1px;
-                height: 97%;
+                height: 42px;
                 width: 15%;
                 border: none;
                 background-color: #f6f6f6;
@@ -554,6 +554,10 @@
             .productButton .right:hover {
                 color: #a0816c;
             }
+            .productButton .addBtn a{
+                text-decoration: none;
+                color: white;
+            }
 
             .right span {
                 background-color: white;
@@ -792,19 +796,26 @@
                                 <div class="search-list">
                                     <div class="search-list" id="search-ajax">
                                         <c:forEach items="${requestScope.productList}" var="product">
-                        
+
                                         </c:forEach>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="headerToolIcon">
-                            <a href="/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
+<!--                                                <div class="headerToolIcon">
+                                                    <a href="/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
+                        
+                                                </div> 
+                                                <div class="headerToolIcon">
+                                                    <a href="loadCart"><i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i></a>
+                                                </div>-->
+                    </div>
+                    <div class="headerToolIcon">
+                        <a href="/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
 
-                        </div> 
-                        <div class="headerToolIcon">
-                            <a href="loadCart"><i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i></a>
-                        </div>
+                    </div> 
+                    <div class="headerToolIcon">
+                        <a href="loadCart"><i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i></a>
                     </div>
                 </div>
             </div>
@@ -844,7 +855,7 @@
                                     </p>
                                     <div class="productButton">
                                         <button type="button" class="addBtn"><a href="/Project_SWP_Group2/productDetail?id=${product.getId()}">Add to cart</a></button>
-                                        <button type="button" class="right" onclick="showSizeOptions(this)">Buy now ${product.getId()}</button>
+                                        <button type="button" class="right" onclick="showSizeOptions(this)"><span></span>Buy now ${product.getId()}</button>
                                         <input type="hidden" name="idP" class="idP" value="${product.getId()}">
                                         <div id="sizeOptions_${product.getId()}" class="sizeOptions" style="display: none;">
                                             <label for="size_${product.getId()}">Choose Size:</label>
@@ -973,7 +984,7 @@
                                                         sizeOptions.style.display = "block";
                                                     }
                                                 }
-                                     
+
                                                 function buyNow(button) {
                                                     var name = button.parentElement.querySelector('.name').value;
                                                     var price = button.parentElement.querySelector('.price').value;
@@ -982,7 +993,7 @@
                                                     var size = button.parentElement.querySelector('select').value;
                                                     window.location.href = 'productBuy?name=' + name + "&price=" + price + "&quantity=1" + "&size=" + size + "&picURL=" + picUrl + "&id=" + id;
                                                 }
-                                                
+
         </script>
 
     </body>

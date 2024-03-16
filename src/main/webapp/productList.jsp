@@ -36,6 +36,8 @@
                 color: rgb(151, 143, 137);
             }
 
+            
+
             img {
                 width: 100%;
             }
@@ -69,7 +71,9 @@
             }
 
             #filter {
-                width: 7%;
+                width: 15%;
+                padding-left: 1%;
+
             }
 
 
@@ -673,8 +677,8 @@
                 color: black;
 
             }
-            
-            
+
+
             .search-info {
                 display: flex;
                 margin: 10px 0;
@@ -707,6 +711,19 @@
                 overflow-y: scroll;
                 scrollbar-width: none;
             }
+            button.filter{
+                color: white;
+                border: none;
+                border-radius: 20%;
+                border-width: 0%;
+                padding: 0 10px;
+                border-color: var(--logo-color);
+                background-color: var(--logo-color);
+                margin-left: 1%;
+                height: 39px;
+            }
+            
+            
 
             @media (max-width: 768px) and (min-width: 601px) {
                 .headerListItem {
@@ -726,6 +743,9 @@
                     height: 50px;
                 }
             }
+            
+            
+            
             @media (max-width: 1024px) {
                 .infoBox,
                 .searchBox, .cartBox {
@@ -793,11 +813,11 @@
                                 <div class="search-list">
                                     <div class="search-list" id="search-ajax">
                                         <c:forEach items="${requestScope.productList}" var="product">
-                        
+
                                         </c:forEach>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -828,7 +848,7 @@
             <form action="http://localhost:8080/Project_SWP_Group2/sortProduct" method="get">
 
 
-                <div style="display: flex; margin: 100px 0 20px 0;">
+                <div style="display: flex;">
                     <select name="sortID" id="filter" class="form-control ml-5 mb-2">
                         <option value="Increase">Increase</option>
                         <option value="Decrease">Decrease</option>
@@ -954,49 +974,49 @@
         <script src="/Project_SWP_Group2/js/header.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script type="text/javascript">
-                                            function doDelete(id) {
-                                                if (confirm("Do you want to delete this product (" + id + ")?")) {
-                                                    window.location = "deleteProduct?id=" + id;
-                                                }
-                                            }
-
-
-                                            function searchByName(name) {
-                                                var search = name.value
-
-                                                $.ajax({
-                                                    url: "/Project_SWP_Group2/searchProductByAJAX",
-                                                    type: "get",
-                                                    data: {
-                                                        txt: search
-                                                    },
-                                                    success: function (data) {
-                                                        var row = document.getElementById("search-ajax");
-                                                        row.innerHTML = data;
-                                                    },
-                                                    error: function (xhr) {
-
+                                                function doDelete(id) {
+                                                    if (confirm("Do you want to delete this product (" + id + ")?")) {
+                                                        window.location = "deleteProduct?id=" + id;
                                                     }
-                                                })
-                                            }
-                                            function showSizeOptions(button) {
-                                                const idP = button.parentElement.querySelector('.idP').value;
-                                                var sizeOptions = document.getElementById('sizeOptions_' + idP);
-                                                if (sizeOptions.style.display === "block") {
-                                                    sizeOptions.style.display = "none";
-                                                } else {
-                                                    sizeOptions.style.display = "block";
                                                 }
-                                            }
 
-                                            function buyNow(button) {
-                                                var name = button.parentElement.querySelector('.name').value;
-                                                var price = button.parentElement.querySelector('.price').value;
-                                                var picUrl = button.parentElement.querySelector('.picUrl').value;
-                                                var id = button.parentElement.querySelector('.id').value;
-                                                var size = button.parentElement.querySelector('select').value;
-                                                window.location.href = '/Project_SWP_Group2/productBuy?name=' + name + "&price=" + price + "&quantity=1" + "&size=" + size + "&picURL=" + picUrl + "&id=" + id;
-                                            }
+
+                                                function searchByName(name) {
+                                                    var search = name.value
+
+                                                    $.ajax({
+                                                        url: "/Project_SWP_Group2/searchProductByAJAX",
+                                                        type: "get",
+                                                        data: {
+                                                            txt: search
+                                                        },
+                                                        success: function (data) {
+                                                            var row = document.getElementById("search-ajax");
+                                                            row.innerHTML = data;
+                                                        },
+                                                        error: function (xhr) {
+
+                                                        }
+                                                    })
+                                                }
+                                                function showSizeOptions(button) {
+                                                    const idP = button.parentElement.querySelector('.idP').value;
+                                                    var sizeOptions = document.getElementById('sizeOptions_' + idP);
+                                                    if (sizeOptions.style.display === "block") {
+                                                        sizeOptions.style.display = "none";
+                                                    } else {
+                                                        sizeOptions.style.display = "block";
+                                                    }
+                                                }
+
+                                                function buyNow(button) {
+                                                    var name = button.parentElement.querySelector('.name').value;
+                                                    var price = button.parentElement.querySelector('.price').value;
+                                                    var picUrl = button.parentElement.querySelector('.picUrl').value;
+                                                    var id = button.parentElement.querySelector('.id').value;
+                                                    var size = button.parentElement.querySelector('select').value;
+                                                    window.location.href = '/Project_SWP_Group2/productBuy?name=' + name + "&price=" + price + "&quantity=1" + "&size=" + size + "&picURL=" + picUrl + "&id=" + id;
+                                                }
         </script>
     </body>
 

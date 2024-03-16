@@ -7,8 +7,10 @@ package controller;
 import DAO.DAOcart;
 import DAO.DAOproduct;
 import DAO.DAOpromo;
+import DAO.DAOsize;
 import entity.product;
 import entity.promo;
+import entity.size;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -106,6 +108,8 @@ public class cart extends HttpServlet {
         List<product> list = product.getAll();
         List<promo> promoList = promo.getAll();
         List<entity.cart> list2 = cart.getAll(username);
+        DAOsize daoSize = new DAOsize();
+        List<size> sizeList = daoSize.getAll();
         float price2 = 0;
         System.out.println(id);
         System.out.println(username);
@@ -129,13 +133,13 @@ public class cart extends HttpServlet {
                 for (int i = 0; i < list2.size(); i++) {
                     if (id == (list2.get(i).getProductID()) && username.equals(list2.get(i).getUsername()) && size.equals(list2.get(i).getSize_name())) {
                         quantity = list2.get(i).getQuantity() + quantity;
-                        for (int j = 0; j < list.size(); j++) {
-                            if (id == (list.get(j).getId()) && quantity < (list.get(j).getQuantity())) {
+                        for (int j = 0; j < sizeList.size(); j++) {
+                            if (id == (sizeList.get(j).getProduct_id()) && sizeList.get(j).getSize_name().equals(size) && quantity < (sizeList.get(j).getQuantity())) {
                                 price2 = quantity * price;
-                                cart.updateCart(username, id, quantity, price2,size);
+                                cart.updateCart(username, id, quantity, price2, size);
                                 temp++;
                             }
-                            if (quantity > (list.get(j).getQuantity()) && id == (list.get(j).getId())) {
+                            if (quantity > (sizeList.get(j).getQuantity()) && id == (sizeList.get(j).getProduct_id()) && sizeList.get(j).getSize_name().equals(size)) {
                                 product p = product.getProductById(id);
                                 request.setAttribute("ms", ms);
                                 request.setAttribute("p", p);
@@ -146,26 +150,36 @@ public class cart extends HttpServlet {
 
                     }
                 }
+                for (int j = 0; j < sizeList.size(); j++) {
+                    if (id == (sizeList.get(j).getProduct_id()) && sizeList.get(j).getSize_name().equals(size) && quantity < (sizeList.get(j).getQuantity())) {
+                        cart.insertCart(quantity, price2, username, id, size);
+                        temp++;
+                    }
+                    if (quantity > (sizeList.get(j).getQuantity()) && id == (sizeList.get(j).getProduct_id()) && sizeList.get(j).getSize_name().equals(size)) {
+                        product p = product.getProductById(id);
+                        request.setAttribute("ms", ms);
+                        request.setAttribute("p", p);
+                        request.getRequestDispatcher("productDetail.jsp").forward(request, response);
+                        temp++;
+                    }
+                }
                 if (temp == 0 && !username.equals("")) {
-                    boolean check = username.equals("");
-                    cart.insertCart(quantity, price2, username, id,size);
+                    if (!username.equals("")) {
+                        response.sendRedirect("loadCart?size=" + size);
+                    } else {
+                        response.sendRedirect("http://localhost:8080/Project_SWP_Group2/profile");
+                    }
                 }
-                if(!username.equals("")){
-                    response.sendRedirect("loadCart?size="+size);
-                }else{
-                    response.sendRedirect("http://localhost:8080/Project_SWP_Group2/profile");
-                }
-                
+
                 break;
             case URL_CART_INCREASE:
                 for (int i = 0; i < list2.size(); i++) {
                     if (id == (list2.get(i).getProductID()) && username.equals(list2.get(i).getUsername()) && size.equals(list2.get(i).getSize_name())) {
                         for (int j = 0; j < list.size(); j++) {
-                            int id3 = list.get(j).getId();
                             if (id == (list.get(j).getId()) && quantity < (list.get(j).getQuantity())) {
                                 System.out.println(quantity + " " + list.get(j).getQuantity());
                                 price2 = quantity * (list.get(j).getPrice() - ((list.get(j).getPrice() * promoList.get(list.get(j).getPromoID() - 1).getPromoPercent()) / 100));
-                                cart.updateCart(username, id, quantity, price2,size);
+                                cart.updateCart(username, id, quantity, price2, size);
                             }
                             if (quantity > (list.get(j).getQuantity()) && id == (list.get(j).getId())) {
                                 product p = product.getProductById(id);
@@ -177,7 +191,7 @@ public class cart extends HttpServlet {
 
                     }
                 }
-                response.sendRedirect("loadCart?size="+size +"&id="+id);
+                response.sendRedirect("loadCart?size=" + size + "&id=" + id);
                 break;
             case URL_CART_DECREASE:
                 for (int i = 0; i < list2.size(); i++) {
@@ -185,7 +199,7 @@ public class cart extends HttpServlet {
                         for (int j = 0; j < list.size(); j++) {
                             if (id == (list.get(j).getId()) && quantity <= (list.get(j).getQuantity())) {
                                 price2 = quantity * (list.get(j).getPrice() - ((list.get(j).getPrice() * promoList.get(list.get(j).getPromoID() - 1).getPromoPercent()) / 100));
-                                cart.updateCart(username, id, quantity, price2,size);
+                                cart.updateCart(username, id, quantity, price2, size);
                             }
                             if (quantity > (list.get(j).getQuantity()) && id == (list.get(j).getId())) {
                                 product p = product.getProductById(id);
@@ -197,14 +211,14 @@ public class cart extends HttpServlet {
 
                     }
                 }
-                response.sendRedirect("loadCart?size="+size);
+                response.sendRedirect("loadCart?size=" + size);
                 break;
             case URL_CART_DELETE:
-                cart.deleteCartBySize(id, username,size);
-                response.sendRedirect("loadCart?size=" +size);
+                cart.deleteCartBySize(id, username, size);
+                response.sendRedirect("loadCart?size=" + size);
                 break;
             case URL_PAYMENT:
-                response.sendRedirect("loadPayment?size=" +size);
+                response.sendRedirect("loadPayment?size=" + size);
                 break;
         }
     }
