@@ -821,7 +821,7 @@
             </div>
 
             <!--            <hr width="100%" , color="#d0a587" />-->
-            <<img src="./images/banner.jpg" alt="alt"/>
+            <img src="./images/banner.jpg" alt="alt"/>
         </header><!--
          end header -->
 

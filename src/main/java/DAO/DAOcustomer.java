@@ -34,6 +34,20 @@ public class DAOcustomer extends DBconnect.DBconnect {
         return listAccount;
     }
 
+     public boolean delete(String username) {
+        String sql = "delete from customer where username = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+          
+            st.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+    
     public boolean checkLogin(String input, String password) {
         String sql = "select * from customer where (username = ? or email = ?) and password = ?";
         try {

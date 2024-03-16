@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="./boostrap/bootstrap.min.css"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- bootstrap icon -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-                <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+        <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
 
         <style>
             * {
@@ -637,6 +637,9 @@
             .back-button:hover{
                 color:#642d08;
             }
+            .error {
+                color: red;
+            }
         </style>
 
     </head>
@@ -763,40 +766,41 @@
         <!-- end header -->
 
         <div id="wrapper">
-            <form action="" method="">
+            <form action="" method="" id="signUp-form">
                 <div class="bao">
                     <h2>Register An Account</h2>
                     <hr>
                     <div class="form-group">
                         <label for="fullname"></label>
-                        <input type="text" id="fullName" name="fullName" placeholder="Fullname" required>
+                        <input type="text" id="fullName" name="fullName" placeholder="Fullname" required true>
                     </div>
                     <div class="form-group">
                         <label for="username"></label>
-                        <input type="text" id="username" name="username" placeholder="Username" required>
+                        <input type="text" id="username" name="username" placeholder="Username" required true>
                     </div>
                     <div class="form-group">
                         <label for="password"></label>
-                        <input type="password" id="password" name="password" placeholder="Password" required>
+                        <input type="password" id="password" name="password" placeholder="Password" required true>
                     </div>
                     <div class="form-group">
                         <label for="email"></label>
-                        <input type="email" id="email" name="email" placeholder="Email" required>
+                        <input type="email" id="email" name="email" placeholder="Email" required true>
                     </div>
 
                     <div class="form-group">
                         <label for="address"></label>
-                        <input type="text" id="address" name="address" placeholder="Address" required>
+                        <input type="text" id="address" name="address" placeholder="Address" required true>
                     </div>          
                     <div class="form-group">
                         <label for="phone"></label>
-                        <input type="tel" id="phoneNumber"  name="phoneNumber" placeholder="Phone number" pattern="[0]{1}[0-9]{9}" required>
+                        <input type="tel" id="phoneNumber"  name="phoneNumber" placeholder="Phone number" pattern="[0]{1}[0-9]{9}" required true>
                     </div>
 
                     <div class = "foot">
                         <h4>This site is protected by reCAPTCHA and the Google <a href="" class="highlight">Privacy
                                 Policy</a> and <a href="" class="highlight">Terms of Service</a> apply.</h4>
                     </div>
+                    <div id="message"></div>
                     <div>
                         <button class="btn-register">Register</button>
                     </div>

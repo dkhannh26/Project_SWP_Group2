@@ -84,7 +84,7 @@ public class DAOproduct extends DBconnect.DBconnect {
         }
     }
 
-    public void update(product p) {
+    public boolean update(product p) {
         String sql = "UPDATE [dbo].[product]\n"
                 + "   SET [name] = ?\n"
                 + "      ,[quantity] = ?\n"
@@ -107,26 +107,33 @@ public class DAOproduct extends DBconnect.DBconnect {
             st.setInt(7, p.getPromoID());
             st.setInt(8, p.getId());
             st.executeUpdate();
+            return true;
         } catch (Exception e) {
         }
+        return false;
     }
 
-    public void delete(int id) {
+    public boolean delete(int id) {
         String sql = "delete from order_detail where product_id=?\n"
                 + "delete from cart where product_id = ?\n"
-                + "delete from product where product_id = ?";
+                + "delete from product where product_id = ?\n"
+                + "delete from feedback where product_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
             st.setInt(2, id);
             st.setInt(3, id);
+            st.setInt(4, id);
+      
             st.executeUpdate();
+            return true;
         } catch (Exception e) {
             System.out.println(e);
         }
+        return false;
     }
 
-    public void insert(product p) {
+    public boolean insert(product p) {
         String sql = "INSERT INTO [dbo].[product]\n"
                 + "           ([name]\n"
                 + "           ,[quantity]\n"
@@ -149,9 +156,11 @@ public class DAOproduct extends DBconnect.DBconnect {
             st.setInt(6, p.getCategoryID());
             st.setInt(7, p.getPromoID());
             st.executeUpdate();
+            return true;
         } catch (Exception e) {
             System.out.println(e);
         }
+        return false;
 
     }
 
