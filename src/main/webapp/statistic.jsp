@@ -497,7 +497,7 @@
                 data: [${quarter1},${quarter2},${quarter3},${quarter4}],
             };
 //    data: [${quarter1},${quarter2},${quarter3},${quarter4}],     
-
+  
             const myChart = document.querySelector(".my-chart");
             const ul = document.querySelector(".programming-stats .details ul");
 
