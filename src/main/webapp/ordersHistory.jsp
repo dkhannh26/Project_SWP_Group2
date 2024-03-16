@@ -1,7 +1,7 @@
 <%-- 
-    Document   : viewOrder
-    Created on : Mar 6, 2024, 8:42:45 PM
-    Author     : thinh
+    Document   : ordersHistory
+    Created on : Mar 13, 2024, 2:07:19 PM
+    Author     : Administrator
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -572,7 +572,7 @@
                                 <li><a href="./contact.jsp">Contact</a></li>
                                 <li><a href="./viewOrder.jsp">View order</a></li>
                                 <li><a href="./policy.jsp">Exchange policy</a></li>
-                                <li><a href="/Project_SWP_Group2/orderHistoryView">Order's history</a></li>
+                                <li><a href="">Order's history</a></li>
                         </li>
                     </ul>
                 </nav>
@@ -585,13 +585,6 @@
                                 <div class="search-input">
                                     <input oninput="searchByName(this)" name="search" type="text" size="20" placeholder="Search for products...">
                                     <button><i class="bi bi-search"></i></button>
-                                </div>
-                                <div class="search-list">
-                                    <div class="search-list" id="search-ajax">
-                                        <c:forEach items="${requestScope.productList}" var="product">
-                        
-                                        </c:forEach>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -678,9 +671,9 @@
                             </div>
                         </div>
                     </div> -->
-                    <c:forEach items="${requestScope.ordersUserList}" var="ordersUser">    
-                        <c:if test="${ordersUser.status ne 'Delivered' && ordersUser.status ne 'Cancelled'}">
-                            <div class="user-info" id="user${ordersUser.orderID}">
+                    <c:forEach items="${requestScope.ordersUserList}" var="ordersUser"> 
+                        <c:if test="${ordersUser.status eq 'Delivered'}">
+                            <div class="user-info">
                                 <div id="header-order" class="row">
                                     <div class="col-3">
                                         <p>ID: ${ordersUser.orderID}</p>
@@ -717,7 +710,7 @@
                                                     <div id="price">
                                                         <div class="row">
                                                             <c:set var="formattedPrice">
-                                                                <fmt:formatNumber type="number" value="${(priceP[orderDetail.productID] - (priceP[orderDetail.productID] * promoMap[promoID[orderDetail.productID]])/100) * orderDetail.quantity}" pattern="###,###" />
+                                                                <fmt:formatNumber type="number" value="${(priceP[orderDetail.productID] - (priceP[orderDetail.productID] * promoMap[promoID[orderDetail.productID]])/100) * orderDetail.quantity}" pattern="#" />
                                                             </c:set>
                                                             <p class="col-md-6 origin-price">${priceP[orderDetail.productID] * orderDetail.quantity}VND</p>
                                                             <p class="col-md-6 saled-price">${formattedPrice}VND</p>
@@ -728,7 +721,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </c:if>
+                                        </c:if>                                   
                                     </c:forEach>
 
                                 </div>
@@ -741,16 +734,8 @@
                                         <div class="col-5">
                                             <p>Address: ${ordersUser.address}</p>
                                         </div>
-                                        <div class="col-2">
-
-                                            <c:set var="formattedTotal">
-                                                <fmt:formatNumber type="number" value="${ordersUser.total}" pattern="###,###" />
-                                            </c:set>
-
-                                            <p id="total">Total: <span>${formattedTotal} VND</span></p>
-                                        </div>
-                                        <div class="feedback col-2" style="margin: 5px 0">
-                                            <button class="feedback-btn" onclick="updateOrderStatus(${ordersUser.orderID}, 'Delivered'); hideOrder(${ordersUser.orderID});">Order Received</button>
+                                        <div class="col-4">
+                                            <p id="total">Total: <span>${ordersUser.total}VND</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -847,44 +832,24 @@
         <!-- end footer -->
         <script src="js/jquery-3.7.0.min.js"></script>
         <script src="js/jquery.validate.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <!--<script src="./js/viewOrder.js"></script>-->
         <script>
 
-                                                const editInfoBtn = document.querySelectorAll('.edit-info-btn');
-                                                const dropdownContainer = document.querySelectorAll('.dropdown-container');
+                            const editInfoBtn = document.querySelectorAll('.edit-info-btn');
+                            const dropdownContainer = document.querySelectorAll('.dropdown-container');
 
-                                                editInfoBtn.forEach(function (edit, i) {
-                                                    edit.addEventListener('click', function () {
+                            editInfoBtn.forEach(function (edit, i) {
+                                edit.addEventListener('click', function () {
 
-                                                        if (dropdownContainer[i].style.display === "none") {
-                                                            dropdownContainer[i].style.display = "block";
-                                                        } else {
-                                                            dropdownContainer[i].style.display = "none";
-                                                        }
+                                    if (dropdownContainer[i].style.display === "none") {
+                                        dropdownContainer[i].style.display = "block";
+                                    } else {
+                                        dropdownContainer[i].style.display = "none";
+                                    }
 
-                                                    });
-                                                });
+                                });
+                            });
 
-                                                function updateOrderStatus(orderId, status) {
-                                                    $.ajax({
-                                                        url: '/Project_SWP_Group2/orderHistoryView',
-                                                        method: 'GET',
-                                                        data: {
-                                                            orderId: orderId,
-                                                            status: status
-                                                        },
-                                                        success: function (response) {
-                                                            console.log(id);
-                                                        }
-                                                    });
-                                                }
-                                                function hideOrder(orderID) {
-                                                    var userDiv = document.getElementById("user" + orderID);
-                                                    if (userDiv) {
-                                                        userDiv.style.display = 'none';
-                                                    }
-                                                }
 
 
 

@@ -220,7 +220,7 @@
                 position: absolute;
                 right: 1px;
                 top: 1px;
-                height: 97%;
+                height: 42px;
                 width: 15%;
                 border: none;
                 background-color: #f6f6f6;

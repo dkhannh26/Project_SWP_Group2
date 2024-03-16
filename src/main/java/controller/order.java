@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import static url.orderURL.INSERT_ORDERS;
 import static url.orderURL.INSERT_ORDERS_DETAILS;
+import static url.orderURL.URL_HISTORY_ORDERS;
 import static url.orderURL.URL_ORDER_LIST;
 import static url.orderURL.URL_UPDATE_STATUS;
 import static url.orderURL.URL_VIEW_ORDERS;
@@ -36,7 +37,7 @@ import static url.orderURL.URL_VIEW_ORDERS;
  *
  * @author Administrator
  */
-@WebServlet(name = "order", urlPatterns = {INSERT_ORDERS, INSERT_ORDERS_DETAILS, URL_ORDER_LIST, URL_UPDATE_STATUS, URL_VIEW_ORDERS})
+@WebServlet(name = "order", urlPatterns = {INSERT_ORDERS, INSERT_ORDERS_DETAILS, URL_ORDER_LIST, URL_UPDATE_STATUS, URL_VIEW_ORDERS, URL_HISTORY_ORDERS})
 public class order extends HttpServlet {
 
     /**
@@ -95,7 +96,7 @@ public class order extends HttpServlet {
         Date currentDate = new Date(currentTimeMillis);
         String address = request.getParameter("address");
         String newaddress = request.getParameter("newaddress");
-        String status = "wait";
+        String status = "Pending";
         String phoneNumber = request.getParameter("phoneNumber");
         String usernameStaff = request.getParameter("usernameStaff");
         String id = request.getParameter("id");
@@ -127,9 +128,34 @@ public class order extends HttpServlet {
             priceProduct.put(product.getId(), product.getPrice());
         }
         Map<Integer, Integer> promoID = new HashMap<>();
-                for (product product : productList) {
-                    promoID.put(product.getId(), product.getPromoID());
+        for (product product : productList) {
+            promoID.put(product.getId(), product.getPromoID());
+        }
+        List<orders> ordersUserList = daoOrder.orderUser(username);
+        Map<Integer, String> picUrlMap = new HashMap<>();
+        for (product product : productList) {
+            picUrlMap.put(product.getId(), product.getPicURL());
+        }
+        Map<Integer, Integer> priceP = new HashMap<>();
+        for (product product : productList) {
+            priceP.put(product.getId(), product.getPrice());
+        }
+        Map<Integer, Integer> ordersQuantityMap = new HashMap<>();
+        for (orderDetail orders : orderDetailList) {
+            ordersQuantityMap.put(orders.getOrderID(), orders.getQuantity());
+        }
+        Map<Integer, Integer> totalQuantityMap = new HashMap<>();
+        for (int i = 0; i < orderList.size(); i++) {
+            int quanO = 0;
+            for (int j = 0; j < orderDetailList.size(); j++) {
+                if (orderList.get(i).getOrderID() == orderDetailList.get(j).getOrderID()) {
+                    quanO = quanO + orderDetailList.get(j).getQuantity();
                 }
+            }
+            for (orders od : orderList) {
+                totalQuantityMap.put(orderList.get(i).getOrderID(), quanO);
+            }
+        }
         switch (urlPath) {
             case INSERT_ORDERS:
                 if (newaddress.equals("")) {
@@ -204,7 +230,7 @@ public class order extends HttpServlet {
                 int numberOfProduct = 0;
                 int revenue = 0;
                 int numberOfCustomer = 0;
-                
+                List<orders> orderListSort = daoOrder.getAllOrdersSort();
                 DAO.DAOproduct DAOproduct = new DAOproduct();
 
                 String date = request.getParameter("date");
@@ -239,7 +265,7 @@ public class order extends HttpServlet {
                     
                 }
                 request.setAttribute("orderDetailList", orderDetailList);
-                request.setAttribute("orderList", orderList);
+                request.setAttribute("orderList", orderListSort);
                 request.setAttribute("nameProduct", nameProduct);
                 request.setAttribute("priceProduct", priceProduct);
                 request.setAttribute("promoMap", promoMap);
@@ -252,7 +278,7 @@ public class order extends HttpServlet {
                 int orderId = Integer.parseInt(request.getParameter("orderId"));
                 String newStatus = request.getParameter("status");
                 daoOrder.updateStatus(newStatus, orderId);
-                if (newStatus.equals("accept")) {
+                if (newStatus.equals("Delivering")) {
                     for (int i = 0; i < orderDetailList.size(); i++) {
                         if (orderId == orderDetailList.get(i).getOrderID()) {
                             for (int j = 0; j < sizeList.size(); j++) {
@@ -277,19 +303,7 @@ public class order extends HttpServlet {
                 }
                 break;
             case URL_VIEW_ORDERS:
-                List<orders> ordersUserList = daoOrder.orderUser(username);
-                Map<Integer, String> picUrlMap = new HashMap<>();
-                for (product product : productList) {
-                    picUrlMap.put(product.getId(), product.getPicURL());
-                }
-                Map<Integer, Integer> priceP = new HashMap<>();
-                for (product product : productList) {
-                    priceP.put(product.getId(), product.getPrice());
-                }
-                Map<Integer, Integer> ordersQuantityMap = new HashMap<>();
-                for (orderDetail orders : orderDetailList) {
-                    ordersQuantityMap.put(orders.getOrderID(), orders.getQuantity());
-                }
+                request.setAttribute("totalQuantityMap", totalQuantityMap);
                 request.setAttribute("promoID", promoID);
                 request.setAttribute("promoMap", promoMap);
                 request.setAttribute("priceP", priceP);
@@ -299,6 +313,31 @@ public class order extends HttpServlet {
                 request.setAttribute("ordersQuantityMap", ordersQuantityMap);
                 request.setAttribute("ordersUserList", ordersUserList);
                 request.getRequestDispatcher("viewOrder.jsp").forward(request, response);
+                break;
+            case URL_HISTORY_ORDERS:
+                int orderId3 = 0;
+                String orderId2 = request.getParameter("orderId");
+                if (orderId2 != null) {
+                    orderId3 = Integer.parseInt(orderId2);
+                }
+                String newStatus2 = request.getParameter("status");
+                if (newStatus2 != null) {
+                    daoOrder.updateStatus(newStatus2, orderId3);
+                    request.setAttribute("ordersUserList", ordersUserList);
+                    response.getWriter().write("success");
+                }
+                if (newStatus2 == null) {
+                    request.setAttribute("totalQuantityMap", totalQuantityMap);
+                    request.setAttribute("promoID", promoID);
+                    request.setAttribute("promoMap", promoMap);
+                    request.setAttribute("priceP", priceP);
+                    request.setAttribute("picUrlMap", picUrlMap);
+                    request.setAttribute("nameProduct", nameProduct);
+                    request.setAttribute("orderDetailList", orderDetailList);
+                    request.setAttribute("ordersQuantityMap", ordersQuantityMap);
+                    request.setAttribute("ordersUserList", ordersUserList);
+                    request.getRequestDispatcher("ordersHistory.jsp").forward(request, response);
+                }
                 break;
         }
     }

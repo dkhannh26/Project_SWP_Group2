@@ -6,6 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.text.NumberFormat"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -416,12 +419,18 @@
             } */
             /* order-manage */
             .red {
-                background-color: red;
+                background-color: #d893a3;
+            color: #b30021;
             }
 
             .green {
-                background-color: rgb(59, 245, 59);
+                  background-color: #6fcaea;
 
+            }
+            .blue {
+                
+                background-color: #86e49d;
+            color: #006b21;
             }
 
 
@@ -578,12 +587,15 @@
                                         <td class="tb-address">${order.address}</td>
                                         <td>${order.date}</td>
                                         <td><p class="status stt-pending" id="id${order.orderID}" onchange="handleColor()">${order.status}</p></td>
-                                        <td><strong><i class="bi bi-currency-dollar"></i>${order.total}</strong></td>
+                                        <c:set var="formattedPrice">
+                                <fmt:formatNumber type="number" value="${order.total}" pattern="###,###" />
+                            </c:set>
+                                        <td><strong><i class="bi bi-currency-dollar"></i>${formattedPrice}</strong></td>
                                         <td class="action-btn">
 
-                                            <c:if test="${order.status eq 'wait'}">
-                                                <button class="accept-btn" onclick="updateOrderStatus(${order.orderID}, 'accept')"><i class="bi bi-check-lg"></i></button>
-                                                <button class="reject-btn" onclick="updateOrderStatus(${order.orderID}, 'reject')"><i class="bi bi-x-lg"></i></button>
+                                            <c:if test="${order.status eq 'Pending'}">
+                                                <button class="accept-btn" onclick="updateOrderStatus(${order.orderID}, 'Delivering')"><i class="bi bi-check-lg"></i></button>
+                                                <button class="reject-btn" onclick="updateOrderStatus(${order.orderID}, 'Cancelled')"><i class="bi bi-x-lg"></i></button>
                                                 </c:if>
                                             <button class="view-btn"><i class="bi bi-eye"></i></button>
                                         </td>
@@ -708,6 +720,29 @@
         <script src="/Project_SWP_Group2/js/jquery.validate.min.js"></script>
         <script>
 
+                                                    let status = document.querySelectorAll('.status');
+
+                                                    status.forEach(element => {
+                                                        if (element.innerHTML === 'reject') {
+                                                            element.classList.add('red');
+                                                        } else if (element.innerHTML === 'accept') {
+                                                            element.classList.add('green');
+
+                                                        }
+                                                        else if (element.innerHTML === 'Delivered'){
+                                                                element.classList.add('blue');
+                                                            }
+                                                    });
+
+                                                    const handleColor = () => {
+                                                        let status = document.querySelectorAll('.status');
+                                                        status.forEach(element => {
+                                                            if (element.innerHTML === 'Cancelled') {
+                                                                element.classList.add('red');
+                                                            } else if (element.innerHTML === 'Delivering') {
+                                                                element.classList.add('green');
+
+
                                     $(document).ready(function (e) {
                                         $('.btn-changePass').click(function (e) {
                                             e.preventDefault();
@@ -734,6 +769,9 @@
                                                             } else {
                                                                 $("#message-changepass").html("Your current password is incorrect");
                                                                 document.getElementById("message-changepass").style.color = "red";
+                                                            }
+                                                            else if (element.innerHTML === 'Received'){
+                                                                element.classList.add('blue');
                                                             }
                                                         });
                                             } else {
@@ -777,8 +815,35 @@
                                                     } else {
                                                         alert("fail")
                                                     }
-                                                })
-                                    }
+
+                                                    function updateOrderStatus(orderId, status) {
+                                                        let id = document.querySelector(`#id` + orderId);
+                                                        $.ajax({
+                                                            url: '/Project_SWP_Group2/orderUpdateStatus',
+                                                            method: 'GET',
+                                                            data: {
+                                                                orderId: orderId,
+                                                                status: status
+                                                            },
+                                                            success: function (response) {
+                                                                console.log(id);
+                                                                id.innerHTML = status;
+                                                                
+                                                                handleColor();
+                                                            }
+                                                        });
+                                                    }
+                                                    document.addEventListener("DOMContentLoaded", function () {
+                                                        const viewBtn = document.querySelectorAll('.view-btn');
+                                                        const dropdownItem = document.querySelectorAll('.item');
+                                                        viewBtn.forEach(function (edit, i) {
+                                                            edit.addEventListener('click', function () {
+                                                                if (dropdownItem[i].style.display === "none") {
+                                                                    dropdownItem[i].style.display = "contents";
+                                                                } else {
+                                                                    dropdownItem[i].style.display = "none";
+                                                                }
+
 
                                     function toggleEditPersonal(profile) {
                                         var edit = document.getElementById('edit-personal');

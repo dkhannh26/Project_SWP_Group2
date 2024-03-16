@@ -5,7 +5,9 @@
 package controller;
 
 import DAO.DAOcart;
+import DAO.DAOcustomer;
 import DAO.DAOproduct;
+import entity.customer;
 import entity.product;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -94,16 +96,30 @@ public class load extends HttpServlet {
             sum = sum + list3.get(i).getPrice();
             quanP++;
         }
+        DAOcustomer daoCustomer = new DAOcustomer();
+        customer c = daoCustomer.getCustomerByEmailOrUsername(username);
+        String address = null;
+        if(c != null){
+            address = c.getAddress();
+        }
+        request.setAttribute("address", address);
+        request.setAttribute("username", username);
         request.setAttribute("size", size);
         request.setAttribute("nameProduct", nameProduct);
         request.setAttribute("quanP", quanP);
         request.setAttribute("picUrlMap", picUrlMap);
+        
+        
+        
+        
+        
         request.setAttribute("sum", sum);
         request.setAttribute("cartList", list3);
         System.out.println(size + "load");
         switch (urlPath) {
             case LOAD_CART:
-                request.getRequestDispatcher("cart.jsp").forward(request, response);
+                response.getWriter().write(String.valueOf(sum));
+                request.getRequestDispatcher("cart.jsp").forward(request, response);                
                 break;
             case LOAD_PAYMENT:
                 if(sum != 0){

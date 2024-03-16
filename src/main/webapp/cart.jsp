@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,6 +16,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <title>Profile</title>
 
     </head>
@@ -99,7 +101,7 @@
             padding: 10px;
         }
         .order-info {
-            position: sticky;
+            /*position: fixed;*/
             top: 20px; /* Điều chỉnh khoảng cách từ trên xuống */
             padding: 20px;
         }
@@ -730,6 +732,16 @@
                 color: white;
             }
         }
+        .btn-danger{
+            background-color: white;
+            border: none;
+        }
+        .bi-trash{
+            width: 5px;
+        }
+        .red{
+            color:red;
+        }
 
         /* END footer */
 
@@ -848,49 +860,69 @@
         <div class="status">
             <p>You currently have <b>${quanP} products</b> in your cart</p>
         </div>
-        <c:forEach items="${requestScope.cartList}" var="cart">
-            <div class="row">
-                <div class="col-md-8">                   
-                    <div class="product">
-                        <div class="row">
-                            <div class="col-2">
-                                <img src="${picUrlMap[cart.productID]}" alt="">
-                            </div>
-                            <div class="col-8">
-                                <b id="highlight">${nameProduct[cart.productID]}</b>
-                                <p>Size: ${cart.size_name}</p>                               
-                                <div class="quan">
-                                    <input type="number" name="quantity" value="${cart.quantity}">
-                                    <button onclick="incrementQuantity(this)" data-product-id="${cart.productID}">+</button>
-                                    <button onclick="decrementQuantity(this)" data-product-id="${cart.productID}">-</button>
-                                    <input type="hidden" name="id" class="id" value="${cart.productID}">
+        <div class="row">
+            <div class="col-md-8">
+                <c:forEach items="${requestScope.cartList}" var="cart">
+                    <div class="row" id='user${cart.productID}${cart.size_name}'>
+                        <div class="product">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="${picUrlMap[cart.productID]}" alt="">
+                                </div>
+                                <div class="col-8">
+                                    <b id="highlight">${nameProduct[cart.productID]}</b>
+                                    <p>Size: ${cart.size_name}</p>                               
+                                    <div class="quan">
+                                        <button onclick="decrementQuantity(${cart.productID},${cart.price},${cart.quantity}, '${cart.size_name}')" data-product-id="${cart.productID}">-</button>
+                                        <input type="number" name="quantity" id="quantity${cart.productID}${cart.size_name}" value="${cart.quantity}" min='1' readonly>
+                                        <button onclick="incrementQuantity2(${cart.productID},${cart.price},${cart.quantity}, '${cart.size_name}')" data-product-id="${cart.productID}">+</button>
+                                        <input type="hidden" name="temp" class="temp" id='temp' value="${temp}">
+<!--                                    <input type="hidden" name="id" class="id" value="${cart.productID}">
+<input type="hidden" name="price" class="price" value="${cart.price}">
+<input type="hidden" name="quantity" class="quantity" value="${cart.quantity}">
+<input type="hidden" name="size" class="size" value="${cart.size_name}">-->
+                                    </div>
+
+                                    <c:set var="formattedPrice2">
+                                        <fmt:formatNumber type="number" value="${cart.getPrice()}" pattern="###,###" />
+                                    </c:set>
+
+                                    <b id="price1${cart.productID}${cart.size_name}">${formattedPrice2}</b>
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn btn-danger" onclick="deleteCartItem(${cart.productID}, '${cart.size_name}')" data-product-id="${cart.productID}"><i class="bi bi-trash"></i></button>
                                     <input type="hidden" name="price" class="price" value="${cart.price}">
                                     <input type="hidden" name="quantity" class="quantity" value="${cart.quantity}">
                                     <input type="hidden" name="size" class="size" value="${cart.size_name}">
                                 </div>
-                                <b>${cart.getPrice()}</b>
                             </div>
-                            <div class="col-2">
-                                <button class="btn btn-danger" onclick="deleteCartItem(this)" data-product-id="${cart.productID}">Delete</button>
-                                <input type="hidden" name="price" class="price" value="${cart.price}">
-                                <input type="hidden" name="quantity" class="quantity" value="${cart.quantity}">
-                                <input type="hidden" name="size" class="size" value="${cart.size_name}">
+                            <div class="row">
+                                <div class="col-10"><b>Into money:</b></div>
+
+                                <c:set var="formattedPrice">
+                                    <fmt:formatNumber type="number" value="${cart.getPrice()}" pattern="###,###" />
+                                </c:set>
+
+                                <div class="col-2" id="price2${cart.productID}${cart.size_name}"><b>${formattedPrice}</b></div>                    
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-10"><b>Into money:</b></div>
-                            <div class="col-2" id="price"><b>${cart.getPrice()}</b></div>                        
                         </div>
                     </div>
-                </div>
-            </c:forEach>
+
+                </c:forEach>
+            </div>
             <div class="col-md-4 order-info">
                 <div class="info">
                     <b id="highlight">Order Information</b>
                     <hr>
                     <div class="row">
                         <b class="col-7">Total:</b>
-                        <h4 class="col-5"><b id="price">${sum}</b></h4>
+
+
+                        <c:set var="formattedSum">
+                            <fmt:formatNumber type="number" value="${sum}" pattern="###,###" />
+                        </c:set>
+
+                        <h4 class="col-5 "><b id="sum" class='red'>${formattedSum} VND ${temp}</b></h4>
                     </div>
                     <hr>
                     <ul class="note">
@@ -910,6 +942,7 @@
                 </div>
             </div>
         </div>
+
         <footer>
             <div class="content-footer">
                 <h3 id="highlight">Follow us on Instagram</h3>
@@ -972,39 +1005,127 @@
 
 
         </footer>
-        <script>
-            function incrementQuantity(button) {
-                const input = button.parentElement.querySelector('input[type="number"]');
-                const quantity = parseInt(input.value) + 1;
-                input.value = parseInt(input.value) + 1;
-                const id = button.getAttribute('data-product-id');
-                const price = button.parentElement.querySelector('.price').value;
-                const size = button.parentElement.querySelector('.size').value;
-                // Sử dụng orderName, address, và phoneNumber để thực hiện việc gửi dữ liệu lên servlet
-                window.location.href = 'cartIncrease?id=' + id + "&price=" + price + "&quantity=" + quantity + "&size=" + size;
-            }
 
-            function decrementQuantity(button) {
-                const input = button.parentElement.querySelector('input[type="number"]');
-                if (input.value > 1) {
-                    const quantity = parseInt(input.value) - 1;
-                    input.value = parseInt(input.value) - 1;
-                    const id = button.getAttribute('data-product-id');
-                    const price = button.parentElement.querySelector('.price').value;
-                    const size = button.parentElement.querySelector('.size').value;
-                    window.location.href = 'cartIncrease?id=' + id + "&price=" + price + "&quantity=" + quantity + "&size=" + size;
-                }
-            }
-            function deleteCartItem(button) {
-                var option = confirm('Are you sure to delete');
-                if (option === true) {
-                    const id = button.getAttribute('data-product-id');
-                    const price = button.parentElement.querySelector('.price').value;
-                    const quantity = button.parentElement.querySelector('.quantity').value;
-                    const size = button.parentElement.querySelector('.size').value;
-                    window.location.href = 'cartDelete?id=' + id + "&price=" + price + "&quantity=" + quantity + "&size=" + size;
-                }
-            }
+        <script src="js/jquery-3.7.0.min.js"></script>
+        <script src="js/jquery.validate.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+
+                                        function incrementQuantity2(productID, price, quantity, size_name) {
+                                            console.log(temp);
+                                            let id = document.querySelector(`#quantity` + productID + size_name);
+                                            let totalPriceElement1 = document.querySelector('#price1' + productID + size_name);
+                                            let totalPriceElement2 = document.querySelector('#price2' + productID + size_name);
+                                            let totalPrice = document.querySelector('#sum');
+                                            console.log(id);
+                                            let newQuantity = parseInt(id.value) + 1; // Tăng giá trị quantity
+                                            
+                                            $.ajax({
+                                                url: '/Project_SWP_Group2/cartIncrease',
+                                                method: 'GET',
+                                                data: {
+                                                    id: productID,
+                                                    price: price,
+                                                    quantity: newQuantity,
+                                                    size: size_name
+                                                },
+                                                success: function (response) {
+                                                    
+                                                    var values = response.split(",");
+                                                    var price2 = parseFloat(values[0]);
+                                                    var sum = parseInt(values[1]);
+                                                    var temp = parseInt(values[2]);
+                                                    console.log(temp);
+                                                    if(temp === 0){
+                                                        id.value = newQuantity;
+                                                        let formattedSum = sum.toLocaleString('vi-VN');
+                                                    let formattedPrice = price2.toLocaleString('vi-VN');
+
+                                                    totalPriceElement1.innerHTML = formattedPrice;
+                                                    totalPriceElement2.innerHTML = "<b>" + formattedPrice + "</b>";
+                                                    totalPrice.innerHTML = formattedSum + "<span> VND</span>";
+                                                    }
+                                                    if(temp !== 0){
+                                                        alert('sold out!');
+                                                    }
+                                                    
+
+
+                                                }
+                                            });
+                                        }
+                                        //                                    function incrementQuantity(productID, price, quantity, size_name) {
+                                        //                                        const input = button.parentElement.querySelector('input[type="number"]');
+                                        //                                        const quantity = parseInt(input.value) + 1;
+                                        //                                        input.value = parseInt(input.value) + 1;
+                                        //                                        const id = button.getAttribute('data-product-id');
+                                        //                                        const price = button.parentElement.querySelector('.price').value;
+                                        //                                        const size = button.parentElement.querySelector('.size').value;
+                                        //                                        // Sử dụng orderName, address, và phoneNumber để thực hiện việc gửi dữ liệu lên servlet
+                                        //                                        window.location.href = 'cartIncrease?id=' + id + "&price=" + price + "&quantity=" + quantity + "&size=" + size;
+                                        //                                    }
+
+                                        function decrementQuantity(productID, price, quantity, size_name) {
+                                            let id = document.querySelector(`#quantity` + productID + size_name);
+                                            let totalPriceElement1 = document.querySelector('#price1' + productID + size_name);
+                                            let totalPriceElement2 = document.querySelector('#price2' + productID + size_name);
+                                            let totalPrice = document.querySelector('#sum');
+                                            console.log(id);
+                                            let newQuantity = parseInt(id.value) - 1; // Tăng giá trị quantity
+                                            if (newQuantity > 0) {
+                                                id.value = newQuantity;
+                                                $.ajax({
+                                                    url: '/Project_SWP_Group2/cartDecrease',
+                                                    method: 'GET',
+                                                    data: {
+                                                        id: productID,
+                                                        price: price,
+                                                        quantity: newQuantity,
+                                                        size: size_name
+                                                    },
+                                                    success: function (response) {
+                                                        var values = response.split(",");
+                                                        var price2 = parseFloat(values[0]);
+                                                        var sum = parseInt(values[1]);
+
+                                                        let formattedSum = sum.toLocaleString('vi-VN');
+                                                        let formattedPrice = price2.toLocaleString('vi-VN');
+
+                                                        totalPriceElement1.innerHTML = formattedPrice;
+                                                        totalPriceElement2.innerHTML = "<b>" + formattedPrice + "</b>";
+                                                        totalPrice.innerHTML = formattedSum + "<span> VND</span>";
+                                                    }
+                                                });
+                                            }
+                                        }
+
+                                        function deleteCartItem(productID, size_name) {
+                                            let totalPrice = document.querySelector('#sum');
+                                            console.log(productID);
+                                            console.log(size_name);
+                                            var option = confirm('Are you sure to delete');
+                                            $.ajax({
+                                                url: '/Project_SWP_Group2/cartDelete',
+                                                method: 'GET',
+                                                data: {
+                                                    id: productID,
+                                                    size: size_name
+                                                },
+                                                success: function (response) {
+                                                    var values = response.split(",");
+                                                    var sum = parseInt(values[1]);
+                                                    let formattedTotal = Math.floor(sum);
+                                                    totalPrice.innerHTML = formattedTotal;
+                                                    hideOrder(productID, size_name);
+                                                }
+                                            });
+                                        }
+                                        function hideOrder(productID, size_name) {
+                                            var userDiv = document.getElementById("user" + productID + size_name);
+                                            if (userDiv) {
+                                                userDiv.style.display = 'none';
+                                            }
+                                        }
         </script>
     </body>
 </html>

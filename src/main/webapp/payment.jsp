@@ -8,6 +8,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@page import="java.text.NumberFormat"%>
+<%@page import="java.text.DecimalFormat"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -115,7 +118,7 @@
                         <div>
                             <b>Default address</b>
                             <div class="address"><input type="text" name="address"
-                                                        value="600, Nguyen Van Cu Street, An Binh Ward, Ninh Kieu District, Can Tho City.">
+                                                        value="${address}">
                             </div>
                         </div>
 
@@ -160,18 +163,24 @@
                                 <p>Quantity: ${cart.quantity}</p>
                                 <p>Size: ${cart.size_name} </p>
                             </div>
+                            <c:set var="formattedPrice">
+                                <fmt:formatNumber type="number" value="${cart.price}" pattern="###,###" />
+                            </c:set>
                             <div class="col-2">
-                                <p class="price">${cart.price}</p>
+                                <p class="price">${formattedPrice}</p>
                             </div>
                         </c:forEach>          
                         <hr>
-
+ 
                         <div id="line" class="row">
                             <div class="col-10">
                                 <h5>Total</h5>
                             </div>
+                            <c:set var="formattedPrice2">
+                                <fmt:formatNumber type="number" value="${sum}" pattern="###,###" />
+                            </c:set>
                             <div class="col-2">
-                                <h5 class="price">${sum}</h5>
+                                <h5 class="price">${formattedPrice2}</h5>
                             </div>
                         </div>
                     </div>
