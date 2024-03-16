@@ -467,6 +467,10 @@
                     <li class="nav-link" data-target="personal-info">
                         <a href="#" ><i class="bi bi-person-fill"></i> <span>Personal information</span> </a>
                     </li>
+
+                    <li class="nav-link" data-target="import-goods">
+                        <a href="#"><i class="fa-solid fa-truck-ramp-box"></i> <span>Import goods management</span> </a>
+                    </li>
                 </ul>
             </nav>
 
@@ -700,6 +704,65 @@
 
                     </div>
                 </div>
+
+                <div class="import-goods">
+                    <h3>Import goods</h3>
+                    <hr>
+                    <!-- <div class="add-goods-btn">
+                        <button><a href="/admin/addProduct.html">Add import goods</a></button>
+                    </div> -->
+                    <div class="order-main">
+                        <table class="order-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Quantity</th>
+                                    <th>Order date</th>
+                                    <th class="th-status">Status</th>
+                                    <th>Total price</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="import-list">
+                            <div>
+                                <tr>
+                                    <!--                                    <td>1</td>
+                                                                        <td>Admin</td>
+                                                                        <td class="tb-address">Vo Van Kiet, Binh Thuy, Can Tho</td>
+                                                                        <td>5/8/2003</td>
+                                                                        <td>
+                                                                            <p class="status stt-delivering">Delivering</p>
+                                                                        </td>
+                                                                        <td><strong><i class="bi bi-currency-dollar"></i>1000</strong></td>
+                                                                        <td class="action-btn">
+                                                                            <button class="accept-btn"><i class="bi bi-check-lg"></i></button>
+                                                                            <button class="reject-btn"><i class="bi bi-x-lg"></i></button> 
+                                                                            <button class="view-btn"><i class="bi bi-eye"></i></button>
+                                                                        </td>-->
+                                </tr>
+                                <tbody class="item">
+                                    <!--                                    <tr>
+                                                                            <td></td>
+                                                                            <td>
+                                                                                id
+                                                                            </td>
+                                                                            <td>name</td>
+                                                                            <td>size</td>
+                                                                            <td>quan</td>
+                                                                            <td>price</td>
+                                                                            <td></td>
+                                                                        </tr>-->
+                                </tbody>
+                            </div>
+
+
+
+
+                            </tbody> 
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -752,7 +815,6 @@
 
                                     function updateProfile(pro) {
                                         var username = pro.getAttribute('data-id');
-
                                         var email = document.getElementById('update-profile-email').value;
                                         var address = document.getElementById('update-profile-address').value;
                                         var fullname = document.getElementById('update-profile-name').value;
@@ -793,7 +855,6 @@
 
                                         var id = profile.getAttribute('data-id');
                                         document.getElementById('edit-profile-btn').setAttribute('data-id', id);
-
                                         var email = document.getElementById('update-profile-email');
                                         email.value = profile.getAttribute('data-email');
                                         var address = document.getElementById('update-profile-address');
@@ -907,7 +968,6 @@
                                     function getCookie(name) {
                                         // Tách các cookie thành mảng các cặp key-value
                                         var cookies = document.cookie.split(';');
-
                                         // Duyệt qua từng cookie để tìm kiếm cookie có tên mong muốn
                                         for (var i = 0; i < cookies.length; i++) {
                                             var cookie = cookies[i].trim(); // Loại bỏ khoảng trắng ở đầu và cuối
@@ -945,7 +1005,6 @@
                                                         var trEmail = document.getElementById("email");
                                                         var trAddress = document.getElementById("address");
                                                         var trPhone = document.getElementById("phoneNumber");
-
                                                         var info = data1.data;
                                                         var fullName = document.createElement("td");
                                                         var phoneNumber = document.createElement("td");
@@ -956,19 +1015,15 @@
                                                         document.getElementById('update-pro-btn').setAttribute('data-email', info.email);
                                                         document.getElementById('update-pro-btn').setAttribute('data-address', info.address);
                                                         document.getElementById('update-pro-btn').setAttribute('data-id', info.username);
-
                                                         // Đặt nội dung cho các ô dữ liệu
                                                         fullName.textContent = info.fullName;
                                                         phoneNumber.textContent = info.phoneNumber;
                                                         address.textContent = info.address;
                                                         email.textContent = info.email;
-
                                                         trName.appendChild(fullName);
                                                         trEmail.appendChild(email);
                                                         trAddress.appendChild(address);
                                                         trPhone.appendChild(phoneNumber);
-
-
                                                     }
                                                 });
                                     }
@@ -1017,6 +1072,69 @@
                                                 });
                                     }
 
+                                    function listImport() {
+                                        $.ajax({
+                                            method: "POST",
+                                            url: "http://localhost:8080/Project_SWP_Group2/staff/import",
+                                            data: {
+                                            }
+                                        })
+                                                .done(function (data) {
+                                                    var data1 = JSON.parse(data);
+//                                                                                    console.log(data1.data);
+                                                    if (data1.isSuccess) {
+                                                        document.querySelector("table tbody").innerHTML = ""
+                                                        console.log(data1.data);
+                                                        var importList = data1.data;
+                                                        var i = 0;
+
+                                                        importList.forEach(function (item) {
+//                                                            // Tạo một hàng mới                                                            var newRow = document.createElement("tr");
+                                                            var newDiv = document.createElement("div");
+                                                            var newTr = document.createElement("tr");
+                                                            var newBody = document.createElement("tbody");
+                                                            var numCell = document.createElement("td");
+                                                            var nameCell = document.createElement("td");
+                                                            var quantityCell = document.createElement("td"); //                                                            var nameCell = document.createElement("td");
+                                                            var dateCell = document.createElement("td");
+                                                            var statusCell = document.createElement("td");
+                                                            var priceCell = document.createElement("td");
+                                                            var btnCell = document.createElement("td");
+
+                                                            numCell.textContent = ++i;
+                                                            nameCell.textContent = item.username;
+                                                            quantityCell.textContent = item.quantity;
+                                                            dateCell.textContent = item.date;
+//                                                            statusCell.textContent = item.status;
+                                                            statusCell.innerHTML = '<p class="status stt-delivering" >Delivering</p>';
+                                                            ;
+
+                                                            priceCell.textContent = item.total;
+                                                            btnCell.innerHTML = '<button class="accept-btn"><i class="bi bi-check-lg"></i></button><button class="reject-btn"><i class="bi bi-x-lg"></i></button><button class="view-btn"><i class="bi bi-eye"></i></button>'
+//                                                            newDiv.appendChild(newTr);
+
+                                                            newTr.appendChild(numCell);
+                                                            newTr.appendChild(nameCell);
+                                                            newTr.appendChild(quantityCell);
+                                                            newTr.appendChild(dateCell);
+                                                            newTr.appendChild(statusCell);
+                                                            newTr.appendChild(priceCell);
+                                                            newTr.appendChild(btnCell);
+
+//                                                            // Đặt nội dung cho các ô dữ liệu
+//                                                           
+//                                                            // Thêm các ô dữ liệu vào hàng mới
+//                                                           
+//                                                            // Thêm hàng mới vào tbody của bảng
+                                                            document.querySelector("table #import-list").appendChild(newTr);
+                                                        })
+                                                    } else {
+                                                        alert('fail');
+                                                    }
+                                                });
+                                    }
+
+
                                     let status = document.querySelectorAll('.status');
                                     status.forEach(element => {
                                         if (element.innerHTML === 'reject') {
@@ -1049,12 +1167,17 @@
                                                         div.style.display = 'none';
                                                     }
                                                 });
+//                                                console.log(target);
+
                                                 switch (target) {
                                                     case 'product-manage':
                                                         productList();
                                                         break;
                                                     case 'personal-info':
                                                         profile();
+                                                        break;
+                                                    case 'import-goods':
+                                                        listImport();
                                                         break;
                                                 }
 

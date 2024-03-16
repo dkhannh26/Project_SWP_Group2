@@ -114,16 +114,11 @@ public class DAOproduct extends DBconnect.DBconnect {
     }
 
     public boolean delete(int id) {
-        String sql = "delete from order_detail where product_id=?\n"
-                + "delete from cart where product_id = ?\n"
-                + "delete from product where product_id = ?\n"
-                + "delete from feedback where product_id = ?";
+        String sql = "delete from product where product_id = ?\n";
+
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
-            st.setInt(2, id);
-            st.setInt(3, id);
-            st.setInt(4, id);
 
             st.executeUpdate();
             return true;
