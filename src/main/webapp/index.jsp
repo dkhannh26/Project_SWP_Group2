@@ -797,10 +797,14 @@
                             <c:set var="formattedPrice">
                                 <fmt:formatNumber type="number" value="${product.getPrice()}" pattern="###,###" />
                             </c:set>
+                            <c:set var="formattedPrice2">
+                                <fmt:formatNumber type="number" value="${product.price - ((product.price * promoMap[product.promoID])/100)}" pattern="###,###" />
+                            </c:set>
                             <div class="productDetail">
                                 <h3>${product.getName()}</h3>
                                 <p>
-                                    <span class="price">${formattedPrice} VND</span>
+                                    <del><span class="price">${formattedPrice} VND</span></del>
+                                    <span class="">${formattedPrice2} VND</span>
                                     <span class="price-sale"></span>
                                 </p>
                                 <div class="productButton">
