@@ -181,7 +181,115 @@ public class statistic extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int numberOfOrder = 0;
+        int numberOfProduct = 0;
+        int revenue = 0;
+        int numberOfCustomer = 0;
+        DAO.DAOproduct DAOproduct = new DAOproduct();
+        String date = request.getParameter("date");
+
+        if (date.equals("date")) {
+            String year = request.getParameter("year");
+    
+            int yearInt = Integer.parseInt(year);
+
+            numberOfOrder = DAOproduct.getNumberOfOrderByYear(yearInt);
+            numberOfProduct = DAOproduct.getNumberOfProductByYear(yearInt);
+            revenue = DAOproduct.getRevenueByYear(yearInt);
+            numberOfCustomer = DAOproduct.getNumberOfCustomerByYear(yearInt);
+            
+            int revenue1 = DAOproduct.getRevenueByMonth(1, yearInt);
+            int revenue2 = DAOproduct.getRevenueByMonth(2, yearInt);
+            int revenue3 = DAOproduct.getRevenueByMonth(3, yearInt);
+            int revenue4 = DAOproduct.getRevenueByMonth(4, yearInt);
+            int revenue5 = DAOproduct.getRevenueByMonth(5, yearInt);
+            int revenue6 = DAOproduct.getRevenueByMonth(6, yearInt);
+            int revenue7 = DAOproduct.getRevenueByMonth(7, yearInt);
+            int revenue8 = DAOproduct.getRevenueByMonth(8, yearInt);
+            int revenue9 = DAOproduct.getRevenueByMonth(9, yearInt);
+            int revenue10 = DAOproduct.getRevenueByMonth(10, yearInt);
+            int revenue11 = DAOproduct.getRevenueByMonth(11, yearInt);
+            int revenue12 = DAOproduct.getRevenueByMonth(12, yearInt);
+            int quarter1 = revenue1 + revenue2 + revenue3;
+            int quarter2 = revenue4 + revenue5 + revenue6;
+            int quarter3 = revenue7 + revenue8 + revenue9;
+            int quarter4 = revenue10 + revenue11 + revenue12;
+            request.setAttribute("revenue1", revenue1);
+            request.setAttribute("revenue2", revenue2);
+            request.setAttribute("revenue3", revenue3);
+            request.setAttribute("revenue4", revenue4);
+            request.setAttribute("revenue5", revenue5);
+            request.setAttribute("revenue6", revenue6);
+            request.setAttribute("revenue7", revenue7);
+            request.setAttribute("revenue8", revenue8);
+            request.setAttribute("revenue9", revenue9);
+            request.setAttribute("revenue10", revenue10);
+            request.setAttribute("revenue11", revenue11);
+            request.setAttribute("revenue12", revenue12);
+            
+
+             request.setAttribute("quarter1", quarter1);
+            request.setAttribute("quarter2", quarter2);   
+            request.setAttribute("quarter3", quarter3);   
+            request.setAttribute("quarter4", quarter4);   
+            
+            request.setAttribute("numberOfProduct", numberOfProduct);
+            request.setAttribute("numberOfOrder", numberOfOrder);
+            request.setAttribute("revenue", revenue);
+            request.setAttribute("numberOfCustomer", numberOfCustomer);
+            
+//            12 month
+            
+        } else {
+            numberOfProduct = DAOproduct.getNumberOfProduct();
+            numberOfOrder = DAOproduct.getNumberOfOrder();
+            revenue = DAOproduct.getRevenue();
+            numberOfCustomer = DAOproduct.getNumberOfCustomer();
+            
+            int revenue1 = DAOproduct.getRevenueByMonth(1, 2024);
+            int revenue2 = DAOproduct.getRevenueByMonth(2, 2024);
+            int revenue3 = DAOproduct.getRevenueByMonth(3, 2024);
+            int revenue4 = DAOproduct.getRevenueByMonth(4, 2024);
+            int revenue5 = DAOproduct.getRevenueByMonth(5, 2024);
+            int revenue6 = DAOproduct.getRevenueByMonth(6, 2024);
+            int revenue7 = DAOproduct.getRevenueByMonth(7, 2024);
+            int revenue8 = DAOproduct.getRevenueByMonth(8, 2024);
+            int revenue9 = DAOproduct.getRevenueByMonth(9, 2024);
+            int revenue10 = DAOproduct.getRevenueByMonth(10, 2024);
+            int revenue11 = DAOproduct.getRevenueByMonth(11, 2024);
+            int revenue12 = DAOproduct.getRevenueByMonth(12, 2024);
+            int quarter1 = revenue1 + revenue2 + revenue3;
+            int quarter2 = revenue4 + revenue5 + revenue6;
+            int quarter3 = revenue7 + revenue8 + revenue9;
+            int quarter4 = revenue10 + revenue11 + revenue12;
+
+            request.setAttribute("revenue1", revenue1);
+            request.setAttribute("revenue2", revenue2);
+            request.setAttribute("revenue3", revenue3);
+            request.setAttribute("revenue4", revenue4);
+            request.setAttribute("revenue5", revenue5);
+            request.setAttribute("revenue6", revenue6);
+            request.setAttribute("revenue7", revenue7);
+            request.setAttribute("revenue8", revenue8);
+            request.setAttribute("revenue9", revenue9);
+            request.setAttribute("revenue10", revenue10);
+            request.setAttribute("revenue11", revenue11);
+            request.setAttribute("revenue12", revenue12);
+            request.setAttribute("quarter1", quarter1);
+            request.setAttribute("quarter2", quarter2);   
+            request.setAttribute("quarter3", quarter3);   
+            request.setAttribute("quarter4", quarter4);   
+            
+
+            request.setAttribute("numberOfOrder", numberOfOrder);
+            request.setAttribute("numberOfProduct", numberOfProduct);
+            request.setAttribute("revenue", revenue);
+            request.setAttribute("numberOfCustomer", numberOfCustomer);
+
+
+        }
+//        
+        request.getRequestDispatcher("staff.jsp").forward(request, response);
     }
 
     /**

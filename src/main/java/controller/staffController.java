@@ -436,7 +436,8 @@ public class staffController extends HttpServlet {
             if (input.equals("admin")) {
                 response.sendRedirect("/Project_SWP_Group2/statistic?date=none&year=2024");
             } else {
-                request.getRequestDispatcher("/staff.jsp").forward(request, response);
+                
+                response.sendRedirect("/Project_SWP_Group2/orderList?date=none");
             }
         } else {
             request.setAttribute("message", "<div id=\"message\" style=\"color: red\">Incorrect username or password</div>");
