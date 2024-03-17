@@ -19,7 +19,9 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import static url.cartURL.URL_CART_DECREASE;
 import static url.cartURL.URL_CART_DELETE;
 import static url.cartURL.URL_CART_INCREASE;
@@ -111,22 +113,17 @@ public class cart extends HttpServlet {
         List<entity.cart> list2 = cart.getAll(username);
         DAOsize daoSize = new DAOsize();
         List<size> sizeList = daoSize.getAll();
+        Map<Integer, Integer> promoMap = new HashMap<>();
+        for (promo promoM : promoList) {
+            promoMap.put(promoM.getPromoID(), promoM.getPromoPercent());
+        }
         float price2 = 0;
         System.out.println(id);
         System.out.println(username);
         switch (urlPath) {
             case URL_CART_INSERT:
-                if (list2.size() > 0) {
-                    for (int i = 0; i < list2.size(); i++) {
-                        if (id == (list2.get(i).getProductID()) && username.equals(list2.get(i).getUsername())) {
-                            totalQ = totalQ + list2.get(i).getQuantity();
-                        }
-                    }
-                }
                 for (int i = 0; i < list.size(); i++) {
                     if (id == (list.get(i).getId())) {
-                        int pro_id = list.get(i).getId();
-                        product p = product.getProductById(pro_id);
                         price2 = quantity * price;
                     }
                 }
@@ -138,13 +135,6 @@ public class cart extends HttpServlet {
                                 price2 = quantity * price;
                                 cart.updateCart(username, id, quantity, price2, size);
                                 temp++;
-                            }
-                            if (quantity > (sizeList.get(j).getQuantity()) && id == (sizeList.get(j).getProduct_id()) && sizeList.get(j).getSize_name().equals(size)) {
-                                product p = product.getProductById(id);
-                                request.setAttribute("ms", ms);
-                                request.setAttribute("p", p);
-                                request.getRequestDispatcher("productDetail.jsp").forward(request, response);
-
                             }
                         }
 
@@ -161,6 +151,7 @@ public class cart extends HttpServlet {
                             product p = product.getProductById(id);
                             request.setAttribute("ms", ms);
                             request.setAttribute("p", p);
+                            request.setAttribute("promoMap", promoMap);
                             request.getRequestDispatcher("productDetail.jsp").forward(request, response);
 
                         }

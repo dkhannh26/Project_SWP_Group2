@@ -718,32 +718,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="/Project_SWP_Group2/js/jquery-3.7.0.min.js"></script>
         <script src="/Project_SWP_Group2/js/jquery.validate.min.js"></script>
-        <script>
-
-                                                    let status = document.querySelectorAll('.status');
-
-                                                    status.forEach(element => {
-                                                        if (element.innerHTML === 'reject') {
-                                                            element.classList.add('red');
-                                                        } else if (element.innerHTML === 'accept') {
-                                                            element.classList.add('green');
-
-                                                        }
-                                                        else if (element.innerHTML === 'Delivered'){
-                                                                element.classList.add('blue');
-                                                            }
-                                                    });
-
-                                                    const handleColor = () => {
-                                                        let status = document.querySelectorAll('.status');
-                                                        status.forEach(element => {
-                                                            if (element.innerHTML === 'Cancelled') {
-                                                                element.classList.add('red');
-                                                            } else if (element.innerHTML === 'Delivering') {
-                                                                element.classList.add('green');
-
-
-                                    $(document).ready(function (e) {
+        <!--thinh-->
+        <script> 
+             $(document).ready(function (e) {
                                         $('.btn-changePass').click(function (e) {
                                             e.preventDefault();
                                             var currentPass = document.getElementById("currentPassword").value;
@@ -770,9 +747,6 @@
                                                                 $("#message-changepass").html("Your current password is incorrect");
                                                                 document.getElementById("message-changepass").style.color = "red";
                                                             }
-                                                            else if (element.innerHTML === 'Received'){
-                                                                element.classList.add('blue');
-                                                            }
                                                         });
                                             } else {
                                                 $("#message-changepass").html("Password is not match!");
@@ -790,7 +764,6 @@
 
                                     function updateProfile(pro) {
                                         var username = pro.getAttribute('data-id');
-
                                         var email = document.getElementById('update-profile-email').value;
                                         var address = document.getElementById('update-profile-address').value;
                                         var fullname = document.getElementById('update-profile-name').value;
@@ -815,35 +788,8 @@
                                                     } else {
                                                         alert("fail")
                                                     }
-
-                                                    function updateOrderStatus(orderId, status) {
-                                                        let id = document.querySelector(`#id` + orderId);
-                                                        $.ajax({
-                                                            url: '/Project_SWP_Group2/orderUpdateStatus',
-                                                            method: 'GET',
-                                                            data: {
-                                                                orderId: orderId,
-                                                                status: status
-                                                            },
-                                                            success: function (response) {
-                                                                console.log(id);
-                                                                id.innerHTML = status;
-                                                                
-                                                                handleColor();
-                                                            }
-                                                        });
-                                                    }
-                                                    document.addEventListener("DOMContentLoaded", function () {
-                                                        const viewBtn = document.querySelectorAll('.view-btn');
-                                                        const dropdownItem = document.querySelectorAll('.item');
-                                                        viewBtn.forEach(function (edit, i) {
-                                                            edit.addEventListener('click', function () {
-                                                                if (dropdownItem[i].style.display === "none") {
-                                                                    dropdownItem[i].style.display = "contents";
-                                                                } else {
-                                                                    dropdownItem[i].style.display = "none";
-                                                                }
-
+                                                })
+                                    }
 
                                     function toggleEditPersonal(profile) {
                                         var edit = document.getElementById('edit-personal');
@@ -858,7 +804,6 @@
 
                                         var id = profile.getAttribute('data-id');
                                         document.getElementById('edit-profile-btn').setAttribute('data-id', id);
-
                                         var email = document.getElementById('update-profile-email');
                                         email.value = profile.getAttribute('data-email');
                                         var address = document.getElementById('update-profile-address');
@@ -972,7 +917,6 @@
                                     function getCookie(name) {
                                         // Tách các cookie thành mảng các cặp key-value
                                         var cookies = document.cookie.split(';');
-
                                         // Duyệt qua từng cookie để tìm kiếm cookie có tên mong muốn
                                         for (var i = 0; i < cookies.length; i++) {
                                             var cookie = cookies[i].trim(); // Loại bỏ khoảng trắng ở đầu và cuối
@@ -1010,7 +954,6 @@
                                                         var trEmail = document.getElementById("email");
                                                         var trAddress = document.getElementById("address");
                                                         var trPhone = document.getElementById("phoneNumber");
-
                                                         var info = data1.data;
                                                         var fullName = document.createElement("td");
                                                         var phoneNumber = document.createElement("td");
@@ -1021,19 +964,15 @@
                                                         document.getElementById('update-pro-btn').setAttribute('data-email', info.email);
                                                         document.getElementById('update-pro-btn').setAttribute('data-address', info.address);
                                                         document.getElementById('update-pro-btn').setAttribute('data-id', info.username);
-
                                                         // Đặt nội dung cho các ô dữ liệu
                                                         fullName.textContent = info.fullName;
                                                         phoneNumber.textContent = info.phoneNumber;
                                                         address.textContent = info.address;
                                                         email.textContent = info.email;
-
                                                         trName.appendChild(fullName);
                                                         trEmail.appendChild(email);
                                                         trAddress.appendChild(address);
                                                         trPhone.appendChild(phoneNumber);
-
-
                                                     }
                                                 });
                                     }
@@ -1082,6 +1021,69 @@
                                                 });
                                     }
 
+                                    function listImport() {
+                                        $.ajax({
+                                            method: "POST",
+                                            url: "http://localhost:8080/Project_SWP_Group2/staff/import",
+                                            data: {
+                                            }
+                                        })
+                                                .done(function (data) {
+                                                    var data1 = JSON.parse(data);
+//                                                                                    console.log(data1.data);
+                                                    if (data1.isSuccess) {
+                                                        document.querySelector("table tbody").innerHTML = ""
+                                                        console.log(data1.data);
+                                                        var importList = data1.data;
+                                                        var i = 0;
+
+                                                        importList.forEach(function (item) {
+//                                                            // Tạo một hàng mới                                                            var newRow = document.createElement("tr");
+                                                            var newDiv = document.createElement("div");
+                                                            var newTr = document.createElement("tr");
+                                                            var newBody = document.createElement("tbody");
+                                                            var numCell = document.createElement("td");
+                                                            var nameCell = document.createElement("td");
+                                                            var quantityCell = document.createElement("td"); //                                                            var nameCell = document.createElement("td");
+                                                            var dateCell = document.createElement("td");
+                                                            var statusCell = document.createElement("td");
+                                                            var priceCell = document.createElement("td");
+                                                            var btnCell = document.createElement("td");
+
+                                                            numCell.textContent = ++i;
+                                                            nameCell.textContent = item.username;
+                                                            quantityCell.textContent = item.quantity;
+                                                            dateCell.textContent = item.date;
+//                                                            statusCell.textContent = item.status;
+                                                            statusCell.innerHTML = '<p class="status stt-delivering" >Delivering</p>';
+                                                            ;
+
+                                                            priceCell.textContent = item.total;
+                                                            btnCell.innerHTML = '<button class="accept-btn"><i class="bi bi-check-lg"></i></button><button class="reject-btn"><i class="bi bi-x-lg"></i></button><button class="view-btn"><i class="bi bi-eye"></i></button>'
+//                                                            newDiv.appendChild(newTr);
+
+                                                            newTr.appendChild(numCell);
+                                                            newTr.appendChild(nameCell);
+                                                            newTr.appendChild(quantityCell);
+                                                            newTr.appendChild(dateCell);
+                                                            newTr.appendChild(statusCell);
+                                                            newTr.appendChild(priceCell);
+                                                            newTr.appendChild(btnCell);
+
+//                                                            // Đặt nội dung cho các ô dữ liệu
+//                                                           
+//                                                            // Thêm các ô dữ liệu vào hàng mới
+//                                                           
+//                                                            // Thêm hàng mới vào tbody của bảng
+                                                            document.querySelector("table #import-list").appendChild(newTr);
+                                                        })
+                                                    } else {
+                                                        alert('fail');
+                                                    }
+                                                });
+                                    }
+
+
                                     let status = document.querySelectorAll('.status');
                                     status.forEach(element => {
                                         if (element.innerHTML === 'reject') {
@@ -1114,12 +1116,17 @@
                                                         div.style.display = 'none';
                                                     }
                                                 });
+//                                                console.log(target);
+
                                                 switch (target) {
                                                     case 'product-manage':
                                                         productList();
                                                         break;
                                                     case 'personal-info':
                                                         profile();
+                                                        break;
+                                                    case 'import-goods':
+                                                        listImport();
                                                         break;
                                                 }
 
@@ -1175,6 +1182,110 @@
                                             });
                                         })
                                     });
+        </script>
+        
+         <script>
+                                                    let status = document.querySelectorAll('.status');
+
+                                                    status.forEach(element => {
+                                                        if (element.innerHTML === 'reject') {
+                                                            element.classList.add('red');
+                                                        } else if (element.innerHTML === 'accept') {
+                                                            element.classList.add('green');
+
+                                                        }
+                                                        else if (element.innerHTML === 'Delivered'){
+                                                                element.classList.add('blue');
+                                                            }
+                                                    });
+
+                                                    const handleColor = () => {
+                                                        let status = document.querySelectorAll('.status');
+                                                        status.forEach(element => {
+                                                            if (element.innerHTML === 'Cancelled') {
+                                                                element.classList.add('red');
+                                                            } else if (element.innerHTML === 'Delivering') {
+                                                                element.classList.add('green');
+
+                                                            }
+                                                            else if (element.innerHTML === 'Received'){
+                                                                element.classList.add('blue');
+                                                            }
+                                                        });
+                                                    };
+
+
+                                                    document.addEventListener('DOMContentLoaded', function () {
+                                                        const links = document.querySelectorAll('.nav-link');
+                                                        links.forEach(function (link) {
+                                                            link.addEventListener('click', function (e) {
+                                                                e.preventDefault();
+                                                                const target = this.getAttribute('data-target');
+                                                                const contentDivs = document.querySelectorAll('.main-content > div');
+                                                                contentDivs.forEach(function (div) {
+                                                                    if (div.classList.contains(target)) {
+                                                                        div.style.display = 'block';
+                                                                    } else {
+                                                                        div.style.display = 'none';
+                                                                    }
+                                                                });
+                                                            });
+                                                        });
+                                                    });
+
+                                                    var acceptBtns = document.querySelectorAll('.accept-btn');
+                                                    var rejectBtns = document.querySelectorAll('.reject-btn');
+
+                                                    // Thiết lập sự kiện cho tất cả các nút
+                                                    acceptBtns.forEach(function (btn) {
+                                                        btn.addEventListener('click', hideButtons);
+                                                    });
+
+                                                    rejectBtns.forEach(function (btn) {
+                                                        btn.addEventListener('click', hideButtons);
+                                                    });
+
+                                                    // Hàm để ẩn cả hai nút trong cùng một thẻ td
+                                                    function hideButtons(event) {
+                                                        var clickedBtn = event.target; // Lấy nút đã được nhấp vào
+                                                        var tdElement = clickedBtn.closest('.action-btn'); // Tìm thẻ td gần nhất chứa nút đã được nhấp vào
+                                                        var acceptBtn = tdElement.querySelector('.accept-btn'); // Lấy nút chấp nhận trong thẻ td
+                                                        var rejectBtn = tdElement.querySelector('.reject-btn'); // Lấy nút từ chối trong thẻ td
+                                                        acceptBtn.style.display = 'none';
+                                                        rejectBtn.style.display = 'none';
+
+                                                    }
+                                                    function updateOrderStatus(orderId, status) {
+                                                        let id = document.querySelector(`#id` + orderId);
+                                                        $.ajax({
+                                                            url: '/Project_SWP_Group2/orderUpdateStatus',
+                                                            method: 'GET',
+                                                            data: {
+                                                                orderId: orderId,
+                                                                status: status
+                                                            },
+                                                            success: function (response) {
+                                                                console.log(id);
+                                                                id.innerHTML = status;
+                                                                
+                                                                handleColor();
+                                                            }
+                                                        });
+                                                    }
+                                                    document.addEventListener("DOMContentLoaded", function () {
+                                                        const viewBtn = document.querySelectorAll('.view-btn');
+                                                        const dropdownItem = document.querySelectorAll('.item');
+                                                        viewBtn.forEach(function (edit, i) {
+                                                            edit.addEventListener('click', function () {
+                                                                if (dropdownItem[i].style.display === "none") {
+                                                                    dropdownItem[i].style.display = "contents";
+                                                                } else {
+                                                                    dropdownItem[i].style.display = "none";
+                                                                }
+
+                                                            });
+                                                        })
+                                                    });
         </script>
     </body>
 

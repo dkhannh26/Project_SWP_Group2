@@ -672,7 +672,7 @@
                         </div>
                     </div> -->
                     <c:forEach items="${requestScope.ordersUserList}" var="ordersUser"> 
-                        <c:if test="${ordersUser.status eq 'Delivered'}">
+                        <c:if test="${ordersUser.status eq 'Delivered' || ordersUser.status ne 'Cancelled'}">
                             <div class="user-info">
                                 <div id="header-order" class="row">
                                     <div class="col-3">
