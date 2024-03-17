@@ -15,6 +15,7 @@ import java.util.List;
  * @author Administrator
  */
 public class DAOsize extends DBconnect.DBconnect {
+
     public List<size> getAll() {
         List<size> list = new ArrayList<>();
         String sql = "select * from size_detail";
@@ -30,7 +31,8 @@ public class DAOsize extends DBconnect.DBconnect {
         }
         return list;
     }
-    public void updateQuanSize(int quantity, int product_id,String size_name) {
+
+    public void updateQuanSize(int quantity, int product_id, String size_name) {
         String sql = "update size_detail\n"
                 + "set quantity = ?\n"
                 + "where product_id = ? and size_name = ?";
@@ -42,5 +44,24 @@ public class DAOsize extends DBconnect.DBconnect {
             ps.executeUpdate();
         } catch (Exception e) {
         }
+    }
+
+    public int getSizeQuantity(int id, String size_name) {
+        String sql = "select quantity \n"
+                + "from size_detail\n"
+                + "where product_id =  ? and size_name = ?";
+        int quantity = 0;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            st.setString(2, size_name);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                quantity = rs.getInt("quantity");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return quantity;
     }
 }

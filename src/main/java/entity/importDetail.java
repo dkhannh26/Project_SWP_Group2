@@ -25,6 +25,14 @@ public class importDetail {
         this.sizeName = sizeName;
     }
 
+    public importDetail(int productID, int quantity, String sizeName) {
+        this.productID = productID;
+        this.quantity = quantity;
+        this.sizeName = sizeName;
+    }
+    
+    
+
     public int getImportID() {
         return importID;
     }

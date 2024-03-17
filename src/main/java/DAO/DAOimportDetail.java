@@ -27,8 +27,28 @@ public class DAOimportDetail extends DBconnect.DBconnect {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                importDetail o = new importDetail(rs.getInt("import_id"),rs.getInt("product_id"), rs.getInt("quantity"), rs.getInt("price"), rs.getString("name"), rs.getString("size_name"));
+                importDetail o = new importDetail(rs.getInt("import_id"), rs.getInt("product_id"), rs.getInt("quantity"), rs.getInt("price"), rs.getString("name"), rs.getString("size_name"));
                 list.add(o);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<importDetail> getListToImport(String id) {
+        List<importDetail> list = new ArrayList<>();
+        String sql = "	SELECT importDetails.product_id, size_detail.size_name, importDetails.quantity\n"
+                + "	FROM     importDetails INNER JOIN\n"
+                + "					  size_detail ON importDetails.product_id = size_detail.product_id AND importDetails.size_name = size_detail.size_name\n"
+                + "					  where import_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                importDetail i = new importDetail(rs.getInt("product_id"), rs.getInt("quantity"), rs.getString("size_name"));
+                list.add(i);
             }
         } catch (Exception e) {
             System.out.println(e);

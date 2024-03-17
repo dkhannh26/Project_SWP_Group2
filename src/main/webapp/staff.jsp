@@ -885,7 +885,7 @@
                                                             pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
                                                             nameCell.textContent = product.name;
                                                             categoryIdCell.textContent = product.categoryID;
-                                                            priceCell.textContent = product.price;
+                                                            priceCell.textContent = product.price.toLocaleString('vi-VN');
                                                             quantityCell.textContent = product.quantity;
                                                             // Thêm các ô dữ liệu vào hàng mới
                                                             newRow.appendChild(pictureCell);
@@ -930,7 +930,7 @@
                                                             pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
                                                             nameCell.textContent = product.name;
                                                             categoryIdCell.textContent = product.categoryID;
-                                                            priceCell.textContent = product.price;
+                                                            priceCell.textContent = product.price.toLocaleString('vi-VN');
                                                             quantityCell.textContent = product.quantity;
                                                             // Thêm các ô dữ liệu vào hàng mới
                                                             newRow.appendChild(pictureCell);
@@ -1036,7 +1036,7 @@
                                                             pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
                                                             nameCell.textContent = product.name;
                                                             categoryIdCell.textContent = product.categoryID;
-                                                            priceCell.textContent = product.price;
+                                                            priceCell.textContent = product.price.toLocaleString('vi-VN');
                                                             quantityCell.textContent = product.quantity;
                                                             // Thêm các ô dữ liệu vào hàng mới
                                                             newRow.appendChild(pictureCell);
@@ -1067,6 +1067,7 @@
                                                 .done(function (data) {
                                                     // Kiểm tra phản hồi từ máy chủ
                                                     var data1 = JSON.parse(data);
+                                                    console.log(data1);
                                                     if (data1.isSuccess) {
                                                         // Cập nhật nội dung và class của thẻ có class "status"
 //                                                        button.classList.add('d-n');
@@ -1089,12 +1090,12 @@
                                         })
                                                 .done(function (data) {
                                                     var data1 = JSON.parse(data);
-                                                    console.log(data1.data);
+//                                                    console.log(data1.data);
                                                     if (data1.isSuccess) {
                                                         document.querySelector("table #import-list").innerHTML = ""
                                                         var importList = data1.data.list;
                                                         var importDetailList = data1.data.listDetail;
-                                                        console.log(importList);
+//                                                        console.log(importDetailList);
                                                         var i = 0;
                                                         importList.forEach(function (item) {
                                                             var newDiv = document.createElement("div");
@@ -1144,7 +1145,10 @@
                                                                     var sizeCell = document.createElement("td");
                                                                     var priceProductCell = document.createElement("td");
                                                                     var newTrBody = document.createElement("tr");
-                                                                    newTrBody.style.backgroundColor = "white";
+                                                                    
+                                                                    blankCell1.textContent = detail.productID;
+                                                                    productNameCell.textContent = detail.productName;
+
                                                                     productNameCell.textContent = detail.productName;
                                                                     quantityProductCell.textContent = detail.quantity;
                                                                     sizeCell.textContent = detail.sizeName;
@@ -1182,7 +1186,7 @@
                                                         })
 
                                                         var acceptBtns = document.querySelectorAll('.accept-btn');
-                                                        console.log(acceptBtns);
+//                                                        console.log(acceptBtns);
 
 //                                                        var rejectBtns = document.querySelectorAll('.reject-btn');
                                                         // Thiết lập sự kiện cho tất cả các nút

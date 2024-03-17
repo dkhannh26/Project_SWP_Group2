@@ -9,6 +9,7 @@ import DAO.DAOcustomer;
 import DAO.DAOimport;
 import DAO.DAOimportDetail;
 import DAO.DAOproduct;
+import DAO.DAOsize;
 import DAO.DAOstaff;
 import com.google.gson.Gson;
 import entity.customer;
@@ -66,7 +67,9 @@ public class staffController extends HttpServlet {
     DAOcategory daoCategory = new DAOcategory();
     DAOimportDetail daoImportDetail = new DAOimportDetail();
     DAOimport daoImport = new DAOimport();
+    DAOsize daoSize = new DAOsize();
     private Gson gson = new Gson();
+    
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -137,6 +140,15 @@ public class staffController extends HttpServlet {
     protected void updateStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         String id = request.getParameter("id");
         boolean isSuccess = daoImport.updateStatus(id);
+        List<importDetail> listToImport = daoImportDetail.getListToImport(id);
+        
+        for (importDetail detail : listToImport) {
+            int quantityProduct = daoProduct.getProductQuantity(detail.getProductID());
+             daoProduct.updateQuantity(detail.getProductID(), quantityProduct+detail.getQuantity());
+             int quantitySize = daoSize.getSizeQuantity(detail.getProductID(), detail.getSizeName());
+             daoSize.updateQuanSize(quantitySize +detail.getQuantity() , detail.getProductID(), detail.getSizeName());
+        }
+        
          ResponseData data = new ResponseData();
         data.setIsSuccess(isSuccess);
         data.setDescription("");
