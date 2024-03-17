@@ -241,10 +241,10 @@ public class order extends HttpServlet {
                     request.setAttribute("dateFrom", dateFrom);
                     request.setAttribute("dateTo", dateTo);
 
-                    numberOfOrder = DAOproduct.getNumberOfOrderByDate(dateFrom, dateTo);
-                    numberOfProduct = DAOproduct.getNumberOfProductByDate(dateFrom, dateTo);
-                    revenue = DAOproduct.getRevenueByDate(dateFrom, dateTo);
-                    numberOfCustomer = DAOproduct.getNumberOfCustomerByDate(dateFrom, dateTo);
+//                    numberOfOrder = DAOproduct.getNumberOfOrderByDate(dateFrom, dateTo);
+//                    numberOfProduct = DAOproduct.getNumberOfProductByDate(dateFrom, dateTo);
+//                    revenue = DAOproduct.getRevenueByDate(dateFrom, dateTo);
+//                    numberOfCustomer = DAOproduct.getNumberOfCustomerByDate(dateFrom, dateTo);
 
                     request.setAttribute("numberOfProduct", numberOfProduct);
                     request.setAttribute("numberOfOrder", numberOfOrder);
@@ -261,6 +261,8 @@ public class order extends HttpServlet {
                     request.setAttribute("revenue", revenue);
                     request.setAttribute("numberOfCustomer", numberOfCustomer);
 
+                    
+                    
                 }
                 request.setAttribute("orderDetailList", orderDetailList);
                 request.setAttribute("orderList", orderListSort);

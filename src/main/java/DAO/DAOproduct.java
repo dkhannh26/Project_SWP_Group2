@@ -70,7 +70,8 @@ public class DAOproduct extends DBconnect.DBconnect {
         }
         return null;
     }
-        public void updateQuan(int quantity, int product_id) {
+
+    public void updateQuan(int quantity, int product_id) {
         String sql = "update product\n"
                 + "set quantity = ?\n"
                 + "where product_id = ?";
@@ -83,7 +84,7 @@ public class DAOproduct extends DBconnect.DBconnect {
         }
     }
 
-    public void update(product p) {
+    public boolean update(product p) {
         String sql = "UPDATE [dbo].[product]\n"
                 + "   SET [name] = ?\n"
                 + "      ,[quantity] = ?\n"
@@ -106,26 +107,33 @@ public class DAOproduct extends DBconnect.DBconnect {
             st.setInt(7, p.getPromoID());
             st.setInt(8, p.getId());
             st.executeUpdate();
+            return true;
         } catch (Exception e) {
         }
+        return false;
     }
 
-    public void delete(int id) {
+    public boolean delete(int id) {
         String sql = "delete from order_detail where product_id=?\n"
                 + "delete from cart where product_id = ?\n"
-                + "delete from product where product_id = ?";
+                + "delete from product where product_id = ?\n"
+                + "delete from feedback where product_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
             st.setInt(2, id);
             st.setInt(3, id);
+            st.setInt(4, id);
+      
             st.executeUpdate();
+            return true;
         } catch (Exception e) {
             System.out.println(e);
         }
+        return false;
     }
 
-    public void insert(product p) {
+    public boolean insert(product p) {
         String sql = "INSERT INTO [dbo].[product]\n"
                 + "           ([name]\n"
                 + "           ,[quantity]\n"
@@ -148,9 +156,11 @@ public class DAOproduct extends DBconnect.DBconnect {
             st.setInt(6, p.getCategoryID());
             st.setInt(7, p.getPromoID());
             st.executeUpdate();
+            return true;
         } catch (Exception e) {
             System.out.println(e);
         }
+        return false;
 
     }
 
@@ -173,6 +183,7 @@ public class DAOproduct extends DBconnect.DBconnect {
         }
         return list;
     }
+
     public List<product> get8RandomProduct() {
         List<product> list = new ArrayList<>();
         String sql = "select top 8* from product order by newid()";
@@ -189,6 +200,7 @@ public class DAOproduct extends DBconnect.DBconnect {
         }
         return list;
     }
+
     public List<product> getFemaleProduct() {
         DAOcategory DAOcategory = new DAOcategory();
         String listId = DAOcategory.getIdGender("female");
@@ -208,7 +220,7 @@ public class DAOproduct extends DBconnect.DBconnect {
         return list;
     }
 
-        public List<product> sortIncrease() {
+    public List<product> sortIncrease() {
 
         List<product> list = new ArrayList<>();
         String sql = "SELECT * FROM product\n"
@@ -302,18 +314,16 @@ public class DAOproduct extends DBconnect.DBconnect {
         return number;
     }
 
-    public int getNumberOfOrderByDate(String from, String to) {
+    public int getNumberOfOrderByYear(int year) {
         int number = 0;
-        String sql = "SELECT COUNT(*) AS total FROM orders\n"
-                + "WHERE date >= ? AND date <= ?";
+        String sql = "SELECT COUNT(*) AS total FROM orders\n" +
+"        WHERE YEAR(date) = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, from);
-            st.setString(2, to);
+            st.setInt(1, year);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 number = rs.getInt("total");
-
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -321,16 +331,15 @@ public class DAOproduct extends DBconnect.DBconnect {
         return number;
     }
 
-    public int getNumberOfProductByDate(String from, String to) {
+    public int getNumberOfProductByYear(int year) {
         int number = 0;
         String sql = "SELECT sum(order_detail.quantity) as total\n"
                 + "FROM   order_detail INNER JOIN\n"
                 + "             orders ON order_detail.order_id = orders.order_id\n"
-                + "			 Where date >= ? AND date <= ?";
+                + "			 WHERE YEAR(date) = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, from);
-            st.setString(2, to);
+             st.setInt(1, year);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 number = rs.getInt("total");
@@ -375,20 +384,39 @@ public class DAOproduct extends DBconnect.DBconnect {
         return number;
     }
 
-    public int getRevenueByDate(String from, String to) {
+    public int getRevenueByYear(int year) {
         int number = 0;
         String sql = "SELECT sum(order_detail.quantity * product.price) AS total\n"
                 + "FROM   order_detail INNER JOIN\n"
                 + "             product ON order_detail.product_id = product.product_id INNER JOIN\n"
                 + "             orders ON order_detail.order_id = orders.order_id\n"
-                + "			  Where date >= ? AND date <= ?";
+                + "			  WHERE YEAR(date) = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, from);
-            st.setString(2, to);
+              st.setInt(1, year);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 number = rs.getInt("total");
+
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return number;
+    }
+
+    public int getRevenueByMonth(int month, int year) {
+        int number = 0;
+        String sql = "SELECT COALESCE(SUM(total), 0) AS tong\n"
+                + "FROM orders\n"
+                + "WHERE MONTH(date) = ? and year(date)  = ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, month);
+            st.setInt(2, year);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                number = rs.getInt("tong");
 
             }
         } catch (Exception e) {
@@ -413,15 +441,14 @@ public class DAOproduct extends DBconnect.DBconnect {
         return number;
     }
 
-    public int getNumberOfCustomerByDate(String from, String to) {
+    public int getNumberOfCustomerByYear(int year) {
         int number = 0;
         String sql = "select count(DISTINCT  usernameCustomer) as total \n"
                 + "from orders\n"
-                + "Where date >= ? AND date <= ?";
+                + " WHERE YEAR(date) = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, from);
-            st.setString(2, to);
+             st.setInt(1, year);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 number = rs.getInt("total");
@@ -455,7 +482,7 @@ public class DAOproduct extends DBconnect.DBconnect {
 
     public List<product> getFemaleProductByType(String type) {
         DAOcategory DAOcategory = new DAOcategory();
-        int id = DAOcategory.getIdType(type,"female");
+        int id = DAOcategory.getIdType(type, "female");
 
         List<product> list = new ArrayList<>();
         String sql = "select * from product\n"

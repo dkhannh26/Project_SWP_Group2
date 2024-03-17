@@ -140,6 +140,7 @@ public class cart extends HttpServlet {
 
                     }
                 }
+
                 if (temp == 0) {
                     for (int j = 0; j < sizeList.size(); j++) {
                         if (id == (sizeList.get(j).getProduct_id()) && sizeList.get(j).getSize_name().equals(size) && quantity <= (sizeList.get(j).getQuantity())) {
@@ -164,15 +165,18 @@ public class cart extends HttpServlet {
                     response.sendRedirect("http://localhost:8080/Project_SWP_Group2/profile");
                 }
 
+
                 break;
             case URL_CART_INCREASE:
 
                 for (int i = 0; i < list2.size(); i++) {
                     if (id == (list2.get(i).getProductID()) && username.equals(list2.get(i).getUsername()) && size.equals(list2.get(i).getSize_name())) {
+
                         for (int j = 0; j < sizeList.size(); j++) {
                             if (id == (sizeList.get(j).getProduct_id()) && sizeList.get(j).getSize_name().equals(size) && quantity <= (sizeList.get(j).getQuantity())) {
                                 price2 = quantity * (list.get(j).getPrice() - ((list.get(j).getPrice() * promoList.get(list.get(j).getPromoID() - 1).getPromoPercent()) / 100));
                                 cart.updateCart(username, id, quantity, price2, size);
+
 
                             }
                             if (quantity > (sizeList.get(j).getQuantity()) && id == (sizeList.get(j).getProduct_id()) && sizeList.get(j).getSize_name().equals(size)) {
@@ -186,6 +190,7 @@ public class cart extends HttpServlet {
                         }
                     }
                 }
+
                     List<entity.cart> cartUpdateIncrease = cart.getAll(username);
                     for (int i = 0; i < cartUpdateIncrease.size(); i++) {
                         sum = sum + cartUpdateIncrease.get(i).getPrice();
@@ -193,6 +198,7 @@ public class cart extends HttpServlet {
                     System.out.println(sum);
                     System.out.println(temp);
                     response.getWriter().write(price2 + "," + sum + "," + temp);
+
 
                 break;
             case URL_CART_DECREASE:
@@ -213,6 +219,7 @@ public class cart extends HttpServlet {
 
                     }
                 }
+
                 List<entity.cart> cartUpdateDecrease = cart.getAll(username);
                 for (int i = 0; i < cartUpdateDecrease.size(); i++) {
                     sum = sum + cartUpdateDecrease.get(i).getPrice();
@@ -229,6 +236,7 @@ public class cart extends HttpServlet {
                 }
                 System.out.println(sum);
                 response.getWriter().write(price2 + "," + sum);
+
                 break;
             case URL_PAYMENT:
                 response.sendRedirect("loadPayment?size=" + size);

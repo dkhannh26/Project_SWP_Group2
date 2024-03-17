@@ -23,7 +23,7 @@
         <!-- bootstrap icon -->
         <!-- <link rel="stylesheet" href="grid.css"> -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-               <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+        <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
 
 
         <title>DOTAI</title>
@@ -35,6 +35,8 @@
                 box-sizing: border-box;
                 color: rgb(151, 143, 137);
             }
+
+            
 
             img {
                 width: 100%;
@@ -69,7 +71,9 @@
             }
 
             #filter {
-                width: 7%;
+                width: 15%;
+                padding-left: 1%;
+
             }
 
 
@@ -657,6 +661,69 @@
             }
 
             /* END footer */
+            .sizeOptions {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #fff;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                z-index: 999;
+            }
+            .sizeOptions select {
+                margin-right: 10px;
+                color: black;
+
+            }
+
+
+            .search-info {
+                display: flex;
+                margin: 10px 0;
+            }
+            .title {
+                width: 88%;
+            }
+            .search-img {
+                width: 12%;
+            }
+            .search-info a {
+                padding: 0;
+            }
+            .search-img a img {
+                width: 100%;
+            }
+            .title a {
+                text-decoration: none;
+                color: #cfb997;
+                ;
+            }
+            .title p {
+                margin: 0;
+                margin-top: 14px;
+                font-size: .8em;
+            }
+
+            .search-list {
+                max-height: 280px;
+                overflow-y: scroll;
+                scrollbar-width: none;
+            }
+            button.filter{
+                color: white;
+                border: none;
+                border-radius: 20%;
+                border-width: 0%;
+                padding: 0 10px;
+                border-color: var(--logo-color);
+                background-color: var(--logo-color);
+                margin-left: 1%;
+                height: 39px;
+            }
+            
+            
 
             @media (max-width: 768px) and (min-width: 601px) {
                 .headerListItem {
@@ -676,6 +743,9 @@
                     height: 50px;
                 }
             }
+            
+            
+            
             @media (max-width: 1024px) {
                 .infoBox,
                 .searchBox, .cartBox {
@@ -740,6 +810,14 @@
                                     <input oninput="searchByName(this)" name="search" type="text" size="20" placeholder="Search for products...">
                                     <button><i class="bi bi-search"></i></button>
                                 </div>
+                                <div class="search-list">
+                                    <div class="search-list" id="search-ajax">
+                                        <c:forEach items="${requestScope.productList}" var="product">
+
+                                        </c:forEach>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -789,9 +867,7 @@
                         <div class="col-md-3 p-2">
                             <div class="product">
                                 <div class="productImg">
-
-                                    <img src="${path}${product.getPicURL()}" alt="img">
-
+                                    <img src="${product.getPicURL()}" alt="img">
                                 </div>
                                 <c:set var="formattedPrice">
                                     <fmt:formatNumber type="number" value="${product.getPrice()}" pattern="###,###" />
@@ -803,14 +879,26 @@
                                         <span class="price-sale"></span>
                                     </p>
                                     <div class="productButton">
-                                        <button type="button" class="addBtn"><a href="productDetail?id=${product.getId()}">Add to cart</a></button>
-                                        <button type="button" class="right"><a href="productBuy?name=${product.name} &price=${product.price} &quantity=1&picURL=${product.picURL} &id=${product.id}">Buy now</a></button>
+                                        <button type="button" class="addBtn"><a href="/Project_SWP_Group2/productDetail?id=${product.getId()}">Add to cart</a></button>
+                                        <button type="button" class="right" onclick="showSizeOptions(this)">Buy now ${product.getId()}</button>
+                                        <input type="hidden" name="idP" class="idP" value="${product.getId()}">
+                                        <div id="sizeOptions_${product.getId()}" class="sizeOptions" style="display: none;">
+                                            <label for="size_${product.getId()}">Choose Size:</label>
+                                            <select id="size_${product.getId()}">
+                                                <option value="S">S</option>
+                                                <option value="M">M</option>
+                                                <option value="L">L</option>
+                                            </select>
+                                            <button onclick="buyNow(this)">Confirm</button>
+                                            <input type="hidden" name="name" class="name" value="${product.name}">
+                                            <input type="hidden" name="price" class="price" value="${product.price - ((product.price * promoMap[product.promoID])/100)}">
+                                            <input type="hidden" name="picUrl" class="picUrl" value="${product.picURL}">
+                                            <input type="hidden" name="id" class="id" value="${product.id}">
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
-
                     </c:forEach>
                 </div>
             </div>
@@ -886,31 +974,49 @@
         <script src="/Project_SWP_Group2/js/header.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script type="text/javascript">
-                        function doDelete(id) {
-                            if (confirm("Do you want to delete this product (" + id + ")?")) {
-                                window.location = "deleteProduct?id=" + id;
-                            }
-                        }
+                                                function doDelete(id) {
+                                                    if (confirm("Do you want to delete this product (" + id + ")?")) {
+                                                        window.location = "deleteProduct?id=" + id;
+                                                    }
+                                                }
 
 
-                        function searchByName(name) {
-                            var search = name.value
+                                                function searchByName(name) {
+                                                    var search = name.value
 
-                            $.ajax({
-                                url: "/Project_SWP_Group2/searchProductByAJAX",
-                                type: "get",
-                                data: {
-                                    txt: search
-                                },
-                                success: function (data) {
-                                    var row = document.getElementById("product");
-                                    row.innerHTML = data;
-                                },
-                                error: function (xhr) {
+                                                    $.ajax({
+                                                        url: "/Project_SWP_Group2/searchProductByAJAX",
+                                                        type: "get",
+                                                        data: {
+                                                            txt: search
+                                                        },
+                                                        success: function (data) {
+                                                            var row = document.getElementById("search-ajax");
+                                                            row.innerHTML = data;
+                                                        },
+                                                        error: function (xhr) {
 
-                                }
-                            })
-                        }
+                                                        }
+                                                    })
+                                                }
+                                                function showSizeOptions(button) {
+                                                    const idP = button.parentElement.querySelector('.idP').value;
+                                                    var sizeOptions = document.getElementById('sizeOptions_' + idP);
+                                                    if (sizeOptions.style.display === "block") {
+                                                        sizeOptions.style.display = "none";
+                                                    } else {
+                                                        sizeOptions.style.display = "block";
+                                                    }
+                                                }
+
+                                                function buyNow(button) {
+                                                    var name = button.parentElement.querySelector('.name').value;
+                                                    var price = button.parentElement.querySelector('.price').value;
+                                                    var picUrl = button.parentElement.querySelector('.picUrl').value;
+                                                    var id = button.parentElement.querySelector('.id').value;
+                                                    var size = button.parentElement.querySelector('select').value;
+                                                    window.location.href = '/Project_SWP_Group2/productBuy?name=' + name + "&price=" + price + "&quantity=1" + "&size=" + size + "&picURL=" + picUrl + "&id=" + id;
+                                                }
         </script>
     </body>
 

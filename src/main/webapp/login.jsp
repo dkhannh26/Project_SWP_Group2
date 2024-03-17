@@ -12,7 +12,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login</title>
-        <link rel="stylesheet" href="./boostrap/bootstrap.min.css"/>
+        <link rel="stylesheet" href="/Project_SWP_Group2/boostrap/bootstrap.min.css"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- bootstrap icon -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
 
@@ -867,6 +867,13 @@
                                     <input oninput="searchByName(this)" name="search" type="text" size="20" placeholder="Search for products...">
                                     <button><i class="bi bi-search"></i></button>
                                 </div>
+                                <div class="search-list">
+                                    <div class="search-list" id="search-ajax">
+                                        <c:forEach items="${requestScope.productList}" var="product">
+                        
+                                        </c:forEach>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -984,7 +991,7 @@
         <!-- end footer -->
 
         <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script> <!-- lucide.dev icon -->
-        <script src="js/jquery-3.7.0.min.js"></script>
-        <script src="js/jquery.validate.min.js"></script>
-        <script src="./js/login.js"></script>
+        <script src="/Project_SWP_Group2/js/jquery-3.7.0.min.js"></script>
+        <script src="/Project_SWP_Group2/js/jquery.validate.min.js"></script>
+        <script src="/Project_SWP_Group2/js/login.js"></script>
     </body>

@@ -685,10 +685,10 @@
         <header class="header">
             <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
             <div class="headerContent">
-                <div class="logo"><a href="productList">DOTAI</a></div>
+                <div class="logo"><a href="/Project_SWP_Group2/productList">DOTAI</a></div>
                 <nav>
                     <ul class="headerList">
-                        <li class="headerListItem"><a href="productList">Home page</a></li>
+                        <li class="headerListItem"><a href="/Project_SWP_Group2/productList">Home page</a></li>
                         <li class="headerListItem">
                             <a href="http://localhost:8080/Project_SWP_Group2/productList/male">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
@@ -711,7 +711,7 @@
                         </li>
                         <!--<li class="headerListItem"><a href="">Accessory</a></li>-->
                         <li class="headerListItem">
-                            <a href="./aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="/Project_SWP_Group2/aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
                                 <li><a href="./contact.jsp">Contact</a></li>
                                 <li><a href="./viewOrder.jsp">View order</a></li>
@@ -729,6 +729,13 @@
                                 <div class="search-input">
                                     <input oninput="searchByName(this)" name="search" type="text" size="20" placeholder="Search for products...">
                                     <button><i class="bi bi-search"></i></button>
+                                </div>
+                                <div class="search-list">
+                                    <div class="search-list" id="search-ajax">
+                                        <c:forEach items="${requestScope.productList}" var="product">
+                        
+                                        </c:forEach>
+                                    </div>
                                 </div>
                             </div>
                         </div>
