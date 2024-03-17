@@ -20,6 +20,10 @@ public class staffURL {
 
     public static final String URL_ADD_PRODUCT_STAFF = "/staff/product/add";
     public static final String URL_ADD_ACCOUNT_STAFF = "/staff/account/add";
+    public static final String URL_IMPORT_STAFF = "/staff/import";
+    
+        public static final String URL_IMPORT_UPDATE_STAFF = "/staff/import/update";
+
 
     public static final String URL_PROFILE_STAFF = "/staff/profile";
     public static final String URL_UPDATE_PROFILE_STAFF = "/staff/profile/update";

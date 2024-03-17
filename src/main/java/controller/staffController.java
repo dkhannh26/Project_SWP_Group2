@@ -6,10 +6,15 @@ package controller;
 
 import DAO.DAOcategory;
 import DAO.DAOcustomer;
+import DAO.DAOimport;
+import DAO.DAOimportDetail;
 import DAO.DAOproduct;
+import DAO.DAOsize;
 import DAO.DAOstaff;
 import com.google.gson.Gson;
 import entity.customer;
+import entity.importDetail;
+import entity.imports;
 import entity.product;
 import entity.staff;
 import java.io.IOException;
@@ -35,6 +40,8 @@ import static url.staffURL.URL_ADD_PRODUCT_STAFF;
 import static url.staffURL.URL_BOTH_DELETE_STAFF;
 import static url.staffURL.URL_CHANGEPASS_PROFILE_STAFF;
 import static url.staffURL.URL_CUSTOMER_DELETE_STAFF;
+import static url.staffURL.URL_IMPORT_STAFF;
+import static url.staffURL.URL_IMPORT_UPDATE_STAFF;
 import static url.staffURL.URL_LOGIN_STAFF;
 import static url.staffURL.URL_PRODUCT_DELETE_STAFF;
 import static url.staffURL.URL_PRODUCT_MANAGEMENT_STAFF;
@@ -51,14 +58,18 @@ import static url.staffURL.URL_UPDATE_PROFILE_STAFF;
  *
  * @author thinh
  */
-@WebServlet(name = "staffController", urlPatterns = {URL_CHANGEPASS_PROFILE_STAFF, URL_UPDATE_PROFILE_STAFF, URL_ADD_ACCOUNT_STAFF, URL_UPDATE_ACCOUNT_STAFF, URL_ADD_PRODUCT_STAFF, URL_UPDATE_PRODUCT_STAFF, URL_BOTH_DELETE_STAFF, URL_CUSTOMER_DELETE_STAFF, URL_STAFF_DELETE_STAFF, URL_SEARCH_ACCOUNT_STAFF, URL_ACCOUNT_MANAGEMENT_STAFF, URL_PRODUCT_DELETE_STAFF, URL_LOGIN_STAFF, URL_PRODUCT_MANAGEMENT_STAFF, URL_SORT_PRODUCT_STAFF, URL_SEARCH_PRODUCT_STAFF, URL_PROFILE_STAFF})
+@WebServlet(name = "staffController", urlPatterns = {URL_IMPORT_UPDATE_STAFF,URL_IMPORT_STAFF, URL_CHANGEPASS_PROFILE_STAFF, URL_UPDATE_PROFILE_STAFF, URL_ADD_ACCOUNT_STAFF, URL_UPDATE_ACCOUNT_STAFF, URL_ADD_PRODUCT_STAFF, URL_UPDATE_PRODUCT_STAFF, URL_BOTH_DELETE_STAFF, URL_CUSTOMER_DELETE_STAFF, URL_STAFF_DELETE_STAFF, URL_SEARCH_ACCOUNT_STAFF, URL_ACCOUNT_MANAGEMENT_STAFF, URL_PRODUCT_DELETE_STAFF, URL_LOGIN_STAFF, URL_PRODUCT_MANAGEMENT_STAFF, URL_SORT_PRODUCT_STAFF, URL_SEARCH_PRODUCT_STAFF, URL_PROFILE_STAFF})
 public class staffController extends HttpServlet {
 
     DAOstaff daoStaff = new DAOstaff();
     DAOcustomer daoCustomer = new DAOcustomer();
     DAOproduct daoProduct = new DAOproduct();
     DAOcategory daoCategory = new DAOcategory();
+    DAOimportDetail daoImportDetail = new DAOimportDetail();
+    DAOimport daoImport = new DAOimport();
+    DAOsize daoSize = new DAOsize();
     private Gson gson = new Gson();
+    
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -117,7 +128,54 @@ public class staffController extends HttpServlet {
             case URL_CHANGEPASS_PROFILE_STAFF:
                 changePassword(request, response);
                 break;
+            case URL_IMPORT_STAFF:
+                importList(request, response);
+                break;
+            case URL_IMPORT_UPDATE_STAFF:
+                updateStatus(request, response);
+                break;
         }
+    }
+
+    protected void updateStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        String id = request.getParameter("id");
+        boolean isSuccess = daoImport.updateStatus(id);
+        List<importDetail> listToImport = daoImportDetail.getListToImport(id);
+        
+        for (importDetail detail : listToImport) {
+            int quantityProduct = daoProduct.getProductQuantity(detail.getProductID());
+             daoProduct.updateQuantity(detail.getProductID(), quantityProduct+detail.getQuantity());
+             int quantitySize = daoSize.getSizeQuantity(detail.getProductID(), detail.getSizeName());
+             daoSize.updateQuanSize(quantitySize +detail.getQuantity() , detail.getProductID(), detail.getSizeName());
+        }
+        
+         ResponseData data = new ResponseData();
+        data.setIsSuccess(isSuccess);
+        data.setDescription("");
+        data.setData("");
+        String json = gson.toJson(data);
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
+    }
+    
+    protected void importList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        List<imports> list = daoImport.getAllImport();
+        List<importDetail> listDetail = daoImportDetail.getAllImportDetail();
+
+        Map<String, Object> combinedData = new HashMap<>();
+        combinedData.put("list", list);
+        combinedData.put("listDetail", listDetail);
+
+        ResponseData data = new ResponseData();
+        data.setIsSuccess(true);
+        data.setData(combinedData);
+        data.setDescription("");
+        String json = gson.toJson(data);
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
     }
 
     protected void changePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

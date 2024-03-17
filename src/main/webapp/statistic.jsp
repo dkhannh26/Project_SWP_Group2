@@ -407,9 +407,7 @@
                     <li class="nav-link" data-target="statistic">
                         <a href="#"><i class="fa-solid fa-chart-line"></i> <span>Dashboard</span> </a>
                     </li>
-                    <li class="nav-link" data-target="order-manage">
-                        <a href="#" ><i class="bi bi-cart-fill"></i> <span>Order management</span> </a>
-                    </li>
+                    
                     <li class="nav-link" data-target="product-manage">
                         <a href="#" ><i class="bi bi-box"></i> <span>Product Management</span> </a>
                     </li>
@@ -1283,7 +1281,7 @@
                                                             pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
                                                             nameCell.textContent = product.name;
                                                             categoryIdCell.textContent = product.categoryID;
-                                                            priceCell.textContent = product.price;
+                                                            priceCell.textContent = product.price.toLocaleString('vi-VN') +' VND';
                                                             quantityCell.textContent = product.quantity;
                                                             // Th?m c?c ? d? li?u v?o h?ng m?i
                                                             newRow.appendChild(pictureCell);
@@ -1331,7 +1329,7 @@
                                                             pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
                                                             nameCell.textContent = product.name;
                                                             categoryIdCell.textContent = product.categoryID;
-                                                            priceCell.textContent = product.price;
+                                                            priceCell.textContent = product.price.toLocaleString('vi-VN')+' VND';
                                                             quantityCell.textContent = product.quantity;
                                                             newRow.appendChild(pictureCell);
                                                             newRow.appendChild(nameCell);
@@ -1395,7 +1393,7 @@
                                                             pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
                                                             nameCell.textContent = product.name;
                                                             categoryIdCell.textContent = product.categoryID;
-                                                            priceCell.textContent = product.price;
+                                                            priceCell.textContent = product.price.toLocaleString('vi-VN')+' VND';
                                                             quantityCell.textContent = product.quantity;
                                                             // Th?m c?c ? d? li?u v?o h?ng m?i
                                                             newRow.appendChild(pictureCell);
@@ -1739,7 +1737,7 @@
             new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', ],
+                    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12' ],
                     datasets: [{
                             label: 'monthly revenue',
                             data: [${revenue1},${revenue2},${revenue3},${revenue4},${revenue5},${revenue6},${revenue7},${revenue8},${revenue9},${revenue10},${revenue11},${revenue12}],
@@ -1757,15 +1755,15 @@
                 }
             });
 
-            const populateUl = () => {
-                chartData.labels.forEach((l, i) => {
-                    let li = document.createElement("li");
-                    li.innerHTML = `${l}: <span class='percentage'>${chartData.data[i]}%</span>`;
-                    ul.appendChild(li);
-                });
-            };
-
-            populateUl();
+//            const populateUl = () => {
+//                chartData.labels.forEach((l, i) => {
+//                    let li = document.createElement("li");
+//                    li.innerHTML = `${l}: <span class='percentage'>${chartData.data[i]}%</span>`;
+//                    ul.appendChild(li);
+//                });
+//            };
+//
+//            populateUl();
         </script>
     </body>
 

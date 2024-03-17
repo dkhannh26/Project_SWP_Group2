@@ -858,7 +858,7 @@
                                 </p>
                                 <div class="productButton">
                                     <button type="button" class="addBtn"><a href="productDetail?id=${product.getId()}">Add to cart</a></button>
-                                    <button type="button" class="right" onclick="showSizeOptions(this)">Buy now ${product.getId()}</button>
+                                    <button type="button" class="right" onclick="showSizeOptions(this)"><span></span>Buy now ${product.getId()}</button>
                                     <input type="hidden" name="idP" class="idP" value="${product.getId()}">
                                     <div id="sizeOptions_${product.getId()}" class="sizeOptions" style="display: none;">
                                         <label for="size_${product.getId()}">Choose Size:</label>

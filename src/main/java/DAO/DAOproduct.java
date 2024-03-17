@@ -52,6 +52,23 @@ public class DAOproduct extends DBconnect.DBconnect {
         return quantity;
     }
 
+    public boolean updateQuantity(int id, int quantity) {
+        String sql = " update product\n"
+                + "set quantity = ?\n"
+                + "where product_id = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, quantity);
+            st.setInt(2, id);
+            st.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
     public product getProductById(int product_id) {
 
         String sql = "select * from product where product_id=?";
@@ -114,17 +131,11 @@ public class DAOproduct extends DBconnect.DBconnect {
     }
 
     public boolean delete(int id) {
-        String sql = "delete from order_detail where product_id=?\n"
-                + "delete from cart where product_id = ?\n"
-                + "delete from product where product_id = ?\n"
-                + "delete from feedback where product_id = ?";
+        String sql = "delete from product where product_id = ?\n";
+
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
-            st.setInt(2, id);
-            st.setInt(3, id);
-            st.setInt(4, id);
-      
             st.executeUpdate();
             return true;
         } catch (Exception e) {

@@ -370,6 +370,16 @@
             .stt-delivering {
                 background-color: #6fcaea;
             }
+            .stt-delivered {
+                background-color: #006b21;
+            }
+            .delivering {
+                /*display: block;*/
+            }
+            .delivered{
+                display: none;
+            }
+
 
             .stt-delivered {
                 background-color: #86e49d;
@@ -391,6 +401,7 @@
             .accept-btn {
                 background-color: rgb(59, 245, 59);
             }
+
 
             .reject-btn {
                 background-color: red;
@@ -588,6 +599,10 @@
                     <li class="nav-link" data-target="personal-info">
                         <a href="#" ><i class="bi bi-person-fill"></i> <span>Personal information</span> </a>
                     </li>
+
+                    <li class="nav-link" data-target="import-goods">
+                        <a href="#"><i class="fa-solid fa-truck-ramp-box"></i> <span>Import goods management</span> </a>
+                    </li>
                 </ul>
             </nav>
 
@@ -740,7 +755,10 @@
                                                 <td>${nameProduct[orderDetail.productID]}</td>
                                                 <td>${orderDetail.size_name}</td>
                                                 <td>${orderDetail.quantity}</td>
-                                                <td>${(priceProduct[orderDetail.productID] - (priceProduct[orderDetail.productID] * promoMap[promoID[orderDetail.productID]])/100) * orderDetail.quantity}</td>
+                                                <c:set var="formattedPrice2">
+                                <fmt:formatNumber type="number" value="${(priceProduct[orderDetail.productID] - (priceProduct[orderDetail.productID] * promoMap[promoID[orderDetail.productID]])/100) * orderDetail.quantity}" pattern="###,###" />
+                            </c:set>
+                                                <td>${formattedPrice2}</td>
                                                 <td></td>
                                             </tr>
                                         </c:if>
@@ -841,6 +859,35 @@
 
                     </div>
                 </div>
+
+                <div class="import-goods">
+                    <h3>Import goods</h3>
+                    <hr>
+                    <!-- <div class="add-goods-btn">
+                        <button><a href="/admin/addProduct.html">Add import goods</a></button>
+                    </div> -->
+                    <div class="order-main">
+                        <table class="order-table" >
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Quantity</th>
+                                    <th>Order date</th>
+                                    <th class="th-status">Status</th>
+                                    <th>Total price</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="import-list">
+
+
+
+
+                            </tbody> 
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -932,7 +979,7 @@
                                                             console.log(data1);
                                                             if (data1.isSuccess) {
                                                                 alert('Change password successfully')
-////                     
+                                                                ////                     
                                                             } else {
                                                                 $("#message-changepass").html("Your current password is incorrect");
                                                                 document.getElementById("message-changepass").style.color = "red";
@@ -1026,7 +1073,7 @@
                                         })
                                                 .done(function (data) {
                                                     var data1 = JSON.parse(data);
-//                                                                    console.log(data1)
+                                                    //                                                                    console.log(data1)
                                                     if (data1.isSuccess) {
                                                         document.querySelector("table tbody").innerHTML = ""
                                                         var productList = data1.data;
@@ -1043,7 +1090,7 @@
                                                             pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
                                                             nameCell.textContent = product.name;
                                                             categoryIdCell.textContent = product.categoryID;
-                                                            priceCell.textContent = product.price;
+                                                            priceCell.textContent = product.price.toLocaleString('vi-VN') +' VND';
                                                             quantityCell.textContent = product.quantity;
                                                             // Thêm các ô dữ liệu vào hàng mới
                                                             newRow.appendChild(pictureCell);
@@ -1088,7 +1135,7 @@
                                                             pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
                                                             nameCell.textContent = product.name;
                                                             categoryIdCell.textContent = product.categoryID;
-                                                            priceCell.textContent = product.price;
+                                                            priceCell.textContent = product.price.toLocaleString('vi-VN')+' VND';
                                                             quantityCell.textContent = product.quantity;
                                                             // Thêm các ô dữ liệu vào hàng mới
                                                             newRow.appendChild(pictureCell);
@@ -1133,12 +1180,13 @@
                                         })
                                                 .done(function (data) {
                                                     var data1 = JSON.parse(data);
-//                                                                            console.log(data1);
+
                                                     var cells = document.querySelectorAll(".profile-info td");
+
                                                     cells.forEach(function (cell) {
                                                         cell.remove();
                                                     });
-//                                                                                    console.log(data1.data);
+                                                    //                                                                                    console.log(data1.data);
                                                     if (data1.isSuccess) {
                                                         var trName = document.getElementById("fullName");
                                                         var trEmail = document.getElementById("email");
@@ -1176,10 +1224,10 @@
                                         })
                                                 .done(function (data) {
                                                     var data1 = JSON.parse(data);
-//                                                                                    console.log(data1.data);
+                                                    //                                                                                    console.log(data1.data);
                                                     if (data1.isSuccess) {
                                                         document.querySelector("table tbody").innerHTML = ""
-//                                                                                       
+                                                        //                                                                                       
                                                         var productList = data1.data;
                                                         productList.forEach(function (product) {
                                                             // Tạo một hàng mới
@@ -1194,7 +1242,7 @@
                                                             pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
                                                             nameCell.textContent = product.name;
                                                             categoryIdCell.textContent = product.categoryID;
-                                                            priceCell.textContent = product.price;
+                                                            priceCell.textContent = product.price.toLocaleString('vi-VN')+' VND';
                                                             quantityCell.textContent = product.quantity;
                                                             // Thêm các ô dữ liệu vào hàng mới
                                                             newRow.appendChild(pictureCell);
@@ -1211,6 +1259,36 @@
                                                 });
                                     }
 
+
+                                    function hideButtons1(button) {
+                                        var id = button.getAttribute("data-id");
+//                                       
+//                                        console.log(id);
+                                        $.ajax({
+                                            method: "POST",
+                                            url: "http://localhost:8080/Project_SWP_Group2/staff/import/update",
+                                            data: {
+                                                id: id
+                                            }
+                                        })
+                                                .done(function (data) {
+                                                    // Kiểm tra phản hồi từ máy chủ
+                                                    var data1 = JSON.parse(data);
+                                                    console.log(data1);
+                                                    if (data1.isSuccess) {
+                                                        // Cập nhật nội dung và class của thẻ có class "status"
+//                                                        button.classList.add('d-n');
+                                                        listImport();
+                                                    } else {
+                                                        // Xử lý khi có lỗi từ máy chủ
+                                                        console.error('Có lỗi khi cập nhật trạng thái.');
+                                                    }
+                                                })
+
+                                    }
+
+
+
                                     function listImport() {
                                         $.ajax({
                                             method: "POST",
@@ -1220,38 +1298,39 @@
                                         })
                                                 .done(function (data) {
                                                     var data1 = JSON.parse(data);
-//                                                                                    console.log(data1.data);
-                                                    if (data1.isSuccess) {
-                                                        document.querySelector("table tbody").innerHTML = ""
-                                                        console.log(data1.data);
-                                                        var importList = data1.data;
-                                                        var i = 0;
 
+//                                                    console.log(data1.data);
+                                                    if (data1.isSuccess) {
+                                                        document.querySelector("table #import-list").innerHTML = ""
+                                                        var importList = data1.data.list;
+                                                        var importDetailList = data1.data.listDetail;
+//                                                        console.log(importDetailList);
+                                                        var i = 0;
                                                         importList.forEach(function (item) {
-//                                                            // Tạo một hàng mới                                                            var newRow = document.createElement("tr");
                                                             var newDiv = document.createElement("div");
                                                             var newTr = document.createElement("tr");
-                                                            var newBody = document.createElement("tbody");
+//                                                            newTr.classList.add('class'+item.id)
                                                             var numCell = document.createElement("td");
                                                             var nameCell = document.createElement("td");
-                                                            var quantityCell = document.createElement("td"); //                                                            var nameCell = document.createElement("td");
+                                                            var quantityCell = document.createElement("td");
                                                             var dateCell = document.createElement("td");
                                                             var statusCell = document.createElement("td");
                                                             var priceCell = document.createElement("td");
                                                             var btnCell = document.createElement("td");
 
+                                                            btnCell.classList.add('action-btn');
+
                                                             numCell.textContent = ++i;
                                                             nameCell.textContent = item.username;
                                                             quantityCell.textContent = item.quantity;
                                                             dateCell.textContent = item.date;
-//                                                            statusCell.textContent = item.status;
-                                                            statusCell.innerHTML = '<p class="status stt-delivering" >Delivering</p>';
-                                                            ;
+                                                            //statusCell.textContent = item.status;
+                                                            statusCell.innerHTML = '<p class="status stt-' + item.status + '">' + item.status + '</p>';
 
-                                                            priceCell.textContent = item.total;
-                                                            btnCell.innerHTML = '<button class="accept-btn"><i class="bi bi-check-lg"></i></button><button class="reject-btn"><i class="bi bi-x-lg"></i></button><button class="view-btn"><i class="bi bi-eye"></i></button>'
-//                                                            newDiv.appendChild(newTr);
+                                                            priceCell.textContent = item.total.toLocaleString('vi-VN');
+                                                            btnCell.innerHTML = '<button class="view-btn"><i class="bi bi-eye"></i></button><button class="accept-btn ' + item.status + '" data-id="' + item.id + '"onclick="hideButtons1(this)"><i class="bi bi-check-lg"></i></button>';
 
+                                                            newDiv.appendChild(newTr);
                                                             newTr.appendChild(numCell);
                                                             newTr.appendChild(nameCell);
                                                             newTr.appendChild(quantityCell);
@@ -1260,39 +1339,72 @@
                                                             newTr.appendChild(priceCell);
                                                             newTr.appendChild(btnCell);
 
-//                                                            // Đặt nội dung cho các ô dữ liệu
-//                                                           
-//                                                            // Thêm các ô dữ liệu vào hàng mới
-//                                                           
-//                                                            // Thêm hàng mới vào tbody của bảng
+
                                                             document.querySelector("table #import-list").appendChild(newTr);
+
+                                                            var body = document.createElement("tbody");
+                                                            body.classList.add("item");
+
+                                                            importDetailList.forEach(function (detail) {
+
+                                                                if (item.id === detail.importID) {
+                                                                    var blankCell1 = document.createElement("td");
+                                                                    var blankCell2 = document.createElement("td");
+                                                                    var blankCell3 = document.createElement("td");
+
+                                                                    var productNameCell = document.createElement("td");
+                                                                    var quantityProductCell = document.createElement("td");
+                                                                    var sizeCell = document.createElement("td");
+                                                                    var priceProductCell = document.createElement("td");
+                                                                    var newTrBody = document.createElement("tr");
+                                                                    
+                                                                    newTrBody.style.backgroundColor = "white"                                                                    
+                                                                    blankCell1.textContent = detail.productID;
+                                                                    productNameCell.textContent = detail.productName;
+
+                                                                    productNameCell.textContent = detail.productName;
+                                                                    quantityProductCell.textContent = detail.quantity;
+                                                                    sizeCell.textContent = detail.sizeName;
+                                                                    priceProductCell.textContent = detail.price.toLocaleString('vi-VN');
+                                                                    newTrBody.appendChild(blankCell1);
+                                                                    newTrBody.appendChild(productNameCell);
+                                                                    newTrBody.appendChild(quantityProductCell);
+                                                                    newTrBody.appendChild(sizeCell);
+                                                                    newTrBody.appendChild(blankCell2);
+
+                                                                    newTrBody.appendChild(priceProductCell);
+                                                                    newTrBody.appendChild(blankCell3);
+
+                                                                    body.appendChild(newTrBody);
+
+                                                                }
+                                                                document.querySelector("table #import-list").appendChild(body);
+
+                                                            })
+
+
                                                         })
-                                                    } else {
-                                                        alert('fail');
+                                                        const viewBtn = document.querySelectorAll('.view-btn');
+                                                        const dropdownItem = document.querySelectorAll('.item');
+
+                                                        viewBtn.forEach(function (edit, i) {
+                                                            edit.addEventListener('click', function () {
+                                                                if (dropdownItem[i].style.display === "none") {
+                                                                    dropdownItem[i].style.display = "contents";
+                                                                } else {
+                                                                    dropdownItem[i].style.display = "none";
+                                                                }
+
+                                                            });
+                                                        })
+
                                                     }
-                                                });
+                                                })
                                     }
+                                    ;
 
-
-                                    let status = document.querySelectorAll('.status');
-                                    status.forEach(element => {
-                                        if (element.innerHTML === 'reject') {
-                                            element.classList.add('red');
-                                        } else if (element.innerHTML === 'accept') {
-                                            element.classList.add('green');
-                                        }
-                                    });
-                                    const handleColor = () => {
-                                        let status = document.querySelectorAll('.status');
-                                        status.forEach(element => {
-                                            if (element.innerHTML === 'reject') {
-                                                element.classList.add('red');
-                                            } else if (element.innerHTML === 'accept') {
-                                                element.classList.add('green');
-                                            }
-                                        });
-                                    };
                                     document.addEventListener('DOMContentLoaded', function () {
+
                                         const links = document.querySelectorAll('.nav-link');
                                         links.forEach(function (link) {
                                             link.addEventListener('click', function (e) {
@@ -1306,7 +1418,7 @@
                                                         div.style.display = 'none';
                                                     }
                                                 });
-                                                console.log(target);
+
 
                                                 switch (target) {
                                                     case 'product-manage':
@@ -1316,81 +1428,28 @@
                                                         profile();
                                                         break;
                                                     case 'import-goods':
+
                                                         listImport();
                                                         break;
                                                     case 'order-manage':
-                                                        
-                                                        
+
                                                 }
-
-
                                             });
                                         });
                                     });
-                                    var acceptBtns = document.querySelectorAll('.accept-btn');
-                                    var rejectBtns = document.querySelectorAll('.reject-btn');
-                                    // Thiết lập sự kiện cho tất cả các nút
-                                    acceptBtns.forEach(function (btn) {
-                                        btn.addEventListener('click', hideButtons);
-                                    });
-                                    rejectBtns.forEach(function (btn) {
-                                        btn.addEventListener('click', hideButtons);
-                                    });
-                                    // Hàm để ẩn cả hai nút trong cùng một thẻ td
-                                    function hideButtons(event) {
-                                        var clickedBtn = event.target; // Lấy nút đã được nhấp vào
-                                        var tdElement = clickedBtn.closest('.action-btn'); // Tìm thẻ td gần nhất chứa nút đã được nhấp vào
-                                        var acceptBtn = tdElement.querySelector('.accept-btn'); // Lấy nút chấp nhận trong thẻ td
-                                        var rejectBtn = tdElement.querySelector('.reject-btn'); // Lấy nút từ chối trong thẻ td
-                                        acceptBtn.style.display = 'none';
-                                        rejectBtn.style.display = 'none';
-                                    }
-                                    function updateOrderStatus(orderId, status) {
-                                        let id = document.querySelector(`#id` + orderId);
-                                        $.ajax({
-                                            url: 'orderUpdateStatus',
-                                            method: 'GET',
-                                            data: {
-                                                orderId: orderId,
-                                                status: status
-                                            },
-                                            success: function (response) {
-                                                console.log(id);
-                                                id.innerHTML = status;
-                                                handleColor();
-                                            }
-                                        });
-                                    }
-                                    document.addEventListener("DOMContentLoaded", function () {
-                                        const viewBtn = document.querySelectorAll('.view-btn');
-                                        const dropdownItem = document.querySelectorAll('.item');
-                                        viewBtn.forEach(function (edit, i) {
-                                            edit.addEventListener('click', function () {
-                                                if (dropdownItem[i].style.display === "none") {
-                                                    dropdownItem[i].style.display = "contents";
-                                                } else {
-                                                    dropdownItem[i].style.display = "none";
-                                                }
 
-                                            });
-                                        })
-                                    });
-        </script>
-        
-         <script>
-                                                    let status = document.querySelectorAll('.status');
+                                          let status = document.querySelectorAll('.status');
+                                                        status.forEach(element => {
+                                                            if (element.innerHTML === 'Cancelled') {
+                                                                element.classList.add('red');
+                                                            } else if (element.innerHTML === 'Delivering') {
+                                                                element.classList.add('green');
 
-                                                    status.forEach(element => {
-                                                        if (element.innerHTML === 'reject') {
-                                                            element.classList.add('red');
-                                                        } else if (element.innerHTML === 'accept') {
-                                                            element.classList.add('green');
-
-                                                        }
-                                                        else if (element.innerHTML === 'Delivered'){
+                                                            }
+                                                            else if (element.innerHTML === 'Received'){
                                                                 element.classList.add('blue');
                                                             }
-                                                    });
+                                                        });
 
                                                     const handleColor = () => {
                                                         let status = document.querySelectorAll('.status');
@@ -1406,25 +1465,6 @@
                                                             }
                                                         });
                                                     };
-
-
-                                                    document.addEventListener('DOMContentLoaded', function () {
-                                                        const links = document.querySelectorAll('.nav-link');
-                                                        links.forEach(function (link) {
-                                                            link.addEventListener('click', function (e) {
-                                                                e.preventDefault();
-                                                                const target = this.getAttribute('data-target');
-                                                                const contentDivs = document.querySelectorAll('.main-content > div');
-                                                                contentDivs.forEach(function (div) {
-                                                                    if (div.classList.contains(target)) {
-                                                                        div.style.display = 'block';
-                                                                    } else {
-                                                                        div.style.display = 'none';
-                                                                    }
-                                                                });
-                                                            });
-                                                        });
-                                                    });
 
                                                     var acceptBtns = document.querySelectorAll('.accept-btn');
                                                     var rejectBtns = document.querySelectorAll('.reject-btn');
