@@ -40,6 +40,7 @@ import static url.staffURL.URL_BOTH_DELETE_STAFF;
 import static url.staffURL.URL_CHANGEPASS_PROFILE_STAFF;
 import static url.staffURL.URL_CUSTOMER_DELETE_STAFF;
 import static url.staffURL.URL_IMPORT_STAFF;
+import static url.staffURL.URL_IMPORT_UPDATE_STAFF;
 import static url.staffURL.URL_LOGIN_STAFF;
 import static url.staffURL.URL_PRODUCT_DELETE_STAFF;
 import static url.staffURL.URL_PRODUCT_MANAGEMENT_STAFF;
@@ -56,7 +57,7 @@ import static url.staffURL.URL_UPDATE_PROFILE_STAFF;
  *
  * @author thinh
  */
-@WebServlet(name = "staffController", urlPatterns = {URL_IMPORT_STAFF, URL_CHANGEPASS_PROFILE_STAFF, URL_UPDATE_PROFILE_STAFF, URL_ADD_ACCOUNT_STAFF, URL_UPDATE_ACCOUNT_STAFF, URL_ADD_PRODUCT_STAFF, URL_UPDATE_PRODUCT_STAFF, URL_BOTH_DELETE_STAFF, URL_CUSTOMER_DELETE_STAFF, URL_STAFF_DELETE_STAFF, URL_SEARCH_ACCOUNT_STAFF, URL_ACCOUNT_MANAGEMENT_STAFF, URL_PRODUCT_DELETE_STAFF, URL_LOGIN_STAFF, URL_PRODUCT_MANAGEMENT_STAFF, URL_SORT_PRODUCT_STAFF, URL_SEARCH_PRODUCT_STAFF, URL_PROFILE_STAFF})
+@WebServlet(name = "staffController", urlPatterns = {URL_IMPORT_UPDATE_STAFF,URL_IMPORT_STAFF, URL_CHANGEPASS_PROFILE_STAFF, URL_UPDATE_PROFILE_STAFF, URL_ADD_ACCOUNT_STAFF, URL_UPDATE_ACCOUNT_STAFF, URL_ADD_PRODUCT_STAFF, URL_UPDATE_PRODUCT_STAFF, URL_BOTH_DELETE_STAFF, URL_CUSTOMER_DELETE_STAFF, URL_STAFF_DELETE_STAFF, URL_SEARCH_ACCOUNT_STAFF, URL_ACCOUNT_MANAGEMENT_STAFF, URL_PRODUCT_DELETE_STAFF, URL_LOGIN_STAFF, URL_PRODUCT_MANAGEMENT_STAFF, URL_SORT_PRODUCT_STAFF, URL_SEARCH_PRODUCT_STAFF, URL_PROFILE_STAFF})
 public class staffController extends HttpServlet {
 
     DAOstaff daoStaff = new DAOstaff();
@@ -127,16 +128,37 @@ public class staffController extends HttpServlet {
             case URL_IMPORT_STAFF:
                 importList(request, response);
                 break;
+            case URL_IMPORT_UPDATE_STAFF:
+                updateStatus(request, response);
+                break;
         }
     }
 
+    protected void updateStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        String id = request.getParameter("id");
+        boolean isSuccess = daoImport.updateStatus(id);
+         ResponseData data = new ResponseData();
+        data.setIsSuccess(isSuccess);
+        data.setDescription("");
+        data.setData("");
+        String json = gson.toJson(data);
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
+    }
+    
     protected void importList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         List<imports> list = daoImport.getAllImport();
-        
-        
+        List<importDetail> listDetail = daoImportDetail.getAllImportDetail();
+
+        Map<String, Object> combinedData = new HashMap<>();
+        combinedData.put("list", list);
+        combinedData.put("listDetail", listDetail);
+
         ResponseData data = new ResponseData();
         data.setIsSuccess(true);
-        data.setData(list);
+        data.setData(combinedData);
         data.setDescription("");
         String json = gson.toJson(data);
         PrintWriter pw = response.getWriter();

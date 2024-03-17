@@ -18,15 +18,16 @@ public class DAOimportDetail extends DBconnect.DBconnect {
 
     public List<importDetail> getAllImportDetail() {
         List<importDetail> list = new ArrayList<>();
-        String sql = "SELECT import_detail_id, import.import_id, importDetails.product_id, importDate, importDetails.quantity, username, status,price *importDetails.quantity as \"price\"\n"
-                + "FROM     import INNER JOIN\n"
-                + "                  importDetails ON import.import_id = importDetails.import_id INNER JOIN\n"
-                + "                  product ON importDetails.product_id = product.product_id";
+        String sql = "SELECT import.import_id, importDetails.product_id,product.name,size_detail.size_name, importDetails.quantity,price *importDetails.quantity as\"price\"\n"
+                + "FROM     import \n"
+                + "join importDetails on import.import_id = importDetails.import_id \n"
+                + "join size_detail on size_detail.product_id = importDetails.product_id and size_detail.size_name = importDetails.size_name\n"
+                + "join product on product.product_id = size_detail.product_id";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                importDetail o = new importDetail(rs.getInt("import_detail_id"), rs.getInt("import_id"), rs.getInt("product_id"), rs.getInt("quantity"), rs.getDate("importDate"), rs.getString("username"), rs.getString("status"), rs.getInt("price"));
+                importDetail o = new importDetail(rs.getInt("import_id"),rs.getInt("product_id"), rs.getInt("quantity"), rs.getInt("price"), rs.getString("name"), rs.getString("size_name"));
                 list.add(o);
             }
         } catch (Exception e) {

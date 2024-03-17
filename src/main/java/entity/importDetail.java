@@ -12,24 +12,17 @@ import java.util.Date;
  */
 public class importDetail {
 
-    private int importDetailID, importID, productID, quantity, price;
-    private Date importDate;
-    private String username, status;
+    private int importDetailID, productID, quantity, price, importID;
+    private String productName, sizeName;
 
-    public int getPrice() {
-        return price;
-    }
+    public importDetail(int importID, int productID, int quantity, int price, String productName, String sizeName) {
+        this.productID = productID;
+        this.importID = importID;
 
-    public void setPrice(int price) {
+        this.quantity = quantity;
         this.price = price;
-    }
-
-    public int getImportDetailID() {
-        return importDetailID;
-    }
-
-    public void setImportDetailID(int importDetailID) {
-        this.importDetailID = importDetailID;
+        this.productName = productName;
+        this.sizeName = sizeName;
     }
 
     public int getImportID() {
@@ -38,6 +31,19 @@ public class importDetail {
 
     public void setImportID(int importID) {
         this.importID = importID;
+    }
+
+
+
+    public importDetail() {
+    }
+
+    public int getImportDetailID() {
+        return importDetailID;
+    }
+
+    public void setImportDetailID(int importDetailID) {
+        this.importDetailID = importDetailID;
     }
 
     public int getProductID() {
@@ -56,42 +62,28 @@ public class importDetail {
         this.quantity = quantity;
     }
 
-    public Date getImportDate() {
-        return importDate;
+    public int getPrice() {
+        return price;
     }
 
-    public void setImportDate(Date importDate) {
-        this.importDate = importDate;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public importDetail(int importDetailID, int importID, int productID, int quantity, Date importDate, String username, String status, int price) {
-        this.importDetailID = importDetailID;
-        this.importID = importID;
-        this.productID = productID;
-        this.quantity = quantity;
-        this.importDate = importDate;
-        this.username = username;
-        this.status = status;
+    public void setPrice(int price) {
         this.price = price;
     }
 
-    public importDetail() {
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getSizeName() {
+        return sizeName;
+    }
+
+    public void setSizeName(String sizeName) {
+        this.sizeName = sizeName;
     }
 
 }

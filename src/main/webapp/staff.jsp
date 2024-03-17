@@ -367,6 +367,16 @@
             .stt-delivering {
                 background-color: #6fcaea;
             }
+            .stt-delivered {
+                background-color: #006b21;
+            }
+            .delivering {
+                /*display: block;*/
+            }
+            .delivered{
+                display: none;
+            }
+
 
             .stt-delivered {
                 background-color: #86e49d;
@@ -388,6 +398,7 @@
             .accept-btn {
                 background-color: rgb(59, 245, 59);
             }
+
 
             .reject-btn {
                 background-color: red;
@@ -712,7 +723,7 @@
                         <button><a href="/admin/addProduct.html">Add import goods</a></button>
                     </div> -->
                     <div class="order-main">
-                        <table class="order-table">
+                        <table class="order-table" >
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -725,36 +736,6 @@
                                 </tr>
                             </thead>
                             <tbody id="import-list">
-                            <div>
-                                <tr>
-                                    <!--                                    <td>1</td>
-                                                                        <td>Admin</td>
-                                                                        <td class="tb-address">Vo Van Kiet, Binh Thuy, Can Tho</td>
-                                                                        <td>5/8/2003</td>
-                                                                        <td>
-                                                                            <p class="status stt-delivering">Delivering</p>
-                                                                        </td>
-                                                                        <td><strong><i class="bi bi-currency-dollar"></i>1000</strong></td>
-                                                                        <td class="action-btn">
-                                                                            <button class="accept-btn"><i class="bi bi-check-lg"></i></button>
-                                                                            <button class="reject-btn"><i class="bi bi-x-lg"></i></button> 
-                                                                            <button class="view-btn"><i class="bi bi-eye"></i></button>
-                                                                        </td>-->
-                                </tr>
-                                <tbody class="item">
-                                    <!--                                    <tr>
-                                                                            <td></td>
-                                                                            <td>
-                                                                                id
-                                                                            </td>
-                                                                            <td>name</td>
-                                                                            <td>size</td>
-                                                                            <td>quan</td>
-                                                                            <td>price</td>
-                                                                            <td></td>
-                                                                        </tr>-->
-                                </tbody>
-                            </div>
 
 
 
@@ -793,7 +774,7 @@
                                                             console.log(data1);
                                                             if (data1.isSuccess) {
                                                                 alert('Change password successfully')
-////                     
+                                                                ////                     
                                                             } else {
                                                                 $("#message-changepass").html("Your current password is incorrect");
                                                                 document.getElementById("message-changepass").style.color = "red";
@@ -887,7 +868,7 @@
                                         })
                                                 .done(function (data) {
                                                     var data1 = JSON.parse(data);
-//                                                                    console.log(data1)
+                                                    //                                                                    console.log(data1)
                                                     if (data1.isSuccess) {
                                                         document.querySelector("table tbody").innerHTML = ""
                                                         var productList = data1.data;
@@ -994,12 +975,12 @@
                                         })
                                                 .done(function (data) {
                                                     var data1 = JSON.parse(data);
-//                                                                            console.log(data1);
+                                                    //                                                                            console.log(data1);
                                                     var cells = document.querySelectorAll("table td");
                                                     cells.forEach(function (cell) {
                                                         cell.remove();
                                                     });
-//                                                                                    console.log(data1.data);
+                                                    //                                                                                    console.log(data1.data);
                                                     if (data1.isSuccess) {
                                                         var trName = document.getElementById("fullName");
                                                         var trEmail = document.getElementById("email");
@@ -1037,10 +1018,10 @@
                                         })
                                                 .done(function (data) {
                                                     var data1 = JSON.parse(data);
-//                                                                                    console.log(data1.data);
+                                                    //                                                                                    console.log(data1.data);
                                                     if (data1.isSuccess) {
                                                         document.querySelector("table tbody").innerHTML = ""
-//                                                                                       
+                                                        //                                                                                       
                                                         var productList = data1.data;
                                                         productList.forEach(function (product) {
                                                             // Tạo một hàng mới
@@ -1072,6 +1053,33 @@
                                                 });
                                     }
 
+                                    function hideButtons(button) {
+                                        var id = button.getAttribute("data-id");
+//                                       
+//                                        console.log(id);
+                                        $.ajax({
+                                            method: "POST",
+                                            url: "http://localhost:8080/Project_SWP_Group2/staff/import/update",
+                                            data: {
+                                                id: id
+                                            }
+                                        })
+                                                .done(function (data) {
+                                                    // Kiểm tra phản hồi từ máy chủ
+                                                    var data1 = JSON.parse(data);
+                                                    if (data1.isSuccess) {
+                                                        // Cập nhật nội dung và class của thẻ có class "status"
+//                                                        button.classList.add('d-n');
+                                                        listImport();
+                                                    } else {
+                                                        // Xử lý khi có lỗi từ máy chủ
+                                                        console.error('Có lỗi khi cập nhật trạng thái.');
+                                                    }
+                                                })
+
+                                    }
+
+
                                     function listImport() {
                                         $.ajax({
                                             method: "POST",
@@ -1081,38 +1089,36 @@
                                         })
                                                 .done(function (data) {
                                                     var data1 = JSON.parse(data);
-//                                                                                    console.log(data1.data);
+                                                    console.log(data1.data);
                                                     if (data1.isSuccess) {
-                                                        document.querySelector("table tbody").innerHTML = ""
-                                                        console.log(data1.data);
-                                                        var importList = data1.data;
+                                                        document.querySelector("table #import-list").innerHTML = ""
+                                                        var importList = data1.data.list;
+                                                        var importDetailList = data1.data.listDetail;
+                                                        console.log(importList);
                                                         var i = 0;
-
                                                         importList.forEach(function (item) {
-//                                                            // Tạo một hàng mới                                                            var newRow = document.createElement("tr");
                                                             var newDiv = document.createElement("div");
                                                             var newTr = document.createElement("tr");
-                                                            var newBody = document.createElement("tbody");
+//                                                            newTr.classList.add('class'+item.id)
                                                             var numCell = document.createElement("td");
                                                             var nameCell = document.createElement("td");
-                                                            var quantityCell = document.createElement("td"); //                                                            var nameCell = document.createElement("td");
+                                                            var quantityCell = document.createElement("td");
                                                             var dateCell = document.createElement("td");
                                                             var statusCell = document.createElement("td");
                                                             var priceCell = document.createElement("td");
                                                             var btnCell = document.createElement("td");
-
+                                                            btnCell.classList.add('action-btn');
                                                             numCell.textContent = ++i;
                                                             nameCell.textContent = item.username;
                                                             quantityCell.textContent = item.quantity;
                                                             dateCell.textContent = item.date;
-//                                                            statusCell.textContent = item.status;
-                                                            statusCell.innerHTML = '<p class="status stt-delivering" >Delivering</p>';
-                                                            ;
+                                                            //statusCell.textContent = item.status;
+                                                            statusCell.innerHTML = '<p class="status stt-' + item.status + '">' + item.status + '</p>';
 
                                                             priceCell.textContent = item.total;
-                                                            btnCell.innerHTML = '<button class="accept-btn"><i class="bi bi-check-lg"></i></button><button class="reject-btn"><i class="bi bi-x-lg"></i></button><button class="view-btn"><i class="bi bi-eye"></i></button>'
-//                                                            newDiv.appendChild(newTr);
+                                                            btnCell.innerHTML = '<button class="view-btn"><i class="bi bi-eye"></i></button><button class="accept-btn ' + item.status + '" data-id="' + item.id + '"onclick="hideButtons(this)"><i class="bi bi-check-lg"></i></button>';
 
+                                                            newDiv.appendChild(newTr);
                                                             newTr.appendChild(numCell);
                                                             newTr.appendChild(nameCell);
                                                             newTr.appendChild(quantityCell);
@@ -1121,18 +1127,77 @@
                                                             newTr.appendChild(priceCell);
                                                             newTr.appendChild(btnCell);
 
-//                                                            // Đặt nội dung cho các ô dữ liệu
-//                                                           
-//                                                            // Thêm các ô dữ liệu vào hàng mới
-//                                                           
-//                                                            // Thêm hàng mới vào tbody của bảng
                                                             document.querySelector("table #import-list").appendChild(newTr);
+
+                                                            var body = document.createElement("tbody");
+                                                            body.classList.add("item");
+
+                                                            importDetailList.forEach(function (detail) {
+
+                                                                if (item.id === detail.importID) {
+                                                                    var blankCell1 = document.createElement("td");
+                                                                    var blankCell2 = document.createElement("td");
+                                                                    var blankCell3 = document.createElement("td");
+
+                                                                    var productNameCell = document.createElement("td");
+                                                                    var quantityProductCell = document.createElement("td");
+                                                                    var sizeCell = document.createElement("td");
+                                                                    var priceProductCell = document.createElement("td");
+                                                                    var newTrBody = document.createElement("tr");
+                                                                    productNameCell.textContent = detail.productName;
+                                                                    quantityProductCell.textContent = detail.quantity;
+                                                                    sizeCell.textContent = detail.sizeName;
+                                                                    priceProductCell.textContent = detail.price;
+                                                                    newTrBody.appendChild(blankCell1);
+                                                                    newTrBody.appendChild(productNameCell);
+                                                                    newTrBody.appendChild(quantityProductCell);
+                                                                    newTrBody.appendChild(sizeCell);
+                                                                    newTrBody.appendChild(blankCell2);
+
+                                                                    newTrBody.appendChild(priceProductCell);
+                                                                    newTrBody.appendChild(blankCell3);
+
+                                                                    body.appendChild(newTrBody);
+
+                                                                }
+                                                                document.querySelector("table #import-list").appendChild(body);
+
+                                                            })
+
+
                                                         })
-                                                    } else {
-                                                        alert('fail');
+                                                        const viewBtn = document.querySelectorAll('.view-btn');
+                                                        const dropdownItem = document.querySelectorAll('.item');
+
+                                                        viewBtn.forEach(function (edit, i) {
+                                                            edit.addEventListener('click', function () {
+                                                                if (dropdownItem[i].style.display === "none") {
+                                                                    dropdownItem[i].style.display = "contents";
+                                                                } else {
+                                                                    dropdownItem[i].style.display = "none";
+                                                                }
+
+                                                            });
+                                                        })
+
+                                                        var acceptBtns = document.querySelectorAll('.accept-btn');
+                                                        console.log(acceptBtns);
+
+//                                                        var rejectBtns = document.querySelectorAll('.reject-btn');
+                                                        // Thiết lập sự kiện cho tất cả các nút
+//                                                        acceptBtns.forEach(function (btn) {
+//                                                            btn.addEventListener('click', hideButtons);
+//                                                        });
+//                                                        rejectBtns.forEach(function (btn) {
+//                                                            btn.addEventListener('click', hideButtons);
+//                                                        });
+
+
                                                     }
-                                                });
+                                                })
                                     }
+                                    ;
+
 
 
                                     let status = document.querySelectorAll('.status');
@@ -1153,7 +1218,9 @@
                                             }
                                         });
                                     };
+
                                     document.addEventListener('DOMContentLoaded', function () {
+
                                         const links = document.querySelectorAll('.nav-link');
                                         links.forEach(function (link) {
                                             link.addEventListener('click', function (e) {
@@ -1167,7 +1234,6 @@
                                                         div.style.display = 'none';
                                                     }
                                                 });
-//                                                console.log(target);
 
                                                 switch (target) {
                                                     case 'product-manage':
@@ -1177,6 +1243,7 @@
                                                         profile();
                                                         break;
                                                     case 'import-goods':
+
                                                         listImport();
                                                         break;
                                                 }
@@ -1185,54 +1252,9 @@
                                             });
                                         });
                                     });
-                                    var acceptBtns = document.querySelectorAll('.accept-btn');
-                                    var rejectBtns = document.querySelectorAll('.reject-btn');
-                                    // Thiết lập sự kiện cho tất cả các nút
-                                    acceptBtns.forEach(function (btn) {
-                                        btn.addEventListener('click', hideButtons);
-                                    });
-                                    rejectBtns.forEach(function (btn) {
-                                        btn.addEventListener('click', hideButtons);
-                                    });
-                                    // Hàm để ẩn cả hai nút trong cùng một thẻ td
-                                    function hideButtons(event) {
-                                        var clickedBtn = event.target; // Lấy nút đã được nhấp vào
-                                        var tdElement = clickedBtn.closest('.action-btn'); // Tìm thẻ td gần nhất chứa nút đã được nhấp vào
-                                        var acceptBtn = tdElement.querySelector('.accept-btn'); // Lấy nút chấp nhận trong thẻ td
-                                        var rejectBtn = tdElement.querySelector('.reject-btn'); // Lấy nút từ chối trong thẻ td
-                                        acceptBtn.style.display = 'none';
-                                        rejectBtn.style.display = 'none';
-                                    }
-                                    function updateOrderStatus(orderId, status) {
-                                        let id = document.querySelector(`#id` + orderId);
-                                        $.ajax({
-                                            url: 'orderUpdateStatus',
-                                            method: 'GET',
-                                            data: {
-                                                orderId: orderId,
-                                                status: status
-                                            },
-                                            success: function (response) {
-                                                console.log(id);
-                                                id.innerHTML = status;
-                                                handleColor();
-                                            }
-                                        });
-                                    }
-                                    document.addEventListener("DOMContentLoaded", function () {
-                                        const viewBtn = document.querySelectorAll('.view-btn');
-                                        const dropdownItem = document.querySelectorAll('.item');
-                                        viewBtn.forEach(function (edit, i) {
-                                            edit.addEventListener('click', function () {
-                                                if (dropdownItem[i].style.display === "none") {
-                                                    dropdownItem[i].style.display = "contents";
-                                                } else {
-                                                    dropdownItem[i].style.display = "none";
-                                                }
 
-                                            });
-                                        })
-                                    });
+
+//                                    
         </script>
     </body>
 
