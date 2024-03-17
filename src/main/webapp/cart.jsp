@@ -786,10 +786,10 @@
         <header class="header">
             <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
             <div class="headerContent">
-                <div class="logo"><a href="productList">DOTAI</a></div>
+                <div class="logo"><a href="/Project_SWP_Group2/productList">DOTAI</a></div>
                 <nav>
                     <ul class="headerList">
-                        <li class="headerListItem"><a href="">Home page</a></li>
+                        <li class="headerListItem"><a href="/Project_SWP_Group2/productList">Home page</a></li>
                         <li class="headerListItem">
                             <a href="http://localhost:8080/Project_SWP_Group2/productList/male">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
@@ -797,7 +797,7 @@
 
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/pant">Long pants</a></li>
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/short">Shorts</a></li>
-                                <li><a href="">Discount</a></li>
+                                <!--<li><a href="">Discount</a></li>-->
                             </ul>
                         </li>
                         <li class="headerListItem">
@@ -806,18 +806,18 @@
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/t_shirt">T-shirt</a></li>
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/pant">Long pants</a></li>
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/dress">Dress</a></li>
-                                <li><a href="">Discount</a></li>
+                                <!--<li><a href="">Discount</a></li>-->
 
                             </ul>
                         </li>
-                        <li class="headerListItem"><a href="">Accessory</a></li>
+                        <!--<li class="headerListItem"><a href="">Accessory</a></li>-->
                         <li class="headerListItem">
-                            <a href="./aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="/Project_SWP_Group2/aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="./contact.jsp">Contact</a></li>
-                                <li><a href="./viewOrder.jsp">View order</a></li>
-                                <li><a href="./policy.jsp">Exchange policy</a></li>
-                                <li><a href="">Order's history</a></li>
+                                <li><a href="/Project_SWP_Group2/contact.jsp">Contact</a></li>
+                                <li><a href="/Project_SWP_Group2/viewOrder.jsp">View order</a></li>
+                                <li><a href="/Project_SWP_Group2/policy.jsp">Exchange policy</a></li>
+                                <li><a href="/Project_SWP_Group2/orderHistoryView">Order's history</a></li>
                         </li>
                     </ul>
                 </nav>
@@ -846,7 +846,7 @@
 
                     </div> 
                     <div class="headerToolIcon">
-                        <a href="loadCart"><i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i></a>
+                        <a href="/Project_SWP_Group2/loadCart"><i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i></a>
 
                     </div>
                 </div>

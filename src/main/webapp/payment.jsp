@@ -109,7 +109,6 @@
                                                     alt=""></div>
                             <div id="accountinfo" class="col-10">
                                 <p>${username}</p>
-                                <a href="">Sign out</a>
                             </div>
                         </div>
                         <input type="text" placeholder="Your numberphone" name="phoneNumber" id="phoneNumber">

@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="./boostrap/bootstrap.min.css"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- bootstrap icon -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-                <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+        <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
 
 
         <!-- font-awesome -->
@@ -1336,13 +1336,12 @@
     <body>
         <!-- header -->
         <header class="header">
-
             <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
             <div class="headerContent">
-                <div class="logo"><a href="productList">DOTAI</a></div>
+                <div class="logo"><a href="/Project_SWP_Group2/productList">DOTAI</a></div>
                 <nav>
                     <ul class="headerList">
-                        <li class="headerListItem"><a href="productList">Home page</a></li>
+                        <li class="headerListItem"><a href="/Project_SWP_Group2/productList">Home page</a></li>
                         <li class="headerListItem">
                             <a href="http://localhost:8080/Project_SWP_Group2/productList/male">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
@@ -1365,172 +1364,201 @@
                         </li>
                         <!--<li class="headerListItem"><a href="">Accessory</a></li>-->
                         <li class="headerListItem">
-                            <a href="./aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="/Project_SWP_Group2/aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="./contact.jsp">Contact</a></li>
-                                <li><a href="./viewOrder.jsp">View order</a></li>
-                                <li><a href="./policy.jsp">Exchange policy</a></li>
-
-
+                                <li><a href="/Project_SWP_Group2/contact.jsp">Contact</a></li>
+                                <li><a href="/Project_SWP_Group2/viewOrder.jsp">View order</a></li>
+                                <li><a href="/Project_SWP_Group2/policy.jsp">Exchange policy</a></li>
+                                <li><a href="/Project_SWP_Group2/orderHistoryView">Order's history</a></li>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="headerTool">
+                    <div class="headerToolIcon">
+                        <i class="bi bi-search icon" onclick="toggleBox('box1')"></i>
+                        <div class="searchBox box" id="box1">
+                            <div class="searchBox-content">
+                                <h2>SEARCH</h2>
+                                <div class="search-input">
+                                    <input oninput="searchByName(this)" name="search" type="text" size="20" placeholder="Search for products...">
+                                    <button><i class="bi bi-search"></i></button>
                                 </div>
-                                </div>
-                                </div>
+                                <div class="search-list">
+                                    <div class="search-list" id="search-ajax">
+                                        <c:forEach items="${requestScope.productList}" var="product">
 
-                                <hr width="100%" , color="#d0a587" />
-                                </header>
-                                <!-- end header -->
-
-                                <div class="content">
-                                    <h2 id="highlight">Your Account</h2>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h6 id="highlight"><b>ACCOUNT</b></h6>
-                                        <ul class="option">
-                                            <li><a href="">Account information</a></li>
-                                            <li><a href="changePassword.jsp">Change password</a></li>
-                                            <li><a href="cookieHandle">Sign out</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-8">
-
-
-                                        <h5 class="info-content"><b>ACCOUNT INFORMATION</b></h5>
-                                        <div class="user-info">
-                                            <div class="flex user-name">
-                                                <h6 class="highlight">${fullName}</h6>
-                                                <div class="dropdown">
-                                                    <div class="edit-info-btn">
-                                                        <button><i class="fa-regular fa-pen-to-square" id="btn-edit"></i></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <form action="http://localhost:8080/Project_SWP_Group2/profile/update" method="GET">
-
-                                                <div class="dropdown-container">
-                                                    <div class="input-group"> 
-                                                        <span class="input-icon">
-                                                            <i class="fa-regular fa-user"></i>
-                                                        </span>
-
-                                                        <input class="text-field" name="fullName" type="text" value="${fullName}">
-
-                                                    </div>
-                                                    <div class="input-group"> 
-                                                        <span class="input-icon">
-                                                            <i class="fa-solid fa-house"></i>
-                                                        </span>
-
-                                                        <input class="text-field" name="address" type="text" value="${address}">
-
-                                                    </div>
-                                                    <div class="input-group"> 
-                                                        <span class="input-icon">
-                                                            <i class="fa-regular fa-envelope"></i>
-                                                        </span>
-
-                                                        <input class="text-field" name="email" type="text" value="${email}" readonly>
-                                                    </div>
-                                                    <div class="input-group"> 
-                                                        <span class="input-icon">
-                                                            <i class="fa-solid fa-phone"></i>
-                                                        </span>
-
-                                                        <input class="text-field"  type="tel" id="phone" pattern="[0]{1}[0-9]{9}" name="phoneNumber" value="${phoneNumber}">
-
-                                                    </div>
-
-                                                    <div class="update-info-btn">
-                                                        <button type="submit" class="update-btn">Update</button>
-
-                                                        <button type="reset" class="cancel-btn">Cancel</button>
-                                                    </div>
-
-                                                </div>
-                                            </form>
-
-                                            <ul class="info">
-                                                <li><span class="highlight">Email:</span>${email}</li>
-                                                <li><span class="highlight">Country:</span> Vietnam</li>
-                                                <li><span class="highlight">Address:</span> ${address}</li>
-                                                <li><span class="highlight">Phone Number:</span> ${phoneNumber}</li>
-
-                                            </ul>
-                                        </div>
-
-
-
+                                        </c:forEach>
                                     </div>
                                 </div>
-                                <!-- footer -->
-                                <footer>
-                                    <div class="content-footer">
-                                        <h3 id="highlight">Follow us on Instagram</h3>
-                                        <p>@dotai.vn & @fired.vn</p>
-                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="headerToolIcon">
+                        <a href="http://localhost:8080/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
+                        <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->     
+                    </div>
+                    <div class="headerToolIcon">
+                        <a href="/Project_SWP_Group2/loadCart"><i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i></a>
+
+                    </div>
+                </div>
+            </div>
+
+            <hr width="100%" , color="#d0a587" />
+        </header>
+        <!-- end header -->
+
+        <div class="content">
+            <h2 id="highlight">Your Account</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <h6 id="highlight"><b>ACCOUNT</b></h6>
+                <ul class="option">
+                    <li><a href="">Account information</a></li>
+                    <li><a href="changePassword.jsp">Change password</a></li>
+                    <li><a href="cookieHandle">Sign out</a></li>
+                </ul>
+            </div>
+            <div class="col-md-8">
+
+
+                <h5 class="info-content"><b>ACCOUNT INFORMATION</b></h5>
+                <div class="user-info">
+                    <div class="flex user-name">
+                        <h6 class="highlight">${fullName}</h6>
+                        <div class="dropdown">
+                            <div class="edit-info-btn">
+                                <button><i class="fa-regular fa-pen-to-square" id="btn-edit"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <form action="http://localhost:8080/Project_SWP_Group2/profile/update" method="GET">
+
+                        <div class="dropdown-container">
+                            <div class="input-group"> 
+                                <span class="input-icon">
+                                    <i class="fa-regular fa-user"></i>
+                                </span>
+
+                                <input class="text-field" name="fullName" type="text" value="${fullName}">
+
+                            </div>
+                            <div class="input-group"> 
+                                <span class="input-icon">
+                                    <i class="fa-solid fa-house"></i>
+                                </span>
+
+                                <input class="text-field" name="address" type="text" value="${address}">
+
+                            </div>
+                            <div class="input-group"> 
+                                <span class="input-icon">
+                                    <i class="fa-regular fa-envelope"></i>
+                                </span>
+
+                                <input class="text-field" name="email" type="text" value="${email}" readonly>
+                            </div>
+                            <div class="input-group"> 
+                                <span class="input-icon">
+                                    <i class="fa-solid fa-phone"></i>
+                                </span>
+
+                                <input class="text-field"  type="tel" id="phone" pattern="[0]{1}[0-9]{9}" name="phoneNumber" value="${phoneNumber}">
+
+                            </div>
+
+                            <div class="update-info-btn">
+                                <button type="submit" class="update-btn">Update</button>
+
+                                <button type="reset" class="cancel-btn">Cancel</button>
+                            </div>
+
+                        </div>
+                    </form>
+
+                    <ul class="info">
+                        <li><span class="highlight">Email:</span>${email}</li>
+                        <li><span class="highlight">Country:</span> Vietnam</li>
+                        <li><span class="highlight">Address:</span> ${address}</li>
+                        <li><span class="highlight">Phone Number:</span> ${phoneNumber}</li>
+
+                    </ul>
+                </div>
 
 
 
-                                    <div class="row" id="img-footer">
-                                        <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_1_img.jpg?v=55" alt="">
-                                        <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_2_img.jpg?v=55" alt="">
-                                        <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_3_img.jpg?v=55" alt="">
-                                        <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_4_img.jpg?v=55" alt="">
-                                        <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_5_img.jpg?v=55" alt="">
-                                        <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_6_img.jpg?v=55" alt="">
-                                    </div>
-
-                                    <div class="items-footer">
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <h4 id="highlight">About Dotai</h4>
-                                                <p>Vintage and basic wardrobe for boys and girls.Vintage and basic wardrobe for boys and girls.</p>
-                                                <img src="//theme.hstatic.net/1000296747/1000891809/14/footer_logobct_img.png?v=55" alt="..." class="bct">
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <h4 id="highlight">Contact</h4>
-                                                <p><b>Address:</b> 100 Nguyen Van Cu, An Khanh Ward, Ninh Kieu District, City. Can Tho</p>
-                                                <p><b>Phone:</b> 0123.456.789 - 0999.999.999</p>
-                                                <p><b>Email:</b> info@dotai.vn</p>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <h4 id="highlight">Customer support</h4>
-                                                <ul class="CS">
-                                                    <li><a href="">Search</a></li>
-                                                    <li><a href="">Introduce</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <h4 id="highlight">Customer care</h4>
-                                                <div class="row phone">
-                                                    <div class="col-sm-3"><i class="bi bi-telephone icon"></i></div>
-                                                    <div class="col-9"> 
-                                                        <h4 id="highlight">0123.456.789</h4>
-                                                        <a href="">info@dotai.vn</a>
-                                                    </div>
-                                                </div>
-                                                <h5 id="highlight">Follow Us</h5>
-                                                <div class="contact-item">
-                                                    <a href="" class="contact-link"><i class="bi bi-facebook contact-icon"></i></a>
-                                                    <a href="" class="contact-link"><i class="bi bi-instagram contact-icon"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </footer>
+            </div>
+        </div>
+        <!-- footer -->
+        <footer>
+            <div class="content-footer">
+                <h3 id="highlight">Follow us on Instagram</h3>
+                <p>@dotai.vn & @fired.vn</p>
+            </div>
 
 
 
-                                <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script> <!-- lucide.dev icon -->
-                                <script src="js/jquery-3.7.0.min.js"></script>
-                                <script src="js/jquery.validate.min.js"></script>
-                                <script src="js/profile.js"></script>
-                                </body>
+            <div class="row" id="img-footer">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_1_img.jpg?v=55" alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_2_img.jpg?v=55" alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_3_img.jpg?v=55" alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_4_img.jpg?v=55" alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_5_img.jpg?v=55" alt="">
+                <img class="col-md-2" src="https://theme.hstatic.net/1000296747/1000891809/14/gallery_item_6_img.jpg?v=55" alt="">
+            </div>
+
+            <div class="items-footer">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h4 id="highlight">About Dotai</h4>
+                        <p>Vintage and basic wardrobe for boys and girls.Vintage and basic wardrobe for boys and girls.</p>
+                        <img src="//theme.hstatic.net/1000296747/1000891809/14/footer_logobct_img.png?v=55" alt="..." class="bct">
+                    </div>
+                    <div class="col-sm-3">
+                        <h4 id="highlight">Contact</h4>
+                        <p><b>Address:</b> 100 Nguyen Van Cu, An Khanh Ward, Ninh Kieu District, City. Can Tho</p>
+                        <p><b>Phone:</b> 0123.456.789 - 0999.999.999</p>
+                        <p><b>Email:</b> info@dotai.vn</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <h4 id="highlight">Customer support</h4>
+                        <ul class="CS">
+                            <li><a href="">Search</a></li>
+                            <li><a href="">Introduce</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3">
+                        <h4 id="highlight">Customer care</h4>
+                        <div class="row phone">
+                            <div class="col-sm-3"><i class="bi bi-telephone icon"></i></div>
+                            <div class="col-9"> 
+                                <h4 id="highlight">0123.456.789</h4>
+                                <a href="">info@dotai.vn</a>
+                            </div>
+                        </div>
+                        <h5 id="highlight">Follow Us</h5>
+                        <div class="contact-item">
+                            <a href="" class="contact-link"><i class="bi bi-facebook contact-icon"></i></a>
+                            <a href="" class="contact-link"><i class="bi bi-instagram contact-icon"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
-                                </html>
+        </footer>
+
+
+
+        <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script> <!-- lucide.dev icon -->
+        <script src="js/jquery-3.7.0.min.js"></script>
+        <script src="js/jquery.validate.min.js"></script>
+        <script src="js/profile.js"></script>
+    </body>
+
+
+</html>
 

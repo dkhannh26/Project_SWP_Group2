@@ -108,7 +108,6 @@
                                                     alt=""></div>
                             <div id="accountinfo" class="col-10">
                                 <p>${username}</p>
-                                <a href="">Sign out</a>
                             </div>
                         </div>
                         <input type="text" placeholder="Your numberphone" name="phoneNumber" id="phoneNumber">
@@ -135,7 +134,7 @@
                         </div>                    
                         <div class="row">
                             <div id="back" class="col-8">
-                                <a href="loadCart">CART</a>
+                                <a href="/Project_SWP_Group2/loadCart">CART</a>
                             </div>
                             <div id="complete" class="col-4">
                                 <input type="submit" value="COMPLETE">

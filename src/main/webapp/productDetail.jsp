@@ -755,9 +755,10 @@
     </style>
     <body>
         <header class="header">
+             <header class="header">
             <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
             <div class="headerContent">
-                <div class="logo"><a href="productList">DOTAI</a></div>
+                <div class="logo"><a href="">DOTAI</a></div>
                 <nav>
                     <ul class="headerList">
                         <li class="headerListItem"><a href="">Home page</a></li>
@@ -772,7 +773,7 @@
                             </ul>
                         </li>
                         <li class="headerListItem">
-                            <a href="http://localhost:8080/Project_SWP_Group2/productList/female">Women's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="/Project_SWP_Group2/productList/female">Women's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/t_shirt">T-shirt</a></li>
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/pant">Long pants</a></li>
@@ -786,9 +787,9 @@
                             <a href="./aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
                                 <li><a href="./contact.jsp">Contact</a></li>
-                                <li><a href="./viewOrder.jsp">View order</a></li>
+                                <li><a href="orderView">View order</a></li>
                                 <li><a href="./policy.jsp">Exchange policy</a></li>
-                                <li><a href="">Order's history</a></li>
+                                <li><a href="orderList?date=none">Order's history</a></li>
                         </li>
                     </ul>
                 </nav>
@@ -805,20 +806,26 @@
                                 <div class="search-list">
                                     <div class="search-list" id="search-ajax">
                                         <c:forEach items="${requestScope.productList}" var="product">
-                        
+
                                         </c:forEach>
                                     </div>
                                 </div>
                             </div>
                         </div>
+<!--                                                <div class="headerToolIcon">
+                                                    <a href="/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
+                        
+                                                </div> 
+                                                <div class="headerToolIcon">
+                                                    <a href="loadCart"><i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i></a>
+                                                </div>-->
                     </div>
                     <div class="headerToolIcon">
-                        <a href="http://localhost:8080/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
+                        <a href="/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
 
                     </div> 
                     <div class="headerToolIcon">
-                        <a href="loadCart"><i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i></a>
-
+                        <a href="/Project_SWP_Group2/loadCart"><i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i></a>
                     </div>
                 </div>
             </div>
