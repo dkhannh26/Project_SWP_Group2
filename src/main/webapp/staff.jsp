@@ -1115,7 +1115,7 @@
                                                             //statusCell.textContent = item.status;
                                                             statusCell.innerHTML = '<p class="status stt-' + item.status + '">' + item.status + '</p>';
 
-                                                            priceCell.textContent = item.total;
+                                                            priceCell.textContent = item.total.toLocaleString('vi-VN');
                                                             btnCell.innerHTML = '<button class="view-btn"><i class="bi bi-eye"></i></button><button class="accept-btn ' + item.status + '" data-id="' + item.id + '"onclick="hideButtons(this)"><i class="bi bi-check-lg"></i></button>';
 
                                                             newDiv.appendChild(newTr);
@@ -1148,7 +1148,7 @@
                                                                     productNameCell.textContent = detail.productName;
                                                                     quantityProductCell.textContent = detail.quantity;
                                                                     sizeCell.textContent = detail.sizeName;
-                                                                    priceProductCell.textContent = detail.price;
+                                                                    priceProductCell.textContent = detail.price.toLocaleString('vi-VN');
                                                                     newTrBody.appendChild(blankCell1);
                                                                     newTrBody.appendChild(productNameCell);
                                                                     newTrBody.appendChild(quantityProductCell);
