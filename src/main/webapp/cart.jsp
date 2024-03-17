@@ -857,6 +857,7 @@
         <div class="content">
             <h2 id="highlight">Your Cart</h2>
         </div>
+        <a href="productList"><button>Add cart</button></a>
         <div class="status">
             <p>You currently have <b>${quanP} products</b> in your cart</p>
         </div>
@@ -1104,6 +1105,7 @@
                                             console.log(productID);
                                             console.log(size_name);
                                             var option = confirm('Are you sure to delete');
+                                            if(option === true){
                                             $.ajax({
                                                 url: '/Project_SWP_Group2/cartDelete',
                                                 method: 'GET',
@@ -1114,12 +1116,13 @@
                                                 success: function (response) {
                                                     var values = response.split(",");
                                                     var sum = parseInt(values[1]);
-                                                    let formattedTotal = Math.floor(sum);
-                                                    totalPrice.innerHTML = formattedTotal;
+                                                    let formattedSum = sum.toLocaleString('vi-VN');
+                                                    totalPrice.innerHTML = formattedSum;
                                                     hideOrder(productID, size_name);
                                                 }
                                             });
                                         }
+                                    }
                                         function hideOrder(productID, size_name) {
                                             var userDiv = document.getElementById("user" + productID + size_name);
                                             if (userDiv) {

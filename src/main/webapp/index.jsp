@@ -837,6 +837,7 @@
             <div class="mainContent container ">
 
                 <div class="row" id="product">
+
                 <c:forEach items="${requestScope.productList}" var="product">
                     <div class="col-md-3 p-2">
                         <div class="product">

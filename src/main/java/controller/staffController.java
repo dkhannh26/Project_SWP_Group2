@@ -28,12 +28,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import payLoad.ResponseData;
-import static url.customerURL.URL_LOGIN_CUSTOMER;
 import static url.staffURL.URL_ACCOUNT_MANAGEMENT_STAFF;
 import static url.staffURL.URL_ADD_ACCOUNT_STAFF;
 import static url.staffURL.URL_ADD_PRODUCT_STAFF;
@@ -494,7 +492,6 @@ public class staffController extends HttpServlet {
             if (input.equals("admin")) {
                 response.sendRedirect("/Project_SWP_Group2/statistic?date=none&year=2024");
             } else {
-                
                 response.sendRedirect("/Project_SWP_Group2/orderList?date=none");
             }
         } else {

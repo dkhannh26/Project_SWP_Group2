@@ -894,6 +894,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="/Project_SWP_Group2/js/jquery-3.7.0.min.js"></script>
         <script src="/Project_SWP_Group2/js/jquery.validate.min.js"></script>
+
        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
             
@@ -953,10 +954,8 @@
             };
 
             populateUl();
-        </script>
-                    
-        <!--thinh-->
-        <script> 
+       
+
              $(document).ready(function (e) {
                                         $('.btn-changePass').click(function (e) {
                                             e.preventDefault();
@@ -1260,6 +1259,7 @@
                                     }
 
 
+
                                     function hideButtons1(button) {
                                         var id = button.getAttribute("data-id");
 //                                       
@@ -1313,24 +1313,28 @@
                                                             var numCell = document.createElement("td");
                                                             var nameCell = document.createElement("td");
                                                             var quantityCell = document.createElement("td");
+
                                                             var dateCell = document.createElement("td");
                                                             var statusCell = document.createElement("td");
                                                             var priceCell = document.createElement("td");
                                                             var btnCell = document.createElement("td");
 
+
                                                             btnCell.classList.add('action-btn');
+
 
                                                             numCell.textContent = ++i;
                                                             nameCell.textContent = item.username;
                                                             quantityCell.textContent = item.quantity;
                                                             dateCell.textContent = item.date;
+
                                                             //statusCell.textContent = item.status;
                                                             statusCell.innerHTML = '<p class="status stt-' + item.status + '">' + item.status + '</p>';
 
                                                             priceCell.textContent = item.total.toLocaleString('vi-VN');
                                                             btnCell.innerHTML = '<button class="view-btn"><i class="bi bi-eye"></i></button><button class="accept-btn ' + item.status + '" data-id="' + item.id + '"onclick="hideButtons1(this)"><i class="bi bi-check-lg"></i></button>';
 
-                                                            newDiv.appendChild(newTr);
+
                                                             newTr.appendChild(numCell);
                                                             newTr.appendChild(nameCell);
                                                             newTr.appendChild(quantityCell);
@@ -1338,6 +1342,7 @@
                                                             newTr.appendChild(statusCell);
                                                             newTr.appendChild(priceCell);
                                                             newTr.appendChild(btnCell);
+
 
 
                                                             document.querySelector("table #import-list").appendChild(newTr);
@@ -1414,10 +1419,12 @@
                                                 contentDivs.forEach(function (div) {
                                                     if (div.classList.contains(target)) {
                                                         div.style.display = 'block';
+
                                                     } else {
-                                                        div.style.display = 'none';
+                                                        alert('fail');
                                                     }
                                                 });
+
 
 
                                                 switch (target) {
@@ -1451,6 +1458,7 @@
                                                             }
                                                         });
 
+
                                                     const handleColor = () => {
                                                         let status = document.querySelectorAll('.status');
                                                         status.forEach(element => {
@@ -1459,12 +1467,13 @@
                                                             } else if (element.innerHTML === 'Delivering') {
                                                                 element.classList.add('green');
 
-                                                            }
-                                                            else if (element.innerHTML === 'Received'){
+                                                            }  else if (element.innerHTML === 'Received'){
+
                                                                 element.classList.add('blue');
                                                             }
                                                         });
                                                     };
+
 
                                                     var acceptBtns = document.querySelectorAll('.accept-btn');
                                                     var rejectBtns = document.querySelectorAll('.reject-btn');

@@ -328,11 +328,32 @@
                 border-radius: 2px;
                 text-align: center;
             }
+            #date, #mySelect {
+                border: none;
+                background-color: #e56e89;
+                padding: 5px 10px;
+                color: white;
+                border-radius: 5px;
+                outline: none;
+            }
+            #mySelect:after {
+                outline: none;
+                border-radius: 5px;
+                border: none;
+            }
+            .form-date {
+                position: relative;
+            }
+            .form-date label{
+                position: absolute;
+                top: 100%;
+                left: 0;
+            }
             /* statistic */
             .error {
                 color: red;
             }
-            
+
             .chart {
                 display: flex;
                 align-items: center;
@@ -346,11 +367,11 @@
             }
 
             .chart-container {
-                width: 380px;
+                width: 40%;
             }
 
             .chart-container-col{
-                width: 500px;
+                width: 50%;
             }
 
             .programming-stats {
@@ -529,7 +550,7 @@
                     </div>
                 </div>
 
-               <div class="statistic" style="display: block;">
+                <div class="statistic" style="display: block;">
                     <h3>Dashboard</h3>
                     <hr>
                     <div class="card-container">
@@ -566,15 +587,15 @@
                         </div>
                     </div>
                     <div>
-                        <form action="statistic" method="get">
-                            <select id="mySelect" name="year">
-                                <option value="">--Select Year--</option>
+                        <form action="statistic" method="get" id="formDate" class="form-date">
+                            <select id="mySelect" name="year" required>
+                                <option value="">-- Select Year --</option>
                                 <option value="2024">2024</option>
                                 <option value="2023">2023</option>
                                 <option value="2022">2022</option>
                                 <option value="2021">2021</option>
                             </select>
-                            <button name="date" value="date">Submit</button>
+                            <button name="date" value="date" id="date">Submit</button>
                             <h1>   </h1>
                         </form>
                     </div>
@@ -1683,56 +1704,73 @@
                                         });
                                     }
 
-                                  
+
+                                    $(document).ready(function () {
+                                        $('#formDate').validate({
+                                            rules: {
+                                                date: {
+                                                    required: true // ??m b?o m?t l?a ch?n ???c ch?n
+                                                }
+                                            },
+                                            messages: {
+                                                date: {
+                                                    required: "Please choose an option." // Thông báo khi không có l?a ch?n nào ???c ch?n
+                                                }
+                                            }
+                                        });
+                                    });
+
+
             </script>
 
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-             <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const links = document.querySelectorAll('.nav-link');
-                links.forEach(function (link) {
-                    link.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        const target = this.getAttribute('data-target');
-                        const contentDivs = document.querySelectorAll('.main-content > div');
-                        contentDivs.forEach(function (div) {
-                            if (div.classList.contains(target)) {
-                                div.style.display = 'block';
-                            } else {
-                                div.style.display = 'none';
-                            }
-                        });
-                    });
-                });
-            });
+            <script>
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        const links = document.querySelectorAll('.nav-link');
+                                        links.forEach(function (link) {
+                                            link.addEventListener('click', function (e) {
+                                                e.preventDefault();
+                                                const target = this.getAttribute('data-target');
+                                                const contentDivs = document.querySelectorAll('.main-content > div');
+                                                contentDivs.forEach(function (div) {
+                                                    if (div.classList.contains(target)) {
+                                                        div.style.display = 'block';
+                                                    } else {
+                                                        div.style.display = 'none';
+                                                    }
+                                                });
+                                            });
+                                        });
+                                    });
 
 
 
-            const chartData = {
-                labels: ["quarter 1", "quarter 2", "quarter 3", "quarter 4"],
-                data: [${quarter1},${quarter2},${quarter3},${quarter4}],
-            };
+                                    const chartData = {
+                                        labels: ["quarter 1", "quarter 2", "quarter 3", "quarter 4"],
+                                        data: [${quarter1},${quarter2},${quarter3},${quarter4}],
+                                    };
 //    data: [${quarter1},${quarter2},${quarter3},${quarter4}],     
-  
-            const myChart = document.querySelector(".my-chart");
-            const ul = document.querySelector(".programming-stats .details ul");
 
-            new Chart(myChart, {
-                type: "doughnut",
-                data: {
-                    labels: chartData.labels,
-                    datasets: [
-                        {
-                            label: "Quarter revenue",
-                            data: chartData.data,
-                        },
-                    ],
-                }
+                                    const myChart = document.querySelector(".my-chart");
+                                    const ul = document.querySelector(".programming-stats .details ul");
 
-            });
+                                    new Chart(myChart, {
+                                        type: "doughnut",
+                                        data: {
+                                            labels: chartData.labels,
+                                            datasets: [
+                                                {
+                                                    label: "Quarter revenue",
+                                                    data: chartData.data,
+                                                },
+                                            ],
+                                        }
+
+                                    });
 
 
-            const ctx = document.querySelector('.my-chart-line');
+                                    const ctx = document.querySelector('.my-chart-line');
+
 
             new Chart(ctx, {
                 type: 'bar',
@@ -1765,6 +1803,7 @@
 //
 //            populateUl();
         </script>
+
     </body>
 
 </html>

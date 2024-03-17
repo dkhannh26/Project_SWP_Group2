@@ -539,12 +539,13 @@
     <body>
         <!-- header -->
         <header class="header">
+            <header class="header">
             <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
             <div class="headerContent">
-                <div class="logo"><a href="productList">DOTAI</a></div>
+                <div class="logo"><a href="">DOTAI</a></div>
                 <nav>
                     <ul class="headerList">
-                        <li class="headerListItem"><a href="productList">Home page</a></li>
+                        <li class="headerListItem"><a href="">Home page</a></li>
                         <li class="headerListItem">
                             <a href="http://localhost:8080/Project_SWP_Group2/productList/male">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
@@ -552,57 +553,50 @@
 
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/pant">Long pants</a></li>
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/short">Shorts</a></li>
-                                <!--<li><a href="">Discount</a></li>-->
+                                <li><a href="">Discount</a></li>
                             </ul>
                         </li>
                         <li class="headerListItem">
-                            <a href="http://localhost:8080/Project_SWP_Group2/productList/female">Women's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="/Project_SWP_Group2/productList/female">Women's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/t_shirt">T-shirt</a></li>
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/pant">Long pants</a></li>
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/dress">Dress</a></li>
-                                <!--<li><a href="">Discount</a></li>-->
+                                <li><a href="">Discount</a></li>
 
                             </ul>
                         </li>
-                        <!--<li class="headerListItem"><a href="">Accessory</a></li>-->
+                        <li class="headerListItem"><a href="">Accessory</a></li>
                         <li class="headerListItem">
                             <a href="./aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
                                 <li><a href="./contact.jsp">Contact</a></li>
-                                <li><a href="./viewOrder.jsp">View order</a></li>
+                                <li><a href="orderView">View order</a></li>
                                 <li><a href="./policy.jsp">Exchange policy</a></li>
-                                <li><a href="/Project_SWP_Group2/orderHistoryView">Order's history</a></li>
+                                <li><a href="orderList?date=none">Order's history</a></li>
                         </li>
                     </ul>
                 </nav>
                 <div class="headerTool">
                     <div class="headerToolIcon">
-                        <i class="bi bi-search icon" onclick="toggleBox('box1')"></i>
                         <div class="searchBox box" id="box1">
                             <div class="searchBox-content">
-                                <h2>SEARCH</h2>
-                                <div class="search-input">
-                                    <input oninput="searchByName(this)" name="search" type="text" size="20" placeholder="Search for products...">
-                                    <button><i class="bi bi-search"></i></button>
-                                </div>
                                 <div class="search-list">
                                     <div class="search-list" id="search-ajax">
                                         <c:forEach items="${requestScope.productList}" var="product">
-                        
+
                                         </c:forEach>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="headerToolIcon">
-                        <a href="http://localhost:8080/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
-                        <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->     
-                    </div> 
-                    <div class="headerToolIcon">
-                        <i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i>
-
+<!--                                                <div class="headerToolIcon">
+                                                    <a href="/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
+                        
+                                                </div> 
+                                                <div class="headerToolIcon">
+                                                    <a href="loadCart"><i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i></a>
+                                                </div>-->
                     </div>
                 </div>
             </div>
@@ -750,8 +744,10 @@
                                             <p id="total">Total: <span>${formattedTotal} VND</span></p>
                                         </div>
                                         <div class="feedback col-2" style="margin: 5px 0">
+                                            <c:if test="${ordersUser.status eq 'Delivering'}">
                                             <button class="feedback-btn" onclick="updateOrderStatus(${ordersUser.orderID}, 'Delivered'); hideOrder(${ordersUser.orderID});">Order Received</button>
-                                        </div>
+                                            </c:if>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
