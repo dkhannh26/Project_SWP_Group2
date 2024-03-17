@@ -570,7 +570,7 @@
                             <a href="/Project_SWP_Group2/aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
                                 <li><a href="/Project_SWP_Group2/contact.jsp">Contact</a></li>
-                                <li><a href="/Project_SWP_Group2/viewOrder.jsp">View order</a></li>
+                                <li><a href="/Project_SWP_Group2/orderView">View order</a></li>
                                 <li><a href="/Project_SWP_Group2/policy.jsp">Exchange policy</a></li>
                                 <li><a href="/Project_SWP_Group2/orderHistoryView">Order's history</a></li>
                         </li>
@@ -776,7 +776,6 @@
                         <h6><a href="/Project_SWP_Group2/policy.jsp">Exchange policy</a></h6>
                         <hr>
                         <h6><a href="/Project_SWP_Group2/orderHistoryView">Order's history</a></h6>
-                        <li><a href="/Project_SWP_Group2/contact.jsp">Contact</a></li>
                     </div>
                 </div>
             </div>

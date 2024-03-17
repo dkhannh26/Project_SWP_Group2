@@ -945,15 +945,9 @@
                 }
             });
 
-            const populateUl = () => {
-                chartData.labels.forEach((l, i) => {
-                    let li = document.createElement("li");
-                    li.innerHTML = `${l}: <span class='percentage'>${chartData.data[i]}%</span>`;
-                    ul.appendChild(li);
-                });
-            };
+           
 
-            populateUl();
+        
        
 
              $(document).ready(function (e) {
@@ -1416,12 +1410,14 @@
                                                 e.preventDefault();
                                                 const target = this.getAttribute('data-target');
                                                 const contentDivs = document.querySelectorAll('.main-content > div');
+                                                console.log(target);
                                                 contentDivs.forEach(function (div) {
+                                                    console.log(div.classList);
                                                     if (div.classList.contains(target)) {
                                                         div.style.display = 'block';
-
-                                                    } else {
-                                                        alert('fail');
+                                                    } 
+                                                    else {
+                                                        div.style.display = 'none';
                                                     }
                                                 });
 
@@ -1453,7 +1449,7 @@
                                                                 element.classList.add('green');
 
                                                             }
-                                                            else if (element.innerHTML === 'Received'){
+                                                            else if (element.innerHTML === 'Delivered'){
                                                                 element.classList.add('blue');
                                                             }
                                                         });
@@ -1467,7 +1463,7 @@
                                                             } else if (element.innerHTML === 'Delivering') {
                                                                 element.classList.add('green');
 
-                                                            }  else if (element.innerHTML === 'Received'){
+                                                            }  else if (element.innerHTML === 'Delivered'){
 
                                                                 element.classList.add('blue');
                                                             }
@@ -1532,5 +1528,3 @@
     </body>
 
 </html>
-
-

@@ -570,7 +570,7 @@
                             <a href="/Project_SWP_Group2/aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
                                 <li><a href="/Project_SWP_Group2/contact.jsp">Contact</a></li>
-                                <li><a href="/Project_SWP_Group2/viewOrder.jsp">View order</a></li>
+                                <li><a href="/Project_SWP_Group2/orderView">View order</a></li>
                                 <li><a href="/Project_SWP_Group2/policy.jsp">Exchange policy</a></li>
                                 <li><a href="/Project_SWP_Group2/orderHistoryView">Order's history</a></li>
                         </li>
@@ -679,7 +679,7 @@
                         </div>
                     </div> -->
                     <c:forEach items="${requestScope.ordersUserList}" var="ordersUser"> 
-                        <c:if test="${ordersUser.status eq 'Delivered' || ordersUser.status ne 'Cancelled'}">
+                        <c:if test="${ordersUser.status eq 'Delivered' && ordersUser.status ne 'Cancelled'}">
                             <div class="user-info">
                                 <div id="header-order" class="row">
                                     <div class="col-3">
@@ -761,11 +761,11 @@
                     <div class="page">
                         <h5 id="highlight"><b>Page category</b></h5>
                         <hr>
-                        <h6><a href="">Contact</a></h6>
+                        <h6><a href="/Project_SWP_Group2/contact.jsp">Contact</a></h6>
                         <hr>
-                        <h6><a href="">Exchange policy</a></h6>
+                        <h6><a href="/Project_SWP_Group2/policy.jsp">Exchange policy</a></h6>
                         <hr>
-                        <h6><a href="">Order's history</a></h6>
+                        <h6><a href="/Project_SWP_Group2/orderHistoryView">Order's history</a></h6>
                     </div>
                 </div>
             </div>

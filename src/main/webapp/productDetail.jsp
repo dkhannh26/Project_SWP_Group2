@@ -17,6 +17,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <title>Profile</title>
         <link rel="icon" href="LG.png" type="image/x-icon">
         ${ms}
@@ -755,13 +756,12 @@
     </style>
     <body>
         <header class="header">
-             <header class="header">
             <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
             <div class="headerContent">
-                <div class="logo"><a href="">DOTAI</a></div>
+                <div class="logo"><a href="/Project_SWP_Group2/productList">DOTAI</a></div>
                 <nav>
                     <ul class="headerList">
-                        <li class="headerListItem"><a href="">Home page</a></li>
+                        <li class="headerListItem"><a href="/Project_SWP_Group2/productList">Home page</a></li>
                         <li class="headerListItem">
                             <a href="http://localhost:8080/Project_SWP_Group2/productList/male">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
@@ -769,27 +769,27 @@
 
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/pant">Long pants</a></li>
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/short">Shorts</a></li>
-                                <li><a href="">Discount</a></li>
+                                <!--<li><a href="">Discount</a></li>-->
                             </ul>
                         </li>
                         <li class="headerListItem">
-                            <a href="/Project_SWP_Group2/productList/female">Women's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="http://localhost:8080/Project_SWP_Group2/productList/female">Women's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/t_shirt">T-shirt</a></li>
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/pant">Long pants</a></li>
                                 <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/dress">Dress</a></li>
-                                <li><a href="">Discount</a></li>
+                                <!--<li><a href="">Discount</a></li>-->
 
                             </ul>
                         </li>
-                        <li class="headerListItem"><a href="">Accessory</a></li>
+                        <!--<li class="headerListItem"><a href="">Accessory</a></li>-->
                         <li class="headerListItem">
-                            <a href="./aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <a href="/Project_SWP_Group2/aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="./contact.jsp">Contact</a></li>
-                                <li><a href="orderView">View order</a></li>
-                                <li><a href="./policy.jsp">Exchange policy</a></li>
-                                <li><a href="orderList?date=none">Order's history</a></li>
+                                <li><a href="/Project_SWP_Group2/contact.jsp">Contact</a></li>
+                                <li><a href="/Project_SWP_Group2/orderView">View order</a></li>
+                                <li><a href="/Project_SWP_Group2/policy.jsp">Exchange policy</a></li>
+                                <li><a href="/Project_SWP_Group2/orderHistoryView">Order's history</a></li>
                         </li>
                     </ul>
                 </nav>
@@ -812,20 +812,14 @@
                                 </div>
                             </div>
                         </div>
-<!--                                                <div class="headerToolIcon">
-                                                    <a href="/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
-                        
-                                                </div> 
-                                                <div class="headerToolIcon">
-                                                    <a href="loadCart"><i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i></a>
-                                                </div>-->
                     </div>
                     <div class="headerToolIcon">
-                        <a href="/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
-
-                    </div> 
+                        <a href="http://localhost:8080/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
+                        <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->     
+                    </div>
                     <div class="headerToolIcon">
                         <a href="/Project_SWP_Group2/loadCart"><i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i></a>
+
                     </div>
                 </div>
             </div>
@@ -898,7 +892,7 @@
                 </div>
             </div>
         </form>
-        <footer>
+ <footer>
             <div class="content-footer">
                 <h3 id="highlight">Follow us on Instagram</h3>
                 <p>@dotai.vn & @fired.vn</p>
