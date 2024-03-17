@@ -1144,6 +1144,7 @@
                                                                     var sizeCell = document.createElement("td");
                                                                     var priceProductCell = document.createElement("td");
                                                                     var newTrBody = document.createElement("tr");
+                                                                    newTrBody.style.backgroundColor = "white";
                                                                     productNameCell.textContent = detail.productName;
                                                                     quantityProductCell.textContent = detail.quantity;
                                                                     sizeCell.textContent = detail.sizeName;
