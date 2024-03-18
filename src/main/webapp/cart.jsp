@@ -18,6 +18,7 @@
               integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <title>Profile</title>
+        <link rel="icon" href="/Project_SWP_Group2/images/LG1.png" type="image/x-icon">
 
     </head>
     <style>
@@ -814,6 +815,8 @@
                         <li class="headerListItem">
                             <a href="/Project_SWP_Group2/aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
+                                <li><a href="/Project_SWP_Group2/aboutUs.jsp">About Us</a></li>
+
                                 <li><a href="/Project_SWP_Group2/contact.jsp">Contact</a></li>
                                 <li><a href="/Project_SWP_Group2/orderView">View order</a></li>
                                 <li><a href="/Project_SWP_Group2/policy.jsp">Exchange policy</a></li>
@@ -834,7 +837,7 @@
                                 <div class="search-list">
                                     <div class="search-list" id="search-ajax">
                                         <c:forEach items="${requestScope.productList}" var="product">
-                        
+
                                         </c:forEach>
                                     </div>
                                 </div>
@@ -857,9 +860,9 @@
         <div class="content">
             <h2 id="highlight">Your Cart</h2>
         </div>
-        <a href="productList"><button>Add cart</button></a>
+        <!--<a href="productList"><button>Add cart</button></a>-->
         <div class="status">
-            <p>You currently have <b>${quanP} products</b> in your cart</p>
+            <p>You currently have <b id="productCount">${quanP}</b><b> products</b> in your cart</p>
         </div>
         <div class="row">
             <div class="col-md-8">
@@ -1020,7 +1023,7 @@
                                             let totalPrice = document.querySelector('#sum');
                                             console.log(id);
                                             let newQuantity = parseInt(id.value) + 1; // Tăng giá trị quantity
-                                            
+
                                             $.ajax({
                                                 url: '/Project_SWP_Group2/cartIncrease',
                                                 method: 'GET',
@@ -1031,25 +1034,25 @@
                                                     size: size_name
                                                 },
                                                 success: function (response) {
-                                                    
+
                                                     var values = response.split(",");
                                                     var price2 = parseFloat(values[0]);
                                                     var sum = parseInt(values[1]);
                                                     var temp = parseInt(values[2]);
                                                     console.log(temp);
-                                                    if(temp === 0){
+                                                    if (temp === 0) {
                                                         id.value = newQuantity;
                                                         let formattedSum = sum.toLocaleString('vi-VN');
-                                                    let formattedPrice = price2.toLocaleString('vi-VN');
+                                                        let formattedPrice = price2.toLocaleString('vi-VN');
 
-                                                    totalPriceElement1.innerHTML = formattedPrice;
-                                                    totalPriceElement2.innerHTML = "<b>" + formattedPrice + "</b>";
-                                                    totalPrice.innerHTML = formattedSum + "<span> VND</span>";
+                                                        totalPriceElement1.innerHTML = formattedPrice;
+                                                        totalPriceElement2.innerHTML = "<b>" + formattedPrice + "</b>";
+                                                        totalPrice.innerHTML = formattedSum + "<span> VND</span>";
                                                     }
-                                                    if(temp !== 0){
+                                                    if (temp !== 0) {
                                                         alert('sold out!');
                                                     }
-                                                    
+
 
 
                                                 }
@@ -1101,28 +1104,34 @@
                                         }
 
                                         function deleteCartItem(productID, size_name) {
+                                            let productCount = document.querySelector('#productCount');
+                                            console.log(productCount);
                                             let totalPrice = document.querySelector('#sum');
                                             console.log(productID);
                                             console.log(size_name);
                                             var option = confirm('Are you sure to delete');
-                                            if(option === true){
-                                            $.ajax({
-                                                url: '/Project_SWP_Group2/cartDelete',
-                                                method: 'GET',
-                                                data: {
-                                                    id: productID,
-                                                    size: size_name
-                                                },
-                                                success: function (response) {
-                                                    var values = response.split(",");
-                                                    var sum = parseInt(values[1]);
-                                                    let formattedSum = sum.toLocaleString('vi-VN');
-                                                    totalPrice.innerHTML = formattedSum;
-                                                    hideOrder(productID, size_name);
-                                                }
-                                            });
+                                            if (option === true) {
+                                                $.ajax({
+                                                    url: '/Project_SWP_Group2/cartDelete',
+                                                    method: 'GET',
+                                                    data: {
+                                                        id: productID,
+                                                        size: size_name
+                                                    },
+                                                    success: function (response) {
+                                                        var values = response.split(",");
+                                                        var sum = parseInt(values[1]);
+                                                        var productCount2 = parseInt(values[2]);
+                                                        console.log(productCount + "productCount");
+                                                        let formattedSum = sum.toLocaleString('vi-VN');
+                                                        productCount.innerHTML = productCount2;
+
+                                                        totalPrice.innerHTML = formattedSum;
+                                                        hideOrder(productID, size_name);
+                                                    }
+                                                });
+                                            }
                                         }
-                                    }
                                         function hideOrder(productID, size_name) {
                                             var userDiv = document.getElementById("user" + productID + size_name);
                                             if (userDiv) {

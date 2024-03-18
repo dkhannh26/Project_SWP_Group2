@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <!-- bootstrap icon -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-        <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+        <link rel="icon" href="/Project_SWP_Group2/images/LG1.png" type="image/x-icon">
 
         <script src="https://kit.fontawesome.com/1bd876819f.js" crossorigin="anonymous"></script>
         <style>
@@ -37,7 +37,7 @@
 
             header {
                 height: 50px;
-                background-color: #2f2b2b;
+                background-color: #a0816c;
             }
 
             .header-top,
@@ -66,6 +66,10 @@
                 margin: 0 10px;
             }
 
+            .signout a:hover {
+                color: #e9c0c0;
+            }
+
             .main {
                 display: flex;
                 height: calc(100% - 50px);
@@ -77,7 +81,7 @@
 
             .nav-list {
                 list-style-type: none;
-                background-color: #2f2b2b;
+                background-color: #b4acac;
                 padding: 0;
             }
 
@@ -130,6 +134,9 @@
 
             .product-table .td-button {
                 width: 15%;
+            }
+            .btn-update, .btn-delete {
+                width: 77px;
             }
 
             /* product management */
@@ -341,6 +348,9 @@
                 border-radius: 5px;
                 border: none;
             }
+            button#date:hover {
+                background-color: #b97777;
+            }
             .form-date {
                 position: relative;
             }
@@ -408,6 +418,16 @@
                 font-weight: 700;
                 color: #e63946;
             }
+            @media (max-width: 1100px) {
+                .card-container {
+                    grid-template-columns: 2fr 2fr;
+                }
+            }
+            @media (max-width: 651px) {
+                .card-container {
+                    grid-template-columns: none;
+                }
+            }
         </style>
     </head>
 
@@ -417,7 +437,7 @@
                 <div class="logo">DOTAI</div>
                 <div class="admin-info">
                     <div class="admin-name"><i class="bi bi-person-fill"></i>: Admin</div>
-                    <div class="signout"><a><a href="cookieHandle"><i class="bi bi-box-arrow-right"></i> Sign out</a></div>
+                    <div class="signout"><a href="cookieHandle"><i class="bi bi-box-arrow-right"></i> Sign out</a></div>
                 </div>
             </div>
         </header>
@@ -428,7 +448,7 @@
                     <li class="nav-link" data-target="statistic">
                         <a href="#"><i class="fa-solid fa-chart-line"></i> <span>Dashboard</span> </a>
                     </li>
-                    
+
                     <li class="nav-link" data-target="product-manage">
                         <a href="#" ><i class="bi bi-box"></i> <span>Product Management</span> </a>
                     </li>
@@ -493,7 +513,7 @@
                                 <input type="text" placeholder="Quantity" id="product-quantity-add">
                             </div>
                             <div class="col-md-12">
-                                <input type="text" placeholder="Promo ID" id="product-promo-add">
+                                <input type="text" placeholder="Promo" id="product-promo-add">
                             </div>
                             <div class="col-md-12   ">
                                 <input type="text" placeholder="Price" id="product-price-add">
@@ -510,8 +530,7 @@
                                     <option value="Type">Type</option>
                                 </select>
                             </div>
-
-                            <textarea class="col-md-12" id="product-des-add" placeholder="Description" rows="4" cols="45"></textarea>
+                            <div class="col-md-12"><textarea style="width: 100%"  id="product-des-add" placeholder="Description" rows="4" cols="45"></textarea></div>
 
                             <div class="col-md-12 file-input">
                                 <input type="file" accept="" id="product-url-add" title="Click or drag a file to this area to upload">
@@ -1302,7 +1321,7 @@
                                                             pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
                                                             nameCell.textContent = product.name;
                                                             categoryIdCell.textContent = product.categoryID;
-                                                            priceCell.textContent = product.price.toLocaleString('vi-VN') +' VND';
+                                                            priceCell.textContent = product.price.toLocaleString('vi-VN') + ' VND';
                                                             quantityCell.textContent = product.quantity;
                                                             // Th?m c?c ? d? li?u v?o h?ng m?i
                                                             newRow.appendChild(pictureCell);
@@ -1350,7 +1369,7 @@
                                                             pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
                                                             nameCell.textContent = product.name;
                                                             categoryIdCell.textContent = product.categoryID;
-                                                            priceCell.textContent = product.price.toLocaleString('vi-VN')+' VND';
+                                                            priceCell.textContent = product.price.toLocaleString('vi-VN') + ' VND';
                                                             quantityCell.textContent = product.quantity;
                                                             newRow.appendChild(pictureCell);
                                                             newRow.appendChild(nameCell);
@@ -1414,7 +1433,7 @@
                                                             pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
                                                             nameCell.textContent = product.name;
                                                             categoryIdCell.textContent = product.categoryID;
-                                                            priceCell.textContent = product.price.toLocaleString('vi-VN')+' VND';
+                                                            priceCell.textContent = product.price.toLocaleString('vi-VN') + ' VND';
                                                             quantityCell.textContent = product.quantity;
                                                             // Th?m c?c ? d? li?u v?o h?ng m?i
                                                             newRow.appendChild(pictureCell);
@@ -1446,6 +1465,8 @@
                                                     if (data1.isSuccess) {
                                                         alert('Delete successfully');
                                                         productList();
+                                                    } else {
+                                                        alert('Cannot be deleted because the product is in the cart or being ordered')
                                                     }
                                                 })
 
@@ -1772,26 +1793,26 @@
                                     const ctx = document.querySelector('.my-chart-line');
 
 
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12' ],
-                    datasets: [{
-                            label: 'monthly revenue',
-                            data: [${revenue1},${revenue2},${revenue3},${revenue4},${revenue5},${revenue6},${revenue7},${revenue8},${revenue9},${revenue10},${revenue11},${revenue12}],
-                            borderWidth: 1,
-                            backgroundColor: 'rgba(231, 189, 111, 0.799)',
-                            barThickness: 30
-                        }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
+                                    new Chart(ctx, {
+                                        type: 'bar',
+                                        data: {
+                                            labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                                            datasets: [{
+                                                    label: 'monthly revenue',
+                                                    data: [${revenue1},${revenue2},${revenue3},${revenue4},${revenue5},${revenue6},${revenue7},${revenue8},${revenue9},${revenue10},${revenue11},${revenue12}],
+                                                    borderWidth: 1,
+                                                    backgroundColor: 'rgba(231, 189, 111, 0.799)',
+                                                    barThickness: 30
+                                                }]
+                                        },
+                                        options: {
+                                            scales: {
+                                                y: {
+                                                    beginAtZero: true
+                                                }
+                                            }
+                                        }
+                                    });
 
 //            const populateUl = () => {
 //                chartData.labels.forEach((l, i) => {
@@ -1802,7 +1823,7 @@
 //            };
 //
 //            populateUl();
-        </script>
+            </script>
 
     </body>
 

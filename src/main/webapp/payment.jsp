@@ -21,7 +21,7 @@
               integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
         <title>Payment</title>
         <link rel="stylesheet" href="./payment.css">
-        <link rel="icon" href="LG.png" type="image/x-icon">
+                <link rel="icon" href="/Project_SWP_Group2/images/LG1.png" type="image/x-icon">
     </head>
     <style>
         body{
@@ -111,13 +111,13 @@
                                 <p>${username}</p>
                             </div>
                         </div>
-                        <input type="text" placeholder="Your numberphone" name="phoneNumber" id="phoneNumber">
+                        <input type="text" placeholder="Your phone number" name="phoneNumber" id="phoneNumber">
 
 
                         <div>
                             <b>Default address</b>
                             <div class="address"><input type="text" name="address"
-                                                        value="${address}">
+                                                        value="${address}" readonly="">
                             </div>
                         </div>
 

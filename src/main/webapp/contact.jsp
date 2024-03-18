@@ -25,7 +25,7 @@
         <link rel="stylesheet" href="/css/style copy.css">
         <!-- <link rel="stylesheet" href="grid.css"> -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-                <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+        <link rel="icon" href="/Project_SWP_Group2/images/LG1.png" type="image/x-icon">
 
 
         <title>DOTAI</title>
@@ -649,7 +649,7 @@
 
     <body>
         <!-- header -->
-                <header class="header">
+        <header class="header">
             <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
             <div class="headerContent">
                 <div class="logo"><a href="/Project_SWP_Group2/productList">DOTAI</a></div>
@@ -680,6 +680,8 @@
                         <li class="headerListItem">
                             <a href="/Project_SWP_Group2/aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
+                                <li><a href="/Project_SWP_Group2/aboutUs.jsp">About Us</a></li>
+
                                 <li><a href="/Project_SWP_Group2/contact.jsp">Contact</a></li>
                                 <li><a href="/Project_SWP_Group2/orderView">View order</a></li>
                                 <li><a href="/Project_SWP_Group2/policy.jsp">Exchange policy</a></li>
@@ -700,7 +702,7 @@
                                 <div class="search-list">
                                     <div class="search-list" id="search-ajax">
                                         <c:forEach items="${requestScope.productList}" var="product">
-                        
+
                                         </c:forEach>
                                     </div>
                                 </div>
@@ -713,8 +715,8 @@
                     </div>
                     <div class="headerToolIcon">
                         <a href="/Project_SWP_Group2/loadCart"><i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i></a>
-                   
-                </div>
+
+                    </div>
                 </div>
             </div>
 
@@ -866,11 +868,11 @@
 
 
         <script type="text/javascript">
-                                function doDelete(id) {
-                                    if (confirm("Do you want to delete this product (" + id + ")?")) {
-                                        window.location = "deleteProduct?id=" + id;
-                                    }
-                                }
+            function doDelete(id) {
+                if (confirm("Do you want to delete this product (" + id + ")?")) {
+                    window.location = "deleteProduct?id=" + id;
+                }
+            }
         </script>
     </body>
 

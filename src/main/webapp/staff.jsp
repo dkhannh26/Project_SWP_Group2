@@ -22,7 +22,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <!-- bootstrap icon -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-        <link rel="icon" href="/images/LG.png" type="image/x-icon">
+        <link rel="icon" href="/Project_SWP_Group2/images/LG1.png" type="image/x-icon">
         <script src="https://kit.fontawesome.com/1bd876819f.js" crossorigin="anonymous"></script>
         <style>
             * {
@@ -431,17 +431,17 @@
             /* order-manage */
             .red {
                 background-color: #d893a3;
-            color: #b30021;
+                color: #b30021;
             }
 
             .green {
-                  background-color: #6fcaea;
+                background-color: #6fcaea;
 
             }
             .blue {
-                
+
                 background-color: #86e49d;
-            color: #006b21;
+                color: #006b21;
             }
 
 
@@ -458,8 +458,8 @@
                 background-color: #fff6;
             } */
             /* order-manage */
-            
-                 /* statistic */
+
+            /* statistic */
             .card-container {
                 display: grid;
                 grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -515,7 +515,7 @@
             .error {
                 color: red;
             }
-            
+
             .chart {
                 display: flex;
                 align-items: center;
@@ -570,6 +570,30 @@
                 font-weight: 700;
                 color: #e63946;
             }
+            @media (max-width: 1100px) {
+                .card-container {
+                    grid-template-columns: 2fr 2fr;
+                }
+            }
+            @media (max-width: 651px) {
+                .card-container {
+                    grid-template-columns: none;
+                }
+            }
+
+            #date, #mySelect {
+                border: none;
+                background-color: #e56e89;
+                padding: 5px 10px;
+                color: white;
+                border-radius: 5px;
+                outline: none;
+            }
+            #mySelect:after {
+                outline: none;
+                border-radius: 5px;
+                border: none;
+            }
         </style>
     </head>
 
@@ -601,7 +625,7 @@
                     </li>
 
                     <li class="nav-link" data-target="import-goods">
-                        <a href="#"><i class="fa-solid fa-truck-ramp-box"></i> <span>Import goods management</span> </a>
+                        <a href="#"><i class="fa-solid fa-truck-ramp-box"></i> <span>Import products management</span> </a>
                     </li>
                 </ul>
             </nav>
@@ -690,7 +714,7 @@
                                 <option value="2022">2022</option>
                                 <option value="2021">2021</option>
                             </select>
-                            <button name="date" value="date">Submit</button>
+                            <button id="date" name="date" value="date">Submit</button>
                             <h1>   </h1>
                         </form>
                     </div>
@@ -731,9 +755,9 @@
                                         <td class="tb-address">${order.address}</td>
                                         <td>${order.date}</td>
                                         <td><p class="status stt-pending" id="id${order.orderID}" onchange="handleColor()">${order.status}</p></td>
-                                        <c:set var="formattedPrice">
-                                <fmt:formatNumber type="number" value="${order.total}" pattern="###,###" />
-                            </c:set>
+                                            <c:set var="formattedPrice">
+                                                <fmt:formatNumber type="number" value="${order.total}" pattern="###,###" />
+                                            </c:set>
                                         <td><strong><i class="bi bi-currency-dollar"></i>${formattedPrice}</strong></td>
                                         <td class="action-btn">
 
@@ -756,8 +780,8 @@
                                                 <td>${orderDetail.size_name}</td>
                                                 <td>${orderDetail.quantity}</td>
                                                 <c:set var="formattedPrice2">
-                                <fmt:formatNumber type="number" value="${(priceProduct[orderDetail.productID] - (priceProduct[orderDetail.productID] * promoMap[promoID[orderDetail.productID]])/100) * orderDetail.quantity}" pattern="###,###" />
-                            </c:set>
+                                                    <fmt:formatNumber type="number" value="${(priceProduct[orderDetail.productID] - (priceProduct[orderDetail.productID] * promoMap[promoID[orderDetail.productID]])/100) * orderDetail.quantity}" pattern="###,###" />
+                                                </c:set>
                                                 <td>${formattedPrice2}</td>
                                                 <td></td>
                                             </tr>
@@ -895,62 +919,62 @@
         <script src="/Project_SWP_Group2/js/jquery-3.7.0.min.js"></script>
         <script src="/Project_SWP_Group2/js/jquery.validate.min.js"></script>
 
-       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
-            
-            const chartData = {
-                labels: ["quarter 1", "quarter 2", "quarter 3", "quarter 4"],
-                data: [${quarter1},${quarter2},${quarter3},${quarter4}],
-            };
 
-  
-            const myChart = document.querySelector(".my-chart");
-            const ul = document.querySelector(".programming-stats .details ul");
-
-            new Chart(myChart, {
-                type: "doughnut",
-                data: {
-                    labels: chartData.labels,
-                    datasets: [
-                        {
-                            label: "Quarter revenue",
-                            data: chartData.data,
-                        },
-                    ],
-                }
-
-            });
+                                    const chartData = {
+                                        labels: ["quarter 1", "quarter 2", "quarter 3", "quarter 4"],
+                                        data: [${quarter1},${quarter2},${quarter3},${quarter4}],
+                                    };
 
 
-            const ctx = document.querySelector('.my-chart-line');
+                                    const myChart = document.querySelector(".my-chart");
+                                    const ul = document.querySelector(".programming-stats .details ul");
 
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', ],
-                    datasets: [{
-                            label: 'monthly revenue',
-                            data: [${revenue1},${revenue2},${revenue3},${revenue4},${revenue5},${revenue6},${revenue7},${revenue8},${revenue9},${revenue10},${revenue11},${revenue12}],
-                            borderWidth: 1,
-                            backgroundColor: 'rgba(231, 189, 111, 0.799)',
-                            barThickness: 30
-                        }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
+                                    new Chart(myChart, {
+                                        type: "doughnut",
+                                        data: {
+                                            labels: chartData.labels,
+                                            datasets: [
+                                                {
+                                                    label: "Quarter revenue",
+                                                    data: chartData.data,
+                                                },
+                                            ],
+                                        }
 
-           
+                                    });
 
-        
-       
 
-             $(document).ready(function (e) {
+                                    const ctx = document.querySelector('.my-chart-line');
+
+                                    new Chart(ctx, {
+                                        type: 'bar',
+                                        data: {
+                                            labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', ],
+                                            datasets: [{
+                                                    label: 'monthly revenue',
+                                                    data: [${revenue1},${revenue2},${revenue3},${revenue4},${revenue5},${revenue6},${revenue7},${revenue8},${revenue9},${revenue10},${revenue11},${revenue12}],
+                                                    borderWidth: 1,
+                                                    backgroundColor: 'rgba(231, 189, 111, 0.799)',
+                                                    barThickness: 30
+                                                }]
+                                        },
+                                        options: {
+                                            scales: {
+                                                y: {
+                                                    beginAtZero: true
+                                                }
+                                            }
+                                        }
+                                    });
+
+
+
+
+
+
+                                    $(document).ready(function (e) {
                                         $('.btn-changePass').click(function (e) {
                                             e.preventDefault();
                                             var currentPass = document.getElementById("currentPassword").value;
@@ -1083,7 +1107,7 @@
                                                             pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
                                                             nameCell.textContent = product.name;
                                                             categoryIdCell.textContent = product.categoryID;
-                                                            priceCell.textContent = product.price.toLocaleString('vi-VN') +' VND';
+                                                            priceCell.textContent = product.price.toLocaleString('vi-VN') + ' VND';
                                                             quantityCell.textContent = product.quantity;
                                                             // Thêm các ô dữ liệu vào hàng mới
                                                             newRow.appendChild(pictureCell);
@@ -1128,7 +1152,7 @@
                                                             pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
                                                             nameCell.textContent = product.name;
                                                             categoryIdCell.textContent = product.categoryID;
-                                                            priceCell.textContent = product.price.toLocaleString('vi-VN')+' VND';
+                                                            priceCell.textContent = product.price.toLocaleString('vi-VN') + ' VND';
                                                             quantityCell.textContent = product.quantity;
                                                             // Thêm các ô dữ liệu vào hàng mới
                                                             newRow.appendChild(pictureCell);
@@ -1235,7 +1259,7 @@
                                                             pictureCell.innerHTML = '<img  style="width: 100px; height: 100px;object-fit: cover;" src="' + product.picURL + '" alt="Product Picture">';
                                                             nameCell.textContent = product.name;
                                                             categoryIdCell.textContent = product.categoryID;
-                                                            priceCell.textContent = product.price.toLocaleString('vi-VN')+' VND';
+                                                            priceCell.textContent = product.price.toLocaleString('vi-VN') + ' VND';
                                                             quantityCell.textContent = product.quantity;
                                                             // Thêm các ô dữ liệu vào hàng mới
                                                             newRow.appendChild(pictureCell);
@@ -1356,8 +1380,8 @@
                                                                     var sizeCell = document.createElement("td");
                                                                     var priceProductCell = document.createElement("td");
                                                                     var newTrBody = document.createElement("tr");
-                                                                    
-                                                                    newTrBody.style.backgroundColor = "white"                                                                    
+
+                                                                    newTrBody.style.backgroundColor = "white"
                                                                     blankCell1.textContent = detail.productID;
                                                                     productNameCell.textContent = detail.productName;
 
@@ -1415,8 +1439,7 @@
                                                     console.log(div.classList);
                                                     if (div.classList.contains(target)) {
                                                         div.style.display = 'block';
-                                                    } 
-                                                    else {
+                                                    } else {
                                                         div.style.display = 'none';
                                                     }
                                                 });
@@ -1441,89 +1464,88 @@
                                         });
                                     });
 
-                                          let status = document.querySelectorAll('.status');
-                                                        status.forEach(element => {
-                                                            if (element.innerHTML === 'Cancelled') {
-                                                                element.classList.add('red');
-                                                            } else if (element.innerHTML === 'Delivering') {
-                                                                element.classList.add('green');
+                                    let status = document.querySelectorAll('.status');
+                                    status.forEach(element => {
+                                        if (element.innerHTML === 'Cancelled') {
+                                            element.classList.add('red');
+                                        } else if (element.innerHTML === 'Delivering') {
+                                            element.classList.add('green');
 
-                                                            }
-                                                            else if (element.innerHTML === 'Delivered'){
-                                                                element.classList.add('blue');
-                                                            }
-                                                        });
-
-
-                                                    const handleColor = () => {
-                                                        let status = document.querySelectorAll('.status');
-                                                        status.forEach(element => {
-                                                            if (element.innerHTML === 'Cancelled') {
-                                                                element.classList.add('red');
-                                                            } else if (element.innerHTML === 'Delivering') {
-                                                                element.classList.add('green');
-
-                                                            }  else if (element.innerHTML === 'Delivered'){
-
-                                                                element.classList.add('blue');
-                                                            }
-                                                        });
-                                                    };
+                                        } else if (element.innerHTML === 'Delivered') {
+                                            element.classList.add('blue');
+                                        }
+                                    });
 
 
-                                                    var acceptBtns = document.querySelectorAll('.accept-btn');
-                                                    var rejectBtns = document.querySelectorAll('.reject-btn');
+                                    const handleColor = () => {
+                                        let status = document.querySelectorAll('.status');
+                                        status.forEach(element => {
+                                            if (element.innerHTML === 'Cancelled') {
+                                                element.classList.add('red');
+                                            } else if (element.innerHTML === 'Delivering') {
+                                                element.classList.add('green');
 
-                                                    // Thiết lập sự kiện cho tất cả các nút
-                                                    acceptBtns.forEach(function (btn) {
-                                                        btn.addEventListener('click', hideButtons);
-                                                    });
+                                            } else if (element.innerHTML === 'Delivered') {
 
-                                                    rejectBtns.forEach(function (btn) {
-                                                        btn.addEventListener('click', hideButtons);
-                                                    });
+                                                element.classList.add('blue');
+                                            }
+                                        });
+                                    };
 
-                                                    // Hàm để ẩn cả hai nút trong cùng một thẻ td
-                                                    function hideButtons(event) {
-                                                        var clickedBtn = event.target; // Lấy nút đã được nhấp vào
-                                                        var tdElement = clickedBtn.closest('.action-btn'); // Tìm thẻ td gần nhất chứa nút đã được nhấp vào
-                                                        var acceptBtn = tdElement.querySelector('.accept-btn'); // Lấy nút chấp nhận trong thẻ td
-                                                        var rejectBtn = tdElement.querySelector('.reject-btn'); // Lấy nút từ chối trong thẻ td
-                                                        acceptBtn.style.display = 'none';
-                                                        rejectBtn.style.display = 'none';
 
-                                                    }
-                                                    function updateOrderStatus(orderId, status) {
-                                                        let id = document.querySelector(`#id` + orderId);
-                                                        $.ajax({
-                                                            url: '/Project_SWP_Group2/orderUpdateStatus',
-                                                            method: 'GET',
-                                                            data: {
-                                                                orderId: orderId,
-                                                                status: status
-                                                            },
-                                                            success: function (response) {
-                                                                console.log(id);
-                                                                id.innerHTML = status;
-                                                                
-                                                                handleColor();
-                                                            }
-                                                        });
-                                                    }
-                                                    document.addEventListener("DOMContentLoaded", function () {
-                                                        const viewBtn = document.querySelectorAll('.view-btn');
-                                                        const dropdownItem = document.querySelectorAll('.item');
-                                                        viewBtn.forEach(function (edit, i) {
-                                                            edit.addEventListener('click', function () {
-                                                                if (dropdownItem[i].style.display === "none") {
-                                                                    dropdownItem[i].style.display = "contents";
-                                                                } else {
-                                                                    dropdownItem[i].style.display = "none";
-                                                                }
+                                    var acceptBtns = document.querySelectorAll('.accept-btn');
+                                    var rejectBtns = document.querySelectorAll('.reject-btn');
 
-                                                            });
-                                                        })
-                                                    });
+                                    // Thiết lập sự kiện cho tất cả các nút
+                                    acceptBtns.forEach(function (btn) {
+                                        btn.addEventListener('click', hideButtons);
+                                    });
+
+                                    rejectBtns.forEach(function (btn) {
+                                        btn.addEventListener('click', hideButtons);
+                                    });
+
+                                    // Hàm để ẩn cả hai nút trong cùng một thẻ td
+                                    function hideButtons(event) {
+                                        var clickedBtn = event.target; // Lấy nút đã được nhấp vào
+                                        var tdElement = clickedBtn.closest('.action-btn'); // Tìm thẻ td gần nhất chứa nút đã được nhấp vào
+                                        var acceptBtn = tdElement.querySelector('.accept-btn'); // Lấy nút chấp nhận trong thẻ td
+                                        var rejectBtn = tdElement.querySelector('.reject-btn'); // Lấy nút từ chối trong thẻ td
+                                        acceptBtn.style.display = 'none';
+                                        rejectBtn.style.display = 'none';
+
+                                    }
+                                    function updateOrderStatus(orderId, status) {
+                                        let id = document.querySelector(`#id` + orderId);
+                                        $.ajax({
+                                            url: '/Project_SWP_Group2/orderUpdateStatus',
+                                            method: 'GET',
+                                            data: {
+                                                orderId: orderId,
+                                                status: status
+                                            },
+                                            success: function (response) {
+                                                console.log(id);
+                                                id.innerHTML = status;
+
+                                                handleColor();
+                                            }
+                                        });
+                                    }
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        const viewBtn = document.querySelectorAll('.view-btn');
+                                        const dropdownItem = document.querySelectorAll('.item');
+                                        viewBtn.forEach(function (edit, i) {
+                                            edit.addEventListener('click', function () {
+                                                if (dropdownItem[i].style.display === "none") {
+                                                    dropdownItem[i].style.display = "contents";
+                                                } else {
+                                                    dropdownItem[i].style.display = "none";
+                                                }
+
+                                            });
+                                        })
+                                    });
         </script>
     </body>
 

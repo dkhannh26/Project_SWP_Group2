@@ -24,7 +24,7 @@
         <title>Orders</title>
         <link rel="stylesheet" href="./css/viewOrder.css">
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-        <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+        <link rel="icon" href="/Project_SWP_Group2/images/LG1.png" type="image/x-icon">
         <script src="https://kit.fontawesome.com/1bd876819f.js" crossorigin="anonymous"></script>
 
         <style>
@@ -538,7 +538,7 @@
 
     <body>
         <!-- header -->
-                <header class="header">
+        <header class="header">
             <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
             <div class="headerContent">
                 <div class="logo"><a href="/Project_SWP_Group2/productList">DOTAI</a></div>
@@ -569,6 +569,8 @@
                         <li class="headerListItem">
                             <a href="/Project_SWP_Group2/aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
+                                <li><a href="/Project_SWP_Group2/aboutUs.jsp">About Us</a></li>
+
                                 <li><a href="/Project_SWP_Group2/contact.jsp">Contact</a></li>
                                 <li><a href="/Project_SWP_Group2/orderView">View order</a></li>
                                 <li><a href="/Project_SWP_Group2/policy.jsp">Exchange policy</a></li>
@@ -589,7 +591,7 @@
                                 <div class="search-list">
                                     <div class="search-list" id="search-ajax">
                                         <c:forEach items="${requestScope.productList}" var="product">
-                        
+
                                         </c:forEach>
                                     </div>
                                 </div>
@@ -602,8 +604,8 @@
                     </div>
                     <div class="headerToolIcon">
                         <a href="/Project_SWP_Group2/loadCart"><i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i></a>
-                   
-                </div>
+
+                    </div>
                 </div>
             </div>
 
@@ -719,13 +721,18 @@
                                                             <c:set var="formattedPrice">
                                                                 <fmt:formatNumber type="number" value="${(priceP[orderDetail.productID] - (priceP[orderDetail.productID] * promoMap[promoID[orderDetail.productID]])/100) * orderDetail.quantity}" pattern="###,###" />
                                                             </c:set>
-                                                            <p class="col-md-6 origin-price">${priceP[orderDetail.productID] * orderDetail.quantity}VND</p>
+                                                            <c:set var="formattedPrice2">
+                                                                <fmt:formatNumber type="number" value="${priceP[orderDetail.productID] * orderDetail.quantity}" pattern="###,###" />
+                                                            </c:set>
+                                                            <p class="col-md-6 origin-price">${formattedPrice2}VND</p>
                                                             <p class="col-md-6 saled-price">${formattedPrice}VND</p>
                                                         </div>
                                                     </div>
-                                                    <div class="feedback">
-                                                        <button class="feedback-btn">Feedback</button>
-                                                    </div>
+                                                    <c:if test="${ordersUser.status eq 'Delivered'}">
+                                                        <div class="feedback">
+                                                            <button class="feedback-btn">Feedback</button>
+                                                        </div>
+                                                    </c:if>
                                                 </div>
                                             </div>
                                         </c:if>
@@ -751,9 +758,9 @@
                                         </div>
                                         <div class="feedback col-2" style="margin: 5px 0">
                                             <c:if test="${ordersUser.status eq 'Delivering'}">
-                                            <button class="feedback-btn" onclick="updateOrderStatus(${ordersUser.orderID}, 'Delivered'); hideOrder(${ordersUser.orderID});">Order Received</button>
+                                                <button class="feedback-btn" onclick="updateOrderStatus(${ordersUser.orderID}, 'Delivered'); hideOrder(${ordersUser.orderID});">Order Received</button>
                                             </c:if>
-                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

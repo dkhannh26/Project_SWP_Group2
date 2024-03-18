@@ -4,14 +4,26 @@
  */
 package controller;
 
+import DAO.DAOorder;
 import DAO.DAOproduct;
+import DAO.DAOpromo;
+import DAO.DAOsize;
+import entity.orderDetail;
+import entity.orders;
+import entity.product;
+import entity.promo;
+import entity.size;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -68,14 +80,14 @@ public class statistic extends HttpServlet {
 
         if (date.equals("date")) {
             String year = request.getParameter("year");
-    
+
             int yearInt = Integer.parseInt(year);
 
             numberOfOrder = DAOproduct.getNumberOfOrderByYear(yearInt);
             numberOfProduct = DAOproduct.getNumberOfProductByYear(yearInt);
             revenue = DAOproduct.getRevenueByYear(yearInt);
             numberOfCustomer = DAOproduct.getNumberOfCustomerByYear(yearInt);
-            
+
             int revenue1 = DAOproduct.getRevenueByMonth(1, yearInt);
             int revenue2 = DAOproduct.getRevenueByMonth(2, yearInt);
             int revenue3 = DAOproduct.getRevenueByMonth(3, yearInt);
@@ -104,26 +116,24 @@ public class statistic extends HttpServlet {
             request.setAttribute("revenue10", revenue10);
             request.setAttribute("revenue11", revenue11);
             request.setAttribute("revenue12", revenue12);
-            
 
-             request.setAttribute("quarter1", quarter1);
-            request.setAttribute("quarter2", quarter2);   
-            request.setAttribute("quarter3", quarter3);   
-            request.setAttribute("quarter4", quarter4);   
-            
+            request.setAttribute("quarter1", quarter1);
+            request.setAttribute("quarter2", quarter2);
+            request.setAttribute("quarter3", quarter3);
+            request.setAttribute("quarter4", quarter4);
+
             request.setAttribute("numberOfProduct", numberOfProduct);
             request.setAttribute("numberOfOrder", numberOfOrder);
             request.setAttribute("revenue", revenue);
             request.setAttribute("numberOfCustomer", numberOfCustomer);
-            
+
 //            12 month
-            
         } else {
             numberOfProduct = DAOproduct.getNumberOfProduct();
             numberOfOrder = DAOproduct.getNumberOfOrder();
             revenue = DAOproduct.getRevenue();
             numberOfCustomer = DAOproduct.getNumberOfCustomer();
-            
+
             int revenue1 = DAOproduct.getRevenueByMonth(1, 2024);
             int revenue2 = DAOproduct.getRevenueByMonth(2, 2024);
             int revenue3 = DAOproduct.getRevenueByMonth(3, 2024);
@@ -154,16 +164,14 @@ public class statistic extends HttpServlet {
             request.setAttribute("revenue11", revenue11);
             request.setAttribute("revenue12", revenue12);
             request.setAttribute("quarter1", quarter1);
-            request.setAttribute("quarter2", quarter2);   
-            request.setAttribute("quarter3", quarter3);   
-            request.setAttribute("quarter4", quarter4);   
-            
+            request.setAttribute("quarter2", quarter2);
+            request.setAttribute("quarter3", quarter3);
+            request.setAttribute("quarter4", quarter4);
 
             request.setAttribute("numberOfOrder", numberOfOrder);
             request.setAttribute("numberOfProduct", numberOfProduct);
             request.setAttribute("revenue", revenue);
             request.setAttribute("numberOfCustomer", numberOfCustomer);
-
 
         }
 //        
@@ -181,23 +189,70 @@ public class statistic extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String username = "";
+        Cookie arr[] = request.getCookies();
+        for (Cookie o : arr) {
+            if (o.getName().equals("input")) {
+                username = o.getValue();
+            }
+        }
+                DAOorder daoOrder = new DAOorder();
+        List<orders> orderList = daoOrder.getAllOrders();
+        List<orderDetail> orderDetailList = daoOrder.getAllOrdersDetail();
+        DAOproduct daoProduct = new DAOproduct();
+        List<product> productList = daoProduct.getAll();
+        DAOsize daoSize = new DAOsize();
+        List<size> sizeList = daoSize.getAll();
+        Map<Integer, String> nameProduct = new HashMap<>();
+        for (product product : productList) {
+            nameProduct.put(product.getId(), product.getName());
+        }
+        DAOpromo daoPromo = new DAOpromo();
+        List<promo> promoList = daoPromo.getAll();
+        Map<Integer, Integer> promoMap = new HashMap<>();
+        for (promo promo : promoList) {
+            promoMap.put(promo.getPromoID(), promo.getPromoPercent());
+        }
+        Map<Integer, Integer> priceProduct = new HashMap<>();
+        for (product product : productList) {
+            priceProduct.put(product.getId(), product.getPrice());
+        }
+        Map<Integer, Integer> promoID = new HashMap<>();
+        for (product product : productList) {
+            promoID.put(product.getId(), product.getPromoID());
+        }
+        List<orders> ordersUserList = daoOrder.orderUser(username);
+        Map<Integer, String> picUrlMap = new HashMap<>();
+        for (product product : productList) {
+            picUrlMap.put(product.getId(), product.getPicURL());
+        }
+        Map<Integer, Integer> priceP = new HashMap<>();
+        for (product product : productList) {
+            priceP.put(product.getId(), product.getPrice());
+        }
+        Map<Integer, Integer> ordersQuantityMap = new HashMap<>();
+        for (orderDetail orders : orderDetailList) {
+            ordersQuantityMap.put(orders.getOrderID(), orders.getQuantity());
+        }
         int numberOfOrder = 0;
         int numberOfProduct = 0;
         int revenue = 0;
         int numberOfCustomer = 0;
+        List<orders> orderListSort = daoOrder.getAllOrdersSort();
         DAO.DAOproduct DAOproduct = new DAOproduct();
+
         String date = request.getParameter("date");
 
         if (date.equals("date")) {
             String year = request.getParameter("year");
-    
+
             int yearInt = Integer.parseInt(year);
 
             numberOfOrder = DAOproduct.getNumberOfOrderByYear(yearInt);
             numberOfProduct = DAOproduct.getNumberOfProductByYear(yearInt);
             revenue = DAOproduct.getRevenueByYear(yearInt);
             numberOfCustomer = DAOproduct.getNumberOfCustomerByYear(yearInt);
-            
+
             int revenue1 = DAOproduct.getRevenueByMonth(1, yearInt);
             int revenue2 = DAOproduct.getRevenueByMonth(2, yearInt);
             int revenue3 = DAOproduct.getRevenueByMonth(3, yearInt);
@@ -226,26 +281,24 @@ public class statistic extends HttpServlet {
             request.setAttribute("revenue10", revenue10);
             request.setAttribute("revenue11", revenue11);
             request.setAttribute("revenue12", revenue12);
-            
 
-             request.setAttribute("quarter1", quarter1);
-            request.setAttribute("quarter2", quarter2);   
-            request.setAttribute("quarter3", quarter3);   
-            request.setAttribute("quarter4", quarter4);   
-            
+            request.setAttribute("quarter1", quarter1);
+            request.setAttribute("quarter2", quarter2);
+            request.setAttribute("quarter3", quarter3);
+            request.setAttribute("quarter4", quarter4);
+
             request.setAttribute("numberOfProduct", numberOfProduct);
             request.setAttribute("numberOfOrder", numberOfOrder);
             request.setAttribute("revenue", revenue);
             request.setAttribute("numberOfCustomer", numberOfCustomer);
-            
+
 //            12 month
-            
         } else {
             numberOfProduct = DAOproduct.getNumberOfProduct();
             numberOfOrder = DAOproduct.getNumberOfOrder();
             revenue = DAOproduct.getRevenue();
             numberOfCustomer = DAOproduct.getNumberOfCustomer();
-            
+
             int revenue1 = DAOproduct.getRevenueByMonth(1, 2024);
             int revenue2 = DAOproduct.getRevenueByMonth(2, 2024);
             int revenue3 = DAOproduct.getRevenueByMonth(3, 2024);
@@ -276,19 +329,23 @@ public class statistic extends HttpServlet {
             request.setAttribute("revenue11", revenue11);
             request.setAttribute("revenue12", revenue12);
             request.setAttribute("quarter1", quarter1);
-            request.setAttribute("quarter2", quarter2);   
-            request.setAttribute("quarter3", quarter3);   
-            request.setAttribute("quarter4", quarter4);   
-            
+            request.setAttribute("quarter2", quarter2);
+            request.setAttribute("quarter3", quarter3);
+            request.setAttribute("quarter4", quarter4);
 
             request.setAttribute("numberOfOrder", numberOfOrder);
             request.setAttribute("numberOfProduct", numberOfProduct);
             request.setAttribute("revenue", revenue);
             request.setAttribute("numberOfCustomer", numberOfCustomer);
 
-
         }
-//        
+        request.setAttribute("orderDetailList", orderDetailList);
+        request.setAttribute("orderList", orderListSort);
+        request.setAttribute("nameProduct", nameProduct);
+        request.setAttribute("priceProduct", priceProduct);
+        request.setAttribute("promoMap", promoMap);
+        request.setAttribute("promoID", promoID);
+
         request.getRequestDispatcher("staff.jsp").forward(request, response);
     }
 

@@ -20,7 +20,8 @@ public class DAOimport extends DBconnect.DBconnect {
         List<imports> list = new ArrayList<>();
         DAOimportDetail dao = new DAOimportDetail();
 
-        String sql = "select * from import";
+        String sql = "select * from import "
+                + "order by status desc";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();

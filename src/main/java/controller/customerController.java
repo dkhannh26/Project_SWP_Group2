@@ -125,7 +125,7 @@ public class customerController extends HttpServlet {
         String mess = "";
         HttpSession s = request.getSession();
         final String userName = "dotaiverify@gmail.com"; // TÃ i khoáº£n email gá»­i
-        final String password = "uclz vips nxek dzbl"; // Máº­t kháº©u email gá»­i
+        final String password = "fdti iwhb tiuy mwss"; // Máº­t kháº©u email gá»­i
 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com"); // SMTP server cá»§a báº¡n

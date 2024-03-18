@@ -20,7 +20,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
         <title>Payment</title>
-        <link rel="icon" href="LG.png" type="image/x-icon">
+                <link rel="icon" href="/Project_SWP_Group2/images/LG1.png" type="image/x-icon">
     </head>
     <style>
         body{
@@ -116,7 +116,7 @@
                         <div>
                             <b>Default address</b>
                             <div class="address"><input type="text" name="address"
-                                                        value="${address}">
+                                                        value="${address}"readonly="">
                             </div>
                         </div>
 
@@ -163,7 +163,7 @@
                             <p>Size: ${size}</p>
                         </div>
                         <c:set var="formattedPrice">
-                                <fmt:formatNumber type="number" value="${price}" pattern="#" />
+                                <fmt:formatNumber type="number" value="${price}" pattern="###,###" />
                             </c:set>
                         <div class="col-2">
                             <p class="price">${formattedPrice}</p>

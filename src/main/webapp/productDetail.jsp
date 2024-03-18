@@ -19,7 +19,7 @@
               integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <title>Profile</title>
-        <link rel="icon" href="LG.png" type="image/x-icon">
+        <link rel="icon" href="/Project_SWP_Group2/images/LG1.png" type="image/x-icon">
         ${ms}
     </head>
     <style>
@@ -786,6 +786,8 @@
                         <li class="headerListItem">
                             <a href="/Project_SWP_Group2/aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
+                                <li><a href="/Project_SWP_Group2/aboutUs.jsp">About Us</a></li>
+
                                 <li><a href="/Project_SWP_Group2/contact.jsp">Contact</a></li>
                                 <li><a href="/Project_SWP_Group2/orderView">View order</a></li>
                                 <li><a href="/Project_SWP_Group2/policy.jsp">Exchange policy</a></li>
@@ -892,7 +894,7 @@
                 </div>
             </div>
         </form>
- <footer>
+        <footer>
             <div class="content-footer">
                 <h3 id="highlight">Follow us on Instagram</h3>
                 <p>@dotai.vn & @fired.vn</p>

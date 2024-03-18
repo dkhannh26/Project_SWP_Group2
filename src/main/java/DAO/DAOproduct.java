@@ -327,8 +327,8 @@ public class DAOproduct extends DBconnect.DBconnect {
 
     public int getNumberOfOrderByYear(int year) {
         int number = 0;
-        String sql = "SELECT COUNT(*) AS total FROM orders\n" +
-"        WHERE YEAR(date) = ?";
+        String sql = "SELECT COUNT(*) AS total FROM orders\n"
+                + "        WHERE YEAR(date) = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, year);
@@ -350,7 +350,7 @@ public class DAOproduct extends DBconnect.DBconnect {
                 + "			 WHERE YEAR(date) = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-             st.setInt(1, year);
+            st.setInt(1, year);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 number = rs.getInt("total");
@@ -404,7 +404,7 @@ public class DAOproduct extends DBconnect.DBconnect {
                 + "			  WHERE YEAR(date) = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-              st.setInt(1, year);
+            st.setInt(1, year);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 number = rs.getInt("total");
@@ -459,7 +459,7 @@ public class DAOproduct extends DBconnect.DBconnect {
                 + " WHERE YEAR(date) = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-             st.setInt(1, year);
+            st.setInt(1, year);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 number = rs.getInt("total");

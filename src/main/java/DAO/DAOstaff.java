@@ -20,7 +20,9 @@ public class DAOstaff extends DBconnect.DBconnect {
 
     public List<staff> getAll() {
         List<staff> listAccount = new ArrayList<>();
-        String sql = "select * from staff";
+        String sql = "select * \n"
+                + "from staff\n"
+                + "where username != 'admin'";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -69,8 +71,7 @@ public class DAOstaff extends DBconnect.DBconnect {
         }
         return false;
     }
-    
-    
+
     public boolean delete(String username) {
         String sql = "delete from staff where username = ?";
         try {
@@ -111,9 +112,9 @@ public class DAOstaff extends DBconnect.DBconnect {
         List<staff> list = new ArrayList<>();
         String sql = "select * from customer\n"
                 + "where fullName like ?\n"
-                + "union all \n"
+                + "union all\n"
                 + "select * from staff\n"
-                + "where fullName like ?";
+                + "where fullName like ? and username !='admin'";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, name);

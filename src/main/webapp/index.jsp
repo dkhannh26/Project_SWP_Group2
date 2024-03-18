@@ -23,7 +23,8 @@
         <!-- bootstrap icon -->
         <!-- <link rel="stylesheet" href="grid.css"> -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-        <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+        <!--        <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">-->
+        <link rel="icon" href="/Project_SWP_Group2/images/LG1.png" type="image/x-icon">
 
 
         <title>DOTAI</title>
@@ -684,14 +685,23 @@
                 width: 100%;
                 background-color: #fff;
                 padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 5px;
+                border: 1px solid #a0816c;
+                border-radius: 0 0 5px 5px;
                 z-index: 999;
             }
             .sizeOptions select {
-                margin-right: 10px;
-                color: black;
-
+                color: #a0816c;
+                border: 1px solid #a0816c;
+                outline: none;
+            }
+            .sizeOptions select:focus {
+                outline: none;
+            }
+            .buy-confirm-btn {
+                background-color: #a0816c;
+                color: white;
+                border: none;
+                border-radius: 5px;
             }
 
             .search-info {
@@ -745,7 +755,8 @@
 
 
         <!--         header 
-        -->                <header class="header">
+        -->              
+        <header class="header">
             <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
             <div class="headerContent">
                 <div class="logo"><a href="/Project_SWP_Group2/productList">DOTAI</a></div>
@@ -776,6 +787,7 @@
                         <li class="headerListItem">
                             <a href="/Project_SWP_Group2/aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
+                                <li><a href="/Project_SWP_Group2/aboutUs.jsp">About Us</a></li>
                                 <li><a href="/Project_SWP_Group2/contact.jsp">Contact</a></li>
                                 <li><a href="/Project_SWP_Group2/orderView">View order</a></li>
                                 <li><a href="/Project_SWP_Group2/policy.jsp">Exchange policy</a></li>
@@ -796,7 +808,7 @@
                                 <div class="search-list">
                                     <div class="search-list" id="search-ajax">
                                         <c:forEach items="${requestScope.productList}" var="product">
-                        
+
                                         </c:forEach>
                                     </div>
                                 </div>
@@ -809,12 +821,12 @@
                     </div>
                     <div class="headerToolIcon">
                         <a href="/Project_SWP_Group2/loadCart"><i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i></a>
-                   
-                </div>
+
+                    </div>
                 </div>
             </div>
             <img src="./images/banner.jpg" alt="alt"/>
-            
+
         </header><!--
          end header -->
 
@@ -831,42 +843,42 @@
 
                 <div class="row" id="product">
 
-                <c:forEach items="${requestScope.productList}" var="product">
-                    <div class="col-md-3 p-2">
-                        <div class="product">
-                            <div class="productImg">
-                                <img src="${path}${product.getPicURL()}" alt="img">
-                            </div>
-                            <c:set var="formattedPrice">
-                                <fmt:formatNumber type="number" value="${product.getPrice()}" pattern="###,###" />
-                            </c:set>
-                            <c:set var="formattedPrice2">
-                                <fmt:formatNumber type="number" value="${product.price - ((product.price * promoMap[product.promoID])/100)}" pattern="###,###" />
-                            </c:set>
-                            <div class="productDetail">
-                                <h3>${product.getName()}</h3>
-                                <p>
-                                    <del><span class="price">${formattedPrice} VND</span></del>
-                                    <span class="">${formattedPrice2} VND</span>
-                                    <span class="price-sale"></span>
-                                </p>
-                                <div class="productButton">
-                                    <button type="button" class="addBtn"><a href="productDetail?id=${product.getId()}">Add to cart</a></button>
-                                    <button type="button" class="right" onclick="showSizeOptions(this)"><span></span>Buy now ${product.getId()}</button>
-                                    <input type="hidden" name="idP" class="idP" value="${product.getId()}">
-                                    <div id="sizeOptions_${product.getId()}" class="sizeOptions" style="display: none;">
-                                        <label for="size_${product.getId()}">Choose Size:</label>
-                                        <select id="size_${product.getId()}">
-                                            <option value="S">S</option>
-                                            <option value="M">M</option>
-                                            <option value="L">L</option>
-                                        </select>
-                                        <button onclick="buyNow(this)">Confirm</button>
-                                        <input type="hidden" name="name" class="name" value="${product.name}">
-                                        <input type="hidden" name="price" class="price" value="${product.price - ((product.price * promoMap[product.promoID])/100)}">
-                                        <input type="hidden" name="picUrl" class="picUrl" value="${product.picURL}">
-                                        <input type="hidden" name="id" class="id" value="${product.id}">
-                                    </div>
+                    <c:forEach items="${requestScope.productList}" var="product">
+                        <div class="col-md-3 p-2">
+                            <div class="product">
+                                <div class="productImg">
+                                    <img src="${path}${product.getPicURL()}" alt="img">
+                                </div>
+                                <c:set var="formattedPrice">
+                                    <fmt:formatNumber type="number" value="${product.getPrice()}" pattern="###,###" />
+                                </c:set>
+                                <c:set var="formattedPrice2">
+                                    <fmt:formatNumber type="number" value="${product.price - ((product.price * promoMap[product.promoID])/100)}" pattern="###,###" />
+                                </c:set>
+                                <div class="productDetail">
+                                    <h3>${product.getName()}</h3>
+                                    <p>
+                                        <del><span class="price">${formattedPrice} VND</span></del>
+                                        <span class="">${formattedPrice2} VND</span>
+                                        <span class="price-sale"></span>
+                                    </p>
+                                    <div class="productButton">
+                                        <button type="button" class="addBtn"><a href="productDetail?id=${product.getId()}">Add to cart</a></button>
+                                        <button type="button" class="right" onclick="showSizeOptions(this)"><span></span>Buy now</button>
+                                        <input type="hidden" name="idP" class="idP" value="${product.getId()}">
+                                        <div id="sizeOptions_${product.getId()}" class="sizeOptions" style="display: none;">
+                                            <label for="size_${product.getId()}">Choose Size:</label>
+                                            <select id="size_${product.getId()}">
+                                                <option value="S">S</option>
+                                                <option value="M">M</option>
+                                                <option value="L">L</option>
+                                            </select>
+                                            <button onclick="buyNow(this)" class="buy-confirm-btn">Confirm</button>
+                                            <input type="hidden" name="name" class="name" value="${product.name}">
+                                            <input type="hidden" name="price" class="price" value="${product.price - ((product.price * promoMap[product.promoID])/100)}">
+                                            <input type="hidden" name="picUrl" class="picUrl" value="${product.picURL}">
+                                            <input type="hidden" name="id" class="id" value="${product.id}">
+                                        </div>
                                     </div>
                                 </div>
                             </div>

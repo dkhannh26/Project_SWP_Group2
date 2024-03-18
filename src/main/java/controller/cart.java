@@ -165,7 +165,6 @@ public class cart extends HttpServlet {
                     response.sendRedirect("http://localhost:8080/Project_SWP_Group2/profile");
                 }
 
-
                 break;
             case URL_CART_INCREASE:
 
@@ -174,9 +173,13 @@ public class cart extends HttpServlet {
 
                         for (int j = 0; j < sizeList.size(); j++) {
                             if (id == (sizeList.get(j).getProduct_id()) && sizeList.get(j).getSize_name().equals(size) && quantity <= (sizeList.get(j).getQuantity())) {
-                                price2 = quantity * (list.get(j).getPrice() - ((list.get(j).getPrice() * promoList.get(list.get(j).getPromoID() - 1).getPromoPercent()) / 100));
-                                cart.updateCart(username, id, quantity, price2, size);
+                                for (int k = 0; k < list.size(); k++) {
+                                    if (list.get(k).getId() == id) {
+                                        price2 = quantity * (list.get(k).getPrice() - ((list.get(k).getPrice() * promoList.get(list.get(k).getPromoID() - 1).getPromoPercent()) / 100));
 
+                                    }
+                                }
+                                cart.updateCart(username, id, quantity, price2, size);
 
                             }
                             if (quantity > (sizeList.get(j).getQuantity()) && id == (sizeList.get(j).getProduct_id()) && sizeList.get(j).getSize_name().equals(size)) {
@@ -185,22 +188,23 @@ public class cart extends HttpServlet {
                                 request.setAttribute("p", p);
                                 temp++;
                                 request.setAttribute("temp", temp);
-                                
+
                             }
                         }
                     }
                 }
 
-                    List<entity.cart> cartUpdateIncrease = cart.getAll(username);
-                    for (int i = 0; i < cartUpdateIncrease.size(); i++) {
-                        sum = sum + cartUpdateIncrease.get(i).getPrice();
-                    }
-                    System.out.println(sum);
-                    System.out.println(temp);
-                    response.getWriter().write(price2 + "," + sum + "," + temp);
-
+                List<entity.cart> cartUpdateIncrease = cart.getAll(username);
+                for (int i = 0; i < cartUpdateIncrease.size(); i++) {
+                    sum = sum + cartUpdateIncrease.get(i).getPrice();
+                    
+                }
+                System.out.println(sum);
+                System.out.println(temp);
+                response.getWriter().write(price2 + "," + sum + "," + temp);
 
                 break;
+
             case URL_CART_DECREASE:
                 for (int i = 0; i < list2.size(); i++) {
                     if (id == (list2.get(i).getProductID()) && username.equals(list2.get(i).getUsername()) && size.equals(list2.get(i).getSize_name())) {
@@ -229,13 +233,16 @@ public class cart extends HttpServlet {
                 response.getWriter().write(price2 + "," + sum);
                 break;
             case URL_CART_DELETE:
+                int quanP = 0;
                 cart.deleteCartBySize(id, username, size);
                 List<entity.cart> cartUpdateDelete = cart.getAll(username);
                 for (int i = 0; i < cartUpdateDelete.size(); i++) {
                     sum = sum + cartUpdateDelete.get(i).getPrice();
+                    quanP++;
                 }
+                System.out.println(quanP);
                 System.out.println(sum);
-                response.getWriter().write(price2 + "," + sum);
+                response.getWriter().write(price2 + "," + sum + "," + quanP);
 
                 break;
             case URL_PAYMENT:
@@ -253,8 +260,11 @@ public class cart extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request,
+            HttpServletResponse response
+    )
+            throws ServletException,
+             IOException {
         processRequest(request, response);
     }
 

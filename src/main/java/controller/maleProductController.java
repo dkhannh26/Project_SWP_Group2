@@ -5,7 +5,9 @@
 package controller;
 
 import DAO.DAOproduct;
+import DAO.DAOpromo;
 import entity.product;
+import entity.promo;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,7 +15,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static url.maleProductURL.URL_MALE_PRODUCT;
 import static url.maleProductURL.URL_MALE_PANT;
@@ -34,6 +38,13 @@ public class maleProductController extends HttpServlet {
             throws ServletException, IOException {
 
         String urlPath = request.getServletPath();
+        DAOpromo promo2 = new DAOpromo();
+        List<promo> promoList = promo2.getAll();
+        Map<Integer, Integer> promoMap = new HashMap<>();
+        for (promo promo : promoList) {
+            promoMap.put(promo.getPromoID(), promo.getPromoPercent());
+        }
+        request.setAttribute("promoMap", promoMap);
         switch (urlPath) {
             case URL_MALE_PRODUCT:
                 getMaleProduct(request, response);

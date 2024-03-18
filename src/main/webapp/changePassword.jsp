@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="./boostrap/bootstrap.min.css"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- bootstrap icon -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-                <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+                <link rel="icon" href="/Project_SWP_Group2/images/LG1.png" type="image/x-icon">
 
         <!-- font-awesome -->
         <script src="https://kit.fontawesome.com/1bd876819f.js" crossorigin="anonymous"></script>
@@ -687,12 +687,48 @@
             .info li {
                 margin-left: 10px;
             }
+            
 
+.searchBox {
+                width: 420px;
+                position: absolute;
+                top: 100px;
+                right: 13%;
+                left: auto;
+                z-index: 990;
+                background-color: #fff;
+                box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                display: none;
+            }
+            .search-input {
+                position: relative;
+            }
+            .search-input input {
+                width: 100%;
+                border: 1px solid #e7e7e7;
+                background-color: #f6f6f6;
+                height: 44px;
+                padding: 8px 50px 8px 20px;
+                font-size: 1em;
+            }
+            .search-input button {
+                position: absolute;
+                right: 1px;
+                top: 1px;
+                height: 42px;
+                width: 15%;
+                border: none;
+                background-color: #f6f6f6;
+            }
+            .search-input input:focus {
+                outline: none;
+                border-color: var(--bg-color);
+            }
 
         </style>
     </head>
     <body>
-        <!-- header -->
+<!--         header 
         <header class="header">
             <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND</strong></div>
             <div class="headerContent">
@@ -743,9 +779,9 @@
                     </div>
                     <div class="headerToolIcon">
                         <i class="bi bi-person icon" onclick="toggleBox('box2')"></i>
-                        <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->
+                         khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< 
 
-                        <!-- khi đã login thì khi nhấp vào icon -> box này hiện ra -->
+                         khi đã login thì khi nhấp vào icon -> box này hiện ra 
                         <div class="infoBox box" id="box2">
                             <div class="infoBox-content">
                                 <h2>ACCOUNT INFORMATION</h2>
@@ -767,7 +803,7 @@
                                     <div class="cartIcon"><i class="bi bi-cart2 icon"></i></div>
                                     <p>There are currently no products</p>
                                 </div>
-                                <!-- nếu có product thì haveProduct display: block -->
+                                 nếu có product thì haveProduct display: block 
                                 <div class="haveProduct">
                                     <div class="container">
                                         <div class="row">
@@ -811,7 +847,84 @@
 
             <hr width="100%" , color="#d0a587" />
         </header>
-        <!-- end header -->
+         end header -->
+
+
+
+        <!--         header 
+        -->                <header class="header">
+            <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
+            <div class="headerContent">
+                <div class="logo"><a href="/Project_SWP_Group2/productList">DOTAI</a></div>
+                <nav>
+                    <ul class="headerList">
+                        <li class="headerListItem"><a href="/Project_SWP_Group2/productList">Home page</a></li>
+                        <li class="headerListItem">
+                            <a href="http://localhost:8080/Project_SWP_Group2/productList/male">Men's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <ul class="dropdownMenu">
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/t_shirt">T-shirt</a></li>
+
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/pant">Long pants</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/male/short">Shorts</a></li>
+                                <!--<li><a href="">Discount</a></li>-->
+                            </ul>
+                        </li>
+                        <li class="headerListItem">
+                            <a href="http://localhost:8080/Project_SWP_Group2/productList/female">Women's Fashion<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <ul class="dropdownMenu">
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/t_shirt">T-shirt</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/pant">Long pants</a></li>
+                                <li><a href="http://localhost:8080/Project_SWP_Group2/productList/female/dress">Dress</a></li>
+                                <!--<li><a href="">Discount</a></li>-->
+
+                            </ul>
+                        </li>
+                        <!--<li class="headerListItem"><a href="">Accessory</a></li>-->
+                        <li class="headerListItem">
+                            <a href="/Project_SWP_Group2/aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
+                            <ul class="dropdownMenu">
+                                <li><a href="/Project_SWP_Group2/contact.jsp">Contact</a></li>
+                                <li><a href="/Project_SWP_Group2/orderView">View order</a></li>
+                                <li><a href="/Project_SWP_Group2/policy.jsp">Exchange policy</a></li>
+                                <li><a href="/Project_SWP_Group2/orderHistoryView">Order's history</a></li>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="headerTool">
+                    <div class="headerToolIcon">
+                        <i class="bi bi-search icon" onclick="toggleBox('box1')"></i>
+                        <div class="searchBox box" id="box1">
+                            <div class="searchBox-content">
+                                <h2>SEARCH</h2>
+                                <div class="search-input">
+                                    <input oninput="searchByName(this)" name="search" type="text" size="20" placeholder="Search for products...">
+                                    <button><i class="bi bi-search"></i></button>
+                                </div>
+                                <div class="search-list">
+                                    <div class="search-list" id="search-ajax">
+                                        <c:forEach items="${requestScope.productList}" var="product">
+                        
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="headerToolIcon">
+                        <a href="http://localhost:8080/Project_SWP_Group2/profile"><i class="bi bi-person icon"></i></a>
+                        <!-- khi chưa login thì khi nhấp vào sẽ chuyển tới trang login /ps: tui khum bít làm :< -->     
+                    </div>
+                    <div class="headerToolIcon">
+                        <a href="/Project_SWP_Group2/loadCart"><i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i></a>
+                   
+                </div>
+                </div>
+            </div>
+            <!--<img src="./images/banner.jpg" alt="alt"/>-->
+            
+        </header><!--
+         end header -->
+
 
         <!--       
 

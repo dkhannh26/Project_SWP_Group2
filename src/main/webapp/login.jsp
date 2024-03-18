@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- bootstrap icon -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
 
-                <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+        <link rel="icon" href="/Project_SWP_Group2/images/LG1.png" type="image/x-icon">
 
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <style>
@@ -850,9 +850,11 @@
                         <li class="headerListItem">
                             <a href="./aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
-                                <li><a href="./contact.jsp">Contact</a></li>
-                                <li><a href="./viewOrder.jsp">View order</a></li>
-                                <li><a href="./policy.jsp">Exchange policy</a></li>
+                                <li><a href="/Project_SWP_Group2/aboutUs.jsp">About Us</a></li>
+
+                                <li><a href="/Project_SWP_Group2/contact.jsp">Contact</a></li>
+                                <li><a href="/Project_SWP_Group2/viewOrder.jsp">View order</a></li>
+                                <li><a href="/Project_SWP_Group2/policy.jsp">Exchange policy</a></li>
                                 <li><a href="">Order's history</a></li>
                         </li>
                     </ul>
@@ -870,7 +872,7 @@
                                 <div class="search-list">
                                     <div class="search-list" id="search-ajax">
                                         <c:forEach items="${requestScope.productList}" var="product">
-                        
+
                                         </c:forEach>
                                     </div>
                                 </div>

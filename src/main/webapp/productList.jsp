@@ -23,7 +23,7 @@
         <!-- bootstrap icon -->
         <!-- <link rel="stylesheet" href="grid.css"> -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-        <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+        <link rel="icon" href="/Project_SWP_Group2/images/LG1.png" type="image/x-icon">
 
 
         <title>DOTAI</title>
@@ -36,7 +36,7 @@
                 color: rgb(151, 143, 137);
             }
 
-            
+
 
             img {
                 width: 100%;
@@ -509,6 +509,10 @@
                 color: black;
             }
 
+            .productButton .right:hover span {
+                width: 100%;
+            }
+
             .productButton {
                 transition: 0.3s;
                 color: white;
@@ -520,7 +524,7 @@
                 display: none;
                 transform: translateY(20%);
                 background-color: var(--bg-color);
-                border-radius: 4px;
+                border-radius: 5px 5px 0 0;
                 justify-content: center;
                 line-height: 2;
             }
@@ -548,6 +552,22 @@
                 font-weight: bold;
             }
 
+            .productButton .right:hover {
+                color: #a0816c;
+            }
+            .productButton .addBtn a{
+                text-decoration: none;
+                color: white;
+            }
+
+
+            .productDetail:hover {
+                transform: translateY(-50%);
+            }
+
+
+
+
             .addBtn {
                 border: none;
                 background-color: var(--bg-color);
@@ -558,9 +578,7 @@
                 color: white;
             }
 
-            .productButton .right:hover {
-                color: #a0816c;
-            }
+
 
             .right span {
                 background-color: white;
@@ -571,10 +589,6 @@
                 bottom: 0;
                 transition: 0.4s;
                 z-index: -1;
-            }
-
-            .productButton .right:hover span {
-                width: 100%;
             }
 
             /* END main content */
@@ -668,14 +682,23 @@
                 width: 100%;
                 background-color: #fff;
                 padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 5px;
+                border: 1px solid #a0816c;
+                border-radius: 0 0 5px 5px;
                 z-index: 999;
             }
             .sizeOptions select {
-                margin-right: 10px;
-                color: black;
-
+                color: #a0816c;
+                border: 1px solid #a0816c;
+                outline: none;
+            }
+            .sizeOptions select:focus {
+                outline: none;
+            }
+            .buy-confirm-btn {
+                background-color: #a0816c;
+                color: white;
+                border: none;
+                border-radius: 5px;
             }
 
 
@@ -714,7 +737,7 @@
             button.filter{
                 color: white;
                 border: none;
-                border-radius: 20%;
+                border-radius: 5px;
                 border-width: 0%;
                 padding: 0 10px;
                 border-color: var(--logo-color);
@@ -722,8 +745,8 @@
                 margin-left: 1%;
                 height: 39px;
             }
-            
-            
+
+
 
             @media (max-width: 768px) and (min-width: 601px) {
                 .headerListItem {
@@ -743,9 +766,9 @@
                     height: 50px;
                 }
             }
-            
-            
-            
+
+
+
             @media (max-width: 1024px) {
                 .infoBox,
                 .searchBox, .cartBox {
@@ -757,12 +780,15 @@
                 height: 378px;
                 object-fit: cover;
             }
+            .price{
+                color:black;
+            }
         </style>
     </head>
 
     <body>
         <!-- header -->
-                <header class="header">
+        <header class="header">
             <div class="header_title">Free shipping with orders from&nbsp;<strong>200,000 VND </strong></div>
             <div class="headerContent">
                 <div class="logo"><a href="/Project_SWP_Group2/productList">DOTAI</a></div>
@@ -793,6 +819,8 @@
                         <li class="headerListItem">
                             <a href="/Project_SWP_Group2/aboutUs.jsp">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
+                                <li><a href="/Project_SWP_Group2/aboutUs.jsp">About Us</a></li>
+
                                 <li><a href="/Project_SWP_Group2/contact.jsp">Contact</a></li>
                                 <li><a href="/Project_SWP_Group2/viewOrder.jsp">View order</a></li>
                                 <li><a href="/Project_SWP_Group2/policy.jsp">Exchange policy</a></li>
@@ -813,7 +841,7 @@
                                 <div class="search-list">
                                     <div class="search-list" id="search-ajax">
                                         <c:forEach items="${requestScope.productList}" var="product">
-                        
+
                                         </c:forEach>
                                     </div>
                                 </div>
@@ -826,8 +854,8 @@
                     </div>
                     <div class="headerToolIcon">
                         <a href="/Project_SWP_Group2/loadCart"><i class="bi bi-cart2 icon" onclick="toggleBox('box3')"></i></a>
-                   
-                </div>
+
+                    </div>
                 </div>
             </div>
 
@@ -871,15 +899,19 @@
                                 <c:set var="formattedPrice">
                                     <fmt:formatNumber type="number" value="${product.getPrice()}" pattern="###,###" />
                                 </c:set>
+                                <c:set var="formattedPrice2">
+                                    <fmt:formatNumber type="number" value="${product.price - ((product.price * promoMap[product.promoID])/100)}" pattern="###,###" />
+                                </c:set>
                                 <div class="productDetail">
                                     <h3>${product.getName()}</h3>
                                     <p>
-                                        <span class="price">${formattedPrice} VND</span>
+                                        <del><span class="price">${formattedPrice} VND</span></del>
+                                        <span class="">${formattedPrice2} VND</span>
                                         <span class="price-sale"></span>
                                     </p>
                                     <div class="productButton">
                                         <button type="button" class="addBtn"><a href="/Project_SWP_Group2/productDetail?id=${product.getId()}">Add to cart</a></button>
-                                        <button type="button" class="right" onclick="showSizeOptions(this)">Buy now ${product.getId()}</button>
+                                        <button type="button" class="right" onclick="showSizeOptions(this)"><span></span>Buy now</button>
                                         <input type="hidden" name="idP" class="idP" value="${product.getId()}">
                                         <div id="sizeOptions_${product.getId()}" class="sizeOptions" style="display: none;">
                                             <label for="size_${product.getId()}">Choose Size:</label>
@@ -888,7 +920,7 @@
                                                 <option value="M">M</option>
                                                 <option value="L">L</option>
                                             </select>
-                                            <button onclick="buyNow(this)">Confirm</button>
+                                            <button onclick="buyNow(this)" class="buy-confirm-btn">Confirm</button>
                                             <input type="hidden" name="name" class="name" value="${product.name}">
                                             <input type="hidden" name="price" class="price" value="${product.price - ((product.price * promoMap[product.promoID])/100)}">
                                             <input type="hidden" name="picUrl" class="picUrl" value="${product.picURL}">

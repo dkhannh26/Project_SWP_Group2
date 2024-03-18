@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="./boostrap/bootstrap.min.css"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- bootstrap icon -->
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'> <!-- font family -->
-                <link rel="icon" href="/Project_SWP_Group2/images/LG.png" type="image/x-icon">
+        <link rel="icon" href="/Project_SWP_Group2/images/LG1.png" type="image/x-icon">
     </head>
 
     <style>
@@ -696,6 +696,8 @@
                         <li class="headerListItem">
                             <a href="">Information<i class="bi bi-caret-down dropdown-icon"></i></a>
                             <ul class="dropdownMenu">
+                                <li><a href="/Project_SWP_Group2/aboutUs.jsp">About Us</a></li>
+
                                 <li><a href="">Contact</a></li>
                                 <li><a href="">View order</a></li>
                                 <li><a href="">Exchange policy</a></li>
