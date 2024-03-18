@@ -9,6 +9,7 @@ import DAO.DAOcustomer;
 import DAO.DAOimport;
 import DAO.DAOimportDetail;
 import DAO.DAOproduct;
+import DAO.DAOpromo;
 import DAO.DAOsize;
 import DAO.DAOstaff;
 import com.google.gson.Gson;
@@ -56,7 +57,7 @@ import static url.staffURL.URL_UPDATE_PROFILE_STAFF;
  *
  * @author thinh
  */
-@WebServlet(name = "staffController", urlPatterns = {URL_IMPORT_UPDATE_STAFF,URL_IMPORT_STAFF, URL_CHANGEPASS_PROFILE_STAFF, URL_UPDATE_PROFILE_STAFF, URL_ADD_ACCOUNT_STAFF, URL_UPDATE_ACCOUNT_STAFF, URL_ADD_PRODUCT_STAFF, URL_UPDATE_PRODUCT_STAFF, URL_BOTH_DELETE_STAFF, URL_CUSTOMER_DELETE_STAFF, URL_STAFF_DELETE_STAFF, URL_SEARCH_ACCOUNT_STAFF, URL_ACCOUNT_MANAGEMENT_STAFF, URL_PRODUCT_DELETE_STAFF, URL_LOGIN_STAFF, URL_PRODUCT_MANAGEMENT_STAFF, URL_SORT_PRODUCT_STAFF, URL_SEARCH_PRODUCT_STAFF, URL_PROFILE_STAFF})
+@WebServlet(name = "staffController", urlPatterns = {URL_IMPORT_UPDATE_STAFF, URL_IMPORT_STAFF, URL_CHANGEPASS_PROFILE_STAFF, URL_UPDATE_PROFILE_STAFF, URL_ADD_ACCOUNT_STAFF, URL_UPDATE_ACCOUNT_STAFF, URL_ADD_PRODUCT_STAFF, URL_UPDATE_PRODUCT_STAFF, URL_BOTH_DELETE_STAFF, URL_CUSTOMER_DELETE_STAFF, URL_STAFF_DELETE_STAFF, URL_SEARCH_ACCOUNT_STAFF, URL_ACCOUNT_MANAGEMENT_STAFF, URL_PRODUCT_DELETE_STAFF, URL_LOGIN_STAFF, URL_PRODUCT_MANAGEMENT_STAFF, URL_SORT_PRODUCT_STAFF, URL_SEARCH_PRODUCT_STAFF, URL_PROFILE_STAFF})
 public class staffController extends HttpServlet {
 
     DAOstaff daoStaff = new DAOstaff();
@@ -66,8 +67,8 @@ public class staffController extends HttpServlet {
     DAOimportDetail daoImportDetail = new DAOimportDetail();
     DAOimport daoImport = new DAOimport();
     DAOsize daoSize = new DAOsize();
+    DAOpromo daoPromo = new DAOpromo();
     private Gson gson = new Gson();
-    
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -135,19 +136,19 @@ public class staffController extends HttpServlet {
         }
     }
 
-    protected void updateStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    protected void updateStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
         boolean isSuccess = daoImport.updateStatus(id);
         List<importDetail> listToImport = daoImportDetail.getListToImport(id);
-        
+
         for (importDetail detail : listToImport) {
             int quantityProduct = daoProduct.getProductQuantity(detail.getProductID());
-             daoProduct.updateQuantity(detail.getProductID(), quantityProduct+detail.getQuantity());
-             int quantitySize = daoSize.getSizeQuantity(detail.getProductID(), detail.getSizeName());
-             daoSize.updateQuanSize(quantitySize +detail.getQuantity() , detail.getProductID(), detail.getSizeName());
+            daoProduct.updateQuantity(detail.getProductID(), quantityProduct + detail.getQuantity());
+            int quantitySize = daoSize.getSizeQuantity(detail.getProductID(), detail.getSizeName());
+            daoSize.updateQuanSize(quantitySize + detail.getQuantity(), detail.getProductID(), detail.getSizeName());
         }
-        
-         ResponseData data = new ResponseData();
+
+        ResponseData data = new ResponseData();
         data.setIsSuccess(isSuccess);
         data.setDescription("");
         data.setData("");
@@ -156,7 +157,7 @@ public class staffController extends HttpServlet {
         pw.print(json);
         pw.flush();
     }
-    
+
     protected void importList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         List<imports> list = daoImport.getAllImport();
@@ -261,6 +262,11 @@ public class staffController extends HttpServlet {
         String name = request.getParameter("name");
         String quantity = request.getParameter("quantity");
         String promo = request.getParameter("promo");
+
+        daoPromo.addIfNotExist(Integer.parseInt(promo));
+
+        int promoId = daoPromo.getIdPromo(Integer.parseInt(promo));
+
         String price = request.getParameter("price");
         String gender = request.getParameter("gender");
         String type = request.getParameter("type");
@@ -271,7 +277,7 @@ public class staffController extends HttpServlet {
         int categoryID = daoCategory.getIdType(type, gender);
         url = "/Project_SWP_Group2/images" + url.substring(11, url.length());
 
-        product p = new product(Integer.parseInt(quantity), Integer.parseInt(price), categoryID, Integer.parseInt(promo), name, des, url);
+        product p = new product(Integer.parseInt(quantity), Integer.parseInt(price), categoryID, promoId, name, des, url);
         boolean isSuccess = daoProduct.insert(p);
         ResponseData data = new ResponseData();
         data.setIsSuccess(isSuccess);
@@ -289,11 +295,18 @@ public class staffController extends HttpServlet {
 
         String name = request.getParameter("name");
         String promo = request.getParameter("promo");
+        
+
+        daoPromo.addIfNotExist(Integer.parseInt(promo));
+        int promo_id = daoPromo.getIdPromo(Integer.parseInt(promo));
+
         String price = request.getParameter("price");
         String description = request.getParameter("description");
 
         p.setName(name);
-        p.setPromoID(Integer.parseInt(promo));
+
+        p.setPromoID(promo_id);
+
         p.setPrice(Integer.parseInt(price));
         p.setDescription(description);
 

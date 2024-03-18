@@ -513,7 +513,7 @@
                                 <input type="text" placeholder="Quantity" id="product-quantity-add">
                             </div>
                             <div class="col-md-12">
-                                <input type="text" placeholder="Promo" id="product-promo-add">
+                                <input type="text" placeholder="Promo Percent" id="product-promo-add">
                             </div>
                             <div class="col-md-12   ">
                                 <input type="text" placeholder="Price" id="product-price-add">
@@ -551,7 +551,7 @@
                                 <input type="text" placeholder="Name" name="name" id="product-name">
                             </div>
                             <div class="col-md-12">
-                                <input type="text" placeholder="Promo ID" name="promo-id" id="promo-id">
+                                <input type="text" placeholder="Promo Percent" name="promo-id" id="promo-id">
                             </div>
                             <div class="col-md-12">
                                 <input type="text" placeholder="Price" name="price" id="product-price">
@@ -1095,7 +1095,9 @@
                                         var name = document.getElementById('product-name');
                                         name.value = product.getAttribute('data-name');
                                         var promo = document.getElementById('promo-id');
-                                        promo.value = product.getAttribute('data-promo');
+                                        
+//                                        promo.value = product.getAttribute('data-promo');
+                                        
                                         var price = document.getElementById('product-price');
                                         price.value = product.getAttribute('data-price');
                                         var description = document.getElementById('product-des');
